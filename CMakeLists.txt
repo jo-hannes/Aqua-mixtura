@@ -27,6 +27,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Aqua-mixtura
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        src/model/mixture.h src/model/mixture.cpp
+        src/model/water.h src/model/water.cpp
+        src/model/waterprofile.h src/model/waterprofile.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Aqua-mixtura APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -65,6 +68,8 @@ set_target_properties(Aqua-mixtura PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+target_compile_options(Aqua-mixtura PRIVATE -Wall -Wextra -Wpedantic)
 
 include(GNUInstallDirs)
 install(TARGETS Aqua-mixtura
