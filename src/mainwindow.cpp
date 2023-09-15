@@ -3,6 +3,8 @@
 
 #include "mainwindow.h"
 
+#include "mainmodel.h"
+
 #include "model/mixture.h"
 #include "model/water.h"
 #include "view/additivewindow.h"
@@ -19,14 +21,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
   // Entscheidung: Es wird deutsch verwendet!
 
-  setupMenuBar();
+  // initialize all models
+  MainModel model;
 
-  //  tabWidget = new QTabWidget;
-  //  tabWidget->addTab(new QWidget, tr("Wasserquellen"));
-  //  tabWidget->addTab(new QWidget, tr("Zusatzstoffe"));
-  //  tabWidget->addTab(new QWidget, tr("Malze"));
-  //  tabWidget->addTab(new QWidget, tr("Bierstiele"));
-  // tabWidget->addTab(new QWidget, tr("Aufbereitung"));
+  setupMenuBar();
 
   Mixture* mix = new Mixture();
   Water* wNbg = new Water("Leitungswasser", 30, 47, 14, 6.5, 199, 11, 17, 0.11, 0);
@@ -49,10 +47,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
   tabWidget = new QTabWidget;
   // tabWidget->addTab(mainWidget, tr("Test"));
-  WatersourceWindow* wsource = new WatersourceWindow(model, this);
+  WatersourceWindow* wsource = new WatersourceWindow(model.sources, this);
   tabWidget->addTab(wsource, tr("Wasserquellen"));
-  AdditiveWindow* wadditive = new AdditiveWindow(model, this);
-  tabWidget->addTab(wadditive, tr("Zusatzstoffe"));
+  tabWidget->addTab(new QWidget, tr("Zusatzstoffe"));
   tabWidget->addTab(new QWidget, tr("Malze"));
   tabWidget->addTab(new QWidget, tr("Bierstiele"));
   tabWidget->addTab(scrollArea, tr("Aufbereitung"));

@@ -4,13 +4,14 @@
 #ifndef WATERPROFILE_H
 #define WATERPROFILE_H
 
+#include <QJsonObject>
 #include <QString>
 
 class WaterProfile {
  public:
   WaterProfile();
-  WaterProfile(QString name, float calzium = 0, float magnesium = 0, float natrium = 0,
-        float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
+  WaterProfile(QString name, float calzium = 0, float magnesium = 0, float natrium = 0, float hydrogencarbonat = 0,
+               float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
 
   // getter und setter
   QString getName() const;
@@ -39,7 +40,7 @@ class WaterProfile {
    * x [^{\circ}dH] = CaHaerte [^{\circ}dH] + MgHaerte [^{\circ}dH]
    * \f]
    */
-  float getGesamthaerte();
+  float getGesamthaerte() const;
 
   /**
    * @brief Berechnet die Calcium-Härte
@@ -47,7 +48,7 @@ class WaterProfile {
    * x [^{\circ}dH] = 0,14 * Ca [mg/l]
    * \f]
    */
-  float getCaHaerte();
+  float getCaHaerte() const;
 
   /**
    * @brief Berechnet die Magnesium-Härte
@@ -55,7 +56,7 @@ class WaterProfile {
    * x [^{\circ}dH] = 0,23 * Mg [mg/l]
    * \f]
    */
-  float getMgHaerte();
+  float getMgHaerte() const;
 
   /**
    * @brief Berechnet die Carbonhärte
@@ -64,7 +65,7 @@ class WaterProfile {
    * x [^{\circ}dH] &=& \frac{Hydrogencarbonat [mg/l]}{61,017}*2,8
    * \f}
    */
-  float getCarbonhaerte();
+  float getCarbonhaerte() const;
 
   /**
    * @brief Berechnet die nicht Carbonhärte
@@ -72,7 +73,7 @@ class WaterProfile {
    * x [^{\circ}dH] = GesammtHaerte [^{\circ}dH] - CarbonHaerte [^{\circ}dH]
    * \f]
    */
-  float getNichtCarbonhaerte();
+  float getNichtCarbonhaerte() const;
 
   /**
    * @brief Berechnet das Sulfat (SO4) zu Chlorid (Cl) Verhältnis
@@ -80,7 +81,7 @@ class WaterProfile {
    * x = \frac{Sulfat (SO4)}{Chlorid (Cl)}
    * \f]
    */
-  float getSO4ClVerhaeltnis();
+  float getSO4ClVerhaeltnis() const;
 
   /**
    * @brief Berechnet die Restalkalität
@@ -88,7 +89,11 @@ class WaterProfile {
    * x [^{\circ}dH] = CarbonHaerte [^{\circ}dH] - \frac{CaHaerte [^{\circ}dH]}{3,5} - \frac{MgHaerte [^{\circ}dH]}{7}
    * \f]
    */
-  float getRestalkalitaet();
+  float getRestalkalitaet() const;
+
+  // JSON conversion
+  static WaterProfile fromJson(const QJsonObject& json); /**< @brief convert JSON to WaterProfile */
+  QJsonObject toJson() const;                            /**< @brief convert this WaterProfile to JSON */
 
  protected:
   QString name;

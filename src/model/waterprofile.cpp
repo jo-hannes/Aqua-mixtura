@@ -8,7 +8,7 @@
 WaterProfile::WaterProfile() {}
 
 WaterProfile::WaterProfile(QString name, float calzium, float magnesium, float natrium, float hydrogencarbonat,
-             float chlorid, float sulfat, float phosphat, float lactat)
+                           float chlorid, float sulfat, float phosphat, float lactat)
     : name(name) {
   setCalzium(calzium);
   setMagnesium(magnesium);
@@ -92,33 +92,62 @@ void WaterProfile::setLactat(float newLactat) {
   lactat = newLactat;
 }
 
-float WaterProfile::getGesamthaerte() {
+float WaterProfile::getGesamthaerte() const {
   return getCaHaerte() + getMgHaerte();
 }
 
-float WaterProfile::getCaHaerte() {
+float WaterProfile::getCaHaerte() const {
   return 0.14 * calzium;
 }
 
-float WaterProfile::getMgHaerte() {
+float WaterProfile::getMgHaerte() const {
   return 0.23 * magnesium;
 }
 
-float WaterProfile::getCarbonhaerte() {
+float WaterProfile::getCarbonhaerte() const {
   return hydrogencarbonat / 61.017 * 2.8;
 }
 
-float WaterProfile::getNichtCarbonhaerte() {
+float WaterProfile::getNichtCarbonhaerte() const {
   return getGesamthaerte() - getCarbonhaerte();
 }
 
-float WaterProfile::getSO4ClVerhaeltnis() {
+float WaterProfile::getSO4ClVerhaeltnis() const {
   if (chlorid != 0)
     return (float)sulfat / chlorid;
   else
     return HUGE_VAL;
 }
 
-float WaterProfile::getRestalkalitaet() {
+float WaterProfile::getRestalkalitaet() const {
   return getCarbonhaerte() - getCaHaerte() / 3.5 - getMgHaerte() / 7;
+}
+
+WaterProfile WaterProfile::fromJson(const QJsonObject& json) {
+  WaterProfile ret;
+  ret.name = json["Name"].toString("");
+  ret.calzium = json["Calzium"].toDouble(0);
+  ret.magnesium = json["Magnesium"].toDouble(0);
+  ret.natrium = json["Natrium"].toDouble(0);
+  ret.hydrogencarbonat = json["Hydrogencarbonat"].toDouble(0);
+  ret.chlorid = json["Chlorid"].toDouble(0);
+  ret.sulfat = json["Sulfat"].toDouble(0);
+  ret.phosphat = json["Phosphat"].toDouble(0);
+  ret.lactat = json["Lactat"].toDouble(0);
+  return ret;
+}
+
+QJsonObject WaterProfile::toJson() const
+{
+  QJsonObject json;
+  json["Name"] = name;
+  json["Calzium"] = calzium;
+  json["Magnesium"] = magnesium;
+  json["Natrium"] = natrium;
+  json["Hydrogencarbonat"] = hydrogencarbonat;
+  json["Chlorid"] = chlorid;
+  json["Sulfat"] = sulfat;
+  json["Phosphat"] = phosphat;
+  json["Lactat"] = lactat;
+  return json;
 }

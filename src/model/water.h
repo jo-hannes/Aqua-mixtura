@@ -11,7 +11,7 @@
 class Water : public WaterProfile {
  public:
   Water();
-  Water(WaterProfile &profile, float menge = 0);
+  Water(WaterProfile& profile, float menge = 0);
   Water(QString name, float menge = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
         float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
 
