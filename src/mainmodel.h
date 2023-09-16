@@ -11,11 +11,17 @@ class MainModel
  public:
   MainModel();
 
+  void saveSources();
+  void saveSources(const QString& path);
+
   WaterSources* sources;
   // additives
   // malts (for a later version)
   // (beer)styles
   // mixtures
+ private:
+  QString configDir;
+  QString sourcesFile;
 };
 
 #endif // MAINMODEL_H

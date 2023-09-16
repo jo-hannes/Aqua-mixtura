@@ -4,6 +4,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mainmodel.h"
+
 #include <QMainWindow>
 
 class MainWindow : public QMainWindow {
@@ -21,5 +23,6 @@ class MainWindow : public QMainWindow {
  private:
   void setupMenuBar();
   QTabWidget* tabWidget;
+  MainModel* model;
 };
 #endif  // MAINWINDOW_H

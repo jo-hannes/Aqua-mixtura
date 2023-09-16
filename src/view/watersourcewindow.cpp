@@ -7,10 +7,12 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QStyle>
+#include <QStyleFactory>
 #include <QVBoxLayout>
 
-WatersourceWindow::WatersourceWindow(WaterSources* srcs, QWidget* parent) : QWidget(parent) {
-  sources = srcs;
+WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidget(parent) {
+  this->model = model;
   selected = -1;
   // Überschriften
   QLabel* txtQuellen = new QLabel(tr("Wasserquellen"));
@@ -23,14 +25,30 @@ WatersourceWindow::WatersourceWindow(WaterSources* srcs, QWidget* parent) : QWid
   QVBoxLayout* layoutQuellen = new QVBoxLayout();
 
   QListView* sourcesView = new QListView();
-  sourcesView->setModel(sources);
+  sourcesView->setModel(model->sources);
   layoutQuellen->addWidget(sourcesView);
 
-  QPushButton* btnAdd = new QPushButton("+");
-  QPushButton* btnCopy = new QPushButton("copy");
-  QPushButton* btnDelete = new QPushButton("-");
-  QPushButton* btnImport = new QPushButton("import");
-  QPushButton* btnExport = new QPushButton("export");
+  // QStyle* style = QStyleFactory::create("");
+  qDebug("Styles:");
+  for (auto st : QStyleFactory::keys()) {
+    qDebug() << "Style: '" << st << "'";
+  }
+
+  QPushButton* btnAdd = new QPushButton();
+  btnAdd->setToolTip(tr("Wasserquelle hinzufügen"));
+  btnAdd->setIcon(QIcon(":/icons/document-plus.svg"));
+  QPushButton* btnCopy = new QPushButton();
+  btnCopy->setToolTip(tr("Wasserquelle kopieren"));
+  btnCopy->setIcon(QIcon(":/icons/document-duplicate.svg"));
+  QPushButton* btnDelete = new QPushButton();
+  btnDelete->setToolTip(tr("Wasserquelle löschen"));
+  btnDelete->setIcon(QIcon(":/icons/document-minus.svg"));
+  QPushButton* btnImport = new QPushButton();
+  btnImport->setToolTip(tr("Wasserquelle importieren"));
+  btnImport->setIcon(QIcon(":/icons/document-arrow-down.svg"));
+  QPushButton* btnExport = new QPushButton();
+  btnExport->setToolTip(tr("Wasserquelle exportieren"));
+  btnExport->setIcon(QIcon(":/icons/document-arrow-up.svg"));
   QHBoxLayout* buttonsQuellen = new QHBoxLayout();
   buttonsQuellen->addWidget(btnAdd);
   buttonsQuellen->addWidget(btnCopy);
@@ -56,12 +74,13 @@ WatersourceWindow::WatersourceWindow(WaterSources* srcs, QWidget* parent) : QWid
 
 void WatersourceWindow::selectSource(const QModelIndex& index) {
   selected = index.row();
-  waterEdit->setProfile(sources->getProfile(selected));
+  waterEdit->setProfile(model->sources->getProfile(selected));
 }
 
 void WatersourceWindow::saveProfile(WaterProfile& profile) {
-  if (selected >= 0 && selected < sources->rowCount()) {
-    sources->updateProfile(profile, selected);
+  if (selected >= 0 && selected < model->sources->rowCount()) {
+    model->sources->updateProfile(profile, selected);
+    model->saveSources();
     // sourcesView->update(); // for some reason this crashes
   }
 }

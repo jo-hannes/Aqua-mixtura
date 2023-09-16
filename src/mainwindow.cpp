@@ -3,8 +3,6 @@
 
 #include "mainwindow.h"
 
-#include "mainmodel.h"
-
 #include "model/mixture.h"
 #include "model/water.h"
 #include "view/additivewindow.h"
@@ -22,7 +20,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   // Entscheidung: Es wird deutsch verwendet!
 
   // initialize all models
-  MainModel model;
+  model = new MainModel();
 
   setupMenuBar();
 
@@ -47,7 +45,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
   tabWidget = new QTabWidget;
   // tabWidget->addTab(mainWidget, tr("Test"));
-  WatersourceWindow* wsource = new WatersourceWindow(model.sources, this);
+  WatersourceWindow* wsource = new WatersourceWindow(model, this);
   tabWidget->addTab(wsource, tr("Wasserquellen"));
   tabWidget->addTab(new QWidget, tr("Zusatzstoffe"));
   tabWidget->addTab(new QWidget, tr("Malze"));

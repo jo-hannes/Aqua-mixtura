@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>document-arrow-down.svg</file>
+        <file>document-arrow-up.svg</file>
+        <file>document-duplicate.svg</file>
+        <file>document-minus.svg</file>
+        <file>document-plus.svg</file>
+    </qresource>
+</RCC>

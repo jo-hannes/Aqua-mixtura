@@ -6,7 +6,7 @@
 
 #include "waterprofileedit.h"
 
-#include "../model/watersources.h"
+#include "../mainmodel.h"
 
 #include <QListView>
 #include <QObject>
@@ -16,14 +16,14 @@ class WatersourceWindow : public QWidget {
   Q_OBJECT
 
  public:
-  explicit WatersourceWindow(WaterSources* srcs, QWidget* parent = nullptr);
+  explicit WatersourceWindow(MainModel* model, QWidget* parent = nullptr);
 
  public slots:
   void selectSource(const QModelIndex& index);
   void saveProfile(WaterProfile& profile);
 
  private:
-  WaterSources* sources;
+  MainModel* model;
   QListView* sourcesView;
   WaterProfileEdit* waterEdit;
   int selected;

@@ -37,6 +37,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/model/watersources.h src/model/watersources.cpp
         src/mainmodel.h src/mainmodel.cpp
         src/view/waterprofileedit.h src/view/waterprofileedit.cpp
+        src/icons/icons.qrc
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Aqua-mixtura APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

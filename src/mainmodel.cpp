@@ -8,17 +8,25 @@
 #include <QStandardPaths>
 
 MainModel::MainModel() {
-  QString configDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+  configDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
   if (configDir.isEmpty()) {
     qFatal("Unable to get storage location");
   }
   QDir().mkpath(configDir);
 
   sources = new WaterSources();
-  QString sourcesFile = configDir + "/sources.json";
+  sourcesFile = configDir + "/sources.json";
   if (QFile::exists(sourcesFile)) {
     sources->load(sourcesFile);
   }
 
   // sources.save("save.json");
+}
+
+void MainModel::saveSources() {
+  sources->save(sourcesFile);
+}
+
+void MainModel::saveSources(const QString& path) {
+  sources->save(path);
 }
