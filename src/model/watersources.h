@@ -23,8 +23,10 @@ class WaterSources : public QAbstractTableModel {
 
   // bool import(const QString& path);
 
-  const WaterProfile& getProfile(qsizetype index);            /**< @brief Get water profile at index */
-  void updateProfile(WaterProfile& profile, qsizetype index); /**< @brief Update water profile at index */
+  const WaterProfile& getProfile(qsizetype i);            /**< @brief Get water profile at index */
+  void updateProfile(WaterProfile& profile, qsizetype i); /**< @brief Update water profile at index */
+  void addProfile(WaterProfile& profile);                 /**< @brief Add a water profile */
+  void deleteProfile(qsizetype i);                        /**< @brief Delete water profile at index */
 
   // for QAbstractTableModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;
@@ -34,6 +36,7 @@ class WaterSources : public QAbstractTableModel {
 
  private:
   QVector<WaterProfile> sources;
+  WaterProfile noProfile;
 };
 
 #endif // WATERSOURCES_H

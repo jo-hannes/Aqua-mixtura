@@ -49,12 +49,35 @@ bool WaterSources::save(const QString& path) {
   return true;
 }
 
-const WaterProfile& WaterSources::getProfile(qsizetype index) {
-  return sources.at(index);
+const WaterProfile& WaterSources::getProfile(qsizetype i) {
+  if (i >= 0 && i < sources.size()) {
+    return sources.at(i);
+  } else {
+    return noProfile;
+  }
 }
 
-void WaterSources::updateProfile(WaterProfile& profile, qsizetype index) {
-  sources.replace(index, profile);
+void WaterSources::updateProfile(WaterProfile& profile, qsizetype i) {
+  if (i >= 0 && i < sources.size()) {
+    sources.replace(i, profile);
+    emit dataChanged(index(i, 0), index(i, 1));
+  }
+}
+
+void WaterSources::addProfile(WaterProfile &profile)
+{
+  qsizetype i = sources.size();
+  beginInsertRows(QModelIndex(), i, i);
+  sources.append(profile);
+  endInsertRows();
+}
+
+void WaterSources::deleteProfile(qsizetype i) {
+  if (i >= 0 && i < sources.size()) {
+    beginRemoveRows(QModelIndex(), i, i);
+    sources.removeAt(i);
+    endRemoveRows();
+  }
 }
 
 int WaterSources::rowCount(const QModelIndex& parent) const {
@@ -74,12 +97,16 @@ QVariant WaterSources::data(const QModelIndex& index, int role) const {
   if (role != Qt::DisplayRole) {
     return QVariant();
   }
+  qsizetype row = index.row();
+  if (row < 0 || row >= sources.size()) {
+    return QVariant();
+  }
 
   switch (index.column()) {
     case 0:
-      return sources.at(index.row()).getName();
+      return sources.at(row).getName();
     case 1:
-      return sources.at(index.row()).getRestalkalitaet();
+      return sources.at(row).getRestalkalitaet();
     default:
       return QVariant();
   }

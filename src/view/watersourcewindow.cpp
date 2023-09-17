@@ -3,6 +3,7 @@
 
 #include "watersourcewindow.h"
 
+#include <QDialogButtonBox>>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -28,34 +29,34 @@ WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidge
   sourcesView->setModel(model->sources);
   layoutQuellen->addWidget(sourcesView);
 
-  // QStyle* style = QStyleFactory::create("");
-  qDebug("Styles:");
-  for (auto st : QStyleFactory::keys()) {
-    qDebug() << "Style: '" << st << "'";
-  }
-
+  // buttons für quellen
   QPushButton* btnAdd = new QPushButton();
   btnAdd->setToolTip(tr("Wasserquelle hinzufügen"));
   btnAdd->setIcon(QIcon(":/icons/document-plus.svg"));
+  QObject::connect(btnAdd, &QPushButton::pressed, this, &WatersourceWindow::profileAdd);
   QPushButton* btnCopy = new QPushButton();
   btnCopy->setToolTip(tr("Wasserquelle kopieren"));
   btnCopy->setIcon(QIcon(":/icons/document-duplicate.svg"));
+  QObject::connect(btnCopy, &QPushButton::pressed, this, &WatersourceWindow::profileCopy);
   QPushButton* btnDelete = new QPushButton();
   btnDelete->setToolTip(tr("Wasserquelle löschen"));
   btnDelete->setIcon(QIcon(":/icons/document-minus.svg"));
+  QObject::connect(btnDelete, &QPushButton::pressed, this, &WatersourceWindow::profileDelete);
   QPushButton* btnImport = new QPushButton();
   btnImport->setToolTip(tr("Wasserquelle importieren"));
   btnImport->setIcon(QIcon(":/icons/document-arrow-down.svg"));
+  QObject::connect(btnImport, &QPushButton::pressed, this, &WatersourceWindow::profileImport);
   QPushButton* btnExport = new QPushButton();
   btnExport->setToolTip(tr("Wasserquelle exportieren"));
   btnExport->setIcon(QIcon(":/icons/document-arrow-up.svg"));
-  QHBoxLayout* buttonsQuellen = new QHBoxLayout();
-  buttonsQuellen->addWidget(btnAdd);
-  buttonsQuellen->addWidget(btnCopy);
-  buttonsQuellen->addWidget(btnDelete);
-  buttonsQuellen->addWidget(btnImport);
-  buttonsQuellen->addWidget(btnExport);
-  layoutQuellen->addLayout(buttonsQuellen);
+  QObject::connect(btnExport, &QPushButton::pressed, this, &WatersourceWindow::profileExport);
+  QDialogButtonBox* buttonsQuellen = new QDialogButtonBox();
+  buttonsQuellen->addButton(btnAdd, QDialogButtonBox::ActionRole);
+  buttonsQuellen->addButton(btnCopy, QDialogButtonBox::ActionRole);
+  buttonsQuellen->addButton(btnDelete, QDialogButtonBox::ActionRole);
+  buttonsQuellen->addButton(btnImport, QDialogButtonBox::ActionRole);
+  buttonsQuellen->addButton(btnExport, QDialogButtonBox::ActionRole);
+  layoutQuellen->addWidget(buttonsQuellen);
 
   // Profil Editor
   waterEdit = new WaterProfileEdit();
@@ -83,4 +84,27 @@ void WatersourceWindow::saveProfile(WaterProfile& profile) {
     model->saveSources();
     // sourcesView->update(); // for some reason this crashes
   }
+}
+
+void WatersourceWindow::profileAdd() {
+  WaterProfile newProfile("New");
+  model->sources->addProfile(newProfile);
+}
+
+void WatersourceWindow::profileCopy() {
+  WaterProfile newProfile = model->sources->getProfile(selected);
+  newProfile.setName("Copy of " + newProfile.getName());
+  model->sources->addProfile(newProfile);
+}
+
+void WatersourceWindow::profileDelete() {
+  model->sources->deleteProfile(selected);
+}
+
+void WatersourceWindow::profileImport() {
+  qDebug() << "TODO WatersourceWindow::profileImport";
+}
+
+void WatersourceWindow::profileExport() {
+  qDebug() << "TODO WatersourceWindow::profileExport";
 }

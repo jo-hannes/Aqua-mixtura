@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+
 #ifndef WATERPROFILEEDIT_H
 #define WATERPROFILEEDIT_H
 
@@ -20,12 +23,12 @@ class WaterProfileEdit : public QWidget
   void setProfile(const WaterProfile& profile);
 
  public slots:
-  void updateAll();
-  void updateCalculated();
-  void save();
-  void cancel();
+  void updateAll();        /**< @brief Update all values in view */
+  void updateCalculated(); /**< @brief Update only calculated values in view */
+  void save();             /**< @brief Save profile */
+  void cancel();           /**< @brief Cancel edit, resets all values */
 
-  // value changes
+  // slots for value changes
   void valChangName(const QString& name);
   void valChangeCalcium(double val);
   void valChangeMagnesium(double val);
@@ -37,7 +40,7 @@ class WaterProfileEdit : public QWidget
   void valChangeLactat(double val);
 
  signals:
-  void saveProfile(WaterProfile& profile);
+  void saveProfile(WaterProfile& profile); /**< @brief Send signal with profile we want to save */
 
  private:
   void addEditableValue(int row, QDoubleSpinBox* spinBox, QString text, QString unit);

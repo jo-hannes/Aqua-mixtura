@@ -114,7 +114,7 @@ float WaterProfile::getNichtCarbonhaerte() const {
 
 float WaterProfile::getSO4ClVerhaeltnis() const {
   if (chlorid != 0)
-    return (float)sulfat / chlorid;
+    return sulfat / chlorid;
   else
     return HUGE_VAL;
 }

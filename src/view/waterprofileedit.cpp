@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+
 #include "waterprofileedit.h"
 
 #include "QtWidgets/qlineedit.h"
@@ -15,6 +18,7 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   name = new QLineEdit();
   layout->addWidget(name, row, 1, 1, 2, Qt::AlignRight);
   QObject::connect(name, &QLineEdit::textEdited, this, &WaterProfileEdit::valChangName);
+  row++;
 
   // Kationen
   QLabel* txtKat = new QLabel(tr("Kationen"));
