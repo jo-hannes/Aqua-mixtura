@@ -24,7 +24,7 @@ class Water : public WaterProfile {
   Water operator+(const Water& rhs);
 
  protected:
-  float menge;            /**< Wassermenge in mikro Liter */
+  float menge; /**< Wassermenge in Liter */
 };
 
 #endif // WATER_H
