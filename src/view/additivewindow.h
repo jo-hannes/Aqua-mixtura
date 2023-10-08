@@ -6,6 +6,7 @@
 
 #include "../mainmodel.h"
 
+#include <QCheckBox>
 #include <QDoubleSpinBox>
 #include <QGridLayout>
 #include <QObject>
@@ -32,8 +33,8 @@ class AdditiveWindow : public QWidget
   void cancel(); /**< @brief Revert changes */
 
  private:
-  void addAcid(int row, QDoubleSpinBox* percent, QDoubleSpinBox* ml, QString formula, QString text);
-  void addSolid(int row, QDoubleSpinBox* g, QString formula, QString text);
+  void addAcid(int row, QCheckBox* check, QString text, QDoubleSpinBox* percent, QDoubleSpinBox* ml);
+  void addSolid(int row, QCheckBox* check, QString text, QDoubleSpinBox* g);
 
   MainModel* model; /**< @brief Pointer to main model for accessing data */
   QGridLayout* layout;
@@ -43,6 +44,8 @@ class AdditiveWindow : public QWidget
   QDoubleSpinBox *h2so4Volume, *h2so4Concentration;
   QDoubleSpinBox *h3po4Volume, *h3po4Concentration;
   QDoubleSpinBox *caso4, *cacl2, *nacl, *nahco3, *mgcl2, *mgso4, *caco3;
+  QCheckBox *c3h6o3Check, *hclCheck, *h2so4Check, *h3po4Check, *caso4Check, *cacl2Check, *naclCheck, *nahco3Check,
+      *mgcl2Check, *mgso4Check, *caco3Check;
 };
 
 #endif // ADDITIVEWINDOW_H
