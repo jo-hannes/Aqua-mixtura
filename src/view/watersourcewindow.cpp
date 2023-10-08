@@ -3,13 +3,11 @@
 
 #include "watersourcewindow.h"
 
-#include <QDialogButtonBox>>
+#include <QDialogButtonBox>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QStyle>
-#include <QStyleFactory>
 #include <QVBoxLayout>
 
 WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidget(parent) {

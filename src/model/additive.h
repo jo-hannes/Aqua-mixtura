@@ -13,14 +13,14 @@ class Additive {
   // setter and getter
   float getCaso4() const;
   void setCaso4(float newCaso4);
-  float getCacl() const;
-  void setCacl(float newCacl);
+  float getCacl2() const;
+  void setCacl2(float newCacl2);
   float getNacl() const;
   void setNacl(float newNacl);
   float getNahco3() const;
   void setNahco3(float newNahco3);
-  float getMgcl() const;
-  void setMgcl(float newMgcl);
+  float getMgcl2() const;
+  void setMgcl2(float newMgcl2);
   float getMgso4() const;
   void setMgso4(float newMgso4);
   float getCaco3() const;
@@ -47,11 +47,11 @@ class Additive {
   QJsonObject toJson() const;                        /**< @brief convert this Additive to JSON */
 
  private:
-  float caso4;  /**< @brief CaSO4  in gram. Calziumsulfid, Brauergips */
-  float cacl;   /**< @brief CaCl   in gram. Calziumchlorid */
+  float caso4;  /**< @brief CaSO4  in gram. Calziumsulfat, Braugips */
+  float cacl2;  /**< @brief CaCl2  in gram. Calziumchlorid */
   float nacl;   /**< @brief NaCl   in gram. Natriumchlorid, Kochsalz */
   float nahco3; /**< @brief NaHCO3 in gram. Natriumhydrogencarbonat */
-  float mgcl;   /**< @brief MgCl   in gram. Magnesiumchlorid */
+  float mgcl2;  /**< @brief MgCl2  in gram. Magnesiumchlorid */
   float mgso4;  /**< @brief MgSO4  in gram. Magnesiumsulfat */
   float caco3;  /**< @brief CaCO3  in gram. Calciumcarbonat */
 

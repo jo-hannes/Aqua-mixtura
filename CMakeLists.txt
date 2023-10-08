@@ -27,8 +27,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Aqua-mixtura
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        src/mainmodel.h src/mainmodel.cpp
         src/icons/icons.qrc
+        src/mainmodel.h src/mainmodel.cpp
         src/model/additive.h src/model/additive.cpp
         src/model/mixture.h src/model/mixture.cpp
         src/model/water.h src/model/water.cpp
@@ -38,6 +38,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/view/watersourcewindow.h src/view/watersourcewindow.cpp
         src/view/watersourcewindow.h src/view/watersourcewindow.cpp
         src/model/watersources.h src/model/watersources.cpp
+        src/view/additivewindow.h src/view/additivewindow.cpp
         src/view/waterprofileedit.h src/view/waterprofileedit.cpp
         src/view/watersourcewindow.h src/view/watersourcewindow.cpp
     )

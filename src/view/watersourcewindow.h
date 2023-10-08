@@ -21,7 +21,7 @@ class WatersourceWindow : public QWidget {
  public:
   /**
    * @brief Constructor
-   * @param model Pointer to main model for accesing data
+   * @param model Pointer to main model for accessing data
    * @param parent
    */
   explicit WatersourceWindow(MainModel* model, QWidget* parent = nullptr);
@@ -37,7 +37,7 @@ class WatersourceWindow : public QWidget {
   void profileExport(); /**< @brief Export a profile as JSON */
 
  private:
-  MainModel* model;            /**< @brief Pointer to main model for accesing data */
+  MainModel* model;            /**< @brief Pointer to main model for accessing data */
   QListView* sourcesView;      /**< @brief List with all water sources */
   WaterProfileEdit* waterEdit; /**< @brief Water profile editor */
   int selected;                /**< @brief Index of currently selected water profile */

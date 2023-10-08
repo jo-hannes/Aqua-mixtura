@@ -16,15 +16,15 @@ void Additive::setCaso4(float newCaso4) {
     caso4 = newCaso4;
 }
 
-float Additive::getCacl() const {
-  return cacl;
+float Additive::getCacl2() const {
+  return cacl2;
 }
 
-void Additive::setCacl(float newCacl) {
-  if (newCacl < 0)
-    cacl = 0;
+void Additive::setCacl2(float newCacl2) {
+  if (newCacl2 < 0)
+    cacl2 = 0;
   else
-    cacl = newCacl;
+    cacl2 = newCacl2;
 }
 
 float Additive::getNacl() const {
@@ -43,21 +43,22 @@ float Additive::getNahco3() const {
 }
 
 void Additive::setNahco3(float newNahco3) {
+  // TODO allow negative values to disable it
   if (newNahco3 < 0)
     nahco3 = 0;
   else
     nahco3 = newNahco3;
 }
 
-float Additive::getMgcl() const {
-  return mgcl;
+float Additive::getMgcl2() const {
+  return mgcl2;
 }
 
-void Additive::setMgcl(float newMgcl) {
-  if (newMgcl < 0)
-    mgcl = 0;
+void Additive::setMgcl2(float newMgcl2) {
+  if (newMgcl2 < 0)
+    mgcl2 = 0;
   else
-    mgcl = newMgcl;
+    mgcl2 = newMgcl2;
 }
 
 float Additive::getMgso4() const {
@@ -186,10 +187,10 @@ Additive Additive::fromJson(const QJsonObject& json) {
     return ret;
   QJsonObject j = json["WaterAdditives"].toObject();
   ret.setCaso4(j["caso4"].toDouble(0));
-  ret.setCacl(j["cacl"].toDouble(0));
+  ret.setCacl2(j["cacl2"].toDouble(0));
   ret.setNacl(j["nacl"].toDouble(0));
   ret.setNahco3(j["nahco3"].toDouble(0));
-  ret.setMgcl(j["mgcl"].toDouble(0));
+  ret.setMgcl2(j["mgcl2"].toDouble(0));
   ret.setMgso4(j["mgso4"].toDouble(0));
   ret.setCaco3(j["caco3"].toDouble(0));
   ret.setC3h6o3Volume(j["c3h6o3Volume"].toDouble(0));
@@ -206,10 +207,10 @@ Additive Additive::fromJson(const QJsonObject& json) {
 QJsonObject Additive::toJson() const {
   QJsonObject inner;
   inner["caso4"] = caso4;
-  inner["cacl"] = cacl;
+  inner["cacl2"] = cacl2;
   inner["nacl"] = nacl;
   inner["nahco3"] = nahco3;
-  inner["mgcl"] = mgcl;
+  inner["mgcl2"] = mgcl2;
   inner["mgso4"] = mgso4;
   inner["caco3"] = caco3;
   inner["c3h6o3Volume"] = c3h6o3Volume;

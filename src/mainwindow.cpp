@@ -47,7 +47,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   // tabWidget->addTab(mainWidget, tr("Test"));
   WatersourceWindow* wsource = new WatersourceWindow(model, this);
   tabWidget->addTab(wsource, tr("Wasserquellen"));
-  tabWidget->addTab(new QWidget, tr("Zusatzstoffe"));
+  AdditiveWindow* wadditive = new AdditiveWindow(model, this);
+  tabWidget->addTab(wadditive, tr("Zusatzstoffe"));
   tabWidget->addTab(new QWidget, tr("Malze"));
   tabWidget->addTab(new QWidget, tr("Bierstiele"));
   tabWidget->addTab(scrollArea, tr("Aufbereitung"));
