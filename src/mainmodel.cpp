@@ -5,6 +5,7 @@
 
 #include <QDir>
 #include <QFile>
+#include <QJsonDocument>
 #include <QStandardPaths>
 
 MainModel::MainModel() {
@@ -17,16 +18,36 @@ MainModel::MainModel() {
   sources = new WaterSources();
   sourcesFile = configDir + "/sources.json";
   if (QFile::exists(sourcesFile)) {
-    sources->load(sourcesFile);
+    sources->fromJson(loadJson(sourcesFile));
   }
-
-  // sources.save("save.json");
 }
 
 void MainModel::saveSources() {
-  sources->save(sourcesFile);
+  saveJson(sourcesFile, sources->toJson());
 }
 
 void MainModel::saveSources(const QString& path) {
-  sources->save(path);
+  saveJson(path, sources->toJson());
+}
+
+QJsonObject MainModel::loadJson(const QString& path) {
+  QFile file(path);
+  if (!file.open(QIODevice::ReadOnly)) {
+    qWarning("Unable to open JSON file");
+    return QJsonObject();
+  }
+  QJsonDocument jsonDoc(QJsonDocument::fromJson(file.readAll()));
+  file.close();
+  return jsonDoc.object();
+}
+
+bool MainModel::saveJson(const QString& path, const QJsonObject& json) {
+  QFile file(path);
+  if (!file.open(QIODevice::WriteOnly)) {
+    qWarning("Unable to save JSON file");
+    return false;
+  }
+  file.write(QJsonDocument(json).toJson());
+  file.close();
+  return true;
 }

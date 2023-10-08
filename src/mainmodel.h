@@ -6,6 +6,8 @@
 
 #include "model/watersources.h"
 
+#include <QJsonObject>
+
 class MainModel
 {
  public:
@@ -20,6 +22,9 @@ class MainModel
   // (beer)styles
   // mixtures
  private:
+  QJsonObject loadJson(const QString& path);                   /**< @brief Load JSON from file*/
+  bool saveJson(const QString& path, const QJsonObject& json); /**< @brief Save JSON to file */
+
   QString configDir;
   QString sourcesFile;
 };

@@ -10,43 +10,27 @@
 
 WaterSources::WaterSources() {}
 
-bool WaterSources::load(const QString& path) {
-  QFile loadFile(path);
-  if (!loadFile.open(QIODevice::ReadOnly)) {
-    qWarning("Unable to open water sources");
-    return false;
-  }
-  QJsonDocument jsonDoc(QJsonDocument::fromJson(loadFile.readAll()));
-
-  QJsonValue jsonSources = jsonDoc.object()["WaterSources"];
+bool WaterSources::fromJson(const QJsonObject& json) {
+  QJsonValue jsonSources = json["WaterSources"];
   if (!jsonSources.isArray()) {
     qWarning("No valid sources in JSON found");
+    return false;
   }
+  sources.clear();
   for (const auto& profile : jsonSources.toArray()) {
     sources.append(WaterProfile::fromJson(profile.toObject()));
-    qDebug("Loading water source");
   }
-
   return true;
 }
 
-bool WaterSources::save(const QString& path) {
-  QFile saveFile(path);
-  if (!saveFile.open(QIODevice::WriteOnly)) {
-    qWarning("Unable to open water sources");
-    return false;
-  }
-
+QJsonObject WaterSources::toJson() const {
   QJsonArray jsonSrcArray;
   for (const auto& src : sources) {
     jsonSrcArray.append(src.toJson());
   }
   QJsonObject jsonSources;
   jsonSources["WaterSources"] = jsonSrcArray;
-
-  saveFile.write(QJsonDocument(jsonSources).toJson());
-  saveFile.close();
-  return true;
+  return jsonSources;
 }
 
 const WaterProfile& WaterSources::getProfile(qsizetype i) {

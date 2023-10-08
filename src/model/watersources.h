@@ -17,9 +17,9 @@ class WaterSources : public QAbstractTableModel {
  public:
   WaterSources();
 
-  // load/save all
-  bool load(const QString& path); /**< @brief Load water sources/profiles from file*/
-  bool save(const QString& path); /**< @brief Save water sources/profiles from file */
+  // JSON conversion
+  bool fromJson(const QJsonObject& json); /**< @brief convert JSON to WaterProfile */
+  QJsonObject toJson() const;             /**< @brief convert this WaterProfile to JSON */
 
   // bool import(const QString& path);
 
