@@ -20,6 +20,13 @@ MainModel::MainModel() {
   if (QFile::exists(sourcesFile)) {
     sources->fromJson(loadJson(sourcesFile));
   }
+
+  additiveFile = configDir + "/additive.json";
+  if (QFile::exists(sourcesFile)) {
+    additive = new Additive(Additive::fromJson(loadJson(additiveFile)));
+  } else {
+    additive = new Additive();
+  }
 }
 
 void MainModel::saveSources() {
@@ -28,6 +35,14 @@ void MainModel::saveSources() {
 
 void MainModel::saveSources(const QString& path) {
   saveJson(path, sources->toJson());
+}
+
+void MainModel::saveAdditive() {
+  saveJson(additiveFile, additive->toJson());
+}
+
+void MainModel::saveAdditive(const QString& path) {
+  saveJson(path, additive->toJson());
 }
 
 QJsonObject MainModel::loadJson(const QString& path) {
