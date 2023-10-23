@@ -21,6 +21,7 @@ class WaterProfileEdit : public QWidget
   explicit WaterProfileEdit(QWidget* parent = nullptr);
 
   void setProfile(const WaterProfile& profile);
+  bool isChanged() const;
 
  public slots:
   void updateAll();        /**< @brief Update all values in view */
@@ -45,6 +46,7 @@ class WaterProfileEdit : public QWidget
  private:
   void addEditableValue(int row, QDoubleSpinBox* spinBox, QString text, QString unit);
   void addCalculatedValue(int row, QLabel* value, QString text, QString unit);
+  bool changed;
   WaterProfile givenProfile, volatileProfile;
 
   QGridLayout* layout;

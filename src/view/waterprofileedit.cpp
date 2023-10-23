@@ -10,6 +10,7 @@
 
 WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout = new QGridLayout();
+  changed = false;
   int row = 0;
 
   QLabel* txtName = new QLabel(tr("Name"));
@@ -101,11 +102,15 @@ void WaterProfileEdit::setProfile(const WaterProfile& profile) {
   givenProfile = profile;
   volatileProfile = profile;
   updateAll();
+  changed = false;
+}
+
+bool WaterProfileEdit::isChanged() const {
+  return changed;
 }
 
 void WaterProfileEdit::updateAll() {
   name->setText(volatileProfile.getName());
-  calcium->setValue(volatileProfile.getCalzium());
   calcium->setValue(volatileProfile.getCalzium());
   magnesium->setValue(volatileProfile.getMagnesium());
   natrium->setValue(volatileProfile.getNatrium());
@@ -130,54 +135,65 @@ void WaterProfileEdit::updateCalculated() {
 void WaterProfileEdit::save() {
   givenProfile = volatileProfile;
   emit saveProfile(volatileProfile);
+  changed = false;
 }
 
 void WaterProfileEdit::cancel() {
   volatileProfile = givenProfile;
   updateAll();
+  changed = false;
 }
 
 void WaterProfileEdit::valChangName(const QString& name) {
   volatileProfile.setName(name);
+  changed = true;
 }
 
 void WaterProfileEdit::valChangeCalcium(double val) {
   volatileProfile.setCalzium(val);
+  changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeMagnesium(double val) {
   volatileProfile.setMagnesium(val);
+  changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeNatrium(double val) {
   volatileProfile.setNatrium(val);
+  changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeHydrogencarbonat(double val) {
   volatileProfile.setHydrogencarbonat(val);
+  changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeChlorid(double val) {
   volatileProfile.setChlorid(val);
+  changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeSulfat(double val) {
   volatileProfile.setSulfat(val);
+  changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangePhosphat(double val) {
   volatileProfile.setPhosphat(val);
+  changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeLactat(double val) {
   volatileProfile.setLactat(val);
+  changed = true;
   updateCalculated();
 }
 
