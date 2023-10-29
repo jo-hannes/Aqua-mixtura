@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -23,7 +24,7 @@ WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidge
   // Quellen
   QVBoxLayout* layoutQuellen = new QVBoxLayout();
 
-  QListView* sourcesView = new QListView();
+  sourcesView = new QListView();
   sourcesView->setModel(model->sources);
   layoutQuellen->addWidget(sourcesView);
 
@@ -72,8 +73,43 @@ WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidge
 }
 
 void WatersourceWindow::selectSource(const QModelIndex& index) {
-  selected = index.row();
-  waterEdit->setProfile(model->sources->getProfile(selected));
+  if (selected == index.row()) {  // same row selected again => do noting
+    return;
+  }
+  if (waterEdit->isChanged()) {
+    QMessageBox msgBox;
+    msgBox.setText(tr("Änderungen speichern?"));
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Cancel);
+    int ret = msgBox.exec();
+    switch (ret) {
+      case QMessageBox::Save:
+        // Save, then siwtch source
+        waterEdit->save();
+        selected = index.row();
+        waterEdit->setProfile(model->sources->getProfile(selected));
+        break;
+      case QMessageBox::Discard:
+        // Just switch to new selection
+        selected = index.row();
+        waterEdit->setProfile(model->sources->getProfile(selected));
+        break;
+      case QMessageBox::Cancel:
+        // Do not change selection
+        // TODO set back selection in list view
+        if (this->sourcesView == nullptr) {
+          qDebug() << "View is null!!";
+        }
+        sourcesView->setCurrentIndex(sourcesView->model()->index(selected, 0));
+        break;
+      default:
+        // should never be reached
+        break;
+    }
+  } else {
+    selected = index.row();
+    waterEdit->setProfile(model->sources->getProfile(selected));
+  }
 }
 
 void WatersourceWindow::saveProfile(WaterProfile& profile) {
