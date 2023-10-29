@@ -3,6 +3,8 @@
 
 #include "mainmodel.h"
 
+#include "model/jsonhelper.h"
+
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
@@ -18,51 +20,29 @@ MainModel::MainModel() {
   sources = new WaterSources();
   sourcesFile = configDir + "/sources.json";
   if (QFile::exists(sourcesFile)) {
-    sources->fromJson(loadJson(sourcesFile));
+    sources->fromJson(JsonHelper::loadFile(sourcesFile));
   }
 
   additiveFile = configDir + "/additive.json";
   if (QFile::exists(sourcesFile)) {
-    additive = new Additive(Additive::fromJson(loadJson(additiveFile)));
+    additive = new Additive(Additive::fromJson(JsonHelper::loadFile(additiveFile)));
   } else {
     additive = new Additive();
   }
 }
 
 void MainModel::saveSources() {
-  saveJson(sourcesFile, sources->toJson());
+  JsonHelper::saveFile(sourcesFile, sources->toJson());
 }
 
 void MainModel::saveSources(const QString& path) {
-  saveJson(path, sources->toJson());
+  JsonHelper::saveFile(path, sources->toJson());
 }
 
 void MainModel::saveAdditive() {
-  saveJson(additiveFile, additive->toJson());
+  JsonHelper::saveFile(additiveFile, additive->toJson());
 }
 
 void MainModel::saveAdditive(const QString& path) {
-  saveJson(path, additive->toJson());
-}
-
-QJsonObject MainModel::loadJson(const QString& path) {
-  QFile file(path);
-  if (!file.open(QIODevice::ReadOnly)) {
-    qWarning("Unable to open JSON file");
-    return QJsonObject();
-  }
-  QJsonDocument jsonDoc(QJsonDocument::fromJson(file.readAll()));
-  file.close();
-  return jsonDoc.object();
-}
-
-bool MainModel::saveJson(const QString& path, const QJsonObject& json) {
-  QFile file(path);
-  if (!file.open(QIODevice::WriteOnly)) {
-    qWarning("Unable to save JSON file");
-    return false;
-  }
-  file.write(QJsonDocument(json).toJson());
-  file.close();
-  return true;
+  JsonHelper::saveFile(path, additive->toJson());
 }
