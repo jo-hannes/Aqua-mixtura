@@ -5,6 +5,9 @@
 
 #include "model/mixture.h"
 #include "model/water.h"
+#include "view/additivewindow.h"
+#include "view/waterprofileview.h"
+#include "view/watersourcewindow.h"
 
 #include <QFrame>
 #include <QLabel>
@@ -33,10 +36,28 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   Water result = mix->calc();
 
   QVBoxLayout* mainL = new QVBoxLayout();
+  mainL->addWidget(new WaterProfileView(*wNbg, true), Qt::AlignTop);
+  mainL->addWidget(new WaterProfileView(*wDest, true), Qt::AlignTop);
+  mainL->addWidget(new QWidget());
+  mainL->addWidget(new WaterProfileView(result, true), Qt::AlignBottom);
 
   QWidget* mainWidget = new QWidget();
   mainWidget->setLayout(mainL);
-  setCentralWidget(mainWidget);
+
+  QScrollArea* scrollArea = new QScrollArea;
+  scrollArea->setWidget(mainWidget);
+
+  tabWidget = new QTabWidget;
+  // tabWidget->addTab(mainWidget, tr("Test"));
+  WatersourceWindow* wsource = new WatersourceWindow(model, this);
+  tabWidget->addTab(wsource, tr("Wasserquellen"));
+  AdditiveWindow* wadditive = new AdditiveWindow(model, this);
+  tabWidget->addTab(wadditive, tr("Zusatzstoffe"));
+  tabWidget->addTab(new QWidget, tr("Malze"));
+  tabWidget->addTab(new QWidget, tr("Bierstiele"));
+  tabWidget->addTab(scrollArea, tr("Aufbereitung"));
+
+  setCentralWidget(tabWidget);
 }
 
 MainWindow::~MainWindow() {}
