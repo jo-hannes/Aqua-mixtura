@@ -3,12 +3,16 @@
 
 #include "watersourcewindow.h"
 
+#include "../model/jsonhelper.h"
+
 #include <QDialogButtonBox>
+#include <QFileDialog>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QStandardPaths>
 #include <QVBoxLayout>
 
 WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidget(parent) {
@@ -95,11 +99,7 @@ void WatersourceWindow::selectSource(const QModelIndex& index) {
         waterEdit->setProfile(model->sources->getProfile(selected));
         break;
       case QMessageBox::Cancel:
-        // Do not change selection
-        // TODO set back selection in list view
-        if (this->sourcesView == nullptr) {
-          qDebug() << "View is null!!";
-        }
+        // Select previously selected item
         sourcesView->setCurrentIndex(sourcesView->model()->index(selected, 0));
         break;
       default:
@@ -116,7 +116,6 @@ void WatersourceWindow::saveProfile(WaterProfile& profile) {
   if (selected >= 0 && selected < model->sources->rowCount()) {
     model->sources->updateProfile(profile, selected);
     model->saveSources();
-    // sourcesView->update(); // for some reason this crashes
   }
 }
 
@@ -136,9 +135,41 @@ void WatersourceWindow::profileDelete() {
 }
 
 void WatersourceWindow::profileImport() {
-  qDebug() << "TODO WatersourceWindow::profileImport";
+  QString path = QFileDialog::getOpenFileName(this, tr("Wasserquelle Importieren"),
+                                              QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                              tr("JSON (*.json);; Any (*.*)"));
+  if (path.isEmpty()) {
+    return;
+  }
+  QJsonObject jsonSource = JsonHelper::loadFile(path);
+  if (jsonSource.contains("WaterSource")) {
+    WaterProfile wp = WaterProfile::fromJson(jsonSource["WaterSource"].toObject());
+    model->sources->addProfile(wp);
+  } else {
+    QMessageBox msgBox;
+    msgBox.setText(tr("Konnte Wasserquelle nicht im JSON finden"));
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+  }
 }
 
 void WatersourceWindow::profileExport() {
-  qDebug() << "TODO WatersourceWindow::profileExport";
+  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
+                              model->sources->getProfile(selected).getName() + ".json";
+  QString path =
+      QFileDialog::getSaveFileName(this, tr("Wasserquelle Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+  if (path.isEmpty()) {
+    return;
+  }
+  QJsonObject jsonSource;
+  jsonSource["WaterSource"] = model->sources->getProfile(selected).toJson();
+  bool success = JsonHelper::saveFile(path, jsonSource);
+  if (!success) {
+    QMessageBox msgBox;
+    msgBox.setText(tr("Konnte Wasserquelle nicht speichern"));
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+  }
 }
