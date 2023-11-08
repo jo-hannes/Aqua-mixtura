@@ -6,7 +6,11 @@
 
 #include "mainmodel.h"
 
+#include "view/additivewindow.h"
+#include "view/watersourcewindow.h"
+
 #include <QMainWindow>
+#include <QPushButton>
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -16,13 +20,26 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  private slots:
+  // menu slots
   void settings();
   void save();
   void about();
+
+  // button slots
+  void sources();
+  void additions();
+  void malts();
+  void styles();
+  void limits();
 
  private:
   void setupMenuBar();
   QTabWidget* tabWidget;
   MainModel* model;
+
+  WatersourceWindow* wsources;
+  AdditiveWindow* wadditives;
+
+  QPushButton *btnSources, *btnAdditions, *btnMalts, *btnStyles, *btnLimits;
 };
 #endif  // MAINWINDOW_H

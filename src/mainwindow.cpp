@@ -5,9 +5,7 @@
 
 #include "model/mixture.h"
 #include "model/water.h"
-#include "view/additivewindow.h"
 #include "view/waterprofileview.h"
-#include "view/watersourcewindow.h"
 
 #include <QFrame>
 #include <QLabel>
@@ -17,13 +15,55 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   setWindowTitle("Aqua mixtura");
 
-  // Entscheidung: Es wird deutsch verwendet!
-
   // initialize all models
   model = new MainModel();
 
   setupMenuBar();
 
+  // Headlines
+  QLabel* txtSettings = new QLabel(tr("Einstellungen"));
+  txtSettings->setStyleSheet("font-weight: bold");
+
+  QLabel* txtMix = new QLabel(tr("Aufbereitung"));
+  txtMix->setStyleSheet("font-weight: bold");
+
+  // settings
+  QVBoxLayout* btnLayout = new QVBoxLayout();
+  btnLayout->addWidget(txtSettings);
+  btnSources = new QPushButton(tr("Wasserquellen"));
+  QObject::connect(btnSources, &QPushButton::pressed, this, &MainWindow::sources);
+  btnLayout->addWidget(btnSources);
+  btnAdditions = new QPushButton(tr("Zusatzstoffe"));
+  QObject::connect(btnAdditions, &QPushButton::pressed, this, &MainWindow::additions);
+  btnLayout->addWidget(btnAdditions);
+  btnMalts = new QPushButton(tr("Malze"));
+  QObject::connect(btnMalts, &QPushButton::pressed, this, &MainWindow::malts);
+  btnLayout->addWidget(btnMalts);
+  btnStyles = new QPushButton(tr("Bierstile"));
+  QObject::connect(btnStyles, &QPushButton::pressed, this, &MainWindow::styles);
+  btnLayout->addWidget(btnStyles);
+  btnLimits = new QPushButton(tr("Beschränkungen"));
+  QObject::connect(btnLimits, &QPushButton::pressed, this, &MainWindow::limits);
+  btnLayout->addWidget(btnLimits);
+
+  // sticking it together
+  QGridLayout* mainLayout = new QGridLayout();
+  mainLayout->addWidget(txtSettings, 0, 0, Qt::AlignLeft | Qt::AlignTop);
+  mainLayout->addWidget(txtMix, 0, 1, Qt::AlignLeft | Qt::AlignTop);
+  mainLayout->addLayout(btnLayout, 1, 0);
+  // mainLayout->addLayout(btnLayount, 1, 1);
+  QWidget* mainWidget = new QWidget();
+  mainWidget->setLayout(mainLayout);
+
+  // create separate windows
+  wsources = new WatersourceWindow(model, this);
+  wsources->setWindowFlags(Qt::Window);
+  wadditives = new AdditiveWindow(model, this);
+  wadditives->setWindowFlags(Qt::Window);
+
+  setCentralWidget(mainWidget);
+
+  // Playground
   Mixture* mix = new Mixture();
   Water* wNbg = new Water("Leitungswasser", 30, 47, 14, 6.5, 199, 11, 17, 0.11, 0);
   Water* wDest = new Water("VE-Wasser", 10);
@@ -31,29 +71,19 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   mix->AddWater(*wDest);
   Water result = mix->calc();
 
-  QVBoxLayout* mainL = new QVBoxLayout();
-  mainL->addWidget(new WaterProfileView(*wNbg, true), Qt::AlignTop);
-  mainL->addWidget(new WaterProfileView(*wDest, true), Qt::AlignTop);
-  mainL->addWidget(new QWidget());
-  mainL->addWidget(new WaterProfileView(result, true), Qt::AlignBottom);
+  QVBoxLayout* mixL = new QVBoxLayout();
+  mixL->addWidget(new WaterProfileView(*wNbg, true), Qt::AlignTop);
+  mixL->addWidget(new WaterProfileView(*wDest, true), Qt::AlignTop);
+  mixL->addWidget(new QWidget());
+  mixL->addWidget(new WaterProfileView(result, true), Qt::AlignBottom);
 
-  QWidget* mainWidget = new QWidget();
-  mainWidget->setLayout(mainL);
+  QWidget* mixWidget = new QWidget();
+  mixWidget->setLayout(mixL);
 
   QScrollArea* scrollArea = new QScrollArea;
-  scrollArea->setWidget(mainWidget);
-
-  tabWidget = new QTabWidget;
-  // tabWidget->addTab(mainWidget, tr("Test"));
-  WatersourceWindow* wsource = new WatersourceWindow(model, this);
-  tabWidget->addTab(wsource, tr("Wasserquellen"));
-  AdditiveWindow* wadditive = new AdditiveWindow(model, this);
-  tabWidget->addTab(wadditive, tr("Zusatzstoffe"));
-  tabWidget->addTab(new QWidget, tr("Malze"));
-  tabWidget->addTab(new QWidget, tr("Bierstiele"));
-  tabWidget->addTab(scrollArea, tr("Aufbereitung"));
-
-  setCentralWidget(tabWidget);
+  scrollArea->setWidget(mixWidget);
+  scrollArea->setWindowFlags(Qt::Window);
+  scrollArea->show();
 }
 
 MainWindow::~MainWindow() {}
@@ -68,6 +98,26 @@ void MainWindow::save() {
 
 void MainWindow::about() {
   QMessageBox::about(this, tr("About"), tr("TODO about this app"));
+}
+
+void MainWindow::sources() {
+  wsources->show();
+}
+
+void MainWindow::additions() {
+  wadditives->show();
+}
+
+void MainWindow::malts() {
+  QMessageBox::information(this, "malts", "TODO malts");
+}
+
+void MainWindow::styles() {
+  QMessageBox::information(this, "styles", "TODO styles");
+}
+
+void MainWindow::limits() {
+  QMessageBox::information(this, "limits", "TODO limits");
 }
 
 void MainWindow::setupMenuBar() {
