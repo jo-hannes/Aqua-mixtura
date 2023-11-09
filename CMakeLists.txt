@@ -31,16 +31,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/mainmodel.h src/mainmodel.cpp
         src/model/additive.h src/model/additive.cpp
         src/model/jsonhelper.h src/model/jsonhelper.cpp
+        src/model/malt.h src/model/malt.cpp
         src/model/mixture.h src/model/mixture.cpp
         src/model/water.h src/model/water.cpp
         src/model/waterprofile.h src/model/waterprofile.cpp
-        src/view/waterprofileedit.h src/view/waterprofileedit.cpp
-        src/view/waterprofileview.h src/view/waterprofileview.cpp
-        src/view/watersourcewindow.h src/view/watersourcewindow.cpp
-        src/view/watersourcewindow.h src/view/watersourcewindow.cpp
         src/model/watersources.h src/model/watersources.cpp
         src/view/additivewindow.h src/view/additivewindow.cpp
         src/view/waterprofileedit.h src/view/waterprofileedit.cpp
+        src/view/waterprofileview.h src/view/waterprofileview.cpp
         src/view/watersourcewindow.h src/view/watersourcewindow.cpp
     )
 # Define target properties for Android with Qt 6 as:
