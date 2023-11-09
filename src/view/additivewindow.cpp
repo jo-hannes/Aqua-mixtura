@@ -109,10 +109,6 @@ AdditiveWindow::AdditiveWindow(MainModel* model, QWidget* parent) : QWidget{pare
   QObject::connect(caco3Check, &QCheckBox::stateChanged, this, &AdditiveWindow::valChangeCaco3Checked);
   QObject::connect(caco3, &QDoubleSpinBox::valueChanged, this, &AdditiveWindow::valChangeCaco3);
 
-  QLabel* spacer = new QLabel();
-  spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  layout->addWidget(spacer, row++, 0, 1, -1, Qt::AlignCenter);
-
   // buttons
   QDialogButtonBox* btnBox = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Cancel);
   QObject::connect(btnBox, &QDialogButtonBox::accepted, this, &AdditiveWindow::save);

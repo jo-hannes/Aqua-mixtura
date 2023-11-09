@@ -21,29 +21,26 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   setupMenuBar();
 
   // Headlines
-  QLabel* txtSettings = new QLabel(tr("Einstellungen"));
-  txtSettings->setStyleSheet("font-weight: bold");
-
-  QLabel* txtMix = new QLabel(tr("Aufbereitung"));
-  txtMix->setStyleSheet("font-weight: bold");
+  QLabel* txtSettings = new QLabel("<b>" + tr("Einstellungen") + "</b>");
+  QLabel* txtMix = new QLabel("<b>" + tr("Aufbereitung") + "</b>");
 
   // settings
   QVBoxLayout* btnLayout = new QVBoxLayout();
   btnLayout->addWidget(txtSettings);
   btnSources = new QPushButton(tr("Wasserquellen"));
-  QObject::connect(btnSources, &QPushButton::pressed, this, &MainWindow::sources);
+  QObject::connect(btnSources, &QPushButton::clicked, this, &MainWindow::sources);
   btnLayout->addWidget(btnSources);
   btnAdditions = new QPushButton(tr("Zusatzstoffe"));
-  QObject::connect(btnAdditions, &QPushButton::pressed, this, &MainWindow::additions);
+  QObject::connect(btnAdditions, &QPushButton::clicked, this, &MainWindow::additions);
   btnLayout->addWidget(btnAdditions);
   btnMalts = new QPushButton(tr("Malze"));
-  QObject::connect(btnMalts, &QPushButton::pressed, this, &MainWindow::malts);
+  QObject::connect(btnMalts, &QPushButton::clicked, this, &MainWindow::malts);
   btnLayout->addWidget(btnMalts);
   btnStyles = new QPushButton(tr("Bierstile"));
-  QObject::connect(btnStyles, &QPushButton::pressed, this, &MainWindow::styles);
+  QObject::connect(btnStyles, &QPushButton::clicked, this, &MainWindow::styles);
   btnLayout->addWidget(btnStyles);
   btnLimits = new QPushButton(tr("Beschränkungen"));
-  QObject::connect(btnLimits, &QPushButton::pressed, this, &MainWindow::limits);
+  QObject::connect(btnLimits, &QPushButton::clicked, this, &MainWindow::limits);
   btnLayout->addWidget(btnLimits);
 
   // sticking it together
@@ -80,7 +77,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   QWidget* mixWidget = new QWidget();
   mixWidget->setLayout(mixL);
 
-  QScrollArea* scrollArea = new QScrollArea;
+  QScrollArea* scrollArea = new QScrollArea(this);
   scrollArea->setWidget(mixWidget);
   scrollArea->setWindowFlags(Qt::Window);
   scrollArea->show();
