@@ -32,6 +32,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/model/additive.h src/model/additive.cpp
         src/model/jsonhelper.h src/model/jsonhelper.cpp
         src/model/malt.h src/model/malt.cpp
+        src/model/malts.h src/model/malts.cpp
         src/model/mixture.h src/model/mixture.cpp
         src/model/water.h src/model/water.cpp
         src/model/waterprofile.h src/model/waterprofile.cpp
