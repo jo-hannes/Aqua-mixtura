@@ -5,6 +5,12 @@
 
 #include <math.h>
 
+Malt::Malt(QString name, float mass, float ebc, float ph) : name(name) {
+  setMass(mass);
+  setEbc(ebc);
+  setPh(ph);
+}
+
 QString Malt::getName() const {
   return name;
 }

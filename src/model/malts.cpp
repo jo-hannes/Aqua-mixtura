@@ -10,6 +10,10 @@
 #include <QFile>
 #include <QJsonDocument>
 
+Malts::Malts() {
+  unsavedChanges = false;
+}
+
 bool Malts::fromJson(const QJsonObject& json) {
   if (!json.contains("Malts")) {
     qWarning("No valid malts in JSON found");
@@ -24,6 +28,7 @@ bool Malts::fromJson(const QJsonObject& json) {
   for (const auto& malt : jsonMalts.toArray()) {
     malts.append(Malt::fromJson(malt.toObject()));
   }
+  setUnsaved(false);
   return true;
 }
 
@@ -46,7 +51,8 @@ bool Malts::importMalt(const QString& path) {
     return false;
   }
   Malt m = Malt::fromJson(jsonMalt["Malt"].toObject());
-  malts.append(m);
+  addMalt(m);
+  setUnsaved(true);
   return true;
 }
 
@@ -74,6 +80,7 @@ void Malts::updateMalt(Malt& malt, qsizetype i) {
   if (i >= 0 && i < malts.size()) {
     malts.replace(i, malt);
     emit dataChanged(index(i, 0), index(i, 3));
+    setUnsaved(true);
   }
 }
 
@@ -82,6 +89,7 @@ void Malts::addMalt(Malt& malt) {
   beginInsertRows(QModelIndex(), i, i);
   malts.append(malt);
   endInsertRows();
+  setUnsaved(true);
 }
 
 void Malts::deleteMalt(qsizetype i) {
@@ -89,7 +97,23 @@ void Malts::deleteMalt(qsizetype i) {
     beginRemoveRows(QModelIndex(), i, i);
     malts.removeAt(i);
     endRemoveRows();
+    setUnsaved(true);
   }
+}
+
+void Malts::setMalts(const QVector<Malt>& newMalts) {
+  beginResetModel();
+  malts = newMalts;
+  endResetModel();
+  setUnsaved(false);
+}
+
+QVector<Malt>& Malts::getMalts() {
+  return malts;
+}
+
+void Malts::setSaved() {
+  setUnsaved(false);
 }
 
 int Malts::rowCount(const QModelIndex& parent) const {
@@ -147,4 +171,49 @@ QVariant Malts::headerData(int section, Qt::Orientation orientation, int role) c
     }
   } else
     return QString("Row %1").arg(section);
+}
+
+bool Malts::setData(const QModelIndex& index, const QVariant& value, int role) {
+  if (!index.isValid()) {
+    return false;
+  }
+  if (index.row() < 0 || index.row() >= malts.size()) {
+    return false;
+  }
+  if (role != Qt::EditRole) {
+    return false;
+  }
+  switch (index.column()) {
+    case 0:
+      malts[index.row()].setName(value.toString());
+      break;
+    case 1:
+      malts[index.row()].setMass(value.toFloat());
+      break;
+    case 2:
+      malts[index.row()].setEbc(value.toFloat());
+      break;
+    case 3:
+      malts[index.row()].setPh(value.toFloat());
+      break;
+    default:
+      return false;
+      break;
+  }
+  setUnsaved(true);
+  return true;
+}
+
+Qt::ItemFlags Malts::flags(const QModelIndex& index) const {
+  if (!index.isValid()) {
+    return Qt::NoItemFlags;
+  }
+  return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+}
+
+void Malts::setUnsaved(bool unsaved) {
+  if (this->unsavedChanges != unsaved) {
+    this->unsavedChanges = unsaved;
+    emit unsavedMalts(unsaved);
+  }
 }

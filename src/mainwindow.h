@@ -7,6 +7,7 @@
 #include "mainmodel.h"
 
 #include "view/additivewindow.h"
+#include "view/maltwindow.h"
 #include "view/watersourcewindow.h"
 
 #include <QMainWindow>
@@ -25,21 +26,26 @@ class MainWindow : public QMainWindow {
   void save();
   void about();
 
-  // button slots
-  void sources();
-  void additions();
-  void malts();
-  void styles();
-  void limits();
+  // button + unsaved slots
+  void sources();                  /**< @brief Slot to show window with water sources */
+  void additions();                /**< @brief Slot to show window with additives */
+  void malts();                    /**< @brief Slot to show window with malts */
+  void unsavedMalts(bool unsaved); /**< @brief Slot for indicating of unsaved changes exist */
+  void styles();                   /**< @brief Slot to show window with beer styles */
+  void limits();                   /**< @brief Slot to show window with limits */
 
  private:
-  void setupMenuBar();
-  QTabWidget* tabWidget;
-  MainModel* model;
+  void setupMenuBar(); /**< @brief Creates menu bor for main window */
+  MainModel* model;    /**< @brief Pointer to main model */
 
-  WatersourceWindow* wsources;
-  AdditiveWindow* wadditives;
+  WatersourceWindow* wsources; /**< @brief Window for editing water sources */
+  AdditiveWindow* wadditives;  /**< @brief Window for editing additives */
 
-  QPushButton *btnSources, *btnAdditions, *btnMalts, *btnStyles, *btnLimits;
+  MaltWindow* wmalts;    /**< @brief Window for editing malts */
+  QString txtMalts;      /**< @brief Text of malt window button */
+  QPushButton* btnMalts; /**< @brief Button for opening malt window */
+
+  // Pointer to all buttons
+  QPushButton *btnSources, *btnAdditions, *btnStyles, *btnLimits;
 };
 #endif  // MAINWINDOW_H

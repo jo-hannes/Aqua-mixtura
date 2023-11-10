@@ -29,6 +29,12 @@ MainModel::MainModel() {
   } else {
     additive = new Additive();
   }
+
+  malts = new Malts();
+  maltsFile = configDir + "/malts.json";
+  if (QFile::exists(maltsFile)) {
+    malts->fromJson(JsonHelper::loadFile(maltsFile));
+  }
 }
 
 void MainModel::saveSources() {
@@ -45,4 +51,12 @@ void MainModel::saveAdditive() {
 
 void MainModel::saveAdditive(const QString& path) {
   JsonHelper::saveFile(path, additive->toJson());
+}
+
+void MainModel::saveMalts() {
+  JsonHelper::saveFile(maltsFile, malts->toJson());
+}
+
+void MainModel::saveMalts(const QString& path) {
+  JsonHelper::saveFile(path, malts->toJson());
 }

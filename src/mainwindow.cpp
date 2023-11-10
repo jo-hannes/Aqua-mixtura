@@ -33,9 +33,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   btnAdditions = new QPushButton(tr("Zusatzstoffe"));
   QObject::connect(btnAdditions, &QPushButton::clicked, this, &MainWindow::additions);
   btnLayout->addWidget(btnAdditions);
-  btnMalts = new QPushButton(tr("Malze"));
+
+  txtMalts = tr("Malze");
+  btnMalts = new QPushButton(txtMalts);
   QObject::connect(btnMalts, &QPushButton::clicked, this, &MainWindow::malts);
   btnLayout->addWidget(btnMalts);
+
   btnStyles = new QPushButton(tr("Bierstile"));
   QObject::connect(btnStyles, &QPushButton::clicked, this, &MainWindow::styles);
   btnLayout->addWidget(btnStyles);
@@ -57,6 +60,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wsources->setWindowFlags(Qt::Window);
   wadditives = new AdditiveWindow(model, this);
   wadditives->setWindowFlags(Qt::Window);
+  wmalts = new MaltWindow(model, this);
+  wmalts->setWindowFlags(Qt::Window);
+  QObject::connect(wmalts, &MaltWindow::maltWindowUnsavedChanges, this, &MainWindow::unsavedMalts);
 
   setCentralWidget(mainWidget);
 
@@ -106,7 +112,15 @@ void MainWindow::additions() {
 }
 
 void MainWindow::malts() {
-  QMessageBox::information(this, "malts", "TODO malts");
+  wmalts->show();
+}
+
+void MainWindow::unsavedMalts(bool unsaved) {
+  if (unsaved) {
+    btnMalts->setText("* " + txtMalts);
+  } else {
+    btnMalts->setText(txtMalts);
+  }
 }
 
 void MainWindow::styles() {

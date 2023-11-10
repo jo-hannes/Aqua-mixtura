@@ -5,5 +5,8 @@
         <file>document-duplicate.svg</file>
         <file>document-minus.svg</file>
         <file>document-plus.svg</file>
+        <file>archive-box-arrow-down.svg</file>
+        <file>archive-box-x-mark.svg</file>
+        <file>archive-box.svg</file>
     </qresource>
 </RCC>

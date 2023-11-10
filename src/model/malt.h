@@ -11,12 +11,14 @@ class Malt
 {
   // Malzberechnung kommt später!
  public:
-  Malt() {}
-  Malt(QString name, float mass, float ebc, float ph) : name(name) {
-    setMass(mass);
-    setEbc(ebc);
-    setPh(ph);
-  }
+  /**
+   * @brief Constructor for Malt
+   * @param name Malt name
+   * @param mass Malt amount in kg
+   * @param ebc Malt color in EBC
+   * @param ph pH of malt in purified water
+   */
+  Malt(QString name = "", float mass = 0, float ebc = 0, float ph = 7);
 
   // getter und setter
   QString getName() const;

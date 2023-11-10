@@ -5,6 +5,7 @@
 #define MAINMODEL_H
 
 #include "model/additive.h"
+#include "model/malts.h"
 #include "model/watersources.h"
 
 #include <QJsonObject>
@@ -20,9 +21,12 @@ class MainModel
   void saveAdditive();
   void saveAdditive(const QString& path);
 
+  void saveMalts();
+  void saveMalts(const QString& path);
+
   WaterSources* sources;
   Additive* additive;
-  // malts (for a later version)
+  Malts* malts;
   // (beer)styles
   // mixtures
  private:
@@ -30,6 +34,7 @@ class MainModel
   QString configDir;
   QString sourcesFile;
   QString additiveFile;
+  QString maltsFile;
 };
 
 #endif // MAINMODEL_H
