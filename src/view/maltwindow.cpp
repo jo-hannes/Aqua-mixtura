@@ -1,5 +1,7 @@
 #include "maltwindow.h"
 
+#include "malttabledelegate.h"
+
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QHBoxLayout>
@@ -25,6 +27,8 @@ MaltWindow::MaltWindow(MainModel* model, QWidget* parent) : QWidget{parent} {
   maltsView = new QTableView();
   maltsView->setModel(volatileMalts);
   maltsView->verticalHeader()->setVisible(false);
+  MaltTableDelegate* delegate = new MaltTableDelegate();
+  maltsView->setItemDelegate(delegate);
   maltsView->hideColumn(1);  // Hide mass column, not needed here
   mainLayout->addWidget(maltsView);
 
