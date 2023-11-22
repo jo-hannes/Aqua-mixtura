@@ -1,0 +1,33 @@
+#ifndef MALTPHEDIT_H
+#define MALTPHEDIT_H
+
+#include <QDoubleSpinBox>
+#include <QLabel>
+#include <QWidget>
+
+class MaltPhEdit : public QWidget
+{
+  Q_OBJECT
+ public:
+  explicit MaltPhEdit(QWidget* parent = nullptr);
+
+  // QSize sizeHint() const override;
+
+  void setPh(float newPh);
+  void setEbc(float newEbc);
+  void setData(float newPh, float newEbc);
+  float pH() const;
+
+ private slots:
+  void usePhMalt();
+  void usePhCaramalz();
+  void usePhRoestmalz();
+
+ private:
+  float ebc;
+
+  QLabel *phMalt, *phCaramalz, *phRoestmalz, *ebcLabel;
+  QDoubleSpinBox* phSpinBox;
+};
+
+#endif // MALTPHEDIT_H

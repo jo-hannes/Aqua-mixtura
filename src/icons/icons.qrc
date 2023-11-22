@@ -8,5 +8,8 @@
         <file>archive-box-arrow-down.svg</file>
         <file>archive-box-x-mark.svg</file>
         <file>archive-box.svg</file>
+        <file>arrow-down-right.svg</file>
+        <file>arrow-right.svg</file>
+        <file>arrow-up-right.svg</file>
     </qresource>
 </RCC>
