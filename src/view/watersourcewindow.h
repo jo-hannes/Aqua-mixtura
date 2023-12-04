@@ -28,7 +28,7 @@ class WatersourceWindow : public QWidget {
 
  public slots:
   void selectSource(const QModelIndex& index); /**< @brief Select source at index for profile editor */
-  void saveProfile(WaterProfile& profile);     /**< @brief Save changed profile */
+  void saveProfile(Water& profile);            /**< @brief Save changed profile */
 
   void profileAdd();    /**< @brief Add a new profile */
   void profileCopy();   /**< @brief Copy a existing profile */

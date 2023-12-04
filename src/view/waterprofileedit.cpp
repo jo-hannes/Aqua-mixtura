@@ -98,7 +98,7 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   this->setLayout(layout);
 }
 
-void WaterProfileEdit::setProfile(const WaterProfile& profile) {
+void WaterProfileEdit::setProfile(const Water& profile) {
   givenProfile = profile;
   volatileProfile = profile;
   updateAll();

@@ -5,7 +5,6 @@
 #define WATERPROFILEVIEW_H
 
 #include "../model/water.h"
-#include "../model/waterprofile.h"
 
 #include <QLabel>
 #include <QObject>
@@ -16,10 +15,9 @@ class WaterProfileView : public QWidget {
 
  public:
   explicit WaterProfileView(QWidget* parent = nullptr);
-  explicit WaterProfileView(const WaterProfile& profile, bool showHeader = true, QWidget* parent = nullptr);
   explicit WaterProfileView(const Water& water, bool showHeader = true, QWidget* parent = nullptr);
 
-  void setProfile(const WaterProfile& profile);
+  void setProfile(const Water& profile);
   void setWater(const Water& water);
   void showHeader(bool show);
 

@@ -35,7 +35,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/model/malts.h src/model/malts.cpp
         src/model/mixture.h src/model/mixture.cpp
         src/model/water.h src/model/water.cpp
-        src/model/waterprofile.h src/model/waterprofile.cpp
         src/model/watersources.h src/model/watersources.cpp
         src/view/additivewindow.h src/view/additivewindow.cpp
         src/view/maltphedit.h src/view/maltphedit.cpp

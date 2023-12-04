@@ -4,7 +4,7 @@
 #ifndef WATERSOURCES_H
 #define WATERSOURCES_H
 
-#include "waterprofile.h"
+#include "water.h"
 
 #include <QAbstractListModel>
 #include <QAbstractTableModel>
@@ -18,14 +18,14 @@ class WaterSources : public QAbstractTableModel {
   WaterSources();
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief convert JSON to WaterProfile */
-  QJsonObject toJson() const;             /**< @brief convert this WaterProfile to JSON */
+  bool fromJson(const QJsonObject& json); /**< @brief convert JSON to WaterSources */
+  QJsonObject toJson() const;             /**< @brief convert this WaterSources to JSON */
 
   // bool import(const QString& path);
 
-  const WaterProfile& getProfile(qsizetype i);            /**< @brief Get water profile at index */
-  void updateProfile(WaterProfile& profile, qsizetype i); /**< @brief Update water profile at index */
-  void addProfile(WaterProfile& profile);                 /**< @brief Add a water profile */
+  const Water& getProfile(qsizetype i);                   /**< @brief Get water profile at index */
+  void updateProfile(Water& profile, qsizetype i);        /**< @brief Update water profile at index */
+  void addProfile(Water& profile);                        /**< @brief Add a water profile */
   void deleteProfile(qsizetype i);                        /**< @brief Delete water profile at index */
 
   // for QAbstractTableModel, see QT documentation for details
@@ -35,8 +35,8 @@ class WaterSources : public QAbstractTableModel {
   QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
  private:
-  QVector<WaterProfile> sources;
-  WaterProfile noProfile;
+  QVector<Water> sources;
+  Water noWater;
 };
 
 #endif // WATERSOURCES_H

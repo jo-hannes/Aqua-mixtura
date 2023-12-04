@@ -156,18 +156,12 @@ WaterProfileView::WaterProfileView(QWidget* parent) : QWidget(parent) {
   this->setLayout(layout);
 }
 
-WaterProfileView::WaterProfileView(const WaterProfile& profile, bool showHeader, QWidget* parent)
-    : WaterProfileView(parent) {
-  this->setProfile(profile);
-  this->showHeader(showHeader);
-}
-
 WaterProfileView::WaterProfileView(const Water& water, bool showHeader, QWidget* parent) : WaterProfileView(parent) {
   this->setWater(water);
   this->showHeader(showHeader);
 }
 
-void WaterProfileView::setProfile(const WaterProfile& profile) {
+void WaterProfileView::setProfile(const Water& profile) {
   name->setText(profile.getName());
   amount->setText("");
   calcium->setText(QString::number(profile.getCalzium(), 'f', 2));
@@ -188,8 +182,23 @@ void WaterProfileView::setProfile(const WaterProfile& profile) {
 }
 
 void WaterProfileView::setWater(const Water& water) {
-  setProfile(water);
-  amount->setText(QString::number(water.getMenge(), 'f', 2));
+  name->setText(water.getName());
+  amount->setText(QString::number(water.getVolume(), 'f', 2));
+  calcium->setText(QString::number(water.getCalzium(), 'f', 2));
+  magnesium->setText(QString::number(water.getMagnesium(), 'f', 2));
+  natrium->setText(QString::number(water.getNatrium(), 'f', 2));
+  hydrogencarbonat->setText(QString::number(water.getHydrogencarbonat(), 'f', 2));
+  chlorid->setText(QString::number(water.getChlorid(), 'f', 2));
+  sulfat->setText(QString::number(water.getSulfat(), 'f', 2));
+  phosphat->setText(QString::number(water.getPhosphat(), 'f', 2));
+  lactat->setText(QString::number(water.getLactat(), 'f', 2));
+  restalkallität->setText(QString::number(water.getRestalkalitaet(), 'f', 2));
+  gesammtHaerte->setText(QString::number(water.getGesamthaerte(), 'f', 2));
+  carbonHaerte->setText(QString::number(water.getCarbonhaerte(), 'f', 2));
+  caHaerte->setText(QString::number(water.getCaHaerte(), 'f', 2));
+  mgHaerte->setText(QString::number(water.getMgHaerte(), 'f', 2));
+  nichtcarbonHaerte->setText(QString::number(water.getNichtCarbonhaerte(), 'f', 2));
+  so4cl->setText(QString::number(water.getSO4ClVerhaeltnis(), 'f', 2));
 }
 
 void WaterProfileView::showHeader(bool show) {

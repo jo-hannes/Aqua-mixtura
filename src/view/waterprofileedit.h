@@ -4,7 +4,7 @@
 #ifndef WATERPROFILEEDIT_H
 #define WATERPROFILEEDIT_H
 
-#include "../model/waterprofile.h"
+#include "../model/water.h"
 
 #include <QDoubleSpinBox>
 #include <QGridLayout>
@@ -20,7 +20,7 @@ class WaterProfileEdit : public QWidget
  public:
   explicit WaterProfileEdit(QWidget* parent = nullptr);
 
-  void setProfile(const WaterProfile& profile);
+  void setProfile(const Water& profile);
   bool isChanged() const;
 
  public slots:
@@ -41,13 +41,13 @@ class WaterProfileEdit : public QWidget
   void valChangeLactat(double val);
 
  signals:
-  void saveProfile(WaterProfile& profile); /**< @brief Send signal with profile we want to save */
+  void saveProfile(Water& profile); /**< @brief Send signal with profile we want to save */
 
  private:
   void addEditableValue(int row, QDoubleSpinBox* spinBox, QString text, QString unit);
   void addCalculatedValue(int row, QLabel* value, QString text, QString unit);
   bool changed;
-  WaterProfile givenProfile, volatileProfile;
+  Water givenProfile, volatileProfile;
 
   QGridLayout* layout;
   QLineEdit* name;

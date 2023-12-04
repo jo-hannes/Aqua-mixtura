@@ -18,7 +18,7 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   }
   sources.clear();
   for (const auto& profile : jsonSources.toArray()) {
-    sources.append(WaterProfile::fromJson(profile.toObject()));
+    sources.append(Water::fromJson(profile.toObject()));
   }
   return true;
 }
@@ -26,30 +26,29 @@ bool WaterSources::fromJson(const QJsonObject& json) {
 QJsonObject WaterSources::toJson() const {
   QJsonArray jsonSrcArray;
   for (const auto& src : sources) {
-    jsonSrcArray.append(src.toJson());
+    jsonSrcArray.append(src.profileToJson());
   }
   QJsonObject jsonSources;
   jsonSources["WaterSources"] = jsonSrcArray;
   return jsonSources;
 }
 
-const WaterProfile& WaterSources::getProfile(qsizetype i) {
+const Water& WaterSources::getProfile(qsizetype i) {
   if (i >= 0 && i < sources.size()) {
     return sources.at(i);
   } else {
-    return noProfile;
+    return noWater;
   }
 }
 
-void WaterSources::updateProfile(WaterProfile& profile, qsizetype i) {
+void WaterSources::updateProfile(Water& profile, qsizetype i) {
   if (i >= 0 && i < sources.size()) {
     sources.replace(i, profile);
     emit dataChanged(index(i, 0), index(i, 1));
   }
 }
 
-void WaterSources::addProfile(WaterProfile &profile)
-{
+void WaterSources::addProfile(Water& profile) {
   qsizetype i = sources.size();
   beginInsertRows(QModelIndex(), i, i);
   sources.append(profile);

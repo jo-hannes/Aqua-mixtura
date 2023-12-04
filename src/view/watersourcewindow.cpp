@@ -112,7 +112,7 @@ void WatersourceWindow::selectSource(const QModelIndex& index) {
   }
 }
 
-void WatersourceWindow::saveProfile(WaterProfile& profile) {
+void WatersourceWindow::saveProfile(Water& profile) {
   if (selected >= 0 && selected < model->sources->rowCount()) {
     model->sources->updateProfile(profile, selected);
     model->saveSources();
@@ -120,12 +120,12 @@ void WatersourceWindow::saveProfile(WaterProfile& profile) {
 }
 
 void WatersourceWindow::profileAdd() {
-  WaterProfile newProfile("New");
+  Water newProfile("New");
   model->sources->addProfile(newProfile);
 }
 
 void WatersourceWindow::profileCopy() {
-  WaterProfile newProfile = model->sources->getProfile(selected);
+  Water newProfile = model->sources->getProfile(selected);
   newProfile.setName("Copy of " + newProfile.getName());
   model->sources->addProfile(newProfile);
 }
@@ -143,7 +143,7 @@ void WatersourceWindow::profileImport() {
   }
   QJsonObject jsonSource = JsonHelper::loadFile(path);
   if (jsonSource.contains("WaterSource")) {
-    WaterProfile wp = WaterProfile::fromJson(jsonSource["WaterSource"].toObject());
+    Water wp = Water::fromJson(jsonSource["WaterSource"].toObject());
     model->sources->addProfile(wp);
   } else {
     QMessageBox msgBox;
