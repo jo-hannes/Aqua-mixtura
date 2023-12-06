@@ -9,13 +9,45 @@
 
 class Water {
  public:
+  /**
+   * @brief The Value enum
+   * Need to be sorted
+   * 1. Volume
+   * 2. Kationen
+   * 3. Anionen
+   * 4. Calculated
+   */
+  enum class Type {
+    Volume = 0,
+    Calcium,
+    Magnesium,
+    Natrium,
+    LastCation = Natrium,
+    Hydrogencarbonat,
+    Chlorid,
+    Sulfat,
+    Phosphat,
+    Lactat,
+    LastAnion = Lactat,
+    Restalkalitaet,
+    Gesamthaerte,
+    Carbonhaerte,
+    NichtCarbonhaerte,
+    CaHaerte,
+    MgHaerte,
+    SO4ClVerhaeltnis,
+    TypeSize
+  };
+
   Water();
-  Water(QString name, float menge = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
+  Water(QString name, float volume = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
         float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
 
   // getter und setter
   QString getName() const;
   void setName(const QString& newName);
+  float get(Type what) const;                          /**< @brief get requested value */
+  void set(Type what, float value);                    /**< @brief set given type with value */
   float getVolume() const;                             /**< @brief get Water volume in liter */
   void setVolume(float newMenge);                      /**< @brief set Water volume in liter */
   float getCalzium() const;                            /**< @brief set Calzium in mg/l */
@@ -102,17 +134,28 @@ class Water {
   Water& operator+=(const Water& rhs);
   Water operator+(const Water& rhs);
 
- protected:
+ private:
   QString name;
-  float volume;           /**< Water volume in liter */
-  float calzium;          /**< Calzium in milli Gramm pro Liter */
-  float magnesium;        /**< Magnesium in milli Gramm pro Liter */
-  float natrium;          /**< Natrium in milli Gramm pro Liter */
-  float hydrogencarbonat; /**< Hydrogencarbonat in milli Gramm pro Liter */
-  float chlorid;          /**< Chlorid in milli Gramm pro Liter */
-  float sulfat;           /**< Sulfat in milli Gramm pro Liter */
-  float phosphat;         /**< Phosphat in milli Gramm pro Liter */
-  float lactat;           /**< Lactat in milli Gramm pro Liter */
+  float values[static_cast<int>(Type::LastAnion) + 1];
+
+  // strings
+  // Need to match order of Value enum
+  // Strings are: unit, json key. For values not storred in json leave key empty
+  QString strings[static_cast<int>(Type::TypeSize)][2] = {{"l", "Volume"},
+                                                          {"mg/l", "Calzium"},
+                                                          {"mg/l", "Magnesium"},
+                                                          {"mg/l", "Natrium"},
+                                                          {"mg/l", "Hydrogencarbonat"},
+                                                          {"mg/l", "Chlorid"},
+                                                          {"mg/l", "Sulfat"},
+                                                          {"mg/l", "Phosphat"},
+                                                          {"mg/l", "Lactat"},
+                                                          {"°dH", ""},
+                                                          {"°dH", ""},
+                                                          {"°dH", ""},
+                                                          {"°dH", ""},
+                                                          {"°dH", ""},
+                                                          {"", ""}};
 };
 
 #endif // WATER_H

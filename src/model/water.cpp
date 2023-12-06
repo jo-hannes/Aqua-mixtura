@@ -7,18 +7,18 @@
 
 Water::Water() {}
 
-Water::Water(QString name, float menge, float calzium, float magnesium, float natrium, float hydrogencarbonat,
+Water::Water(QString name, float volume, float calzium, float magnesium, float natrium, float hydrogencarbonat,
              float chlorid, float sulfat, float phosphat, float lactat) {
   this->name = name;
-  this->volume = menge;
-  setCalzium(calzium);
-  setMagnesium(magnesium);
-  setNatrium(natrium);
-  setHydrogencarbonat(hydrogencarbonat);
-  setChlorid(chlorid);
-  setSulfat(sulfat);
-  setPhosphat(phosphat);
-  setLactat(lactat);
+  set(Type::Volume, volume);
+  set(Type::Calcium, calzium);
+  set(Type::Magnesium, magnesium);
+  set(Type::Natrium, natrium);
+  set(Type::Hydrogencarbonat, hydrogencarbonat);
+  set(Type::Chlorid, chlorid);
+  set(Type::Sulfat, sulfat);
+  set(Type::Phosphat, phosphat);
+  set(Type::Lactat, lactat);
 }
 
 QString Water::getName() const {
@@ -27,78 +27,109 @@ QString Water::getName() const {
 
 void Water::setName(const QString& newName) {
   name = newName;
+}
+
+float Water::get(Type what) const {
+  // stored values
+  if (what <= Type::LastAnion) {
+    return values[static_cast<uint>(what)];
+  }
+  // calculated values
+  switch (what) {
+    case Type::Gesamthaerte:
+      return getGesamthaerte();
+    case Type::CaHaerte:
+      return getCaHaerte();
+    case Type::MgHaerte:
+      return getMgHaerte();
+    case Type::Carbonhaerte:
+      return getCarbonhaerte();
+    case Type::Restalkalitaet:
+      return getRestalkalitaet();
+    case Type::SO4ClVerhaeltnis:
+      return getSO4ClVerhaeltnis();
+    default:
+      return -1;
+  }
+}
+
+void Water::set(Type what, float value) {
+  // only stored values
+  if (what <= Type::LastAnion) {
+    values[static_cast<uint>(what)] = value;
+  }
 };
 
 float Water::getVolume() const {
-  return volume;
+  return get(Type::Volume);
 }
 
 void Water::setVolume(float newMenge) {
-  volume = newMenge;
+  set(Type::Volume, newMenge);
 }
 
 float Water::getCalzium() const {
-  return calzium;
+  return get(Type::Calcium);
 }
 
 void Water::setCalzium(float newCalzium) {
-  calzium = newCalzium;
+  set(Type::Calcium, newCalzium);
 }
 
 float Water::getMagnesium() const {
-  return magnesium;
+  return get(Type::Magnesium);
 }
 
 void Water::setMagnesium(float newMagnesium) {
-  magnesium = newMagnesium;
+  set(Type::Magnesium, newMagnesium);
 }
 
 float Water::getNatrium() const {
-  return natrium;
+  return get(Type::Natrium);
 }
 
 void Water::setNatrium(float newNatrium) {
-  natrium = newNatrium;
+  set(Type::Natrium, newNatrium);
 }
 
 float Water::getHydrogencarbonat() const {
-  return hydrogencarbonat;
+  return get(Type::Hydrogencarbonat);
 }
 
 void Water::setHydrogencarbonat(float newHydrogencarbonat) {
-  hydrogencarbonat = newHydrogencarbonat;
+  set(Type::Hydrogencarbonat, newHydrogencarbonat);
 }
 
 float Water::getChlorid() const {
-  return chlorid;
+  return get(Type::Chlorid);
 }
 
 void Water::setChlorid(float newChlorid) {
-  chlorid = newChlorid;
+  set(Type::Chlorid, newChlorid);
 }
 
 float Water::getSulfat() const {
-  return sulfat;
+  return get(Type::Sulfat);
 }
 
 void Water::setSulfat(float newSulfat) {
-  sulfat = newSulfat;
+  set(Type::Sulfat, newSulfat);
 }
 
 float Water::getPhosphat() const {
-  return phosphat;
+  return get(Type::Phosphat);
 }
 
 void Water::setPhosphat(float newPhosphat) {
-  phosphat = newPhosphat;
+  set(Type::Phosphat, newPhosphat);
 }
 
 float Water::getLactat() const {
-  return lactat;
+  return get(Type::Lactat);
 }
 
 void Water::setLactat(float newLactat) {
-  lactat = newLactat;
+  set(Type::Lactat, newLactat);
 }
 
 float Water::getGesamthaerte() const {
@@ -106,15 +137,15 @@ float Water::getGesamthaerte() const {
 }
 
 float Water::getCaHaerte() const {
-  return 0.14 * calzium;
+  return 0.14 * get(Type::Calcium);
 }
 
 float Water::getMgHaerte() const {
-  return 0.23 * magnesium;
+  return 0.23 * get(Type::Magnesium);
 }
 
 float Water::getCarbonhaerte() const {
-  return hydrogencarbonat / 61.017 * 2.8;
+  return get(Type::Hydrogencarbonat) / 61.017 * 2.8;
 }
 
 float Water::getNichtCarbonhaerte() const {
@@ -122,8 +153,8 @@ float Water::getNichtCarbonhaerte() const {
 }
 
 float Water::getSO4ClVerhaeltnis() const {
-  if (chlorid != 0)
-    return sulfat / chlorid;
+  if (get(Type::Chlorid) != 0)
+    return get(Type::Sulfat) / get(Type::Chlorid);
   else
     return HUGE_VAL;
 }
@@ -135,49 +166,41 @@ float Water::getRestalkalitaet() const {
 Water Water::fromJson(const QJsonObject& json) {
   Water ret;
   ret.name = json["Name"].toString("");
-  ret.volume = json["volume"].toDouble(0);
-  ret.calzium = json["Calzium"].toDouble(0);
-  ret.magnesium = json["Magnesium"].toDouble(0);
-  ret.natrium = json["Natrium"].toDouble(0);
-  ret.hydrogencarbonat = json["Hydrogencarbonat"].toDouble(0);
-  ret.chlorid = json["Chlorid"].toDouble(0);
-  ret.sulfat = json["Sulfat"].toDouble(0);
-  ret.phosphat = json["Phosphat"].toDouble(0);
-  ret.lactat = json["Lactat"].toDouble(0);
+  for (int i = 0; i < static_cast<int>(Type::TypeSize); i++) {
+    const QString& key = ret.strings[i][1];
+    if (!key.isEmpty()) {
+      ret.values[i] = json[key].toDouble(0);
+    }
+  }
   return ret;
 }
 
 QJsonObject Water::toJson() const {
-  QJsonObject json = profileToJson();
-  json["volume"] = volume;
+  QJsonObject json;
+  json["Name"] = name;
+  for (int i = 0; i < static_cast<int>(Type::TypeSize); i++) {
+    const QString& key = strings[i][1];
+    if (!key.isEmpty()) {
+      json[key] = values[i];
+    }
+  }
   return json;
 }
 
 QJsonObject Water::profileToJson() const {
-  QJsonObject json;
-  json["Name"] = name;
-  json["Calzium"] = calzium;
-  json["Magnesium"] = magnesium;
-  json["Natrium"] = natrium;
-  json["Hydrogencarbonat"] = hydrogencarbonat;
-  json["Chlorid"] = chlorid;
-  json["Sulfat"] = sulfat;
-  json["Phosphat"] = phosphat;
-  json["Lactat"] = lactat;
+  QJsonObject json = toJson();
+  json.remove("Volume");  // no volue in profile
   return json;
 }
 
 Water& Water::operator+=(const Water& rhs) {
-  float wSum = this->volume + rhs.volume;
-  this->calzium = (this->calzium * this->volume + rhs.calzium * rhs.volume) / wSum;
-  this->magnesium = (this->magnesium * this->volume + rhs.magnesium * rhs.volume) / wSum;
-  this->natrium = (this->natrium * this->volume + rhs.natrium * rhs.volume) / wSum;
-  this->hydrogencarbonat = (this->hydrogencarbonat * this->volume + rhs.hydrogencarbonat * rhs.volume) / wSum;
-  this->chlorid = (this->chlorid * this->volume + rhs.chlorid * rhs.volume) / wSum;
-  this->sulfat = (this->sulfat * this->volume + rhs.sulfat * rhs.volume) / wSum;
-  this->phosphat = (this->phosphat * this->volume + rhs.phosphat * rhs.volume) / wSum;
-  this->lactat = (this->lactat * this->volume + rhs.lactat * rhs.volume) / wSum;
-  this->volume = wSum;
+  float volThis = this->values[static_cast<uint>(Type::Volume)];
+  float volRhs = rhs.values[static_cast<uint>(Type::Volume)];
+  float volSum = volThis + volRhs;
+  for (int i = static_cast<uint>(Type::Volume) + 1; i <= static_cast<int>(Type::LastCation); i++) {
+    this->values[i] = (this->values[i] * volThis + rhs.values[i] * volRhs) / volSum;
+  }
+  this->values[static_cast<uint>(Type::Volume)] = volSum;
   return *this;
 }
 
