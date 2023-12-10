@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+
 #include "maltwindow.h"
 
 #include "malttabledelegate.h"
@@ -29,7 +32,7 @@ MaltWindow::MaltWindow(MainModel* model, QWidget* parent) : QWidget{parent} {
   maltsView->verticalHeader()->setVisible(false);
   MaltTableDelegate* delegate = new MaltTableDelegate();
   maltsView->setItemDelegate(delegate);
-  maltsView->hideColumn(1);  // Hide mass column, not needed here
+  // maltsView->hideColumn(1);  // Hide mass column, not needed here
   mainLayout->addWidget(maltsView);
 
   // Buttons
