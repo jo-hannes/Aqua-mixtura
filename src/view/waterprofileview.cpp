@@ -164,41 +164,41 @@ WaterProfileView::WaterProfileView(const Water& water, bool showHeader, QWidget*
 void WaterProfileView::setProfile(const Water& profile) {
   name->setText(profile.getName());
   amount->setText("");
-  calcium->setText(QString::number(profile.get(Water::Type::Calcium), 'f', 2));
-  magnesium->setText(QString::number(profile.get(Water::Type::Magnesium), 'f', 2));
-  natrium->setText(QString::number(profile.get(Water::Type::Natrium), 'f', 2));
-  hydrogencarbonat->setText(QString::number(profile.get(Water::Type::Hydrogencarbonat), 'f', 2));
-  chlorid->setText(QString::number(profile.get(Water::Type::Chlorid), 'f', 2));
-  sulfat->setText(QString::number(profile.get(Water::Type::Sulfat), 'f', 2));
-  phosphat->setText(QString::number(profile.get(Water::Type::Phosphat), 'f', 2));
-  lactat->setText(QString::number(profile.get(Water::Type::Lactat), 'f', 2));
-  restalkallität->setText(QString::number(profile.get(Water::Type::Restalkalitaet), 'f', 2));
-  gesammtHaerte->setText(QString::number(profile.get(Water::Type::Gesamthaerte), 'f', 2));
-  carbonHaerte->setText(QString::number(profile.get(Water::Type::Carbonhaerte), 'f', 2));
-  caHaerte->setText(QString::number(profile.get(Water::Type::CaHaerte), 'f', 2));
-  mgHaerte->setText(QString::number(profile.get(Water::Type::MgHaerte), 'f', 2));
-  nichtcarbonHaerte->setText(QString::number(profile.get(Water::Type::NichtCarbonhaerte), 'f', 2));
-  so4cl->setText(QString::number(profile.get(Water::Type::SO4ClVerhaeltnis), 'f', 2));
+  calcium->setText(QString::number(profile.get(AM::WaterValue::Calcium), 'f', 2));
+  magnesium->setText(QString::number(profile.get(AM::WaterValue::Magnesium), 'f', 2));
+  natrium->setText(QString::number(profile.get(AM::WaterValue::Natrium), 'f', 2));
+  hydrogencarbonat->setText(QString::number(profile.get(AM::WaterValue::Hydrogencarbonat), 'f', 2));
+  chlorid->setText(QString::number(profile.get(AM::WaterValue::Chlorid), 'f', 2));
+  sulfat->setText(QString::number(profile.get(AM::WaterValue::Sulfat), 'f', 2));
+  phosphat->setText(QString::number(profile.get(AM::WaterValue::Phosphat), 'f', 2));
+  lactat->setText(QString::number(profile.get(AM::WaterValue::Lactat), 'f', 2));
+  restalkallität->setText(QString::number(profile.get(AM::WaterValue::Restalkalitaet), 'f', 2));
+  gesammtHaerte->setText(QString::number(profile.get(AM::WaterValue::Gesamthaerte), 'f', 2));
+  carbonHaerte->setText(QString::number(profile.get(AM::WaterValue::Carbonhaerte), 'f', 2));
+  caHaerte->setText(QString::number(profile.get(AM::WaterValue::CaHaerte), 'f', 2));
+  mgHaerte->setText(QString::number(profile.get(AM::WaterValue::MgHaerte), 'f', 2));
+  nichtcarbonHaerte->setText(QString::number(profile.get(AM::WaterValue::NichtCarbonhaerte), 'f', 2));
+  so4cl->setText(QString::number(profile.get(AM::WaterValue::SO4ClVerhaeltnis), 'f', 2));
 }
 
 void WaterProfileView::setWater(const Water& water) {
   name->setText(water.getName());
-  amount->setText(QString::number(water.get(Water::Type::Volume), 'f', 2));
-  calcium->setText(QString::number(water.get(Water::Type::Calcium), 'f', 2));
-  magnesium->setText(QString::number(water.get(Water::Type::Magnesium), 'f', 2));
-  natrium->setText(QString::number(water.get(Water::Type::Natrium), 'f', 2));
-  hydrogencarbonat->setText(QString::number(water.get(Water::Type::Hydrogencarbonat), 'f', 2));
-  chlorid->setText(QString::number(water.get(Water::Type::Chlorid), 'f', 2));
-  sulfat->setText(QString::number(water.get(Water::Type::Sulfat), 'f', 2));
-  phosphat->setText(QString::number(water.get(Water::Type::Phosphat), 'f', 2));
-  lactat->setText(QString::number(water.get(Water::Type::Lactat), 'f', 2));
-  restalkallität->setText(QString::number(water.get(Water::Type::Restalkalitaet), 'f', 2));
-  gesammtHaerte->setText(QString::number(water.get(Water::Type::Gesamthaerte), 'f', 2));
-  carbonHaerte->setText(QString::number(water.get(Water::Type::Carbonhaerte), 'f', 2));
-  caHaerte->setText(QString::number(water.get(Water::Type::CaHaerte), 'f', 2));
-  mgHaerte->setText(QString::number(water.get(Water::Type::MgHaerte), 'f', 2));
-  nichtcarbonHaerte->setText(QString::number(water.get(Water::Type::NichtCarbonhaerte), 'f', 2));
-  so4cl->setText(QString::number(water.get(Water::Type::SO4ClVerhaeltnis), 'f', 2));
+  amount->setText(QString::number(water.get(AM::WaterValue::Volume), 'f', 2));
+  calcium->setText(QString::number(water.get(AM::WaterValue::Calcium), 'f', 2));
+  magnesium->setText(QString::number(water.get(AM::WaterValue::Magnesium), 'f', 2));
+  natrium->setText(QString::number(water.get(AM::WaterValue::Natrium), 'f', 2));
+  hydrogencarbonat->setText(QString::number(water.get(AM::WaterValue::Hydrogencarbonat), 'f', 2));
+  chlorid->setText(QString::number(water.get(AM::WaterValue::Chlorid), 'f', 2));
+  sulfat->setText(QString::number(water.get(AM::WaterValue::Sulfat), 'f', 2));
+  phosphat->setText(QString::number(water.get(AM::WaterValue::Phosphat), 'f', 2));
+  lactat->setText(QString::number(water.get(AM::WaterValue::Lactat), 'f', 2));
+  restalkallität->setText(QString::number(water.get(AM::WaterValue::Restalkalitaet), 'f', 2));
+  gesammtHaerte->setText(QString::number(water.get(AM::WaterValue::Gesamthaerte), 'f', 2));
+  carbonHaerte->setText(QString::number(water.get(AM::WaterValue::Carbonhaerte), 'f', 2));
+  caHaerte->setText(QString::number(water.get(AM::WaterValue::CaHaerte), 'f', 2));
+  mgHaerte->setText(QString::number(water.get(AM::WaterValue::MgHaerte), 'f', 2));
+  nichtcarbonHaerte->setText(QString::number(water.get(AM::WaterValue::NichtCarbonhaerte), 'f', 2));
+  so4cl->setText(QString::number(water.get(AM::WaterValue::SO4ClVerhaeltnis), 'f', 2));
 }
 
 void WaterProfileView::showHeader(bool show) {

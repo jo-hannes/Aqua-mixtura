@@ -27,8 +27,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Aqua-mixtura
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        src/icons/icons.qrc
+        src/global.h src/global.cpp
         src/mainmodel.h src/mainmodel.cpp
+        src/icons/icons.qrc
         src/model/additive.h src/model/additive.cpp
         src/model/jsonhelper.h src/model/jsonhelper.cpp
         src/model/malt.h src/model/malt.cpp

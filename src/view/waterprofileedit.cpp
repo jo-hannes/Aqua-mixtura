@@ -111,25 +111,25 @@ bool WaterProfileEdit::isChanged() const {
 
 void WaterProfileEdit::updateAll() {
   name->setText(volatileProfile.getName());
-  calcium->setValue(volatileProfile.get(Water::Type::Calcium));
-  magnesium->setValue(volatileProfile.get(Water::Type::Magnesium));
-  natrium->setValue(volatileProfile.get(Water::Type::Natrium));
-  hydrogencarbonat->setValue(volatileProfile.get(Water::Type::Hydrogencarbonat));
-  chlorid->setValue(volatileProfile.get(Water::Type::Chlorid));
-  sulfat->setValue(volatileProfile.get(Water::Type::Sulfat));
-  phosphat->setValue(volatileProfile.get(Water::Type::Phosphat));
-  lactat->setValue(volatileProfile.get(Water::Type::Lactat));
+  calcium->setValue(volatileProfile.get(AM::WaterValue::Calcium));
+  magnesium->setValue(volatileProfile.get(AM::WaterValue::Magnesium));
+  natrium->setValue(volatileProfile.get(AM::WaterValue::Natrium));
+  hydrogencarbonat->setValue(volatileProfile.get(AM::WaterValue::Hydrogencarbonat));
+  chlorid->setValue(volatileProfile.get(AM::WaterValue::Chlorid));
+  sulfat->setValue(volatileProfile.get(AM::WaterValue::Sulfat));
+  phosphat->setValue(volatileProfile.get(AM::WaterValue::Phosphat));
+  lactat->setValue(volatileProfile.get(AM::WaterValue::Lactat));
   updateCalculated();
 }
 
 void WaterProfileEdit::updateCalculated() {
-  restalkallität->setText(QString::number(volatileProfile.get(Water::Type::Restalkalitaet), 'f', 2));
-  gesammtHaerte->setText(QString::number(volatileProfile.get(Water::Type::Gesamthaerte), 'f', 2));
-  carbonHaerte->setText(QString::number(volatileProfile.get(Water::Type::Carbonhaerte), 'f', 2));
-  caHaerte->setText(QString::number(volatileProfile.get(Water::Type::CaHaerte), 'f', 2));
-  mgHaerte->setText(QString::number(volatileProfile.get(Water::Type::MgHaerte), 'f', 2));
-  nichtcarbonHaerte->setText(QString::number(volatileProfile.get(Water::Type::NichtCarbonhaerte), 'f', 2));
-  so4cl->setText(QString::number(volatileProfile.get(Water::Type::SO4ClVerhaeltnis), 'f', 2));
+  restalkallität->setText(QString::number(volatileProfile.get(AM::WaterValue::Restalkalitaet), 'f', 2));
+  gesammtHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::Gesamthaerte), 'f', 2));
+  carbonHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::Carbonhaerte), 'f', 2));
+  caHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::CaHaerte), 'f', 2));
+  mgHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::MgHaerte), 'f', 2));
+  nichtcarbonHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::NichtCarbonhaerte), 'f', 2));
+  so4cl->setText(QString::number(volatileProfile.get(AM::WaterValue::SO4ClVerhaeltnis), 'f', 2));
 }
 
 void WaterProfileEdit::save() {
@@ -150,49 +150,49 @@ void WaterProfileEdit::valChangName(const QString& name) {
 }
 
 void WaterProfileEdit::valChangeCalcium(double val) {
-  volatileProfile.set(Water::Type::Calcium, val);
+  volatileProfile.set(AM::WaterValue::Calcium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeMagnesium(double val) {
-  volatileProfile.set(Water::Type::Magnesium, val);
+  volatileProfile.set(AM::WaterValue::Magnesium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeNatrium(double val) {
-  volatileProfile.set(Water::Type::Natrium, val);
+  volatileProfile.set(AM::WaterValue::Natrium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeHydrogencarbonat(double val) {
-  volatileProfile.set(Water::Type::Hydrogencarbonat, val);
+  volatileProfile.set(AM::WaterValue::Hydrogencarbonat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeChlorid(double val) {
-  volatileProfile.set(Water::Type::Chlorid, val);
+  volatileProfile.set(AM::WaterValue::Chlorid, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeSulfat(double val) {
-  volatileProfile.set(Water::Type::Sulfat, val);
+  volatileProfile.set(AM::WaterValue::Sulfat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangePhosphat(double val) {
-  volatileProfile.set(Water::Type::Phosphat, val);
+  volatileProfile.set(AM::WaterValue::Phosphat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeLactat(double val) {
-  volatileProfile.set(Water::Type::Lactat, val);
+  volatileProfile.set(AM::WaterValue::Lactat, val);
   changed = true;
   updateCalculated();
 }

@@ -4,41 +4,13 @@
 #ifndef WATER_H
 #define WATER_H
 
+#include "../global.h"
+
 #include <QJsonObject>
 #include <QString>
 
 class Water {
  public:
-  /**
-   * @brief The Value enum
-   * Need to be sorted
-   * 1. Volume
-   * 2. Kationen
-   * 3. Anionen
-   * 4. Calculated
-   */
-  enum class Type {
-    Volume = 0,
-    Calcium,
-    Magnesium,
-    Natrium,
-    LastCation = Natrium,
-    Hydrogencarbonat,
-    Chlorid,
-    Sulfat,
-    Phosphat,
-    Lactat,
-    LastAnion = Lactat,
-    Restalkalitaet,
-    Gesamthaerte,
-    Carbonhaerte,
-    NichtCarbonhaerte,
-    CaHaerte,
-    MgHaerte,
-    SO4ClVerhaeltnis,
-    TypeSize
-  };
-
   Water();
   Water(QString name, float volume = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
         float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
@@ -46,8 +18,8 @@ class Water {
   // getter und setter
   QString getName() const;
   void setName(const QString& newName);
-  float get(Type what) const;                          /**< @brief get requested value */
-  void set(Type what, float value);                    /**< @brief set given type with value */
+  float get(AM::WaterValue what) const;       /**< @brief get requested value */
+  void set(AM::WaterValue what, float value); /**< @brief set given type with value */
 
   // JSON conversion
   static Water fromJson(const QJsonObject& json); /**< @brief convert JSON to Water */
@@ -118,26 +90,7 @@ class Water {
   float calculateRestalkalitaet() const;
 
   QString name;
-  float values[static_cast<int>(Type::LastAnion) + 1];
-
-  // strings
-  // Need to match order of Value enum
-  // Strings are: unit, json key. For values not storred in json leave key empty
-  QString strings[static_cast<int>(Type::TypeSize)][2] = {{"l", "Volume"},
-                                                          {"mg/l", "Calzium"},
-                                                          {"mg/l", "Magnesium"},
-                                                          {"mg/l", "Natrium"},
-                                                          {"mg/l", "Hydrogencarbonat"},
-                                                          {"mg/l", "Chlorid"},
-                                                          {"mg/l", "Sulfat"},
-                                                          {"mg/l", "Phosphat"},
-                                                          {"mg/l", "Lactat"},
-                                                          {"°dH", ""},
-                                                          {"°dH", ""},
-                                                          {"°dH", ""},
-                                                          {"°dH", ""},
-                                                          {"°dH", ""},
-                                                          {"", ""}};
+  float values[static_cast<int>(AM::WaterValue::LastAnion) + 1];
 };
 
 #endif // WATER_H

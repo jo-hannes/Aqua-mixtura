@@ -10,15 +10,15 @@ Water::Water() {}
 Water::Water(QString name, float volume, float calzium, float magnesium, float natrium, float hydrogencarbonat,
              float chlorid, float sulfat, float phosphat, float lactat) {
   this->name = name;
-  set(Type::Volume, volume);
-  set(Type::Calcium, calzium);
-  set(Type::Magnesium, magnesium);
-  set(Type::Natrium, natrium);
-  set(Type::Hydrogencarbonat, hydrogencarbonat);
-  set(Type::Chlorid, chlorid);
-  set(Type::Sulfat, sulfat);
-  set(Type::Phosphat, phosphat);
-  set(Type::Lactat, lactat);
+  set(AM::WaterValue::Volume, volume);
+  set(AM::WaterValue::Calcium, calzium);
+  set(AM::WaterValue::Magnesium, magnesium);
+  set(AM::WaterValue::Natrium, natrium);
+  set(AM::WaterValue::Hydrogencarbonat, hydrogencarbonat);
+  set(AM::WaterValue::Chlorid, chlorid);
+  set(AM::WaterValue::Sulfat, sulfat);
+  set(AM::WaterValue::Phosphat, phosphat);
+  set(AM::WaterValue::Lactat, lactat);
 }
 
 QString Water::getName() const {
@@ -29,35 +29,35 @@ void Water::setName(const QString& newName) {
   name = newName;
 }
 
-float Water::get(Type what) const {
+float Water::get(AM::WaterValue what) const {
   // stored values
-  if (what <= Type::LastAnion) {
+  if (what <= AM::WaterValue::LastAnion) {
     return values[static_cast<uint>(what)];
   }
   // calculated values
   switch (what) {
-    case Type::Restalkalitaet:
+    case AM::WaterValue::Restalkalitaet:
       return calculateRestalkalitaet();
-    case Type::Gesamthaerte:
+    case AM::WaterValue::Gesamthaerte:
       return calculateGesamthaerte();
-    case Type::Carbonhaerte:
+    case AM::WaterValue::Carbonhaerte:
       return calculateCarbonhaerte();
-    case Type::NichtCarbonhaerte:
+    case AM::WaterValue::NichtCarbonhaerte:
       return calculateNichtCarbonhaerte();
-    case Type::CaHaerte:
+    case AM::WaterValue::CaHaerte:
       return calculateCaHaerte();
-    case Type::MgHaerte:
+    case AM::WaterValue::MgHaerte:
       return calculateMgHaerte();
-    case Type::SO4ClVerhaeltnis:
+    case AM::WaterValue::SO4ClVerhaeltnis:
       return calculateSO4ClVerhaeltnis();
     default:
       return -1;
   }
 }
 
-void Water::set(Type what, float value) {
+void Water::set(AM::WaterValue what, float value) {
   // only stored values
-  if (what <= Type::LastAnion) {
+  if (what <= AM::WaterValue::LastAnion) {
     values[static_cast<uint>(what)] = value;
   }
 };
@@ -65,11 +65,9 @@ void Water::set(Type what, float value) {
 Water Water::fromJson(const QJsonObject& json) {
   Water ret;
   ret.name = json["Name"].toString("");
-  for (int i = 0; i < static_cast<int>(Type::TypeSize); i++) {
-    const QString& key = ret.strings[i][1];
-    if (!key.isEmpty()) {
-      ret.values[i] = json[key].toDouble(0);
-    }
+  for (int i = 0; i <= static_cast<int>(AM::WaterValue::LastAnion); i++) {
+    const QString& key = AM::waterStrings[i][AM::JsonKey];
+    ret.values[i] = json[key].toDouble(0);
   }
   return ret;
 }
@@ -77,11 +75,9 @@ Water Water::fromJson(const QJsonObject& json) {
 QJsonObject Water::toJson() const {
   QJsonObject json;
   json["Name"] = name;
-  for (int i = 0; i < static_cast<int>(Type::TypeSize); i++) {
-    const QString& key = strings[i][1];
-    if (!key.isEmpty()) {
-      json[key] = values[i];
-    }
+  for (int i = 0; i <= static_cast<int>(AM::WaterValue::LastAnion); i++) {
+    const QString& key = AM::waterStrings[i][AM::JsonKey];
+    json[key] = values[i];
   }
   return json;
 }
@@ -93,13 +89,13 @@ QJsonObject Water::profileToJson() const {
 }
 
 Water& Water::operator+=(const Water& rhs) {
-  float volThis = this->values[static_cast<uint>(Type::Volume)];
-  float volRhs = rhs.values[static_cast<uint>(Type::Volume)];
+  float volThis = this->values[static_cast<uint>(AM::WaterValue::Volume)];
+  float volRhs = rhs.values[static_cast<uint>(AM::WaterValue::Volume)];
   float volSum = volThis + volRhs;
-  for (int i = static_cast<uint>(Type::Volume) + 1; i <= static_cast<int>(Type::LastCation); i++) {
+  for (int i = static_cast<uint>(AM::WaterValue::Volume) + 1; i <= static_cast<int>(AM::WaterValue::LastCation); i++) {
     this->values[i] = (this->values[i] * volThis + rhs.values[i] * volRhs) / volSum;
   }
-  this->values[static_cast<uint>(Type::Volume)] = volSum;
+  this->values[static_cast<uint>(AM::WaterValue::Volume)] = volSum;
   return *this;
 }
 
@@ -125,15 +121,15 @@ float Water::calculateGesamthaerte() const {
 }
 
 float Water::calculateCaHaerte() const {
-  return 0.14 * get(Type::Calcium);
+  return 0.14 * get(AM::WaterValue::Calcium);
 }
 
 float Water::calculateMgHaerte() const {
-  return 0.23 * get(Type::Magnesium);
+  return 0.23 * get(AM::WaterValue::Magnesium);
 }
 
 float Water::calculateCarbonhaerte() const {
-  return get(Type::Hydrogencarbonat) / 61.017 * 2.8;
+  return get(AM::WaterValue::Hydrogencarbonat) / 61.017 * 2.8;
 }
 
 float Water::calculateNichtCarbonhaerte() const {
@@ -141,8 +137,8 @@ float Water::calculateNichtCarbonhaerte() const {
 }
 
 float Water::calculateSO4ClVerhaeltnis() const {
-  if (get(Type::Chlorid) != 0)
-    return get(Type::Sulfat) / get(Type::Chlorid);
+  if (get(AM::WaterValue::Chlorid) != 0)
+    return get(AM::WaterValue::Sulfat) / get(AM::WaterValue::Chlorid);
   else
     return HUGE_VAL;
 }
