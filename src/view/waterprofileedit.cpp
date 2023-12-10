@@ -111,25 +111,25 @@ bool WaterProfileEdit::isChanged() const {
 
 void WaterProfileEdit::updateAll() {
   name->setText(volatileProfile.getName());
-  calcium->setValue(volatileProfile.getCalzium());
-  magnesium->setValue(volatileProfile.getMagnesium());
-  natrium->setValue(volatileProfile.getNatrium());
-  hydrogencarbonat->setValue(volatileProfile.getHydrogencarbonat());
-  chlorid->setValue(volatileProfile.getChlorid());
-  sulfat->setValue(volatileProfile.getSulfat());
-  phosphat->setValue(volatileProfile.getPhosphat());
-  lactat->setValue(volatileProfile.getLactat());
+  calcium->setValue(volatileProfile.get(Water::Type::Calcium));
+  magnesium->setValue(volatileProfile.get(Water::Type::Magnesium));
+  natrium->setValue(volatileProfile.get(Water::Type::Natrium));
+  hydrogencarbonat->setValue(volatileProfile.get(Water::Type::Hydrogencarbonat));
+  chlorid->setValue(volatileProfile.get(Water::Type::Chlorid));
+  sulfat->setValue(volatileProfile.get(Water::Type::Sulfat));
+  phosphat->setValue(volatileProfile.get(Water::Type::Phosphat));
+  lactat->setValue(volatileProfile.get(Water::Type::Lactat));
   updateCalculated();
 }
 
 void WaterProfileEdit::updateCalculated() {
-  restalkallität->setText(QString::number(volatileProfile.getRestalkalitaet(), 'f', 2));
-  gesammtHaerte->setText(QString::number(volatileProfile.getGesamthaerte(), 'f', 2));
-  carbonHaerte->setText(QString::number(volatileProfile.getCarbonhaerte(), 'f', 2));
-  caHaerte->setText(QString::number(volatileProfile.getCaHaerte(), 'f', 2));
-  mgHaerte->setText(QString::number(volatileProfile.getMgHaerte(), 'f', 2));
-  nichtcarbonHaerte->setText(QString::number(volatileProfile.getNichtCarbonhaerte(), 'f', 2));
-  so4cl->setText(QString::number(volatileProfile.getSO4ClVerhaeltnis(), 'f', 2));
+  restalkallität->setText(QString::number(volatileProfile.get(Water::Type::Restalkalitaet), 'f', 2));
+  gesammtHaerte->setText(QString::number(volatileProfile.get(Water::Type::Gesamthaerte), 'f', 2));
+  carbonHaerte->setText(QString::number(volatileProfile.get(Water::Type::Carbonhaerte), 'f', 2));
+  caHaerte->setText(QString::number(volatileProfile.get(Water::Type::CaHaerte), 'f', 2));
+  mgHaerte->setText(QString::number(volatileProfile.get(Water::Type::MgHaerte), 'f', 2));
+  nichtcarbonHaerte->setText(QString::number(volatileProfile.get(Water::Type::NichtCarbonhaerte), 'f', 2));
+  so4cl->setText(QString::number(volatileProfile.get(Water::Type::SO4ClVerhaeltnis), 'f', 2));
 }
 
 void WaterProfileEdit::save() {
@@ -150,49 +150,49 @@ void WaterProfileEdit::valChangName(const QString& name) {
 }
 
 void WaterProfileEdit::valChangeCalcium(double val) {
-  volatileProfile.setCalzium(val);
+  volatileProfile.set(Water::Type::Calcium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeMagnesium(double val) {
-  volatileProfile.setMagnesium(val);
+  volatileProfile.set(Water::Type::Magnesium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeNatrium(double val) {
-  volatileProfile.setNatrium(val);
+  volatileProfile.set(Water::Type::Natrium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeHydrogencarbonat(double val) {
-  volatileProfile.setHydrogencarbonat(val);
+  volatileProfile.set(Water::Type::Hydrogencarbonat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeChlorid(double val) {
-  volatileProfile.setChlorid(val);
+  volatileProfile.set(Water::Type::Chlorid, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeSulfat(double val) {
-  volatileProfile.setSulfat(val);
+  volatileProfile.set(Water::Type::Sulfat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangePhosphat(double val) {
-  volatileProfile.setPhosphat(val);
+  volatileProfile.set(Water::Type::Phosphat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeLactat(double val) {
-  volatileProfile.setLactat(val);
+  volatileProfile.set(Water::Type::Lactat, val);
   changed = true;
   updateCalculated();
 }

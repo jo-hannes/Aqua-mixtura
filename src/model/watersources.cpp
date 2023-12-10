@@ -89,7 +89,7 @@ QVariant WaterSources::data(const QModelIndex& index, int role) const {
     case 0:
       return sources.at(row).getName();
     case 1:
-      return sources.at(row).getRestalkalitaet();
+      return sources.at(row).get(Water::Type::Restalkalitaet);
     default:
       return QVariant();
   }

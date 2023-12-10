@@ -36,18 +36,20 @@ float Water::get(Type what) const {
   }
   // calculated values
   switch (what) {
-    case Type::Gesamthaerte:
-      return getGesamthaerte();
-    case Type::CaHaerte:
-      return getCaHaerte();
-    case Type::MgHaerte:
-      return getMgHaerte();
-    case Type::Carbonhaerte:
-      return getCarbonhaerte();
     case Type::Restalkalitaet:
-      return getRestalkalitaet();
+      return calculateRestalkalitaet();
+    case Type::Gesamthaerte:
+      return calculateGesamthaerte();
+    case Type::Carbonhaerte:
+      return calculateCarbonhaerte();
+    case Type::NichtCarbonhaerte:
+      return calculateNichtCarbonhaerte();
+    case Type::CaHaerte:
+      return calculateCaHaerte();
+    case Type::MgHaerte:
+      return calculateMgHaerte();
     case Type::SO4ClVerhaeltnis:
-      return getSO4ClVerhaeltnis();
+      return calculateSO4ClVerhaeltnis();
     default:
       return -1;
   }
@@ -59,109 +61,6 @@ void Water::set(Type what, float value) {
     values[static_cast<uint>(what)] = value;
   }
 };
-
-float Water::getVolume() const {
-  return get(Type::Volume);
-}
-
-void Water::setVolume(float newMenge) {
-  set(Type::Volume, newMenge);
-}
-
-float Water::getCalzium() const {
-  return get(Type::Calcium);
-}
-
-void Water::setCalzium(float newCalzium) {
-  set(Type::Calcium, newCalzium);
-}
-
-float Water::getMagnesium() const {
-  return get(Type::Magnesium);
-}
-
-void Water::setMagnesium(float newMagnesium) {
-  set(Type::Magnesium, newMagnesium);
-}
-
-float Water::getNatrium() const {
-  return get(Type::Natrium);
-}
-
-void Water::setNatrium(float newNatrium) {
-  set(Type::Natrium, newNatrium);
-}
-
-float Water::getHydrogencarbonat() const {
-  return get(Type::Hydrogencarbonat);
-}
-
-void Water::setHydrogencarbonat(float newHydrogencarbonat) {
-  set(Type::Hydrogencarbonat, newHydrogencarbonat);
-}
-
-float Water::getChlorid() const {
-  return get(Type::Chlorid);
-}
-
-void Water::setChlorid(float newChlorid) {
-  set(Type::Chlorid, newChlorid);
-}
-
-float Water::getSulfat() const {
-  return get(Type::Sulfat);
-}
-
-void Water::setSulfat(float newSulfat) {
-  set(Type::Sulfat, newSulfat);
-}
-
-float Water::getPhosphat() const {
-  return get(Type::Phosphat);
-}
-
-void Water::setPhosphat(float newPhosphat) {
-  set(Type::Phosphat, newPhosphat);
-}
-
-float Water::getLactat() const {
-  return get(Type::Lactat);
-}
-
-void Water::setLactat(float newLactat) {
-  set(Type::Lactat, newLactat);
-}
-
-float Water::getGesamthaerte() const {
-  return getCaHaerte() + getMgHaerte();
-}
-
-float Water::getCaHaerte() const {
-  return 0.14 * get(Type::Calcium);
-}
-
-float Water::getMgHaerte() const {
-  return 0.23 * get(Type::Magnesium);
-}
-
-float Water::getCarbonhaerte() const {
-  return get(Type::Hydrogencarbonat) / 61.017 * 2.8;
-}
-
-float Water::getNichtCarbonhaerte() const {
-  return getGesamthaerte() - getCarbonhaerte();
-}
-
-float Water::getSO4ClVerhaeltnis() const {
-  if (get(Type::Chlorid) != 0)
-    return get(Type::Sulfat) / get(Type::Chlorid);
-  else
-    return HUGE_VAL;
-}
-
-float Water::getRestalkalitaet() const {
-  return getCarbonhaerte() - getCaHaerte() / 3.5 - getMgHaerte() / 7;
-}
 
 Water Water::fromJson(const QJsonObject& json) {
   Water ret;
@@ -219,4 +118,35 @@ Water Water::operator+(const Water& rhs) {
   sum += rhs;
   sum.setName(this->name + "+" + rhs.name);
   return sum;
+}
+
+float Water::calculateGesamthaerte() const {
+  return calculateCaHaerte() + calculateMgHaerte();
+}
+
+float Water::calculateCaHaerte() const {
+  return 0.14 * get(Type::Calcium);
+}
+
+float Water::calculateMgHaerte() const {
+  return 0.23 * get(Type::Magnesium);
+}
+
+float Water::calculateCarbonhaerte() const {
+  return get(Type::Hydrogencarbonat) / 61.017 * 2.8;
+}
+
+float Water::calculateNichtCarbonhaerte() const {
+  return calculateGesamthaerte() - calculateCarbonhaerte();
+}
+
+float Water::calculateSO4ClVerhaeltnis() const {
+  if (get(Type::Chlorid) != 0)
+    return get(Type::Sulfat) / get(Type::Chlorid);
+  else
+    return HUGE_VAL;
+}
+
+float Water::calculateRestalkalitaet() const {
+  return calculateCarbonhaerte() - calculateCaHaerte() / 3.5 - calculateMgHaerte() / 7;
 }
