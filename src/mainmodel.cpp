@@ -35,6 +35,10 @@ MainModel::MainModel() {
   if (QFile::exists(maltsFile)) {
     malts->fromJson(JsonHelper::loadFile(maltsFile));
   }
+
+  styles = new Styles();
+  stylesFile = configDir + "/styles.json";
+  loadStyles();
 }
 
 void MainModel::saveSources() {
@@ -59,4 +63,18 @@ void MainModel::saveMalts() {
 
 void MainModel::saveMalts(const QString& path) {
   JsonHelper::saveFile(path, malts->toJson());
+}
+
+void MainModel::loadStyles() {
+  if (QFile::exists(stylesFile)) {
+    styles->fromJson(JsonHelper::loadFile(stylesFile));
+  }
+}
+
+void MainModel::saveStyles() {
+  JsonHelper::saveFile(stylesFile, styles->toJson());
+}
+
+void MainModel::saveStyles(const QString& path) {
+  JsonHelper::saveFile(path, styles->toJson());
 }
