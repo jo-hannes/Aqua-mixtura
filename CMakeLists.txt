@@ -28,13 +28,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         src/global.h src/global.cpp
-        src/mainmodel.h src/mainmodel.cpp
         src/icons/icons.qrc
+        src/mainmodel.h src/mainmodel.cpp
         src/model/additive.h src/model/additive.cpp
         src/model/jsonhelper.h src/model/jsonhelper.cpp
         src/model/malt.h src/model/malt.cpp
         src/model/malts.h src/model/malts.cpp
         src/model/mixture.h src/model/mixture.cpp
+        src/model/style.h src/model/style.cpp
         src/model/water.h src/model/water.cpp
         src/model/watersources.h src/model/watersources.cpp
         src/view/additivewindow.h src/view/additivewindow.cpp
