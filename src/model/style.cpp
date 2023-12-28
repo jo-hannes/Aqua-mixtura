@@ -153,7 +153,12 @@ QVariant Style::headerData(int section, Qt::Orientation orientation, int role) c
   } else {
     int idx = section + 1;  // skip volume
     if (idx > 0 && idx < static_cast<int>(AM::WaterValue::Size)) {
-      return AM::waterStrings[idx][AM::JsonKey];
+      // TODO use display steings instead of JSON keys
+      if (!AM::waterStrings[idx][AM::Unit].isEmpty()) {
+        return AM::waterStrings[idx][AM::JsonKey] + " (" + AM::waterStrings[idx][AM::Unit] + ")";
+      } else {
+        return AM::waterStrings[idx][AM::JsonKey];
+      }
     }
   }
   return QVariant();

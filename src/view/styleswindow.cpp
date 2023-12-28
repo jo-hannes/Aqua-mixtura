@@ -3,10 +3,13 @@
 
 #include "styleswindow.h"
 
+#include "styletabledelegate.h"
+
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QHeaderView>
 #include <QItemSelectionModel>
 #include <QLabel>
 #include <QMessageBox>
@@ -38,6 +41,10 @@ StylesWindow::StylesWindow(MainModel* model, QWidget* parent) : QWidget{parent} 
   mainLayout->addWidget(stylesView, 1, 0);
   styleTableView = new QTableView();
   styleTableView->setModel(model->styles->getStyle(0));
+  StyleTableDelegate* delegate = new StyleTableDelegate();
+  styleTableView->setItemDelegate(delegate);
+  styleTableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+  styleTableView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);
   mainLayout->addWidget(styleTableView, 1, 1);
 
   // Buttons
