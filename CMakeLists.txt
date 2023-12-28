@@ -43,6 +43,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/view/maltphedit.h src/view/maltphedit.cpp
         src/view/malttabledelegate.h src/view/malttabledelegate.cpp
         src/view/maltwindow.h src/view/maltwindow.cpp
+        src/view/styleswindow.h src/view/styleswindow.cpp
         src/view/waterprofileedit.h src/view/waterprofileedit.cpp
         src/view/waterprofileview.h src/view/waterprofileview.cpp
         src/view/watersourcewindow.h src/view/watersourcewindow.cpp

@@ -8,6 +8,7 @@
 
 #include "view/additivewindow.h"
 #include "view/maltwindow.h"
+#include "view/styleswindow.h"
 #include "view/watersourcewindow.h"
 
 #include <QMainWindow>
@@ -40,8 +41,8 @@ class MainWindow : public QMainWindow {
 
   WatersourceWindow* wsources; /**< @brief Window for editing water sources */
   AdditiveWindow* wadditives;  /**< @brief Window for editing additives */
-
   MaltWindow* wmalts;    /**< @brief Window for editing malts */
+  StylesWindow* wstyles; /**< @brief Window for editing beer styles */
   QString txtMalts;      /**< @brief Text of malt window button */
   QPushButton* btnMalts; /**< @brief Button for opening malt window */
 

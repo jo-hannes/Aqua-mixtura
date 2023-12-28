@@ -64,6 +64,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wmalts->setWindowFlags(Qt::Window);
   QObject::connect(wmalts, &MaltWindow::maltWindowUnsavedChanges, this, &MainWindow::unsavedMalts);
 
+  wstyles = new StylesWindow(model, this);
+  wstyles->setWindowFlags(Qt::Window);
+
   setCentralWidget(mainWidget);
 
   // Playground
@@ -124,7 +127,7 @@ void MainWindow::unsavedMalts(bool unsaved) {
 }
 
 void MainWindow::styles() {
-  QMessageBox::information(this, "styles", "TODO styles");
+  wstyles->show();
 }
 
 void MainWindow::limits() {
