@@ -140,13 +140,11 @@ QVariant Style::headerData(int section, Qt::Orientation orientation, int role) c
       case 0:
         return tr("Limitieren");
       case 1:
-        return tr("Untergrenze");
+        return tr("Minimum");
       case 2:
-        return tr("Untere Empfehlung");
+        return tr("Ziel");
       case 3:
-        return tr("Obere Empfehlung");
-      case 4:
-        return tr("Obergrenze");
+        return tr("Maximum");
       default:
         return QVariant();
     }

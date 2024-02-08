@@ -20,7 +20,7 @@ class Style : public QAbstractTableModel {
   /**
    * @brief Type of limits
    */
-  enum class Limit { LowerLimit, LowerRecomendation, UpperRecomendation, UpperLimit, Size };
+  enum class Limit { Min, Target, Max, Size };
 
   Style(QString name = "");
 
@@ -51,8 +51,7 @@ class Style : public QAbstractTableModel {
   bool limited[static_cast<int>(AM::WaterValue::Size)];
   float limits[static_cast<int>(AM::WaterValue::Size)][static_cast<int>(Limit::Size)];
 
-  static const inline QString jsonKeys[static_cast<int>(Limit::Size)] = {"LowerLimit", "LowerRecomendation",
-                                                                         "UpperRecomendation", "UpperLimit"};
+  static const inline QString jsonKeys[static_cast<int>(Limit::Size)] = {"Min", "Target", "Max"};
 };
 
 #endif // STYLE_H
