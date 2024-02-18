@@ -34,6 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/model/jsonhelper.h src/model/jsonhelper.cpp
         src/model/malt.h src/model/malt.cpp
         src/model/malts.h src/model/malts.cpp
+        src/model/meta.h src/model/meta.cpp
         src/model/mixture.h src/model/mixture.cpp
         src/model/style.h src/model/style.cpp
         src/model/styles.h src/model/styles.cpp

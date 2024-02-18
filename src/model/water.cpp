@@ -1,32 +1,22 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "water.h"
-
-#include <limits>
 
 Water::Water() {}
 
 Water::Water(QString name, float volume, float calzium, float magnesium, float natrium, float hydrogencarbonat,
-             float chlorid, float sulfat, float phosphat, float lactat) {
-  this->name = name;
-  set(AM::WaterValue::Volume, volume);
-  set(AM::WaterValue::Calcium, calzium);
-  set(AM::WaterValue::Magnesium, magnesium);
-  set(AM::WaterValue::Natrium, natrium);
-  set(AM::WaterValue::Hydrogencarbonat, hydrogencarbonat);
-  set(AM::WaterValue::Chlorid, chlorid);
-  set(AM::WaterValue::Sulfat, sulfat);
-  set(AM::WaterValue::Phosphat, phosphat);
-  set(AM::WaterValue::Lactat, lactat);
-}
-
-QString Water::getName() const {
-  return name;
-}
-
-void Water::setName(const QString& newName) {
-  name = newName;
+             float chlorid, float sulfat, float phosphat, float lactat)
+    : Meta(name) {
+  values[static_cast<uint>(AM::WaterValue::Volume)] = volume;
+  values[static_cast<uint>(AM::WaterValue::Calcium)] = calzium;
+  values[static_cast<uint>(AM::WaterValue::Magnesium)] = magnesium;
+  values[static_cast<uint>(AM::WaterValue::Natrium)] = natrium;
+  values[static_cast<uint>(AM::WaterValue::Hydrogencarbonat)] = hydrogencarbonat;
+  values[static_cast<uint>(AM::WaterValue::Chlorid)] = chlorid;
+  values[static_cast<uint>(AM::WaterValue::Sulfat)] = sulfat;
+  values[static_cast<uint>(AM::WaterValue::Phosphat)] = phosphat;
+  values[static_cast<uint>(AM::WaterValue::Lactat)] = lactat;
 }
 
 float Water::get(AM::WaterValue what) const {
@@ -59,12 +49,13 @@ void Water::set(AM::WaterValue what, float value) {
   // only stored values
   if (what <= AM::WaterValue::LastAnion) {
     values[static_cast<uint>(what)] = value;
+    edited();
   }
 };
 
 Water Water::fromJson(const QJsonObject& json) {
   Water ret;
-  ret.name = json["Name"].toString("");
+  ret.Meta::fromJson(json);
   for (int i = 0; i <= static_cast<int>(AM::WaterValue::LastAnion); i++) {
     const QString& key = AM::waterStrings[i][AM::JsonKey];
     ret.values[i] = json[key].toDouble(0);
@@ -74,7 +65,7 @@ Water Water::fromJson(const QJsonObject& json) {
 
 QJsonObject Water::toJson() const {
   QJsonObject json;
-  json["Name"] = name;
+  Meta::toJson(json);
   for (int i = 0; i <= static_cast<int>(AM::WaterValue::LastAnion); i++) {
     const QString& key = AM::waterStrings[i][AM::JsonKey];
     json[key] = values[i];
@@ -112,7 +103,7 @@ Water Water::operator+(const Water& rhs) {
   //            (this->lactat * this->menge + rhs.lactat * rhs.menge) / wSum);
   Water sum(*this);
   sum += rhs;
-  sum.setName(this->name + "+" + rhs.name);
+  sum.setName(this->getName() + "+" + rhs.getName());
   return sum;
 }
 

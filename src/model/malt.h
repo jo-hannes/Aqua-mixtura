@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #ifndef MALT_H
 #define MALT_H
 
+#include "meta.h"
+
 #include <QJsonObject>
 #include <QString>
 
-class Malt
-{
+class Malt : public Meta {
   // Malzberechnung kommt später!
  public:
   /**
@@ -21,8 +22,6 @@ class Malt
   Malt(QString name = "", float mass = 0, float ebc = 0, float ph = 7);
 
   // getter und setter
-  QString getName() const;
-  void setName(const QString& newName);
   float getMass() const;       /**< @brief get malt amount in kg */
   void setMass(float newMass); /**< @brief set malt amount in kg */
   float getEbc() const;        /**< @brief get malt color in EBC */
@@ -69,7 +68,6 @@ class Malt
   QJsonObject toJson() const;                    /**< @brief convert this Malt to JSON */
 
  private:
-  QString name; /**< Name of malt */
   float mass;   /**< Amount of malt in kg */
   float ebc;    /**< Color of malt in EBC */
   float ph;     /**< pH of malt in purified water */

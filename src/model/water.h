@@ -1,23 +1,23 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #ifndef WATER_H
 #define WATER_H
+
+#include "meta.h"
 
 #include "../global.h"
 
 #include <QJsonObject>
 #include <QString>
 
-class Water {
+class Water : public Meta {
  public:
   Water();
   Water(QString name, float volume = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
         float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
 
   // getter und setter
-  QString getName() const;
-  void setName(const QString& newName);
   float get(AM::WaterValue what) const;       /**< @brief get requested value */
   void set(AM::WaterValue what, float value); /**< @brief set given type with value */
 
@@ -89,7 +89,6 @@ class Water {
    */
   float calculateRestalkalitaet() const;
 
-  QString name;
   float values[static_cast<int>(AM::WaterValue::LastAnion) + 1];
 };
 

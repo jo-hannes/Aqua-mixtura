@@ -1,22 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "malt.h"
 
 #include <math.h>
 
-Malt::Malt(QString name, float mass, float ebc, float ph) : name(name) {
-  setMass(mass);
-  setEbc(ebc);
-  setPh(ph);
-}
-
-QString Malt::getName() const {
-  return name;
-}
-
-void Malt::setName(const QString& newName) {
-  name = newName;
+Malt::Malt(QString name, float mass, float ebc, float ph) : Meta(name) {
+  this->mass = mass;
+  this->ebc = ebc;
+  this->ph = ph;
 }
 
 float Malt::getMass() const {
@@ -25,6 +17,7 @@ float Malt::getMass() const {
 
 void Malt::setMass(float newMass) {
   mass = newMass;
+  edited();
 }
 
 float Malt::getEbc() const {
@@ -33,6 +26,7 @@ float Malt::getEbc() const {
 
 void Malt::setEbc(float newEbc) {
   ebc = newEbc;
+  edited();
 }
 
 float Malt::getPh() const {
@@ -41,6 +35,7 @@ float Malt::getPh() const {
 
 void Malt::setPh(float newPh) {
   ph = newPh;
+  edited();
 }
 
 float Malt::calculatePh(float ebc, type type) {
@@ -74,16 +69,16 @@ float Malt::calcualtePhRoestmalz() {
 
 Malt Malt::fromJson(const QJsonObject& json) {
   Malt ret;
-  ret.setName(json["Name"].toString(""));
-  ret.setMass(json["mass"].toDouble(0));
-  ret.setEbc(json["EBC"].toDouble(0));
-  ret.setPh(json["pH"].toDouble(7));
+  ret.Meta::fromJson(json);
+  ret.mass = json["mass"].toDouble(0);
+  ret.ebc = json["EBC"].toDouble(0);
+  ret.ph = json["pH"].toDouble(7);
   return ret;
 }
 
 QJsonObject Malt::toJson() const {
   QJsonObject json;
-  json["Name"] = name;
+  Meta::toJson(json);
   json["mass"] = mass;
   json["EBC"] = ebc;
   json["pH"] = ph;

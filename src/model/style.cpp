@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "style.h"
 
 #include "QJsonValue"
 
-Style::Style(QString name) {
-  this->name = name;
+Style::Style(QString name) : Meta(name) {
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
     limited[i] = false;
     for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
@@ -16,7 +15,7 @@ Style::Style(QString name) {
 }
 
 Style::Style(const QJsonObject& json) {
-  name = json["Name"].toString("");
+  Meta::fromJson(json);
   // start at index 1 to skip volume
   for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
     // get sub object
@@ -30,7 +29,7 @@ Style::Style(const QJsonObject& json) {
 
 QJsonObject Style::toJson() const {
   QJsonObject json;
-  json["Name"] = name;
+  Meta::toJson(json);
   // start at index 1 to skip volume
   for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
     // skip values not limited
@@ -59,14 +58,6 @@ Style* Style::copy() const {
   return copy;
 }
 
-QString Style::getName() const {
-  return name;
-}
-
-void Style::setName(const QString& newName) {
-  name = newName;
-}
-
 float Style::get(AM::WaterValue what, Limit limit) const {
   if (what < AM::WaterValue::Size && limit < Limit::Size) {
     return limits[static_cast<uint>(what)][static_cast<uint>(limit)];
@@ -77,6 +68,7 @@ float Style::get(AM::WaterValue what, Limit limit) const {
 void Style::set(AM::WaterValue what, Limit limit, float value) {
   if (what < AM::WaterValue::Size && limit < Limit::Size) {
     limits[static_cast<uint>(what)][static_cast<uint>(limit)] = value;
+    edited();
   }
 }
 
@@ -92,6 +84,7 @@ void Style::limit(AM::WaterValue what, bool limit)
 {
   if (what < AM::WaterValue::Size) {
     limited[static_cast<uint>(what)] = limit;
+    edited();
   }
 }
 
