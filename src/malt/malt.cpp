@@ -17,7 +17,7 @@ float Malt::getMass() const {
 
 void Malt::setMass(float newMass) {
   mass = newMass;
-  edited();
+  updateEditTime();
 }
 
 float Malt::getEbc() const {
@@ -26,7 +26,7 @@ float Malt::getEbc() const {
 
 void Malt::setEbc(float newEbc) {
   ebc = newEbc;
-  edited();
+  updateEditTime();
 }
 
 float Malt::getPh() const {
@@ -35,7 +35,7 @@ float Malt::getPh() const {
 
 void Malt::setPh(float newPh) {
   ph = newPh;
-  edited();
+  updateEditTime();
 }
 
 float Malt::calculatePh(float ebc, type type) {

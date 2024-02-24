@@ -109,6 +109,7 @@ void WatersourceWindow::profileAdd() {
 
 void WatersourceWindow::profileCopy() {
   Water newProfile = model->sources->getProfile(selected);
+  newProfile.updateCreationTime();
   newProfile.setName("Copy of " + newProfile.getName());
   model->sources->addProfile(newProfile);
 }

@@ -23,10 +23,17 @@ QDateTime Meta::getModificationTime() const {
 
 void Meta::setName(const QString& newName) {
   name = newName;
+  updateEditTime();
 }
 
-void Meta::edited() {
+void Meta::updateEditTime()
+{
   edit = QDateTime::currentDateTime();
+}
+
+void Meta::updateCreationTime()
+{
+  create = QDateTime::currentDateTime();
 }
 
 void Meta::fromJson(const QJsonObject& json) {

@@ -68,7 +68,7 @@ float Style::get(AM::WaterValue what, Limit limit) const {
 void Style::set(AM::WaterValue what, Limit limit, float value) {
   if (what < AM::WaterValue::Size && limit < Limit::Size) {
     limits[static_cast<uint>(what)][static_cast<uint>(limit)] = value;
-    edited();
+    updateEditTime();
   }
 }
 
@@ -84,7 +84,7 @@ void Style::limit(AM::WaterValue what, bool limit)
 {
   if (what < AM::WaterValue::Size) {
     limited[static_cast<uint>(what)] = limit;
-    edited();
+    updateEditTime();
   }
 }
 

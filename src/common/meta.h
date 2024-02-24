@@ -18,7 +18,8 @@ class Meta {
   QDateTime getCreationTime() const;      /**< @brief Get object creation time */
   QDateTime getModificationTime() const;  /**< @brief Get last modification time */
   void setName(const QString& newName);   /**< @brief Set object name */
-  void edited();                          /**< @brief Update edit time to now */
+  void updateEditTime();                  /**< @brief Update edit time to now */
+  void updateCreationTime();              /**< @brief Update creation time to now */
   void fromJson(const QJsonObject& json); /**< @brief Read meta data from JSON */
   void toJson(QJsonObject& json) const;   /**< @brief Append meta data to JSON */
 

@@ -61,6 +61,7 @@ void MaltWindow::maltCopy() {
     return;
   }
   Malt m = volatileMalts->getMalt(idx.row());
+  m.updateCreationTime();
   m.setName("Copy of " + m.getName());
   volatileMalts->addMalt(m);
 }

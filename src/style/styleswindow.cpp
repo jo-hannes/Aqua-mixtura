@@ -89,6 +89,7 @@ void StylesWindow::styleAdd() {
 void StylesWindow::styleCopy() {
   // Qt objects can't be copied, so we need to do this by our own
   Style* copy = model->styles->getStyle(selected)->copy();
+  copy->updateCreationTime();
   copy->setName(tr("Copy of ") + copy->getName());
   model->styles->addStyle(copy);
   // Select copied style = last style

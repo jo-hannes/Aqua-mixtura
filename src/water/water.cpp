@@ -49,7 +49,7 @@ void Water::set(AM::WaterValue what, float value) {
   // only stored values
   if (what <= AM::WaterValue::LastAnion) {
     values[static_cast<uint>(what)] = value;
-    edited();
+    updateEditTime();
   }
 };
 
