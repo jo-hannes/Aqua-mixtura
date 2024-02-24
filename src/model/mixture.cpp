@@ -1,11 +1,22 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "mixture.h"
 
-Mixture::Mixture()
-{
-  
+Mixture::Mixture(QString name) : Meta(name) {}
+
+Mixture Mixture::fromJson(const QJsonObject& json) {
+  Mixture ret;
+  ret.Meta::fromJson(json);
+  // TODO
+  return ret;
+}
+
+QJsonObject Mixture::toJson() const {
+  QJsonObject json;
+  Meta::toJson(json);
+  // TODO
+  return json;
 }
 
 void Mixture::AddWater(Water water) {
@@ -28,8 +39,8 @@ Water Mixture::calc() {
   for (Water& w : waters) {
     result += w;
   }
-
-  // TODO other calculation
+  // Add additives
+  // TODO
 
   return result;
 }

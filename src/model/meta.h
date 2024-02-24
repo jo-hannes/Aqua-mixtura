@@ -15,6 +15,8 @@ class Meta {
  public:
   Meta(QString name = "");
   QString getName() const;                /**< @brief Get name of object */
+  QDateTime getCreationTime() const;      /**< @brief Get object creation time */
+  QDateTime getModificationTime() const;  /**< @brief Get last modification time */
   void setName(const QString& newName);   /**< @brief Set object name */
   void edited();                          /**< @brief Update edit time to now */
   void fromJson(const QJsonObject& json); /**< @brief Read meta data from JSON */

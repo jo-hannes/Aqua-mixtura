@@ -11,7 +11,13 @@
 
 class Mixture : public Meta {
  public:
-  Mixture();
+  Mixture(QString name = "");
+
+  // JSON conversion
+  static Mixture fromJson(const QJsonObject& json); /**< @brief convert JSON to Mixture */
+  QJsonObject toJson() const;                       /**< @brief convert this Mixture to JSON */
+
+  // TODO rethink the following functions
   void AddWater(Water water);
   void ClearWater();
   void RemoveWaterAt(qsizetype i);

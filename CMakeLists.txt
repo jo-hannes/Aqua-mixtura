@@ -36,6 +36,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/model/malts.h src/model/malts.cpp
         src/model/meta.h src/model/meta.cpp
         src/model/mixture.h src/model/mixture.cpp
+        src/model/mixtures.h src/model/mixtures.cpp
         src/model/style.h src/model/style.cpp
         src/model/styles.h src/model/styles.cpp
         src/model/water.h src/model/water.cpp

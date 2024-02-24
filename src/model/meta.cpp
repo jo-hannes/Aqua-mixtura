@@ -13,6 +13,14 @@ QString Meta::getName() const {
   return name;
 }
 
+QDateTime Meta::getCreationTime() const {
+  return create;
+}
+
+QDateTime Meta::getModificationTime() const {
+  return edit;
+}
+
 void Meta::setName(const QString& newName) {
   name = newName;
 }
