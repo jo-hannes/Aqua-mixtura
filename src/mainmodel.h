@@ -6,6 +6,7 @@
 
 #include "additive/additive.h"
 #include "malt/malts.h"
+#include "mixture/mixtures.h"
 #include "style/styles.h"
 #include "water/watersources.h"
 
@@ -29,18 +30,22 @@ class MainModel
   void saveStyles();
   void saveStyles(const QString& path);
 
+  void loadMixtures();
+  void saveMixtures();
+
   WaterSources* sources;
   Additive* additive;
   Malts* malts;
   Styles* styles;
-  // mixtures
- private:
+  Mixtures* mixtures;
 
+ private:
   QString configDir;
   QString sourcesFile;
   QString additiveFile;
   QString maltsFile;
   QString stylesFile;
+  QString mixturesFile;
 };
 
 #endif // MAINMODEL_H

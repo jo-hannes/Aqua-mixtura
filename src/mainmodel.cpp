@@ -39,6 +39,10 @@ MainModel::MainModel() {
   styles = new Styles();
   stylesFile = configDir + "/styles.json";
   loadStyles();
+
+  mixtures = new Mixtures();
+  mixturesFile = configDir + "/mixtures.json";
+  loadMixtures();
 }
 
 void MainModel::saveSources() {
@@ -77,4 +81,14 @@ void MainModel::saveStyles() {
 
 void MainModel::saveStyles(const QString& path) {
   JsonHelper::saveFile(path, styles->toJson());
+}
+
+void MainModel::loadMixtures() {
+  if (QFile::exists(mixturesFile)) {
+    mixtures->fromJson(JsonHelper::loadFile(mixturesFile));
+  }
+}
+
+void MainModel::saveMixtures() {
+  JsonHelper::saveFile(mixturesFile, mixtures->toJson());
 }
