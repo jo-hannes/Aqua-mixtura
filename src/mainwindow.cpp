@@ -3,6 +3,7 @@
 
 #include "mainwindow.h"
 
+#include "common/buttons.h"
 #include "mixture/mixture.h"
 #include "water/water.h"
 #include "water/waterprofileview.h"
@@ -46,11 +47,29 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   QObject::connect(btnLimits, &QPushButton::clicked, this, &MainWindow::limits);
   btnLayout->addWidget(btnLimits);
 
+  // Mixtures
+  mixturesView = new QTableView();
+  mixturesView->setModel(model->mixtures);
+  mixturesView->verticalHeader()->setVisible(false);
+  mixturesView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+  Buttons* mixBtns =
+      new Buttons(tr("Aufbereitung hinzufügen"), tr("Aufbereitung kopieren"), tr("Aufbereitung löschen"),
+                  tr("Aufbereitung importieren"), tr("Aufbereitung exportieren"), tr("Speichern"), tr("Abbrechen"));
+  QObject::connect(mixBtns->btnAdd, &QPushButton::clicked, this, &MainWindow::mixAdd);
+  QObject::connect(mixBtns->btnCopy, &QPushButton::clicked, this, &MainWindow::mixCopy);
+  QObject::connect(mixBtns->btnDelete, &QPushButton::clicked, this, &MainWindow::mixDelete);
+  QObject::connect(mixBtns->btnImport, &QPushButton::clicked, this, &MainWindow::mixImport);
+  QObject::connect(mixBtns->btnExport, &QPushButton::clicked, this, &MainWindow::mixExport);
+  QObject::connect(mixBtns->btnSave, &QPushButton::clicked, this, &MainWindow::mixSave);
+  QObject::connect(mixBtns->btnCancel, &QPushButton::clicked, this, &MainWindow::mixDiscard);
+
   // sticking it together
   QGridLayout* mainLayout = new QGridLayout();
   mainLayout->addWidget(txtSettings, 0, 0, Qt::AlignLeft | Qt::AlignTop);
-  mainLayout->addWidget(txtMix, 0, 1, Qt::AlignLeft | Qt::AlignTop);
   mainLayout->addLayout(btnLayout, 1, 0);
+  mainLayout->addWidget(txtMix, 0, 1, Qt::AlignLeft | Qt::AlignTop);
+  mainLayout->addWidget(mixturesView, 1, 1);
+  mainLayout->addWidget(mixBtns, 2, 1);
   // mainLayout->addLayout(btnLayount, 1, 1);
   QWidget* mainWidget = new QWidget();
   mainWidget->setLayout(mainLayout);
@@ -132,6 +151,75 @@ void MainWindow::styles() {
 
 void MainWindow::limits() {
   QMessageBox::information(this, "limits", "TODO limits");
+}
+
+void MainWindow::mixAdd() {
+  Mixture m("New");
+  model->mixtures->addMixture(m);
+}
+
+void MainWindow::mixCopy() {
+  QModelIndex idx = mixturesView->currentIndex();
+  if (!idx.isValid()) {
+    return;
+  }
+  Mixture m = model->mixtures->getMixture(idx.row());
+  m.updateCreationTime();
+  m.setName("Copy of " + m.getName());
+  model->mixtures->addMixture(m);
+}
+
+void MainWindow::mixDelete() {
+  QModelIndex idx = mixturesView->currentIndex();
+  if (!idx.isValid()) {
+    return;
+  }
+  model->mixtures->deleteMixture(idx.row());
+}
+
+void MainWindow::mixImport() {
+  QString path = QFileDialog::getOpenFileName(this, tr("Aufbereitung Importieren"),
+                                              QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                              tr("JSON (*.json);; Any (*.*)"));
+  if (path.isEmpty()) {
+    return;
+  }
+  if (!model->mixtures->importMixture(path)) {
+    QMessageBox msgBox;
+    msgBox.setText(tr("Konnte Aufbereitung nicht im JSON finden"));
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+  }
+}
+
+void MainWindow::mixExport() {
+  QModelIndex idx = mixturesView->currentIndex();
+  if (!idx.isValid()) {
+    return;
+  }
+  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
+                              model->mixtures->getMixture(idx.row()).getName() + ".json";
+  QString path =
+      QFileDialog::getSaveFileName(this, tr("Aufbereitung Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+  if (path.isEmpty()) {
+    return;
+  }
+  if (!model->mixtures->exportMixture(path, idx.row())) {
+    QMessageBox msgBox;
+    msgBox.setText(tr("Konnte Aufbereitung nicht speichern"));
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+  }
+}
+
+void MainWindow::mixSave() {
+  model->saveMixtures();
+}
+
+void MainWindow::mixDiscard() {
+  model->loadMixtures();
 }
 
 void MainWindow::setupMenuBar() {
