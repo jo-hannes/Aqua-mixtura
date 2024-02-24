@@ -5,6 +5,8 @@
 
 #include "malttabledelegate.h"
 
+#include "../common/buttons.h"
+
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QHBoxLayout>
@@ -36,43 +38,15 @@ MaltWindow::MaltWindow(MainModel* model, QWidget* parent) : QWidget{parent} {
   mainLayout->addWidget(maltsView);
 
   // Buttons
-  QPushButton* btnAdd = new QPushButton();
-  btnAdd->setToolTip(tr("Malz hinzufügen"));
-  btnAdd->setIcon(QIcon(":/icons/document-plus.svg"));
-  QObject::connect(btnAdd, &QPushButton::clicked, this, &MaltWindow::maltAdd);
-  QPushButton* btnCopy = new QPushButton();
-  btnCopy->setToolTip(tr("Malz kopieren"));
-  btnCopy->setIcon(QIcon(":/icons/document-duplicate.svg"));
-  QObject::connect(btnCopy, &QPushButton::clicked, this, &MaltWindow::maltCopy);
-  QPushButton* btnDelete = new QPushButton();
-  btnDelete->setToolTip(tr("Malz löschen"));
-  btnDelete->setIcon(QIcon(":/icons/document-minus.svg"));
-  QObject::connect(btnDelete, &QPushButton::clicked, this, &MaltWindow::maltDelete);
-  QPushButton* btnImport = new QPushButton();
-  btnImport->setToolTip(tr("Malz importieren"));
-  btnImport->setIcon(QIcon(":/icons/document-arrow-down.svg"));
-  QObject::connect(btnImport, &QPushButton::clicked, this, &MaltWindow::maltImport);
-  QPushButton* btnExport = new QPushButton();
-  btnExport->setToolTip(tr("Malz exportieren"));
-  btnExport->setIcon(QIcon(":/icons/document-arrow-up.svg"));
-  QObject::connect(btnExport, &QPushButton::clicked, this, &MaltWindow::maltExport);
-  QPushButton* btnCancle = new QPushButton();
-  btnCancle->setToolTip(tr("Abbrechen"));
-  btnCancle->setIcon(QIcon(":/icons/archive-box-x-mark.svg"));
-  QObject::connect(btnCancle, &QPushButton::clicked, this, &MaltWindow::cancel);
-  QPushButton* btnSave = new QPushButton();
-  btnSave->setToolTip(tr("Speichern"));
-  btnSave->setIcon(QIcon(":/icons/archive-box.svg"));
-  QObject::connect(btnSave, &QPushButton::clicked, this, &MaltWindow::save);
-
-  QDialogButtonBox* buttons = new QDialogButtonBox();
-  buttons->addButton(btnAdd, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnCopy, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnDelete, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnImport, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnExport, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnCancle, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnSave, QDialogButtonBox::ActionRole);
+  Buttons* buttons = new Buttons(tr("Malz hinzufügen"), tr("Malz kopieren"), tr("Malz löschen"), tr("Malz importieren"),
+                                 tr("Malz exportieren"), tr("Speichern"), tr("Abbrechen"));
+  QObject::connect(buttons->btnAdd, &QPushButton::clicked, this, &MaltWindow::maltAdd);
+  QObject::connect(buttons->btnCopy, &QPushButton::clicked, this, &MaltWindow::maltCopy);
+  QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &MaltWindow::maltDelete);
+  QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &MaltWindow::maltImport);
+  QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &MaltWindow::maltExport);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MaltWindow::save);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &MaltWindow::cancel);
   mainLayout->addWidget(buttons);
 }
 

@@ -30,6 +30,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/mainmodel.h src/mainmodel.cpp
         src/additive/additive.h src/additive/additive.cpp
         src/additive/additivewindow.h src/additive/additivewindow.cpp
+        src/common/buttons.h src/common/buttons.cpp
         src/common/global.h src/common/global.cpp
         src/common/jsonhelper.h src/common/jsonhelper.cpp
         src/common/meta.h src/common/meta.cpp

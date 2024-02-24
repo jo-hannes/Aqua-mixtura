@@ -3,6 +3,7 @@
 
 #include "watersourcewindow.h"
 
+#include "../common/buttons.h"
 #include "../common/jsonhelper.h"
 
 #include <QDialogButtonBox>
@@ -33,32 +34,14 @@ WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidge
   layoutQuellen->addWidget(sourcesView);
 
   // buttons für quellen
-  QPushButton* btnAdd = new QPushButton();
-  btnAdd->setToolTip(tr("Wasserquelle hinzufügen"));
-  btnAdd->setIcon(QIcon(":/icons/document-plus.svg"));
-  QObject::connect(btnAdd, &QPushButton::clicked, this, &WatersourceWindow::profileAdd);
-  QPushButton* btnCopy = new QPushButton();
-  btnCopy->setToolTip(tr("Wasserquelle kopieren"));
-  btnCopy->setIcon(QIcon(":/icons/document-duplicate.svg"));
-  QObject::connect(btnCopy, &QPushButton::clicked, this, &WatersourceWindow::profileCopy);
-  QPushButton* btnDelete = new QPushButton();
-  btnDelete->setToolTip(tr("Wasserquelle löschen"));
-  btnDelete->setIcon(QIcon(":/icons/document-minus.svg"));
-  QObject::connect(btnDelete, &QPushButton::clicked, this, &WatersourceWindow::profileDelete);
-  QPushButton* btnImport = new QPushButton();
-  btnImport->setToolTip(tr("Wasserquelle importieren"));
-  btnImport->setIcon(QIcon(":/icons/document-arrow-down.svg"));
-  QObject::connect(btnImport, &QPushButton::clicked, this, &WatersourceWindow::profileImport);
-  QPushButton* btnExport = new QPushButton();
-  btnExport->setToolTip(tr("Wasserquelle exportieren"));
-  btnExport->setIcon(QIcon(":/icons/document-arrow-up.svg"));
-  QObject::connect(btnExport, &QPushButton::clicked, this, &WatersourceWindow::profileExport);
-  QDialogButtonBox* buttonsQuellen = new QDialogButtonBox();
-  buttonsQuellen->addButton(btnAdd, QDialogButtonBox::ActionRole);
-  buttonsQuellen->addButton(btnCopy, QDialogButtonBox::ActionRole);
-  buttonsQuellen->addButton(btnDelete, QDialogButtonBox::ActionRole);
-  buttonsQuellen->addButton(btnImport, QDialogButtonBox::ActionRole);
-  buttonsQuellen->addButton(btnExport, QDialogButtonBox::ActionRole);
+  Buttons* buttonsQuellen =
+      new Buttons(tr("Wasserquelle hinzufügen"), tr("Wasserquelle kopieren"), tr("Wasserquelle löschen"),
+                  tr("Wasserquelle importieren"), tr("Wasserquelle exportieren"));
+  QObject::connect(buttonsQuellen->btnAdd, &QPushButton::clicked, this, &WatersourceWindow::profileAdd);
+  QObject::connect(buttonsQuellen->btnCopy, &QPushButton::clicked, this, &WatersourceWindow::profileCopy);
+  QObject::connect(buttonsQuellen->btnDelete, &QPushButton::clicked, this, &WatersourceWindow::profileDelete);
+  QObject::connect(buttonsQuellen->btnImport, &QPushButton::clicked, this, &WatersourceWindow::profileImport);
+  QObject::connect(buttonsQuellen->btnExport, &QPushButton::clicked, this, &WatersourceWindow::profileExport);
   layoutQuellen->addWidget(buttonsQuellen);
 
   // Profil Editor

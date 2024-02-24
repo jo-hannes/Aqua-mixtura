@@ -3,6 +3,8 @@
 
 #include "waterprofileedit.h"
 
+#include "../common/buttons.h"
+
 #include <QDialogButtonBox>
 #include <QGridLayout>
 #include <QLineEdit>
@@ -89,9 +91,9 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
 
   // buttons
   row++;
-  QDialogButtonBox* btnBox = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Cancel);
-  QObject::connect(btnBox, &QDialogButtonBox::accepted, this, &WaterProfileEdit::save);
-  QObject::connect(btnBox, &QDialogButtonBox::rejected, this, &WaterProfileEdit::cancel);
+  Buttons* btnBox = new Buttons(tr("Speichern"), tr("Abbrechen"));
+  QObject::connect(btnBox->btnSave, &QPushButton::clicked, this, &WaterProfileEdit::save);
+  QObject::connect(btnBox->btnCancel, &QPushButton::clicked, this, &WaterProfileEdit::cancel);
   layout->addWidget(btnBox, row, 0, 3, 0, Qt::AlignCenter);
 
   this->setLayout(layout);

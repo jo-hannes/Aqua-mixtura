@@ -5,6 +5,8 @@
 
 #include "styletabledelegate.h"
 
+#include "../common/buttons.h"
+
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QGridLayout>
@@ -48,43 +50,16 @@ StylesWindow::StylesWindow(MainModel* model, QWidget* parent) : QWidget{parent} 
   mainLayout->addWidget(styleTableView, 1, 1);
 
   // Buttons
-  QPushButton* btnAdd = new QPushButton();
-  btnAdd->setToolTip(tr("Bierstil hinzufügen"));
-  btnAdd->setIcon(QIcon(":/icons/document-plus.svg"));
-  QObject::connect(btnAdd, &QPushButton::clicked, this, &StylesWindow::styleAdd);
-  QPushButton* btnCopy = new QPushButton();
-  btnCopy->setToolTip(tr("Bierstil kopieren"));
-  btnCopy->setIcon(QIcon(":/icons/document-duplicate.svg"));
-  QObject::connect(btnCopy, &QPushButton::clicked, this, &StylesWindow::styleCopy);
-  QPushButton* btnDelete = new QPushButton();
-  btnDelete->setToolTip(tr("Bierstil löschen"));
-  btnDelete->setIcon(QIcon(":/icons/document-minus.svg"));
-  QObject::connect(btnDelete, &QPushButton::clicked, this, &StylesWindow::styleDelete);
-  QPushButton* btnImport = new QPushButton();
-  btnImport->setToolTip(tr("Bierstil importieren"));
-  btnImport->setIcon(QIcon(":/icons/document-arrow-down.svg"));
-  QObject::connect(btnImport, &QPushButton::clicked, this, &StylesWindow::styleImport);
-  QPushButton* btnExport = new QPushButton();
-  btnExport->setToolTip(tr("Bierstil exportieren"));
-  btnExport->setIcon(QIcon(":/icons/document-arrow-up.svg"));
-  QObject::connect(btnExport, &QPushButton::clicked, this, &StylesWindow::styleExport);
-  QPushButton* btnCancle = new QPushButton();
-  btnCancle->setToolTip(tr("Abbrechen"));
-  btnCancle->setIcon(QIcon(":/icons/archive-box-x-mark.svg"));
-  QObject::connect(btnCancle, &QPushButton::clicked, this, &StylesWindow::styleDiscard);
-  QPushButton* btnSave = new QPushButton();
-  btnSave->setToolTip(tr("Speichern"));
-  btnSave->setIcon(QIcon(":/icons/archive-box.svg"));
-  QObject::connect(btnSave, &QPushButton::clicked, this, &StylesWindow::styleSave);
-
-  QDialogButtonBox* buttons = new QDialogButtonBox();
-  buttons->addButton(btnAdd, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnCopy, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnDelete, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnImport, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnExport, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnCancle, QDialogButtonBox::ActionRole);
-  buttons->addButton(btnSave, QDialogButtonBox::ActionRole);
+  Buttons* buttons =
+      new Buttons(tr("Bierstil hinzufügen"), tr("Bierstil kopieren"), tr("Bierstil löschen"),
+                  tr("Bierstil importieren"), tr("Bierstil exportieren"), tr("Speichern"), tr("Abbrechen"));
+  QObject::connect(buttons->btnAdd, &QPushButton::clicked, this, &StylesWindow::styleAdd);
+  QObject::connect(buttons->btnCopy, &QPushButton::clicked, this, &StylesWindow::styleCopy);
+  QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &StylesWindow::styleDelete);
+  QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &StylesWindow::styleImport);
+  QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &StylesWindow::styleExport);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &StylesWindow::styleSave);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &StylesWindow::styleDiscard);
   mainLayout->addWidget(buttons, 2, 0, 1, 2, Qt::AlignHCenter);
 
   mainLayout->setColumnStretch(1, 1);

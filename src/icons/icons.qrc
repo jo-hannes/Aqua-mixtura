@@ -11,5 +11,9 @@
         <file>arrow-down-right.svg</file>
         <file>arrow-right.svg</file>
         <file>arrow-up-right.svg</file>
+        <file>check.svg</file>
+        <file>x-mark.svg</file>
+        <file>arrow-down-on-square.svg</file>
+        <file>arrow-up-on-square.svg</file>
     </qresource>
 </RCC>

@@ -3,6 +3,8 @@
 
 #include "additivewindow.h"
 
+#include "../common/buttons.h"
+
 #include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QLabel>
@@ -110,10 +112,10 @@ AdditiveWindow::AdditiveWindow(MainModel* model, QWidget* parent) : QWidget{pare
   QObject::connect(caco3, &QDoubleSpinBox::valueChanged, this, &AdditiveWindow::valChangeCaco3);
 
   // buttons
-  QDialogButtonBox* btnBox = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Cancel);
-  QObject::connect(btnBox, &QDialogButtonBox::accepted, this, &AdditiveWindow::save);
-  QObject::connect(btnBox, &QDialogButtonBox::rejected, this, &AdditiveWindow::cancel);
-  layout->addWidget(btnBox, row++, 0, 1, -1, Qt::AlignHCenter);
+  Buttons* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &AdditiveWindow::save);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &AdditiveWindow::cancel);
+  layout->addWidget(buttons, row++, 0, 1, -1, Qt::AlignHCenter);
 
   this->setLayout(layout);
 
