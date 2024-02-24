@@ -11,62 +11,71 @@
 #include <QStandardPaths>
 
 MainModel::MainModel() {
-  configDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+  QString configDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
   if (configDir.isEmpty()) {
     qFatal("Unable to get storage location");
   }
   QDir().mkpath(configDir);
 
-  sources = new WaterSources();
   sourcesFile = configDir + "/sources.json";
+  additiveFile = configDir + "/additive.json";
+  maltsFile = configDir + "/malts.json";
+  stylesFile = configDir + "/styles.json";
+  mixturesFile = configDir + "/mixtures.json";
+
+  sources = new WaterSources();
+  additive = new Additive();
+  malts = new Malts();
+  styles = new Styles();
+  mixtures = new Mixtures();
+
+  load();
+}
+
+void MainModel::load() {
+  loadSources();
+  loadAdditive();
+  loadMalts();
+  loadStyles();
+  loadMixtures();
+}
+
+void MainModel::save() {
+  saveSources();
+  saveAdditive();
+  saveMalts();
+  saveStyles();
+  saveMixtures();
+}
+
+void MainModel::loadSources() {
   if (QFile::exists(sourcesFile)) {
     sources->fromJson(JsonHelper::loadFile(sourcesFile));
   }
-
-  additiveFile = configDir + "/additive.json";
-  if (QFile::exists(sourcesFile)) {
-    additive = new Additive(Additive::fromJson(JsonHelper::loadFile(additiveFile)));
-  } else {
-    additive = new Additive();
-  }
-
-  malts = new Malts();
-  maltsFile = configDir + "/malts.json";
-  if (QFile::exists(maltsFile)) {
-    malts->fromJson(JsonHelper::loadFile(maltsFile));
-  }
-
-  styles = new Styles();
-  stylesFile = configDir + "/styles.json";
-  loadStyles();
-
-  mixtures = new Mixtures();
-  mixturesFile = configDir + "/mixtures.json";
-  loadMixtures();
 }
 
 void MainModel::saveSources() {
   JsonHelper::saveFile(sourcesFile, sources->toJson());
 }
 
-void MainModel::saveSources(const QString& path) {
-  JsonHelper::saveFile(path, sources->toJson());
+void MainModel::loadAdditive() {
+  if (QFile::exists(additiveFile)) {
+    additive->fromJson(JsonHelper::loadFile(additiveFile));
+  }
 }
 
 void MainModel::saveAdditive() {
   JsonHelper::saveFile(additiveFile, additive->toJson());
 }
 
-void MainModel::saveAdditive(const QString& path) {
-  JsonHelper::saveFile(path, additive->toJson());
+void MainModel::loadMalts() {
+  if (QFile::exists(maltsFile)) {
+    malts->fromJson(JsonHelper::loadFile(maltsFile));
+  }
 }
 
 void MainModel::saveMalts() {
   JsonHelper::saveFile(maltsFile, malts->toJson());
-}
-
-void MainModel::saveMalts(const QString& path) {
-  JsonHelper::saveFile(path, malts->toJson());
 }
 
 void MainModel::loadStyles() {
@@ -77,10 +86,6 @@ void MainModel::loadStyles() {
 
 void MainModel::saveStyles() {
   JsonHelper::saveFile(stylesFile, styles->toJson());
-}
-
-void MainModel::saveStyles(const QString& path) {
-  JsonHelper::saveFile(path, styles->toJson());
 }
 
 void MainModel::loadMixtures() {

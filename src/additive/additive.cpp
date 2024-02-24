@@ -145,29 +145,32 @@ void Additive::setH3po4Concentration(float newH3po4Concentration) {
     h3po4Concentration = newH3po4Concentration;
 }
 
-Additive Additive::fromJson(const QJsonObject& json) {
-  Additive ret;
-  if (!json.contains("WaterAdditives"))
-    return ret;
-  if (!json["WaterAdditives"].isObject())
-    return ret;
+bool Additive::fromJson(const QJsonObject& json) {
+  if (!json.contains("WaterAdditives")) {
+    qWarning("No valid additives in JSON found");
+    return false;
+  }
+  if (!json["WaterAdditives"].isObject()) {
+    qWarning("No valid additives in JSON found");
+    return false;
+  }
   QJsonObject j = json["WaterAdditives"].toObject();
-  ret.setCaso4(j["caso4"].toDouble(-1));
-  ret.setCacl2(j["cacl2"].toDouble(-1));
-  ret.setNacl(j["nacl"].toDouble(-1));
-  ret.setNahco3(j["nahco3"].toDouble(-1));
-  ret.setMgcl2(j["mgcl2"].toDouble(-1));
-  ret.setMgso4(j["mgso4"].toDouble(-1));
-  ret.setCaco3(j["caco3"].toDouble(-1));
-  ret.setC3h6o3Volume(j["c3h6o3Volume"].toDouble(-1));
-  ret.setC3h6o3Concentration(j["c3h6o3Concentration"].toDouble(80));
-  ret.setHclVolume(j["hclVolume"].toDouble(-1));
-  ret.setHclConcentration(j["hclConcentration"].toDouble(10));
-  ret.setH2so4Volume(j["h2so4Volume"].toDouble(-1));
-  ret.setH2so4Concentration(j["h2so4Concentration"].toDouble(10));
-  ret.setH3po4Volume(j["h3po4Volume"].toDouble(-1));
-  ret.setH3po4Concentration(j["h3po4Concentration"].toDouble(10));
-  return ret;
+  setCaso4(j["caso4"].toDouble(-1));
+  setCacl2(j["cacl2"].toDouble(-1));
+  setNacl(j["nacl"].toDouble(-1));
+  setNahco3(j["nahco3"].toDouble(-1));
+  setMgcl2(j["mgcl2"].toDouble(-1));
+  setMgso4(j["mgso4"].toDouble(-1));
+  setCaco3(j["caco3"].toDouble(-1));
+  setC3h6o3Volume(j["c3h6o3Volume"].toDouble(-1));
+  setC3h6o3Concentration(j["c3h6o3Concentration"].toDouble(80));
+  setHclVolume(j["hclVolume"].toDouble(-1));
+  setHclConcentration(j["hclConcentration"].toDouble(10));
+  setH2so4Volume(j["h2so4Volume"].toDouble(-1));
+  setH2so4Concentration(j["h2so4Concentration"].toDouble(10));
+  setH3po4Volume(j["h3po4Volume"].toDouble(-1));
+  setH3po4Concentration(j["h3po4Concentration"].toDouble(10));
+  return true;
 }
 
 QJsonObject Additive::toJson() const {

@@ -43,7 +43,7 @@ class Additive {
   void setH3po4Concentration(float newH3po4Concentration);
 
   // JSON conversion
-  static Additive fromJson(const QJsonObject& json); /**< @brief convert JSON to Additive */
+  bool fromJson(const QJsonObject& json);            /**< @brief convert JSON to Additive */
   QJsonObject toJson() const;                        /**< @brief convert this Additive to JSON */
 
  private:
