@@ -15,10 +15,12 @@ bool Mixtures::fromJson(const QJsonObject& json) {
     qWarning("No valid mixtures in JSON found");
     return false;
   }
+  beginResetModel();
   mixtures.clear();
   for (const auto& mix : jsonMixtures.toArray()) {
     mixtures.append(Mixture::fromJson(mix.toObject()));
   }
+  endResetModel();
   return true;
 }
 

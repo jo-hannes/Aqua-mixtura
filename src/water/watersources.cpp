@@ -15,10 +15,12 @@ bool WaterSources::fromJson(const QJsonObject& json) {
     qWarning("No valid sources in JSON found");
     return false;
   }
+  beginResetModel();
   sources.clear();
   for (const auto& profile : jsonSources.toArray()) {
     sources.append(Water::fromJson(profile.toObject()));
   }
+  endResetModel();
   return true;
 }
 

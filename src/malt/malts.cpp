@@ -23,11 +23,13 @@ bool Malts::fromJson(const QJsonObject& json) {
     qWarning("No valid malts in JSON found");
     return false;
   }
+  beginResetModel();
   malts.clear();
   for (const auto& malt : jsonMalts.toArray()) {
     malts.append(Malt::fromJson(malt.toObject()));
   }
   setUnsaved(false);
+  endResetModel();
   return true;
 }
 
