@@ -3,7 +3,7 @@
 
 #include "mixtures.h"
 
-#include "jsonhelper.h"
+#include "../common/jsonhelper.h"
 
 #include <QJsonArray>
 

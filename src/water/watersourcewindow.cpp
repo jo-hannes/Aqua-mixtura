@@ -3,7 +3,7 @@
 
 #include "watersourcewindow.h"
 
-#include "../model/jsonhelper.h"
+#include "../common/jsonhelper.h"
 
 #include <QDialogButtonBox>
 #include <QFileDialog>

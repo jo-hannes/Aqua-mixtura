@@ -3,9 +3,9 @@
 
 #include "mainwindow.h"
 
-#include "model/mixture.h"
-#include "model/water.h"
-#include "view/waterprofileview.h"
+#include "mixture/mixture.h"
+#include "water/water.h"
+#include "water/waterprofileview.h"
 
 #include <QFrame>
 #include <QLabel>

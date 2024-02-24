@@ -3,9 +3,8 @@
 
 #include "watersources.h"
 
-#include "QtCore/qjsonarray.h"
-
 #include <QFile>
+#include <QJsonArray>
 #include <QJsonDocument>
 
 WaterSources::WaterSources() {}

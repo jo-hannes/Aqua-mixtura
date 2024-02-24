@@ -4,7 +4,7 @@
 #ifndef MALT_H
 #define MALT_H
 
-#include "meta.h"
+#include "../common/meta.h"
 
 #include <QJsonObject>
 #include <QString>

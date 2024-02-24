@@ -3,10 +3,9 @@
 
 #include "waterprofileedit.h"
 
-#include "QtWidgets/qlineedit.h"
-
 #include <QDialogButtonBox>
 #include <QGridLayout>
+#include <QLineEdit>
 
 WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout = new QGridLayout();

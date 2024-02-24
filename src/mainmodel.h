@@ -4,10 +4,10 @@
 #ifndef MAINMODEL_H
 #define MAINMODEL_H
 
-#include "model/additive.h"
-#include "model/malts.h"
-#include "model/styles.h"
-#include "model/watersources.h"
+#include "additive/additive.h"
+#include "malt/malts.h"
+#include "style/styles.h"
+#include "water/watersources.h"
 
 #include <QJsonObject>
 

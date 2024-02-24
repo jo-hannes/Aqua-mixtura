@@ -3,11 +3,10 @@
 
 #include "malts.h"
 
-#include "jsonhelper.h"
-
-#include "QtCore/qjsonarray.h"
+#include "../common/jsonhelper.h"
 
 #include <QFile>
+#include <QJsonArray>
 #include <QJsonDocument>
 
 Malts::Malts() {

@@ -4,9 +4,8 @@
 #ifndef STYLE_H
 #define STYLE_H
 
-#include "meta.h"
-
-#include "../global.h"
+#include "../common/global.h"
+#include "../common/meta.h"
 
 #include <QAbstractTableModel>
 #include <QJsonObject>

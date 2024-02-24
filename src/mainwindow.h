@@ -6,10 +6,10 @@
 
 #include "mainmodel.h"
 
-#include "view/additivewindow.h"
-#include "view/maltwindow.h"
-#include "view/styleswindow.h"
-#include "view/watersourcewindow.h"
+#include "additive/additivewindow.h"
+#include "malt/maltwindow.h"
+#include "style/styleswindow.h"
+#include "water/watersourcewindow.h"
 
 #include <QMainWindow>
 #include <QPushButton>

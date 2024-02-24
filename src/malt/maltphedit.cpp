@@ -3,7 +3,7 @@
 
 #include "maltphedit.h"
 
-#include "../model/malt.h"
+#include "malt.h"
 
 #include <QGridLayout>
 #include <QPushButton>

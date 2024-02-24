@@ -3,7 +3,7 @@
 
 #include "mainmodel.h"
 
-#include "model/jsonhelper.h"
+#include "common/jsonhelper.h"
 
 #include <QDir>
 #include <QFile>

@@ -4,7 +4,7 @@
 #ifndef WATERPROFILEEDIT_H
 #define WATERPROFILEEDIT_H
 
-#include "../model/water.h"
+#include "water.h"
 
 #include <QDoubleSpinBox>
 #include <QGridLayout>

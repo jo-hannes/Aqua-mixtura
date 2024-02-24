@@ -4,8 +4,8 @@
 #ifndef MIXTURE_H
 #define MIXTURE_H
 
-#include "meta.h"
-#include "water.h"
+#include "../common/meta.h"
+#include "../water/water.h"
 
 #include <QVector>
 

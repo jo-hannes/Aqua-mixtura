@@ -4,7 +4,7 @@
 #ifndef WATERPROFILEVIEW_H
 #define WATERPROFILEVIEW_H
 
-#include "../model/water.h"
+#include "water.h"
 
 #include <QLabel>
 #include <QObject>
