@@ -27,29 +27,29 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Aqua-mixtura
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        src/global.h src/global.cpp
-        src/icons/icons.qrc
         src/mainmodel.h src/mainmodel.cpp
-        src/model/additive.h src/model/additive.cpp
-        src/model/jsonhelper.h src/model/jsonhelper.cpp
-        src/model/malt.h src/model/malt.cpp
-        src/model/malts.h src/model/malts.cpp
-        src/model/meta.h src/model/meta.cpp
-        src/model/mixture.h src/model/mixture.cpp
-        src/model/mixtures.h src/model/mixtures.cpp
-        src/model/style.h src/model/style.cpp
-        src/model/styles.h src/model/styles.cpp
-        src/model/water.h src/model/water.cpp
-        src/model/watersources.h src/model/watersources.cpp
-        src/view/additivewindow.h src/view/additivewindow.cpp
-        src/view/maltphedit.h src/view/maltphedit.cpp
-        src/view/malttabledelegate.h src/view/malttabledelegate.cpp
-        src/view/maltwindow.h src/view/maltwindow.cpp
-        src/view/styleswindow.h src/view/styleswindow.cpp
-        src/view/waterprofileedit.h src/view/waterprofileedit.cpp
-        src/view/waterprofileview.h src/view/waterprofileview.cpp
-        src/view/watersourcewindow.h src/view/watersourcewindow.cpp
-        src/view/styletabledelegate.h src/view/styletabledelegate.cpp
+        src/additive/additive.h src/additive/additive.cpp
+        src/additive/additivewindow.h src/additive/additivewindow.cpp
+        src/common/global.h src/common/global.cpp
+        src/common/jsonhelper.h src/common/jsonhelper.cpp
+        src/common/meta.h src/common/meta.cpp
+        src/icons/icons.qrc
+        src/malt/malt.h src/malt/malt.cpp
+        src/malt/maltphedit.h src/malt/maltphedit.cpp
+        src/malt/malts.h src/malt/malts.cpp
+        src/malt/malttabledelegate.h src/malt/malttabledelegate.cpp
+        src/malt/maltwindow.h src/malt/maltwindow.cpp
+        src/mixture/mixture.h src/mixture/mixture.cpp
+        src/mixture/mixtures.h src/mixture/mixtures.cpp
+        src/style/style.h src/style/style.cpp
+        src/style/styles.h src/style/styles.cpp
+        src/style/styleswindow.h src/style/styleswindow.cpp
+        src/style/styletabledelegate.h src/style/styletabledelegate.cpp
+        src/water/water.h src/water/water.cpp
+        src/water/waterprofileedit.h src/water/waterprofileedit.cpp
+        src/water/waterprofileview.h src/water/waterprofileview.cpp
+        src/water/watersources.h src/water/watersources.cpp
+        src/water/watersourcewindow.h src/water/watersourcewindow.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Aqua-mixtura APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
