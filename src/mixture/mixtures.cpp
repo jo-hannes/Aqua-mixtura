@@ -9,6 +9,14 @@
 
 Mixtures::Mixtures(QObject* parent) : QAbstractTableModel{parent} {}
 
+Mixtures::~Mixtures() {
+  for (MixtureWindow* w : mixWindows) {
+    if (w != nullptr) {
+      delete w;
+    }
+  }
+}
+
 bool Mixtures::fromJson(const QJsonObject& json) {
   QJsonValue jsonMixtures = json["Mixtures"];
   if (!jsonMixtures.isArray()) {
@@ -85,7 +93,27 @@ void Mixtures::deleteMixture(qsizetype i) {
     beginRemoveRows(QModelIndex(), i, i);
     mixtures.removeAt(i);
     endRemoveRows();
+    if (mixWindows[i] != nullptr) {
+      delete mixWindows[i];
+    }
+    mixWindows.removeAt(i);
   }
+}
+
+void Mixtures::show(qsizetype i) {
+  // check index
+  if (i < 0 || i >= mixtures.size()) {
+    return;
+  }
+  // resize if needed
+  if (mixWindows.size() <= i) {
+    mixWindows.resize(i + 1, nullptr);
+  }
+  // create Window if needed
+  if (mixWindows[i] == nullptr) {
+    mixWindows[i] = new MixtureWindow(mixtures[i]);
+  }
+  mixWindows[i]->show();
 }
 
 int Mixtures::rowCount(const QModelIndex& parent) const {
@@ -142,6 +170,31 @@ QVariant Mixtures::headerData(int section, Qt::Orientation orientation, int role
   }
 }
 
-// bool Mixtures::setData(const QModelIndex& index, const QVariant& value, int role) {}
+bool Mixtures::setData(const QModelIndex& index, const QVariant& value, int role) {
+  if (!index.isValid()) {
+    return false;
+  }
+  if (role != Qt::EditRole) {
+    return false;
+  }
+  if (index.column() != 0) {
+    return false;
+  }
+  int row = index.row();
+  mixtures[row].setName(value.toString());
+  if (mixWindows[row] != nullptr) {
+    mixWindows[row]->updateName();
+  }
+  return true;
+}
 
-// Qt::ItemFlags Mixtures::flags(const QModelIndex& index) const {}
+Qt::ItemFlags Mixtures::flags(const QModelIndex& index) const {
+  if (!index.isValid()) {
+    return Qt::NoItemFlags;
+  }
+  if (index.column() == 0) {  // only name is editable
+    return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+  } else {
+    return QAbstractItemModel::flags(index);
+  }
+}

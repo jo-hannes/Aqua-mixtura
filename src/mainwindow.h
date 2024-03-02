@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -8,11 +8,14 @@
 
 #include "additive/additivewindow.h"
 #include "malt/maltwindow.h"
+#include "mixture/mixturewindow.h"
 #include "style/styleswindow.h"
 #include "water/watersourcewindow.h"
 
 #include <QMainWindow>
+#include <QModelIndex>
 #include <QPushButton>
+#include <QVector>
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -43,6 +46,7 @@ class MainWindow : public QMainWindow {
   void mixExport();  /**< @brief Slot for exporting a mixture to JSON */
   void mixSave();    /**< @brief Slot for saving all mixtures */
   void mixDiscard(); /**< @brief Slot for discarding all unsaved mixture changes */
+  void mixDoubleClicked(const QModelIndex& idx); /**< @brief Slot for double clicks on mixtures */
 
  private:
   void setupMenuBar(); /**< @brief Creates menu bor for main window */
@@ -54,10 +58,9 @@ class MainWindow : public QMainWindow {
   MaltWindow* wmalts;    /**< @brief Window for editing malts */
   StylesWindow* wstyles; /**< @brief Window for editing beer styles */
   QString txtMalts;      /**< @brief Text of malt window button */
-  QPushButton* btnMalts; /**< @brief Button for opening malt window */
 
   // Pointer to all buttons
-  QPushButton *btnSources, *btnAdditions, *btnStyles, *btnLimits;
+  QPushButton *btnSources, *btnAdditions, *btnMalts, *btnStyles, *btnLimits;
 
   // mixtures
   QTableView* mixturesView;

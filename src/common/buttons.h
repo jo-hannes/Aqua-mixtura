@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
+
 #ifndef BUTTONS_H
 #define BUTTONS_H
 

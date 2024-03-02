@@ -5,6 +5,7 @@
 #define MIXTURES_H
 
 #include "mixture.h"
+#include "mixturewindow.h"
 
 #include <QAbstractTableModel>
 #include <QObject>
@@ -15,6 +16,7 @@ class Mixtures : public QAbstractTableModel {
 
  public:
   explicit Mixtures(QObject* parent = nullptr);
+  ~Mixtures();
 
   // JSON conversion
   bool fromJson(const QJsonObject& json);               /**< @brief convert JSON to Mixtures */
@@ -26,16 +28,18 @@ class Mixtures : public QAbstractTableModel {
   void updateMixture(Mixture& mixture, qsizetype i); /**< @brief Update mixture at index */
   void addMixture(Mixture& mixture);                 /**< @brief Add a mixture */
   void deleteMixture(qsizetype i);                   /**< @brief Delete mixture at index */
+  void show(qsizetype i);                            /**< @brief Show mixture window at index */
 
   // for QAbstractTableModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;
   int columnCount(const QModelIndex& parent = QModelIndex()) const;
   QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
   QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-  // bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
-  // Qt::ItemFlags flags(const QModelIndex& index) const;
+  bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
+  Qt::ItemFlags flags(const QModelIndex& index) const;
 
  private:
+  QVector<MixtureWindow*> mixWindows; /**< @brief Array with pointer to mixture windows */
   QVector<Mixture> mixtures;
   Mixture noMixture;
 };

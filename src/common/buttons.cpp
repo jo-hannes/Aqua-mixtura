@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
+
 #include "buttons.h"
 
 Buttons::Buttons(const QString& save, const QString& cancle) {

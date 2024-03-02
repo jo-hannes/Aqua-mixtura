@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "mainwindow.h"
 
@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   mixturesView->setModel(model->mixtures);
   mixturesView->verticalHeader()->setVisible(false);
   mixturesView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+  QObject::connect(mixturesView, &QTableView::doubleClicked, this, &MainWindow::mixDoubleClicked);
   Buttons* mixBtns =
       new Buttons(tr("Aufbereitung hinzufügen"), tr("Aufbereitung kopieren"), tr("Aufbereitung löschen"),
                   tr("Aufbereitung importieren"), tr("Aufbereitung exportieren"), tr("Speichern"), tr("Abbrechen"));
@@ -220,6 +221,12 @@ void MainWindow::mixSave() {
 
 void MainWindow::mixDiscard() {
   model->loadMixtures();
+}
+
+void MainWindow::mixDoubleClicked(const QModelIndex& idx) {
+  if (idx.column() != 0) {
+    model->mixtures->show(idx.row());
+  }
 }
 
 void MainWindow::setupMenuBar() {
