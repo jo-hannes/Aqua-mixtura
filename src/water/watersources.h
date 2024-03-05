@@ -21,6 +21,7 @@ class WaterSources : public QAbstractTableModel {
   // JSON conversion
   bool fromJson(const QJsonObject& json); /**< @brief Update WaterSources from JSON */
   QJsonObject toJson() const;             /**< @brief convert this WaterSources to JSON */
+  QJsonObject profileToJson() const;      /**< @brief convert profile of this WaterSources to JSON */
 
   // bool import(const QString& path);
 

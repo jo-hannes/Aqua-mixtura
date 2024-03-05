@@ -31,6 +31,16 @@ bool WaterSources::fromJson(const QJsonObject& json) {
 QJsonObject WaterSources::toJson() const {
   QJsonArray jsonSrcArray;
   for (const auto& src : sources) {
+    jsonSrcArray.append(src.toJson());
+  }
+  QJsonObject jsonSources;
+  jsonSources["WaterSources"] = jsonSrcArray;
+  return jsonSources;
+}
+
+QJsonObject WaterSources::profileToJson() const {
+  QJsonArray jsonSrcArray;
+  for (const auto& src : sources) {
     jsonSrcArray.append(src.profileToJson());
   }
   QJsonObject jsonSources;

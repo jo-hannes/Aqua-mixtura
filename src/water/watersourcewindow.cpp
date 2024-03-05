@@ -147,7 +147,7 @@ void WatersourceWindow::profileExport() {
     return;
   }
   QJsonObject jsonSource;
-  jsonSource["WaterSource"] = model->sources->getProfile(selected).toJson();
+  jsonSource["WaterSource"] = model->sources->getProfile(selected).profileToJson();
   bool success = JsonHelper::saveFile(path, jsonSource);
   if (!success) {
     QMessageBox msgBox;

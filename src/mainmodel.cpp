@@ -55,7 +55,7 @@ void MainModel::loadSources() {
 }
 
 void MainModel::saveSources() {
-  JsonHelper::saveFile(sourcesFile, sources->toJson());
+  JsonHelper::saveFile(sourcesFile, sources->profileToJson());
 }
 
 void MainModel::loadAdditive() {
