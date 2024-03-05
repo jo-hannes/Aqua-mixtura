@@ -9,6 +9,10 @@
 
 WaterSources::WaterSources() {}
 
+WaterSources::WaterSources(const QJsonObject& json) {
+  fromJson(json);
+}
+
 bool WaterSources::fromJson(const QJsonObject& json) {
   QJsonValue jsonSources = json["WaterSources"];
   if (!jsonSources.isArray()) {
@@ -18,7 +22,7 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   beginResetModel();
   sources.clear();
   for (const auto& profile : jsonSources.toArray()) {
-    sources.append(Water::fromJson(profile.toObject()));
+    sources.append(Water(profile.toObject()));
   }
   endResetModel();
   return true;

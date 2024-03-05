@@ -16,9 +16,10 @@ class WaterSources : public QAbstractTableModel {
 
  public:
   WaterSources();
+  WaterSources(const QJsonObject& json); /**< @brief Create WaterSources from JSON */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief convert JSON to WaterSources */
+  bool fromJson(const QJsonObject& json); /**< @brief Update WaterSources from JSON */
   QJsonObject toJson() const;             /**< @brief convert this WaterSources to JSON */
 
   // bool import(const QString& path);

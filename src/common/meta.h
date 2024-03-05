@@ -14,13 +14,14 @@
 class Meta {
  public:
   Meta(QString name = "");
+  Meta(const QJsonObject& json);          /**< @brief Create Meta from JSON */
   QString getName() const;                /**< @brief Get name of object */
   QDateTime getCreationTime() const;      /**< @brief Get object creation time */
   QDateTime getModificationTime() const;  /**< @brief Get last modification time */
   void setName(const QString& newName);   /**< @brief Set object name */
   void updateEditTime();                  /**< @brief Update edit time to now */
   void updateCreationTime();              /**< @brief Update creation time to now */
-  void fromJson(const QJsonObject& json); /**< @brief Read meta data from JSON */
+  bool fromJson(const QJsonObject& json); /**< @brief Update meta data from JSON */
   void toJson(QJsonObject& json) const;   /**< @brief Append meta data to JSON */
 
  private:

@@ -15,7 +15,11 @@ Style::Style(QString name) : Meta(name) {
 }
 
 Style::Style(const QJsonObject& json) {
-  Meta::fromJson(json);
+  fromJson(json);
+}
+
+bool Style::fromJson(const QJsonObject& json) {
+  bool ret = Meta::fromJson(json);
   // start at index 1 to skip volume
   for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
     // get sub object
@@ -25,6 +29,7 @@ Style::Style(const QJsonObject& json) {
       limits[i][j] = limit[jsonKeys[j]].toDouble(0);
     }
   }
+  return ret;
 }
 
 QJsonObject Style::toJson() const {

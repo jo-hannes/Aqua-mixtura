@@ -14,8 +14,9 @@ class Mixture : public Meta {
   Mixture(QString name = "");
 
   // JSON conversion
-  static Mixture fromJson(const QJsonObject& json); /**< @brief convert JSON to Mixture */
-  QJsonObject toJson() const;                       /**< @brief convert this Mixture to JSON */
+  Mixture(const QJsonObject& json);       /**< @brief Create Mixture from JSON */
+  bool fromJson(const QJsonObject& json); /**< @brief Update Mixture from JSON */
+  QJsonObject toJson() const;             /**< @brief convert this Mixture to JSON */
 
   // TODO rethink the following functions
   void AddWater(Water water);

@@ -15,9 +15,10 @@ class Malts : public QAbstractTableModel {
 
  public:
   Malts();
+  Malts(const QJsonObject& json); /**< @brief Create Malts from JSON */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief convert JSON to Malts */
+  bool fromJson(const QJsonObject& json); /**< @brief Update Malts from JSON */
   QJsonObject toJson() const;             /**< @brief convert this Malts to JSON */
   bool importMalt(const QString& path);   /**< @brief import and add a Malt from JSON */
   bool exportMalt(const QString& path, qsizetype i); /**< @brief export a Malt at index as JSON */

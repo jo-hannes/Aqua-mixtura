@@ -19,6 +19,10 @@ Water::Water(QString name, float volume, float calzium, float magnesium, float n
   values[static_cast<uint>(AM::WaterValue::Lactat)] = lactat;
 }
 
+Water::Water(const QJsonObject& json) {
+  fromJson(json);
+}
+
 float Water::get(AM::WaterValue what) const {
   // stored values
   if (what <= AM::WaterValue::LastAnion) {
@@ -53,12 +57,11 @@ void Water::set(AM::WaterValue what, float value) {
   }
 };
 
-Water Water::fromJson(const QJsonObject& json) {
-  Water ret;
-  ret.Meta::fromJson(json);
+bool Water::fromJson(const QJsonObject& json) {
+  bool ret = Meta::fromJson(json);
   for (int i = 0; i <= static_cast<int>(AM::WaterValue::LastAnion); i++) {
     const QString& key = AM::waterStrings[i][AM::JsonKey];
-    ret.values[i] = json[key].toDouble(0);
+    values[i] = json[key].toDouble(0);
   }
   return ret;
 }

@@ -13,6 +13,10 @@ Malts::Malts() {
   unsavedChanges = false;
 }
 
+Malts::Malts(const QJsonObject& json) {
+  fromJson(json);
+}
+
 bool Malts::fromJson(const QJsonObject& json) {
   if (!json.contains("Malts")) {
     qWarning("No valid malts in JSON found");
@@ -26,7 +30,7 @@ bool Malts::fromJson(const QJsonObject& json) {
   beginResetModel();
   malts.clear();
   for (const auto& malt : jsonMalts.toArray()) {
-    malts.append(Malt::fromJson(malt.toObject()));
+    malts.append(Malt(malt.toObject()));
   }
   setUnsaved(false);
   endResetModel();
@@ -51,7 +55,7 @@ bool Malts::importMalt(const QString& path) {
   if (!jsonMalt.contains("Malt")) {
     return false;
   }
-  Malt m = Malt::fromJson(jsonMalt["Malt"].toObject());
+  Malt m(jsonMalt["Malt"].toObject());
   addMalt(m);
   setUnsaved(true);
   return true;

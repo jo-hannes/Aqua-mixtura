@@ -26,8 +26,9 @@ class Style : public QAbstractTableModel, public Meta {
   Style(QString name = "");
 
   // JSON conversion
-  Style(const QJsonObject& json); /**< @brief Construct Style from JSON */
-  QJsonObject toJson() const;     /**< @brief convert Style to JSON */
+  Style(const QJsonObject& json);         /**< @brief Construct Style from JSON */
+  bool fromJson(const QJsonObject& json); /**< @brief Update Style from JSON */
+  QJsonObject toJson() const;             /**< @brief convert Style to JSON */
 
   Style* copy() const; /**< @brief create a copy*/
 

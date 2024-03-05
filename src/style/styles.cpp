@@ -14,6 +14,10 @@ Styles::Styles() {
   unsavedChanges = false;
 }
 
+Styles::Styles(const QJsonObject& json) {
+  fromJson(json);
+}
+
 Styles::~Styles() {
   clear();
   delete noStyle;

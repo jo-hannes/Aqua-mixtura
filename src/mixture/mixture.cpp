@@ -3,12 +3,27 @@
 
 #include "mixture.h"
 
+#include <QJsonArray>
+#include <QJsonValue>
+
 Mixture::Mixture(QString name) : Meta(name) {}
 
-Mixture Mixture::fromJson(const QJsonObject& json) {
-  Mixture ret;
-  ret.Meta::fromJson(json);
+Mixture::Mixture(const QJsonObject& json) {
+  fromJson(json);
+}
+
+bool Mixture::fromJson(const QJsonObject& json) {
+  bool ret = Meta::fromJson(json);
+
   // TODO
+  // read waters
+  QJsonValue jWaters = json["Waters"];
+  waters.clear();
+  if (jWaters.isArray()) {
+    for (const auto& water : jWaters.toArray()) {
+      waters.append(Water(water.toObject()));
+    }
+  }
   return ret;
 }
 

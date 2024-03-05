@@ -9,6 +9,10 @@
 
 Mixtures::Mixtures(QObject* parent) : QAbstractTableModel{parent} {}
 
+Mixtures::Mixtures(const QJsonObject& json) {
+  fromJson(json);
+}
+
 Mixtures::~Mixtures() {
   for (MixtureWindow* w : mixWindows) {
     if (w != nullptr) {
@@ -26,7 +30,7 @@ bool Mixtures::fromJson(const QJsonObject& json) {
   beginResetModel();
   mixtures.clear();
   for (const auto& mix : jsonMixtures.toArray()) {
-    mixtures.append(Mixture::fromJson(mix.toObject()));
+    mixtures.append(Mixture(mix.toObject()));
   }
   endResetModel();
   return true;
@@ -50,7 +54,7 @@ bool Mixtures::importMixture(const QString& path) {
   if (!json.contains("AquaMixture")) {
     return false;
   }
-  Mixture imported = Mixture::fromJson(json["AquaMixture"].toObject());
+  Mixture imported(json["AquaMixture"].toObject());
   addMixture(imported);
   return true;
 }
@@ -67,9 +71,9 @@ bool Mixtures::exportMixture(const QString& path, qsizetype i) {
   return JsonHelper::saveFile(path, json);
 }
 
-const Mixture& Mixtures::getMixture(qsizetype i) {
+Mixture& Mixtures::getMixture(qsizetype i) {
   if (i >= 0 && i < mixtures.size()) {
-    return mixtures.at(i);
+    return mixtures[i];
   } else {
     return noMixture;
   }

@@ -16,15 +16,16 @@ class Mixtures : public QAbstractTableModel {
 
  public:
   explicit Mixtures(QObject* parent = nullptr);
+  Mixtures(const QJsonObject& json); /**< @brief Create Mixtures from JSON */
   ~Mixtures();
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json);               /**< @brief convert JSON to Mixtures */
+  bool fromJson(const QJsonObject& json);               /**< @brief Update Mixtures from JSON */
   QJsonObject toJson() const;                           /**< @brief convert this Mixtures to JSON */
   bool importMixture(const QString& path);              /**< @brief import and add a Mixture from JSON */
   bool exportMixture(const QString& path, qsizetype i); /**< @brief export a Mixture at index as JSON */
 
-  const Mixture& getMixture(qsizetype i);            /**< @brief Get mixture at index */
+  Mixture& getMixture(qsizetype i);                  /**< @brief Get mixture at index */
   void updateMixture(Mixture& mixture, qsizetype i); /**< @brief Update mixture at index */
   void addMixture(Mixture& mixture);                 /**< @brief Add a mixture */
   void deleteMixture(qsizetype i);                   /**< @brief Delete mixture at index */

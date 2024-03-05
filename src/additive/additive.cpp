@@ -5,6 +5,10 @@
 
 Additive::Additive() {}
 
+Additive::Additive(const QJsonObject& json) {
+  fromJson(json);
+}
+
 float Additive::get(Value what) const {
   if (what < Value::Size) {
     return amount[static_cast<uint>(what)];

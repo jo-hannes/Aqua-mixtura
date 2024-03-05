@@ -127,7 +127,7 @@ void WatersourceWindow::profileImport() {
   }
   QJsonObject jsonSource = JsonHelper::loadFile(path);
   if (jsonSource.contains("WaterSource")) {
-    Water wp = Water::fromJson(jsonSource["WaterSource"].toObject());
+    Water wp(jsonSource["WaterSource"].toObject());
     model->sources->addProfile(wp);
   } else {
     QMessageBox msgBox;

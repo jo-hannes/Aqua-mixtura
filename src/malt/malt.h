@@ -20,6 +20,7 @@ class Malt : public Meta {
    * @param ph pH of malt in purified water
    */
   Malt(QString name = "", float mass = 0, float ebc = 0, float ph = 7);
+  Malt(const QJsonObject& json); /**< @brief Create Malt from JSON */
 
   // getter und setter
   float getMass() const;       /**< @brief get malt amount in kg */
@@ -64,7 +65,7 @@ class Malt : public Meta {
   static float calcualtePhRoestmalz();
 
   // JSON conversion
-  static Malt fromJson(const QJsonObject& json); /**< @brief convert JSON to Malt */
+  bool fromJson(const QJsonObject& json);        /**< @brief Update Malt from JSON */
   QJsonObject toJson() const;                    /**< @brief convert this Malt to JSON */
 
  private:

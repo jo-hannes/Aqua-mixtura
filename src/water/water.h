@@ -15,13 +15,14 @@ class Water : public Meta {
   Water();
   Water(QString name, float volume = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
         float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
+  Water(const QJsonObject& json); /**< @brief Create Water from JSON */
 
   // getter und setter
   float get(AM::WaterValue what) const;       /**< @brief get requested value */
   void set(AM::WaterValue what, float value); /**< @brief set given type with value */
 
   // JSON conversion
-  static Water fromJson(const QJsonObject& json); /**< @brief convert JSON to Water */
+  bool fromJson(const QJsonObject& json);         /**< @brief Update Water from JSON */
   QJsonObject toJson() const;                     /**< @brief convert this Water to JSON */
   QJsonObject profileToJson() const; /**< @brief convert this Water profile to JSON (A profile is without volume) */
 

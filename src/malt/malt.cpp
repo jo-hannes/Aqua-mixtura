@@ -11,6 +11,10 @@ Malt::Malt(QString name, float mass, float ebc, float ph) : Meta(name) {
   this->ph = ph;
 }
 
+Malt::Malt(const QJsonObject& json) {
+  fromJson(json);
+}
+
 float Malt::getMass() const {
   return mass;
 }
@@ -67,12 +71,11 @@ float Malt::calcualtePhRoestmalz() {
   return 4.65;
 }
 
-Malt Malt::fromJson(const QJsonObject& json) {
-  Malt ret;
-  ret.Meta::fromJson(json);
-  ret.mass = json["mass"].toDouble(0);
-  ret.ebc = json["EBC"].toDouble(0);
-  ret.ph = json["pH"].toDouble(7);
+bool Malt::fromJson(const QJsonObject& json) {
+  bool ret = Meta::fromJson(json);
+  mass = json["mass"].toDouble(0);
+  ebc = json["EBC"].toDouble(0);
+  ph = json["pH"].toDouble(7);
   return ret;
 }
 

@@ -9,6 +9,10 @@ Meta::Meta(QString name) {
   edit = QDateTime::currentDateTime();
 }
 
+Meta::Meta(const QJsonObject& json) {
+  fromJson(json);
+}
+
 QString Meta::getName() const {
   return name;
 }
@@ -36,16 +40,20 @@ void Meta::updateCreationTime()
   create = QDateTime::currentDateTime();
 }
 
-void Meta::fromJson(const QJsonObject& json) {
+bool Meta::fromJson(const QJsonObject& json) {
+  bool ret = !json.contains("Name");
   name = json["Name"].toString("");
   create = QDateTime::fromString(json["Created"].toString(""), Qt::ISODate);
   edit = QDateTime::fromString(json["Edited"].toString(""), Qt::ISODate);
   if (!create.isValid()) {
     create = QDateTime::currentDateTime();
+    ret = false;
   }
   if (!edit.isValid()) {
     edit = QDateTime::currentDateTime();
+    ret = false;
   }
+  return ret;
 }
 
 void Meta::toJson(QJsonObject& json) const {

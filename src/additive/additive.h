@@ -14,7 +14,6 @@
  */
 class Additive : public Meta {
  public:
-  Additive();
 
   /**
    * @brief Index for additive type
@@ -57,6 +56,9 @@ class Additive : public Meta {
       {"caco3", "CaCO₃", QObject::tr("Calciumcarbonat")},
   };
 
+  Additive();
+  Additive(const QJsonObject& json); /**< @brief Create Additive from JSON */
+
   // setter and getter
   float get(Value what) const;                    /**< @brief get requested amount */
   void set(Value what, float value);              /**< @brief set given type with amount */
@@ -66,7 +68,7 @@ class Additive : public Meta {
   void enable(Value what, bool enable);           /**< @brief set enable status */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json);            /**< @brief convert JSON to Additive */
+  bool fromJson(const QJsonObject& json);            /**< @brief Update Additive from JSON */
   QJsonObject toJson() const;                        /**< @brief convert this Additive to JSON */
 
  private:
