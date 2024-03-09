@@ -3,9 +3,18 @@
 
 #include "additive.h"
 
-Additive::Additive() {}
+Additive::Additive() {
+  for (int i = 0; i < static_cast<int>(Value::Size); i++) {
+    enabled[i] = false;
+    amount[i] = 0;
+    if (i <= static_cast<int>(Value::lastLiquid)) {
+      concentration[i] = 0;
+    }
+  }
+}
 
 Additive::Additive(const QJsonObject& json) {
+  Additive();
   fromJson(json);
 }
 
