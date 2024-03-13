@@ -97,10 +97,12 @@ void Mixtures::deleteMixture(qsizetype i) {
     beginRemoveRows(QModelIndex(), i, i);
     mixtures.removeAt(i);
     endRemoveRows();
-    if (mixWindows[i] != nullptr) {
-      delete mixWindows[i];
+    if (i < mixWindows.size()) {
+      if (mixWindows[i] != nullptr) {
+        delete mixWindows[i];
+      }
+      mixWindows.removeAt(i);
     }
-    mixWindows.removeAt(i);
   }
 }
 
@@ -186,7 +188,7 @@ bool Mixtures::setData(const QModelIndex& index, const QVariant& value, int role
   }
   int row = index.row();
   mixtures[row].setName(value.toString());
-  if (mixWindows[row] != nullptr) {
+  if (row < mixWindows.size() && mixWindows[row] != nullptr) {
     mixWindows[row]->updateName();
   }
   return true;
