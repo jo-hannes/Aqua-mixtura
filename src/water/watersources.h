@@ -26,6 +26,7 @@ class WaterSources : public QAbstractTableModel {
   // bool import(const QString& path);
 
   const Water& getProfile(qsizetype i);                   /**< @brief Get water profile at index */
+  Water getMix();                                         /**< @brief Get mixture of all waters */
   void updateProfile(Water& profile, qsizetype i);        /**< @brief Update water profile at index */
   void addProfile(Water& profile);                        /**< @brief Add a water profile */
   void deleteProfile(qsizetype i);                        /**< @brief Delete water profile at index */

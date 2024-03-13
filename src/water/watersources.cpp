@@ -56,6 +56,14 @@ const Water& WaterSources::getProfile(qsizetype i) {
   }
 }
 
+Water WaterSources::getMix() {
+  Water result("Mix");
+  for (Water& w : sources) {
+    result += w;
+  }
+  return result;
+}
+
 void WaterSources::updateProfile(Water& profile, qsizetype i) {
   if (i >= 0 && i < sources.size()) {
     sources.replace(i, profile);
