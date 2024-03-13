@@ -27,3 +27,9 @@ bool JsonHelper::saveFile(const QString& path, const QJsonObject& json) {
   file.close();
   return true;
 }
+
+void JsonHelper::mergeJson(QJsonObject& into, const QJsonObject from) {
+  for (auto key : from.keys()) {
+    into[key] = from[key];
+  }
+}

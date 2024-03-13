@@ -3,6 +3,8 @@
 
 #include "mixture.h"
 
+#include "../common/jsonhelper.h"
+
 #include <QJsonArray>
 #include <QJsonValue>
 
@@ -14,46 +16,41 @@ Mixture::Mixture(const QJsonObject& json) {
 
 bool Mixture::fromJson(const QJsonObject& json) {
   bool ret = Meta::fromJson(json);
-
-  // TODO
   // read waters
-  QJsonValue jWaters = json["Waters"];
-  waters.clear();
-  if (jWaters.isArray()) {
-    for (const auto& water : jWaters.toArray()) {
-      waters.append(Water(water.toObject()));
-    }
-  }
+  ret = waters->fromJson(json) && ret;
+  // read additive
+  ret = additive->fromJson(json) && ret;
+  // read malts
+  ret = malts->fromJson(json) && ret;
+  // read style
+  ret = style->fromJson(json["Style"].toObject()) && ret;
   return ret;
 }
 
 QJsonObject Mixture::toJson() const {
   QJsonObject json;
   Meta::toJson(json);
-  // TODO
+  JsonHelper::mergeJson(json, waters->toJson());
+  JsonHelper::mergeJson(json, additive->toJson());
+  JsonHelper::mergeJson(json, malts->toJson());
+  json["Style"] = style->toJson();
   return json;
 }
 
 void Mixture::AddWater(Water water) {
-  waters.append(water);
+  waters->addProfile(water);
 }
 
 void Mixture::ClearWater() {
-  waters.clear();
+  // waters.clear();
 }
 
 void Mixture::RemoveWaterAt(qsizetype i) {
-  waters.removeAt(i);
+  waters->deleteProfile(i);
 }
 
 Water Mixture::calc() {
-  // start with empty water
-  Water result("Result");
-
-  // mix water sources
-  for (Water& w : waters) {
-    result += w;
-  }
+  Water result = waters->getMix();
   // Add additives
   // TODO
 

@@ -4,10 +4,13 @@
 #ifndef MIXTURE_H
 #define MIXTURE_H
 
+#include "../additive/additive.h"
 #include "../common/meta.h"
-#include "../water/water.h"
+#include "../malt/malts.h"
+#include "../style/style.h"
+#include "../water/watersources.h"
 
-#include <QVector>
+#include <QSharedPointer>
 
 class Mixture : public Meta {
  public:
@@ -26,7 +29,10 @@ class Mixture : public Meta {
   Water calc();
 
  private:
-  QVector<Water> waters;
+  QSharedPointer<WaterSources> waters{new WaterSources()};
+  QSharedPointer<Additive> additive{new Additive()};
+  QSharedPointer<Malts> malts{new Malts()};
+  QSharedPointer<Style> style{new Style()};
 };
 
 #endif // MIXTURE_H

@@ -28,6 +28,13 @@ class JsonHelper
    * @return Returns true on success otherwise false
    */
   static bool saveFile(const QString& path, const QJsonObject& json);
+
+  /**
+   * @brief Merge two JSON objects into one
+   * @param into Other object will be merged into this object
+   * @param from Data from this object is merged into other object
+   */
+  static void mergeJson(QJsonObject& into, const QJsonObject from);
 };
 
 #endif // JSONHELPER_H
