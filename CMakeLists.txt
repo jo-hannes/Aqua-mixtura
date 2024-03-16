@@ -40,6 +40,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/malt/malts.h src/malt/malts.cpp
         src/malt/malttabledelegate.h src/malt/malttabledelegate.cpp
         src/malt/maltwindow.h src/malt/maltwindow.cpp
+        src/mixture/mixadditivewidget.h src/mixture/mixadditivewidget.cpp
         src/mixture/mixmaltwidget.h src/mixture/mixmaltwidget.cpp
         src/mixture/mixture.h src/mixture/mixture.cpp
         src/mixture/mixtures.h src/mixture/mixtures.cpp
