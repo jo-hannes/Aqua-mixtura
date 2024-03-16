@@ -14,8 +14,49 @@ Buttons::Buttons(const QString& add, const QString& copy, const QString& del, co
 
 Buttons::Buttons(const QString& add, const QString& copy, const QString& del, const QString& import,
                  const QString& exprt, const QString& save, const QString& cancle) {
-  genBtnsListEdit(add, copy, del, import, exprt);
-  genBtnsSaveCancle(save, cancle);
+  // Only create buttons with text
+  if (!add.isEmpty()) {
+    btnAdd = new QPushButton();
+    btnAdd->setToolTip(add);
+    btnAdd->setIcon(QIcon(":/icons/document-plus.svg"));
+    addButton(btnAdd, QDialogButtonBox::ActionRole);
+  }
+  if (!copy.isEmpty()) {
+    btnCopy = new QPushButton();
+    btnCopy->setToolTip(copy);
+    btnCopy->setIcon(QIcon(":/icons/document-duplicate.svg"));
+    addButton(btnCopy, QDialogButtonBox::ActionRole);
+  }
+  if (!del.isEmpty()) {
+    btnDelete = new QPushButton();
+    btnDelete->setToolTip(del);
+    btnDelete->setIcon(QIcon(":/icons/document-minus.svg"));
+    addButton(btnDelete, QDialogButtonBox::ActionRole);
+  }
+  if (!import.isEmpty()) {
+    btnImport = new QPushButton();
+    btnImport->setToolTip(import);
+    btnImport->setIcon(QIcon(":/icons/arrow-down-on-square.svg"));
+    addButton(btnImport, QDialogButtonBox::ActionRole);
+  }
+  if (!exprt.isEmpty()) {
+    btnExport = new QPushButton();
+    btnExport->setToolTip(exprt);
+    btnExport->setIcon(QIcon(":/icons/arrow-up-on-square.svg"));
+    addButton(btnExport, QDialogButtonBox::ActionRole);
+  }
+  if (!save.isEmpty()) {
+    btnSave = new QPushButton();
+    btnSave->setToolTip(save);
+    btnSave->setIcon(QIcon(":/icons/check.svg"));
+    addButton(btnSave, QDialogButtonBox::ActionRole);
+  }
+  if (!cancle.isEmpty()) {
+    btnCancel = new QPushButton();
+    btnCancel->setToolTip(cancle);
+    btnCancel->setIcon(QIcon(":/icons/x-mark.svg"));
+    addButton(btnCancel, QDialogButtonBox::ActionRole);
+  }
 }
 
 void Buttons::genBtnsSaveCancle(const QString& save, const QString& cancle) {
