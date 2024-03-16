@@ -28,6 +28,7 @@ MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts* maltDb, QWidget* parent
   maltView = new QTableView(this);
   maltView->setModel(mMix);
   maltView->verticalHeader()->setVisible(false);
+  maltView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   layout->addWidget(maltView);
 
   // Buttons

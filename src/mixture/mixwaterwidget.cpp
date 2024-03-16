@@ -28,6 +28,7 @@ MixWaterWidget::MixWaterWidget(WaterSources* mixtureWaters, WaterSources* waterD
   waterView = new QTableView(this);
   waterView->setModel(wMix);
   waterView->verticalHeader()->setVisible(false);
+  waterView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   layout->addWidget(waterView);
 
   // Buttons
