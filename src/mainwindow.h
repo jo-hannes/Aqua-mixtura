@@ -8,7 +8,6 @@
 
 #include "additive/additivewindow.h"
 #include "malt/maltwindow.h"
-#include "mixture/mixturewindow.h"
 #include "style/styleswindow.h"
 #include "water/watersourcewindow.h"
 

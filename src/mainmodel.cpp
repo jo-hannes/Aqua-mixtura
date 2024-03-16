@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "mainmodel.h"
 
@@ -23,10 +23,6 @@ MainModel::MainModel() {
   stylesFile = configDir + "/styles.json";
   mixturesFile = configDir + "/mixtures.json";
 
-  sources = new WaterSources();
-  additive = new Additive();
-  malts = new Malts();
-  styles = new Styles();
   mixtures = new Mixtures();
 
   load();
@@ -50,42 +46,42 @@ void MainModel::save() {
 
 void MainModel::loadSources() {
   if (QFile::exists(sourcesFile)) {
-    sources->fromJson(JsonHelper::loadFile(sourcesFile));
+    mixtures->waterDb->fromJson(JsonHelper::loadFile(sourcesFile));
   }
 }
 
 void MainModel::saveSources() {
-  JsonHelper::saveFile(sourcesFile, sources->profileToJson());
+  JsonHelper::saveFile(sourcesFile, mixtures->waterDb->profileToJson());
 }
 
 void MainModel::loadAdditive() {
   if (QFile::exists(additiveFile)) {
-    additive->fromJson(JsonHelper::loadFile(additiveFile));
+    mixtures->additiveDb->fromJson(JsonHelper::loadFile(additiveFile));
   }
 }
 
 void MainModel::saveAdditive() {
-  JsonHelper::saveFile(additiveFile, additive->toJson());
+  JsonHelper::saveFile(additiveFile, mixtures->additiveDb->toJson());
 }
 
 void MainModel::loadMalts() {
   if (QFile::exists(maltsFile)) {
-    malts->fromJson(JsonHelper::loadFile(maltsFile));
+    mixtures->maltDb->fromJson(JsonHelper::loadFile(maltsFile));
   }
 }
 
 void MainModel::saveMalts() {
-  JsonHelper::saveFile(maltsFile, malts->toJson());
+  JsonHelper::saveFile(maltsFile, mixtures->maltDb->toJson());
 }
 
 void MainModel::loadStyles() {
   if (QFile::exists(stylesFile)) {
-    styles->fromJson(JsonHelper::loadFile(stylesFile));
+    mixtures->styleDb->fromJson(JsonHelper::loadFile(stylesFile));
   }
 }
 
 void MainModel::saveStyles() {
-  JsonHelper::saveFile(stylesFile, styles->toJson());
+  JsonHelper::saveFile(stylesFile, mixtures->styleDb->toJson());
 }
 
 void MainModel::loadMixtures() {

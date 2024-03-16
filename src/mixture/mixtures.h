@@ -7,6 +7,11 @@
 #include "mixture.h"
 #include "mixturewindow.h"
 
+#include "../additive/additive.h"
+#include "../malt/malts.h"
+#include "../style/styles.h"
+#include "../water/watersources.h"
+
 #include <QAbstractTableModel>
 #include <QObject>
 #include <QVector>
@@ -16,7 +21,7 @@ class Mixtures : public QAbstractTableModel {
 
  public:
   explicit Mixtures(QObject* parent = nullptr);
-  Mixtures(const QJsonObject& json); /**< @brief Create Mixtures from JSON */
+  Mixtures(const QJsonObject& json, QObject* parent = nullptr); /**< @brief Create Mixtures from JSON */
   ~Mixtures();
 
   // JSON conversion
@@ -38,6 +43,12 @@ class Mixtures : public QAbstractTableModel {
   QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
   bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
   Qt::ItemFlags flags(const QModelIndex& index) const;
+
+  // data bases
+  WaterSources* waterDb; /**< @brief Model of water sources */
+  Additive* additiveDb;  /**< @brief Model of additives */
+  Malts* maltDb;         /**< @brief Model of malts */
+  Styles* styleDb;       /**< @brief Model of styles */
 
  private:
   QVector<MixtureWindow*> mixWindows; /**< @brief Array with pointer to mixture windows */

@@ -1,14 +1,10 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #ifndef MAINMODEL_H
 #define MAINMODEL_H
 
-#include "additive/additive.h"
-#include "malt/malts.h"
 #include "mixture/mixtures.h"
-#include "style/styles.h"
-#include "water/watersources.h"
 
 #include <QJsonObject>
 #include <QObject>
@@ -37,10 +33,6 @@ class MainModel : public QObject {
   void saveMixtures(); /**< @brief Save mixtures data to JSON file */
 
  public:
-  WaterSources* sources; /**< @brief Model of water sources */
-  Additive* additive;    /**< @brief Model of additives */
-  Malts* malts;          /**< @brief Model of malts */
-  Styles* styles;        /**< @brief Model of styles */
   Mixtures* mixtures;    /**< @brief Model of mixtures */
 
  private:
