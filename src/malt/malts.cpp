@@ -89,7 +89,7 @@ void Malts::updateMalt(Malt& malt, qsizetype i) {
   }
 }
 
-void Malts::addMalt(Malt& malt) {
+void Malts::addMalt(const Malt& malt) {
   qsizetype i = malts.size();
   beginInsertRows(QModelIndex(), i, i);
   malts.append(malt);
@@ -145,11 +145,11 @@ QVariant Malts::data(const QModelIndex& index, int role) const {
   switch (index.column()) {
     case 0:
       return malts.at(row).getName();
-    case 1:
-      return malts.at(row).getMass();
-    case 2:
-      return malts.at(row).getEbc();
     case 3:
+      return malts.at(row).getMass();
+    case 1:
+      return malts.at(row).getEbc();
+    case 2:
       return malts.at(row).getPh();
     default:
       return QVariant();
@@ -165,11 +165,11 @@ QVariant Malts::headerData(int section, Qt::Orientation orientation, int role) c
     switch (section) {
       case 0:
         return QString(tr("Name"));
-      case 1:
-        return QString(tr("Menge") + " (kg)");
-      case 2:
-        return QString(tr("Farbe") + " (EBC)");
       case 3:
+        return QString(tr("Menge") + " (kg)");
+      case 1:
+        return QString(tr("Farbe") + " (EBC)");
+      case 2:
         return QString("pH");
       default:
         return QVariant();
@@ -192,13 +192,13 @@ bool Malts::setData(const QModelIndex& index, const QVariant& value, int role) {
     case 0:
       malts[index.row()].setName(value.toString());
       break;
-    case 1:
+    case 3:
       malts[index.row()].setMass(value.toFloat());
       break;
-    case 2:
+    case 1:
       malts[index.row()].setEbc(value.toFloat());
       break;
-    case 3:
+    case 2:
       malts[index.row()].setPh(value.toFloat());
       break;
     default:

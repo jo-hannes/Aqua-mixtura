@@ -30,9 +30,9 @@ class Mixture : public Meta {
 
   // private:
   WaterSources* waters{new WaterSources()};
-  QSharedPointer<Additive> additive{new Additive()};
-  QSharedPointer<Malts> malts{new Malts()};
-  QSharedPointer<Style> style{new Style()};
+  Additive* additive{new Additive()};
+  Malts* malts{new Malts()};
+  Style* style{new Style()};
 };
 
 #endif // MIXTURE_H

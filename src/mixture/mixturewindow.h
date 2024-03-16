@@ -6,6 +6,9 @@
 
 #include "mixture.h"
 
+#include "../additive/additive.h"
+#include "../malt/malts.h"
+#include "../style/styles.h"
 #include "../water/watersources.h"
 
 #include <QWidget>
@@ -13,7 +16,8 @@
 class MixtureWindow : public QWidget {
   Q_OBJECT
  public:
-  explicit MixtureWindow(Mixture& mixture, WaterSources* waterDb, QWidget* parent = nullptr);
+  explicit MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* additiveDb, Malts* maltDb, Styles* styleDb,
+                         QWidget* parent = nullptr);
 
  public slots:
   void updateName();

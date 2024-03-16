@@ -14,7 +14,7 @@ MaltTableDelegate::MaltTableDelegate(QObject* parent) : QStyledItemDelegate(pare
 QWidget* MaltTableDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& /* option */,
                                          const QModelIndex& index) const {
   switch (index.column()) {
-    case 1: {
+    case 3: {
       // mass
       QDoubleSpinBox* editor = new QDoubleSpinBox(parent);
       editor->setFrame(false);
@@ -24,7 +24,7 @@ QWidget* MaltTableDelegate::createEditor(QWidget* parent, const QStyleOptionView
       editor->setSingleStep(0.1);
       return editor;
     }
-    case 2: {
+    case 1: {
       // ebc
       QSpinBox* editor = new QSpinBox(parent);
       editor->setFrame(false);
@@ -32,7 +32,7 @@ QWidget* MaltTableDelegate::createEditor(QWidget* parent, const QStyleOptionView
       editor->setMaximum(9999);
       return editor;
     }
-    case 3: {
+    case 2: {
       // ph
       MaltPhEdit* editor = new MaltPhEdit(parent);
       return editor;
@@ -46,21 +46,21 @@ QWidget* MaltTableDelegate::createEditor(QWidget* parent, const QStyleOptionView
 
 void MaltTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const {
   switch (index.column()) {
-    case 1: {
+    case 3: {
       // mass
       float value = index.model()->data(index, Qt::DisplayRole).toFloat();
       QDoubleSpinBox* doubleSpinBox = static_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->setValue(value);
       break;
     }
-    case 2: {
+    case 1: {
       // ebc
       float value = index.model()->data(index, Qt::DisplayRole).toFloat();
       QSpinBox* spinBox = static_cast<QSpinBox*>(editor);
       spinBox->setValue(value);
       break;
     }
-    case 3: {
+    case 2: {
       // ph
       float ph = index.model()->data(index, Qt::DisplayRole).toFloat();
       QModelIndex ebcIdx = index.siblingAtColumn(2);
@@ -81,7 +81,7 @@ void MaltTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index)
 
 void MaltTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const {
   switch (index.column()) {
-    case 1: {
+    case 3: {
       // mass
       QDoubleSpinBox* doubleSpinBox = static_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->interpretText();
@@ -89,7 +89,7 @@ void MaltTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
       model->setData(index, value, Qt::EditRole);
       break;
     }
-    case 2: {
+    case 1: {
       // ebc
       QSpinBox* spinBox = static_cast<QSpinBox*>(editor);
       spinBox->interpretText();
@@ -97,7 +97,7 @@ void MaltTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
       model->setData(index, value, Qt::EditRole);
       break;
     }
-    case 3: {
+    case 2: {
       // ph
       MaltPhEdit* phEdit = static_cast<MaltPhEdit*>(editor);
       float value = phEdit->pH();

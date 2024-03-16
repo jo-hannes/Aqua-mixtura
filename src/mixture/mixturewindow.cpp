@@ -3,11 +3,14 @@
 
 #include "mixturewindow.h"
 
+#include "mixmaltwidget.h"
 #include "mixwaterwidget.h"
 
 #include <QVBoxLayout>
 
-MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, QWidget* parent) : QWidget{parent}, mix{mixture} {
+MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* additiveDb, Malts* maltDb,
+                             Styles* styleDb, QWidget* parent)
+    : QWidget{parent}, mix{mixture} {
   this->setWindowFlags(Qt::Window);
   updateName();
 
@@ -15,14 +18,18 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, QWidget* p
   this->setLayout(layout);
   // QLabel* tst = new QLabel("Test");
   // layout->addWidget(tst);
-  MixWaterWidget* mww = new MixWaterWidget(mix.waters, waterDb);
+
+  // Water widget
+  MixWaterWidget* mww = new MixWaterWidget(mix.waters, waterDb, this);
   layout->addWidget(mww);
+
+  // Malt widget
+  MixMaltWidget* mmw = new MixMaltWidget(mix.malts, maltDb, this);
+  layout->addWidget(mmw);
 
   // TODO
   // Need widgets for:
-  // * Waters => Table View? => KISS => Yes Table View
   // * Additive
-  // * malts
   // * style
   // * Results
 }

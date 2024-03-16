@@ -25,7 +25,7 @@ class Malts : public QAbstractTableModel {
 
   const Malt& getMalt(qsizetype i);         /**< @brief Get malt at index */
   void updateMalt(Malt& malt, qsizetype i); /**< @brief Update malt at index */
-  void addMalt(Malt& malt);                 /**< @brief Add a malt */
+  void addMalt(const Malt& malt);           /**< @brief Add a malt */
   void deleteMalt(qsizetype i);             /**< @brief Delete malt at index */
 
   void setMalts(const QVector<Malt>& newMalts); /**< @brief Replace all malts */
