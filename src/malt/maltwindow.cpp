@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "maltwindow.h"
 
@@ -16,10 +16,10 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-MaltWindow::MaltWindow(MainModel* model, QWidget* parent) : QWidget{parent} {
-  this->model = model;
+MaltWindow::MaltWindow(Malts* model, QWidget* parent) : QWidget{parent} {
+  this->malts = model;
   volatileMalts = new Malts();
-  volatileMalts->setMalts(model->malts->getMalts());
+  volatileMalts->setMalts(malts->getMalts());
   // Window tittle
   title = tr("Malze");
   this->setWindowTitle(title);
@@ -45,7 +45,7 @@ MaltWindow::MaltWindow(MainModel* model, QWidget* parent) : QWidget{parent} {
   QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &MaltWindow::maltDelete);
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &MaltWindow::maltImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &MaltWindow::maltExport);
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MaltWindow::save);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MaltWindow::saveChanges);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &MaltWindow::cancel);
   mainLayout->addWidget(buttons);
 }
@@ -110,14 +110,14 @@ void MaltWindow::maltExport() {
   }
 }
 
-void MaltWindow::save() {
-  model->malts->setMalts(volatileMalts->getMalts());
+void MaltWindow::saveChanges() {
+  malts->setMalts(volatileMalts->getMalts());
   volatileMalts->setSaved();
-  model->saveMalts();
+  emit save();
 }
 
 void MaltWindow::cancel() {
-  volatileMalts->setMalts(model->malts->getMalts());
+  volatileMalts->setMalts(malts->getMalts());
 }
 
 void MaltWindow::unsavedMalts(bool unsaved) {

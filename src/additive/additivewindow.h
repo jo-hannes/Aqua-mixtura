@@ -4,7 +4,7 @@
 #ifndef ADDITIVEWINDOW_H
 #define ADDITIVEWINDOW_H
 
-#include "../mainmodel.h"
+#include "additive.h"
 
 #include <QCheckBox>
 #include <QDoubleSpinBox>
@@ -23,21 +23,25 @@ class AdditiveWindow : public QWidget
  public:
   /**
    * @brief Constructor
-   * @param model Pointer to main model for accessing data
+   * @param model Pointer to model for accessing data
    * @param parent
    */
-  explicit AdditiveWindow(MainModel* model, QWidget *parent = nullptr);
+  explicit AdditiveWindow(Additive* model, QWidget* parent = nullptr);
 
- public slots:
-  void update(); /**< @brief Update all values */
-  void save();   /**< @brief Save changes */
-  void cancel(); /**< @brief Revert changes */
+ private slots:
+  void saveChanges(); /**< @brief Save changes */
+  void cancel();      /**< @brief Revert changes */
+
+ signals:
+  void load();
+  void save();
 
  private:
+  void update(); /**< @brief Update all values */
   void addAcid(int row, QCheckBox* check, QString text, QDoubleSpinBox* percent, QDoubleSpinBox* ml);
   void addSolid(int row, QCheckBox* check, QString text, QDoubleSpinBox* g);
 
-  MainModel* model;    /**< @brief Pointer to main model for accessing data */
+  Additive* additive;  /**< @brief Pointer to model for accessing data */
   QGridLayout* layout; /**< @brief Main layout */
 
   // Pointer to UI elements

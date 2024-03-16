@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #ifndef WATERSOURCEWINDOW_H
 #define WATERSOURCEWINDOW_H
 
 #include "waterprofileedit.h"
-
-#include "../mainmodel.h"
+#include "watersources.h"
 
 #include <QListView>
 #include <QObject>
@@ -21,10 +20,10 @@ class WatersourceWindow : public QWidget {
  public:
   /**
    * @brief Constructor
-   * @param model Pointer to main model for accessing data
+   * @param model Pointer to model for accessing data
    * @param parent
    */
-  explicit WatersourceWindow(MainModel* model, QWidget* parent = nullptr);
+  explicit WatersourceWindow(WaterSources* model, QWidget* parent = nullptr);
 
  public slots:
   void selectSource(const QModelIndex& index); /**< @brief Select source at index for profile editor */
@@ -36,8 +35,11 @@ class WatersourceWindow : public QWidget {
   void profileImport(); /**< @brief Import a JSON profile */
   void profileExport(); /**< @brief Export a profile as JSON */
 
+ signals:
+  void save();
+
  private:
-  MainModel* model;            /**< @brief Pointer to main model for accessing data */
+  WaterSources* sources;       /**< @brief Pointer to model for accessing data */
   QListView* sourcesView;      /**< @brief List with all water sources */
   WaterProfileEdit* waterEdit; /**< @brief Water profile editor */
   int selected;                /**< @brief Index of currently selected water profile */

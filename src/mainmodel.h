@@ -11,15 +11,18 @@
 #include "water/watersources.h"
 
 #include <QJsonObject>
+#include <QObject>
 
 /**
  * @brief MainModel class holding the whole data model
  */
-class MainModel
-{
+class MainModel : public QObject {
+  Q_OBJECT
+
  public:
   MainModel();
 
+ public slots:
   void load();         /**< @brief Load all data from JSON files */
   void save();         /**< @brief Save all data to JSON files */
   void loadSources();  /**< @brief Load water sources data from JSON file */
@@ -33,6 +36,7 @@ class MainModel
   void loadMixtures(); /**< @brief Load mixtures data from JSON file */
   void saveMixtures(); /**< @brief Save mixtures data to JSON file */
 
+ public:
   WaterSources* sources; /**< @brief Model of water sources */
   Additive* additive;    /**< @brief Model of additives */
   Malts* malts;          /**< @brief Model of malts */

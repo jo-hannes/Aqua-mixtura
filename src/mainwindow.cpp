@@ -76,16 +76,24 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   mainWidget->setLayout(mainLayout);
 
   // create separate windows
-  wsources = new WatersourceWindow(model, this);
+  wsources = new WatersourceWindow(model->sources, this);
   wsources->setWindowFlags(Qt::Window);
-  wadditives = new AdditiveWindow(model, this);
+  QObject::connect(wsources, &WatersourceWindow::save, model, &MainModel::saveSources);
+
+  wadditives = new AdditiveWindow(model->additive, this);
   wadditives->setWindowFlags(Qt::Window);
-  wmalts = new MaltWindow(model, this);
+  QObject::connect(wadditives, &AdditiveWindow::save, model, &MainModel::saveAdditive);
+  QObject::connect(wadditives, &AdditiveWindow::load, model, &MainModel::loadAdditive);
+
+  wmalts = new MaltWindow(model->malts, this);
   wmalts->setWindowFlags(Qt::Window);
+  QObject::connect(wmalts, &MaltWindow::save, model, &MainModel::saveMalts);
   QObject::connect(wmalts, &MaltWindow::maltWindowUnsavedChanges, this, &MainWindow::unsavedMalts);
 
-  wstyles = new StylesWindow(model, this);
+  wstyles = new StylesWindow(model->styles, this);
   wstyles->setWindowFlags(Qt::Window);
+  QObject::connect(wstyles, &StylesWindow::save, model, &MainModel::saveStyles);
+  QObject::connect(wstyles, &StylesWindow::load, model, &MainModel::loadStyles);
 
   setCentralWidget(mainWidget);
 

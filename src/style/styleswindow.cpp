@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "styleswindow.h"
 
@@ -20,8 +20,8 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-StylesWindow::StylesWindow(MainModel* model, QWidget* parent) : QWidget{parent} {
-  this->model = model;
+StylesWindow::StylesWindow(Styles* model, QWidget* parent) : QWidget{parent} {
+  this->styles = model;
   selected = -1;
 
   // mainLayout
@@ -35,14 +35,14 @@ StylesWindow::StylesWindow(MainModel* model, QWidget* parent) : QWidget{parent} 
 
   // List/Table views
   stylesView = new QListView();
-  stylesView->setModel(model->styles);
+  stylesView->setModel(styles);
   stylesView->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   QItemSelectionModel* selectionModel = stylesView->selectionModel();
   QObject::connect(selectionModel, &QItemSelectionModel::currentChanged, this, &StylesWindow::styleSelectionChanged);
 
   mainLayout->addWidget(stylesView, 1, 0);
   styleTableView = new QTableView();
-  styleTableView->setModel(model->styles->getStyle(0));
+  styleTableView->setModel(styles->getStyle(0));
   StyleTableDelegate* delegate = new StyleTableDelegate();
   styleTableView->setItemDelegate(delegate);
   styleTableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
@@ -73,31 +73,31 @@ void StylesWindow::styleSelectionChanged(const QModelIndex& current, const QMode
 }
 
 void StylesWindow::styleSave() {
-  model->saveStyles();
+  emit save();
 }
 
 void StylesWindow::styleDiscard() {
-  model->loadStyles();
+  emit load();
 }
 
 void StylesWindow::styleAdd() {
-  model->styles->addStyle(new Style(tr("New")));
+  styles->addStyle(new Style(tr("New")));
   // Select new style = last style
-  styleSelect(model->styles->rowCount() - 1);
+  styleSelect(styles->rowCount() - 1);
 }
 
 void StylesWindow::styleCopy() {
   // Qt objects can't be copied, so we need to do this by our own
-  Style* copy = model->styles->getStyle(selected)->copy();
+  Style* copy = styles->getStyle(selected)->copy();
   copy->updateCreationTime();
   copy->setName(tr("Copy of ") + copy->getName());
-  model->styles->addStyle(copy);
+  styles->addStyle(copy);
   // Select copied style = last style
-  styleSelect(model->styles->rowCount() - 1);
+  styleSelect(styles->rowCount() - 1);
 }
 
 void StylesWindow::styleDelete() {
-  model->styles->deleteStyle(selected);
+  styles->deleteStyle(selected);
 }
 
 void StylesWindow::styleImport() {
@@ -107,9 +107,9 @@ void StylesWindow::styleImport() {
   if (path.isEmpty()) {
     return;
   }
-  if (model->styles->importStyle(path)) {
+  if (styles->importStyle(path)) {
     // Select imported style = last style
-    styleSelect(model->styles->rowCount() - 1);
+    styleSelect(styles->rowCount() - 1);
   } else {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Bierstil nicht im JSON finden"));
@@ -121,12 +121,12 @@ void StylesWindow::styleImport() {
 
 void StylesWindow::styleExport() {
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              model->styles->getStyle(selected)->getName() + ".json";
+                              styles->getStyle(selected)->getName() + ".json";
   QString path = QFileDialog::getSaveFileName(this, tr("Bierstil Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
-  if (!model->styles->exportStyle(path, selected)) {
+  if (!styles->exportStyle(path, selected)) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Bierstil nicht exportieren"));
     msgBox.setStandardButtons(QMessageBox::Ok);
@@ -141,5 +141,5 @@ void StylesWindow::styleSelect(const qsizetype index) {
   }
   selected = index;
   stylesView->setCurrentIndex(stylesView->model()->index(selected, 0));
-  styleTableView->setModel(model->styles->getStyle(selected));
+  styleTableView->setModel(styles->getStyle(selected));
 }

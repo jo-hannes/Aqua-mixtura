@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// Copyright (c) 2023 jo-hannes <jo-hannes@dev-urandom.de>
+// Copyright (c) 2023 - 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
 #include "watersourcewindow.h"
 
@@ -16,8 +16,8 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidget(parent) {
-  this->model = model;
+WatersourceWindow::WatersourceWindow(WaterSources* model, QWidget* parent) : QWidget(parent) {
+  this->sources = model;
   selected = -1;
   // Überschriften
   QLabel* txtQuellen = new QLabel(tr("Wasserquellen"));
@@ -30,7 +30,7 @@ WatersourceWindow::WatersourceWindow(MainModel* model, QWidget* parent) : QWidge
   QVBoxLayout* layoutQuellen = new QVBoxLayout();
 
   sourcesView = new QListView();
-  sourcesView->setModel(model->sources);
+  sourcesView->setModel(sources);
   layoutQuellen->addWidget(sourcesView);
 
   // buttons für quellen
@@ -74,12 +74,12 @@ void WatersourceWindow::selectSource(const QModelIndex& index) {
         // Save, then siwtch source
         waterEdit->save();
         selected = index.row();
-        waterEdit->setProfile(model->sources->getProfile(selected));
+        waterEdit->setProfile(sources->getProfile(selected));
         break;
       case QMessageBox::Discard:
         // Just switch to new selection
         selected = index.row();
-        waterEdit->setProfile(model->sources->getProfile(selected));
+        waterEdit->setProfile(sources->getProfile(selected));
         break;
       case QMessageBox::Cancel:
         // Select previously selected item
@@ -91,31 +91,31 @@ void WatersourceWindow::selectSource(const QModelIndex& index) {
     }
   } else {
     selected = index.row();
-    waterEdit->setProfile(model->sources->getProfile(selected));
+    waterEdit->setProfile(sources->getProfile(selected));
   }
 }
 
 void WatersourceWindow::saveProfile(Water& profile) {
-  if (selected >= 0 && selected < model->sources->rowCount()) {
-    model->sources->updateProfile(profile, selected);
-    model->saveSources();
+  if (selected >= 0 && selected < sources->rowCount()) {
+    sources->updateProfile(profile, selected);
+    emit save();
   }
 }
 
 void WatersourceWindow::profileAdd() {
   Water newProfile("New");
-  model->sources->addProfile(newProfile);
+  sources->addProfile(newProfile);
 }
 
 void WatersourceWindow::profileCopy() {
-  Water newProfile = model->sources->getProfile(selected);
+  Water newProfile = sources->getProfile(selected);
   newProfile.updateCreationTime();
   newProfile.setName("Copy of " + newProfile.getName());
-  model->sources->addProfile(newProfile);
+  sources->addProfile(newProfile);
 }
 
 void WatersourceWindow::profileDelete() {
-  model->sources->deleteProfile(selected);
+  sources->deleteProfile(selected);
 }
 
 void WatersourceWindow::profileImport() {
@@ -128,7 +128,7 @@ void WatersourceWindow::profileImport() {
   QJsonObject jsonSource = JsonHelper::loadFile(path);
   if (jsonSource.contains("WaterSource")) {
     Water wp(jsonSource["WaterSource"].toObject());
-    model->sources->addProfile(wp);
+    sources->addProfile(wp);
   } else {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Wasserquelle nicht im JSON finden"));
@@ -140,14 +140,14 @@ void WatersourceWindow::profileImport() {
 
 void WatersourceWindow::profileExport() {
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              model->sources->getProfile(selected).getName() + ".json";
+                              sources->getProfile(selected).getName() + ".json";
   QString path =
       QFileDialog::getSaveFileName(this, tr("Wasserquelle Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
   QJsonObject jsonSource;
-  jsonSource["WaterSource"] = model->sources->getProfile(selected).profileToJson();
+  jsonSource["WaterSource"] = sources->getProfile(selected).profileToJson();
   bool success = JsonHelper::saveFile(path, jsonSource);
   if (!success) {
     QMessageBox msgBox;

@@ -10,8 +10,8 @@
 #include <QLabel>
 #include <QPushButton>
 
-AdditiveWindow::AdditiveWindow(MainModel* model, QWidget* parent) : QWidget{parent} {
-  this->model = model;
+AdditiveWindow::AdditiveWindow(Additive* model, QWidget* parent) : QWidget{parent} {
+  this->additive = model;
 
   layout = new QGridLayout();
   int row = 0;
@@ -34,15 +34,15 @@ AdditiveWindow::AdditiveWindow(MainModel* model, QWidget* parent) : QWidget{pare
             concentrations[i], amounts[i]);
     QObject::connect(enabled[i], &QCheckBox::stateChanged, this, [=](int checked) {
       bool en = checked == Qt::Checked;
-      model->additive->enable(static_cast<Additive::Value>(i), en);
+      additive->enable(static_cast<Additive::Value>(i), en);
       amounts[i]->setEnabled(en);
       concentrations[i]->setEnabled(en);
     });
     QObject::connect(amounts[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
-      model->additive->set(static_cast<Additive::Value>(i), val);
+      additive->set(static_cast<Additive::Value>(i), val);
     });
     QObject::connect(concentrations[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
-      model->additive->setConcentration(static_cast<Additive::Value>(i), val);
+      additive->setConcentration(static_cast<Additive::Value>(i), val);
     });
   }
 
@@ -61,17 +61,17 @@ AdditiveWindow::AdditiveWindow(MainModel* model, QWidget* parent) : QWidget{pare
     addSolid(row++, enabled[i], Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)], amounts[i]);
     QObject::connect(enabled[i], &QCheckBox::stateChanged, this, [=](int checked) {
       bool en = checked == Qt::Checked;
-      model->additive->enable(static_cast<Additive::Value>(i), en);
+      additive->enable(static_cast<Additive::Value>(i), en);
       amounts[i]->setEnabled(en);
     });
     QObject::connect(amounts[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
-      model->additive->set(static_cast<Additive::Value>(i), val);
+      additive->set(static_cast<Additive::Value>(i), val);
     });
   }
 
   // buttons
   Buttons* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &AdditiveWindow::save);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &AdditiveWindow::saveChanges);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &AdditiveWindow::cancel);
   layout->addWidget(buttons, row++, 0, 1, -1, Qt::AlignHCenter);
 
@@ -80,27 +80,27 @@ AdditiveWindow::AdditiveWindow(MainModel* model, QWidget* parent) : QWidget{pare
   update();
 }
 
-void AdditiveWindow::update() {
-  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
-    bool en = model->additive->isEnabled(static_cast<Additive::Value>(i));
-    // qDebug() << "i: " << i << "en: " << en;
-    enabled[i]->setCheckState(en ? Qt::Checked : Qt::Unchecked);
-    amounts[i]->setValue(model->additive->get(static_cast<Additive::Value>(i)));
-    amounts[i]->setEnabled(en);
-    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      concentrations[i]->setValue(model->additive->getConcentration(static_cast<Additive::Value>(i)));
-      concentrations[i]->setEnabled(en);
-    }
-  }
-}
-
-void AdditiveWindow::save() {
-  model->saveAdditive();
+void AdditiveWindow::saveChanges() {
+  emit save();
 }
 
 void AdditiveWindow::cancel() {
-  model->loadAdditive();
+  emit load();
   update();
+}
+
+void AdditiveWindow::update() {
+  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
+    bool en = additive->isEnabled(static_cast<Additive::Value>(i));
+    // qDebug() << "i: " << i << "en: " << en;
+    enabled[i]->setCheckState(en ? Qt::Checked : Qt::Unchecked);
+    amounts[i]->setValue(additive->get(static_cast<Additive::Value>(i)));
+    amounts[i]->setEnabled(en);
+    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
+      concentrations[i]->setValue(additive->getConcentration(static_cast<Additive::Value>(i)));
+      concentrations[i]->setEnabled(en);
+    }
+  }
 }
 
 void AdditiveWindow::addAcid(int row, QCheckBox* check, QString text, QDoubleSpinBox* percent, QDoubleSpinBox* ml) {
