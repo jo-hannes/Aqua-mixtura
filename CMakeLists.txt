@@ -43,6 +43,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/mixture/mixture.h src/mixture/mixture.cpp
         src/mixture/mixtures.h src/mixture/mixtures.cpp
         src/mixture/mixturewindow.h src/mixture/mixturewindow.cpp
+        src/mixture/mixwaterwidget.h src/mixture/mixwaterwidget.cpp
         src/style/style.h src/style/style.cpp
         src/style/styles.h src/style/styles.cpp
         src/style/styleswindow.h src/style/styleswindow.cpp

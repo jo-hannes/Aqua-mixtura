@@ -28,8 +28,8 @@ class Mixture : public Meta {
 
   Water calc();
 
- private:
-  QSharedPointer<WaterSources> waters{new WaterSources()};
+  // private:
+  WaterSources* waters{new WaterSources()};
   QSharedPointer<Additive> additive{new Additive()};
   QSharedPointer<Malts> malts{new Malts()};
   QSharedPointer<Style> style{new Style()};

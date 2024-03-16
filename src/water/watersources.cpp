@@ -93,7 +93,7 @@ int WaterSources::rowCount(const QModelIndex& parent) const {
 
 int WaterSources::columnCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return 2;
+  return 3;
 }
 
 QVariant WaterSources::data(const QModelIndex& index, int role) const {
@@ -113,6 +113,8 @@ QVariant WaterSources::data(const QModelIndex& index, int role) const {
       return sources.at(row).getName();
     case 1:
       return sources.at(row).get(AM::WaterValue::Restalkalitaet);
+    case 2:
+      return sources.at(row).get(AM::WaterValue::Volume);
     default:
       return QVariant();
   }
@@ -129,10 +131,41 @@ QVariant WaterSources::headerData(int section, Qt::Orientation orientation, int 
         return QString(tr("Name"));
       case 1:
         return QString(tr("Restalkalität"));
+      case 2:
+        return QString(tr("Menge") + " (L)");
       default:
         return QVariant();
     }
     return QString(tr("Name"));
   } else
     return QString("Row %1").arg(section);
+}
+
+bool WaterSources::setData(const QModelIndex& index, const QVariant& value, int role) {
+  if (role != Qt::EditRole) {
+    return false;
+  }
+  if (!index.isValid()) {
+    return false;
+  }
+  qsizetype row = index.row();
+  if (row < 0 || row >= sources.size()) {
+    return false;
+  }
+  if (index.column() == 2) {
+    sources[row].set(AM::WaterValue::Volume, value.toFloat());
+    return true;
+  }
+  return false;
+}
+
+Qt::ItemFlags WaterSources::flags(const QModelIndex& index) const {
+  if (!index.isValid()) {
+    return Qt::NoItemFlags;
+  }
+  // only volume is editable
+  if (index.column() == 2) {
+    return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+  }
+  return QAbstractItemModel::flags(index);
 }
