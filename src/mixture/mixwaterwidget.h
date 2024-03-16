@@ -4,28 +4,38 @@
 #ifndef MIXWATERWIDGET_H
 #define MIXWATERWIDGET_H
 
-#include "mixture.h"
+#include "../water/watersources.h"
 
-#include <QDoubleSpinBox>
 #include <QFrame>
+#include <QMenu>
 #include <QTableView>
-#include <QWidget>
 
+/**
+ * @brief Widget for water sources in mixture window
+ */
 class MixWaterWidget : public QFrame {
   Q_OBJECT
  public:
-  explicit MixWaterWidget(Mixture& mixture, QWidget* parent = nullptr);
+  /**
+   * @brief Create water sources Widget
+   * @param mixtureWaters Pointer to waters of mixture
+   * @param waterDb Pointer to our water database
+   * @param parent QObject parent
+   */
+  explicit MixWaterWidget(WaterSources* mixtureWaters, WaterSources* waterDb, QWidget* parent = nullptr);
 
- public slots:
-  void add();    /**< @brief Slot for adding water */
-  void remove(); /**< @brief Slot to delete the currently selected water */
+ private slots:
+  void add(int i);      /**< @brief Slot for adding water */
+  void remove();        /**< @brief Slot to delete the currently selected water */
+  void updateWaterDb(); /**< @brief The used water data base is changed */
 
  signals:
 
  private:
-  Mixture& mix;
-
-  QTableView* waterView; /**< @brief Table view for malts */
+  WaterSources* wMix;    /**< @brief Waters used in mixture */
+  WaterSources* wDb;     /**< @brief Database with waters */
+  QMenu* waterMenu;      /**< @brief Menu for add water button */
+  QTableView* waterView; /**< @brief Table view for waters */
 };
 
 #endif  // MIXWATERWIDGET_H

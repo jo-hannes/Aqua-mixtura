@@ -71,7 +71,7 @@ void WaterSources::updateProfile(Water& profile, qsizetype i) {
   }
 }
 
-void WaterSources::addProfile(Water& profile) {
+void WaterSources::addProfile(const Water& profile) {
   qsizetype i = sources.size();
   beginInsertRows(QModelIndex(), i, i);
   sources.append(profile);

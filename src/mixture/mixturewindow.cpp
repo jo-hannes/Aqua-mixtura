@@ -7,7 +7,7 @@
 
 #include <QVBoxLayout>
 
-MixtureWindow::MixtureWindow(Mixture& mixture, QWidget* parent) : QWidget{parent}, mix{mixture} {
+MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, QWidget* parent) : QWidget{parent}, mix{mixture} {
   this->setWindowFlags(Qt::Window);
   updateName();
 
@@ -15,7 +15,7 @@ MixtureWindow::MixtureWindow(Mixture& mixture, QWidget* parent) : QWidget{parent
   this->setLayout(layout);
   // QLabel* tst = new QLabel("Test");
   // layout->addWidget(tst);
-  MixWaterWidget* mww = new MixWaterWidget(mix);
+  MixWaterWidget* mww = new MixWaterWidget(mix.waters, waterDb);
   layout->addWidget(mww);
 
   // TODO

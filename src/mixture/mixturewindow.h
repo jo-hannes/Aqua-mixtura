@@ -6,12 +6,14 @@
 
 #include "mixture.h"
 
+#include "../water/watersources.h"
+
 #include <QWidget>
 
 class MixtureWindow : public QWidget {
   Q_OBJECT
  public:
-  explicit MixtureWindow(Mixture& mixture, QWidget* parent = nullptr);
+  explicit MixtureWindow(Mixture& mixture, WaterSources* waterDb, QWidget* parent = nullptr);
 
  public slots:
   void updateName();
