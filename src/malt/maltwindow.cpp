@@ -21,7 +21,7 @@ MaltWindow::MaltWindow(Malts* model, QWidget* parent) : QWidget{parent} {
   volatileMalts = new Malts();
   volatileMalts->setMalts(malts->getMalts());
   // Window tittle
-  title = tr("Malze");
+  title = "Aqua mixtura - " + tr("Malze");
   this->setWindowTitle(title);
   QObject::connect(volatileMalts, &Malts::unsavedMalts, this, &MaltWindow::unsavedMalts);
 

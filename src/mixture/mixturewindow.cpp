@@ -40,5 +40,5 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* 
 }
 
 void MixtureWindow::updateName() {
-  this->setWindowTitle(tr("Aufbereitung: ") + mix.getName());
+  this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
 }

@@ -11,7 +11,7 @@
 #include <QWidget>
 
 /**
- * @brief Window for diting beer styles
+ * @brief Window for beer styles
  */
 class StylesWindow : public QWidget {
   Q_OBJECT
