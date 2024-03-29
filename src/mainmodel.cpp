@@ -22,6 +22,7 @@ MainModel::MainModel() {
   maltsFile = configDir + "/malts.json";
   stylesFile = configDir + "/styles.json";
   mixturesFile = configDir + "/mixtures.json";
+  limitsFile = configDir + "/limits.json";
 
   mixtures = new Mixtures();
 
@@ -34,6 +35,7 @@ void MainModel::load() {
   loadMalts();
   loadStyles();
   loadMixtures();
+  loadLimits();
 }
 
 void MainModel::save() {
@@ -42,6 +44,7 @@ void MainModel::save() {
   saveMalts();
   saveStyles();
   saveMixtures();
+  saveLimits();
 }
 
 void MainModel::loadSources() {
@@ -92,4 +95,14 @@ void MainModel::loadMixtures() {
 
 void MainModel::saveMixtures() {
   JsonHelper::saveFile(mixturesFile, mixtures->toJson());
+}
+
+void MainModel::loadLimits() {
+  if (QFile::exists(limitsFile)) {
+    mixtures->limits->fromJson(JsonHelper::loadFile(limitsFile));
+  }
+}
+
+void MainModel::saveLimits() {
+  JsonHelper::saveFile(limitsFile, mixtures->limits->toJson());
 }

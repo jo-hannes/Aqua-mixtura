@@ -95,6 +95,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   QObject::connect(wstyles, &StylesWindow::save, model, &MainModel::saveStyles);
   QObject::connect(wstyles, &StylesWindow::load, model, &MainModel::loadStyles);
 
+  wLimits = new LimitsWindow(model->mixtures->limits, this);
+  wLimits->setWindowFlags(Qt::Window);
+  QObject::connect(wLimits, &LimitsWindow::save, model, &MainModel::saveLimits);
+  QObject::connect(wLimits, &LimitsWindow::load, model, &MainModel::loadLimits);
+
   setCentralWidget(mainWidget);
 
   // Playground
@@ -159,7 +164,7 @@ void MainWindow::styles() {
 }
 
 void MainWindow::limits() {
-  QMessageBox::information(this, "limits", "TODO limits");
+  wLimits->show();
 }
 
 void MainWindow::mixAdd() {

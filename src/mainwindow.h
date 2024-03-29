@@ -7,6 +7,7 @@
 #include "mainmodel.h"
 
 #include "additive/additivewindow.h"
+#include "limits/limitswindow.h"
 #include "malt/maltwindow.h"
 #include "style/styleswindow.h"
 #include "water/watersourcewindow.h"
@@ -54,9 +55,10 @@ class MainWindow : public QMainWindow {
   // Windows
   WatersourceWindow* wsources; /**< @brief Window for editing water sources */
   AdditiveWindow* wadditives;  /**< @brief Window for editing additives */
-  MaltWindow* wmalts;    /**< @brief Window for editing malts */
-  StylesWindow* wstyles; /**< @brief Window for editing beer styles */
-  QString txtMalts;      /**< @brief Text of malt window button */
+  MaltWindow* wmalts;          /**< @brief Window for editing malts */
+  StylesWindow* wstyles;       /**< @brief Window for editing beer styles */
+  LimitsWindow* wLimits;       /**< @brief Window for editing limits */
+  QString txtMalts;            /**< @brief Text of malt window button */
 
   // Pointer to all buttons
   QPushButton *btnSources, *btnAdditions, *btnMalts, *btnStyles, *btnLimits;

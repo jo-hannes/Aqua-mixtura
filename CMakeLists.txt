@@ -35,6 +35,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/common/jsonhelper.h src/common/jsonhelper.cpp
         src/common/meta.h src/common/meta.cpp
         src/icons/icons.qrc
+        src/limits/limits.h src/limits/limits.cpp
+        src/limits/limitswindow.h src/limits/limitswindow.cpp
         src/malt/malt.h src/malt/malt.cpp
         src/malt/maltphedit.h src/malt/maltphedit.cpp
         src/malt/malts.h src/malt/malts.cpp

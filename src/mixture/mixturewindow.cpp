@@ -10,7 +10,7 @@
 #include <QVBoxLayout>
 
 MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* additiveDb, Malts* maltDb,
-                             Styles* styleDb, QWidget* parent)
+                             Styles* styleDb, Limits* limits, QWidget* parent)
     : QWidget{parent}, mix{mixture} {
   this->setWindowFlags(Qt::Window);
   updateName();

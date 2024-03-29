@@ -8,6 +8,7 @@
 #include "mixturewindow.h"
 
 #include "../additive/additive.h"
+#include "../limits/limits.h"
 #include "../malt/malts.h"
 #include "../style/styles.h"
 #include "../water/watersources.h"
@@ -49,6 +50,7 @@ class Mixtures : public QAbstractTableModel {
   Additive* additiveDb;  /**< @brief Model of additives */
   Malts* maltDb;         /**< @brief Model of malts */
   Styles* styleDb;       /**< @brief Model of styles */
+  Limits* limits;        /**< @brief Model of limits */
 
  private:
   QVector<MixtureWindow*> mixWindows; /**< @brief Array with pointer to mixture windows */

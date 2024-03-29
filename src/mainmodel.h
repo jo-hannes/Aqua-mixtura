@@ -31,6 +31,8 @@ class MainModel : public QObject {
   void saveStyles();   /**< @brief Save styles data to JSON file */
   void loadMixtures(); /**< @brief Load mixtures data from JSON file */
   void saveMixtures(); /**< @brief Save mixtures data to JSON file */
+  void loadLimits();   /**< @brief Load limits data from JSON file */
+  void saveLimits();   /**< @brief Save limits data to JSON file */
 
  public:
   Mixtures* mixtures;    /**< @brief Model of mixtures */
@@ -41,6 +43,7 @@ class MainModel : public QObject {
   QString maltsFile;    /**< @brief Path to malts JSON */
   QString stylesFile;   /**< @brief Path to styles JSON */
   QString mixturesFile; /**< @brief Path to mixtures JSON */
+  QString limitsFile;   /**< @brief Path to limits JSON */
 };
 
 #endif // MAINMODEL_H
