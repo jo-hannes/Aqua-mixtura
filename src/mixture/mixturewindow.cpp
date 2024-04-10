@@ -5,6 +5,7 @@
 
 #include "mixadditivewidget.h"
 #include "mixmaltwidget.h"
+#include "mixresultwidget.h"
 #include "mixwaterwidget.h"
 
 #include <QVBoxLayout>
@@ -33,10 +34,9 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* 
   MixAdditiveWidget* maw = new MixAdditiveWidget(mix.additive, additiveDb);
   layout->addWidget(maw);
 
-  // TODO
-  // Need widgets for:
-  // * style
-  // * Results
+  // Results widget
+  MixResultWidget* mrw = new MixResultWidget(mix, styleDb, limits, this);
+  layout->addWidget(mrw);
 }
 
 void MixtureWindow::updateName() {

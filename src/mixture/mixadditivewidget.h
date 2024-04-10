@@ -31,7 +31,7 @@ class MixAdditiveWidget : public QFrame {
   void addSolid(int row, QString formula, QString text, QDoubleSpinBox* g);
 
   Additive* aMix;                                                   /** @brief Additive in mixture */
-  Additive* aDb;                                                    /** @brief Addtidive data base*/
+  Additive* aDb;                                                    /** @brief Additive data base*/
   QGridLayout* layout;                                              /**< @brief Main layout */
   QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)]; /** @brief Spin boxes of additive */
 };

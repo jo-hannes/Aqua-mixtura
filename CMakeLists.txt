@@ -44,6 +44,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/malt/maltwindow.h src/malt/maltwindow.cpp
         src/mixture/mixadditivewidget.h src/mixture/mixadditivewidget.cpp
         src/mixture/mixmaltwidget.h src/mixture/mixmaltwidget.cpp
+        src/mixture/mixresultwidget.h src/mixture/mixresultwidget.cpp
         src/mixture/mixture.h src/mixture/mixture.cpp
         src/mixture/mixtures.h src/mixture/mixtures.cpp
         src/mixture/mixturewindow.h src/mixture/mixturewindow.cpp
