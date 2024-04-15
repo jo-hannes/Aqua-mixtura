@@ -89,7 +89,7 @@ Water& Water::operator+=(const Water& rhs) {
   if (volSum == 0) {  // avoid zero division
     return *this;
   }
-  for (int i = static_cast<uint>(AM::WaterValue::Volume) + 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = static_cast<uint>(AM::WaterValue::Volume) + 1; i < static_cast<int>(AM::WaterValue::LastAnion); i++) {
     this->values[i] = (this->values[i] * volThis + rhs.values[i] * volRhs) / volSum;
   }
   this->values[static_cast<uint>(AM::WaterValue::Volume)] = volSum;
