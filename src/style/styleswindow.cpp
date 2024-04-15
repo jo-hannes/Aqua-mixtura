@@ -44,7 +44,7 @@ StylesWindow::StylesWindow(Styles* model, QWidget* parent) : QWidget{parent} {
   mainLayout->addWidget(stylesView, 1, 0);
   styleTableView = new QTableView();
   styleTableView->setModel(styles->getStyle(0));
-  StyleTableDelegate* delegate = new StyleTableDelegate();
+  StyleTableDelegate* delegate = new StyleTableDelegate(this);
   styleTableView->setItemDelegate(delegate);
   styleTableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   styleTableView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);

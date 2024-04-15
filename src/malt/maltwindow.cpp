@@ -32,7 +32,7 @@ MaltWindow::MaltWindow(Malts* model, QWidget* parent) : QWidget{parent} {
   maltsView = new QTableView();
   maltsView->setModel(volatileMalts);
   maltsView->verticalHeader()->setVisible(false);
-  MaltTableDelegate* delegate = new MaltTableDelegate();
+  MaltTableDelegate* delegate = new MaltTableDelegate(this);
   maltsView->setItemDelegate(delegate);
   // maltsView->hideColumn(1);  // Hide mass column, not needed here
   mainLayout->addWidget(maltsView);
@@ -48,6 +48,10 @@ MaltWindow::MaltWindow(Malts* model, QWidget* parent) : QWidget{parent} {
   QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MaltWindow::saveChanges);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &MaltWindow::cancel);
   mainLayout->addWidget(buttons);
+}
+
+MaltWindow::~MaltWindow() {
+  delete volatileMalts;
 }
 
 void MaltWindow::maltAdd() {

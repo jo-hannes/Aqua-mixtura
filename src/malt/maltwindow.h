@@ -9,8 +9,7 @@
 #include <QTableView>
 #include <QWidget>
 
-class MaltWindow : public QWidget
-{
+class MaltWindow : public QWidget {
   Q_OBJECT
  public:
   /**
@@ -19,6 +18,7 @@ class MaltWindow : public QWidget
    * @param parent QWidget parent
    */
   explicit MaltWindow(Malts* model, QWidget* parent = nullptr);
+  ~MaltWindow();
 
  private slots:
   void maltAdd();                  /**< @brief Slot for adding a new malt */

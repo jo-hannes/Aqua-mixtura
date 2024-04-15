@@ -103,6 +103,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   setCentralWidget(mainWidget);
 
   // Playground
+#if 0
   Mixture* mix = new Mixture();
   Water* wNbg = new Water("Leitungswasser", 30, 47, 14, 6.5, 199, 11, 17, 0.11, 0);
   Water* wDest = new Water("VE-Wasser", 10);
@@ -123,9 +124,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   scrollArea->setWidget(mixWidget);
   scrollArea->setWindowFlags(Qt::Window);
   scrollArea->show();
+#endif
 }
 
-MainWindow::~MainWindow() {}
+MainWindow::~MainWindow() {
+  delete model;
+}
 
 void MainWindow::settings() {
   QMessageBox::information(this, "settings", "TODO settings");
