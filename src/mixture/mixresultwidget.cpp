@@ -33,25 +33,10 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limi
     layout->addWidget(new QLabel(AM::waterStrings[i][AM::Unit]), i + 1, 2);
   }
 
-  Water tst = mix.calc();
-  for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
-    vals[i]->setText(QString::number(tst.get(static_cast<AM::WaterValue>(i)), 'f', 2));
-  }
-
-  // for some reasons these functions lead to a segfault => Need to check memory usage!
-  // QObject::dumpObjectTree();
-  // update();
-  // updVals();
+  update();
 }
 
 void MixResultWidget::update(void) {
-  Water tst = mix.calc();
-  for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
-    vals[i]->setText(QString::number(tst.get(static_cast<AM::WaterValue>(i)), 'f', 2));
-  }
-}
-
-void MixResultWidget::updVals() {
   Water tst = mix.calc();
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
     vals[i]->setText(QString::number(tst.get(static_cast<AM::WaterValue>(i)), 'f', 2));

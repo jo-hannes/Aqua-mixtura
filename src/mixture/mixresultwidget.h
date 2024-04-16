@@ -19,10 +19,10 @@ class MixResultWidget : public QFrame {
  public:
   MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limits, QWidget* parent = nullptr);
 
+ public slots:
   void update(void);
 
  private:
-  void updVals();
 
   Mixture& mix;
   Styles* sDb;
