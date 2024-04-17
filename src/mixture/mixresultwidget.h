@@ -5,6 +5,7 @@
 #define MIXRESULTWIDGET_H
 
 #include "mixture.h"
+#include "resultbar.h"
 
 #include "../common/global.h"
 #include "../limits/limits.h"
@@ -29,6 +30,7 @@ class MixResultWidget : public QFrame {
   Limits* lim;
 
   QLabel* vals[static_cast<int>(AM::WaterValue::Size)];
+  ResultBar* bars[static_cast<int>(AM::WaterValue::Size)];
 };
 
 #endif  // MIXRESULTWIDGET_H
