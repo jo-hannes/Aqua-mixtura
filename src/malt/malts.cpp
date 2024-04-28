@@ -119,6 +119,7 @@ QVector<Malt>& Malts::getMalts() {
 
 void Malts::setSaved() {
   setUnsaved(false);
+  emit dataModified();
 }
 
 int Malts::rowCount(const QModelIndex& parent) const {

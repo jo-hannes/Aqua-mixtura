@@ -42,6 +42,7 @@ class Malts : public QAbstractTableModel {
 
  signals:
   void unsavedMalts(bool unsaved); /**< @brief Signal emitted if save state of malts change */
+  void dataModified();
 
  private:
   void setUnsaved(bool unsaved); /**< @brief Mark malts unsaved/saved */

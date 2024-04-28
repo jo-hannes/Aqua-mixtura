@@ -40,7 +40,7 @@ MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts* maltDb, QWidget* parent
   // build button menu
   maltMenu = new QMenu(this);
   updateMaltDb();
-  QObject::connect(mDb, &Malts::dataChanged, this, &MixMaltWidget::updateMaltDb);
+  QObject::connect(mDb, &Malts::dataModified, this, &MixMaltWidget::updateMaltDb);
   buttons->btnAdd->setMenu(maltMenu);
 }
 
