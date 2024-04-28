@@ -88,6 +88,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wmalts = new MaltWindow(model->mixtures->maltDb, this);
   wmalts->setWindowFlags(Qt::Window);
   QObject::connect(wmalts, &MaltWindow::save, model, &MainModel::saveMalts);
+  QObject::connect(wmalts, &MaltWindow::load, model, &MainModel::loadMalts);
   QObject::connect(wmalts, &MaltWindow::maltWindowUnsavedChanges, this, &MainWindow::unsavedMalts);
 
   wstyles = new StylesWindow(model->mixtures->styleDb, this);

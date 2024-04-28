@@ -37,7 +37,6 @@ class MaltWindow : public QWidget {
 
  private:
   Malts* malts;          /**< @brief Pointer to model for accessing data */
-  Malts* volatileMalts;  /**< @brief Currently edited malts */
   QTableView* maltsView; /**< @brief Table view for malts */
   QString title;         /**< @brief Window tittle */
 };
