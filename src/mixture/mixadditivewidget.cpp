@@ -70,6 +70,7 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, Additive* additi
   layout->setRowStretch(row, 10);
 
   update();
+  QObject::connect(aDb, &Additive::dataModified, this, &MixAdditiveWidget::update);
 }
 
 void MixAdditiveWidget::update() {

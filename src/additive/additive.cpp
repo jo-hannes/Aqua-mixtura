@@ -29,6 +29,7 @@ void Additive::set(Value what, float value) {
   if (what < Value::Size) {
     amount[static_cast<uint>(what)] = value;
     updateEditTime();
+    emit dataModified();
   }
 }
 
@@ -50,6 +51,7 @@ void Additive::setConcentration(Value what, float value) {
     }
     concentration[static_cast<uint>(what)] = value;
     updateEditTime();
+    emit dataModified();
   }
 }
 
@@ -64,6 +66,7 @@ void Additive::enable(Value what, bool enable) {
   if (what < Value::Size) {
     enabled[static_cast<uint>(what)] = enable;
     updateEditTime();
+    emit dataModified();
   }
 }
 

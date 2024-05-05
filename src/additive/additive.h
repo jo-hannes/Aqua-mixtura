@@ -12,7 +12,9 @@
 /**
  * @brief Water additives
  */
-class Additive : public Meta {
+class Additive : public QObject, public Meta {
+  Q_OBJECT
+
  public:
 
   /**
@@ -70,6 +72,9 @@ class Additive : public Meta {
   // JSON conversion
   bool fromJson(const QJsonObject& json);            /**< @brief Update Additive from JSON */
   QJsonObject toJson() const;                        /**< @brief convert this Additive to JSON */
+
+ signals:
+  void dataModified();
 
  private:
   bool enabled[static_cast<int>(Value::Size)];                  /**< @brief Enable status */
