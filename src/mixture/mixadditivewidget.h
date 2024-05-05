@@ -9,6 +9,7 @@
 #include <QDoubleSpinBox>
 #include <QFrame>
 #include <QGridLayout>
+#include <QLabel>
 #include <QObject>
 
 /**
@@ -25,14 +26,19 @@ class MixAdditiveWidget : public QFrame {
    */
   MixAdditiveWidget(Additive* mixtureAdditive, Additive* additiveDb, QWidget* parent = nullptr);
 
+ public slots:
+  void update();
+
  private:
   void mergeAdditive(); /** @brief Merge mixture additive and additive db */
-  void addAcid(int row, QString formula, QString text, QString percent, QDoubleSpinBox* ml);
-  void addSolid(int row, QString formula, QString text, QDoubleSpinBox* g);
 
   Additive* aMix;                                                   /** @brief Additive in mixture */
   Additive* aDb;                                                    /** @brief Additive data base*/
   QGridLayout* layout;                                              /**< @brief Main layout */
+  QLabel* formulas[static_cast<int>(Additive::Value::Size)];        /**< @brief Chemical formulas of additive */
+  QLabel* texts[static_cast<int>(Additive::Value::Size)];           /**< @brief Name of additive */
+  QLabel*
+      percents[static_cast<int>(Additive::Value::lastLiquid) + 1];  /**< @brief Volume percent for liquid additives */
   QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)]; /** @brief Spin boxes of additive */
 };
 
