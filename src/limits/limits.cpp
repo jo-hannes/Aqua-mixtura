@@ -3,6 +3,9 @@
 
 #include "limits.h"
 
+#include "../common/jsonhelper.h"
+#include "../common/paths.h"
+
 Limits::Limits(QObject* parent) : QAbstractTableModel{parent} {
   // init all values
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
@@ -167,4 +170,16 @@ Qt::ItemFlags Limits::flags(const QModelIndex& index) const {
     return Qt::NoItemFlags;
   }
   return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+}
+
+void Limits::load() {
+  QString file = Paths::dataDir() + "/limits.json";
+  if (QFile::exists(file)) {
+    this->fromJson(JsonHelper::loadFile(file));
+  }
+}
+
+void Limits::save() {
+  QString file = Paths::dataDir() + "/limits.json";
+  JsonHelper::saveFile(file, this->toJson());
 }

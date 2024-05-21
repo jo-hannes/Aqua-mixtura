@@ -4,6 +4,7 @@
 #include "mixtures.h"
 
 #include "../common/jsonhelper.h"
+#include "../common/paths.h"
 
 #include <QJsonArray>
 
@@ -209,4 +210,18 @@ Qt::ItemFlags Mixtures::flags(const QModelIndex& index) const {
   } else {
     return QAbstractItemModel::flags(index);
   }
+}
+
+void Mixtures::load()
+{
+  QString file = Paths::dataDir() + "/mixtures.json";
+  if (QFile::exists(file)) {
+    this->fromJson(JsonHelper::loadFile(file));
+  }
+}
+
+void Mixtures::save()
+{
+  QString file = Paths::dataDir() + "/mixtures.json";
+  JsonHelper::saveFile(file, this->toJson());
 }

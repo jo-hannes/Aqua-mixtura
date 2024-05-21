@@ -73,6 +73,10 @@ class Additive : public QObject, public Meta {
   bool fromJson(const QJsonObject& json);            /**< @brief Update Additive from JSON */
   QJsonObject toJson() const;                        /**< @brief convert this Additive to JSON */
 
+ public slots:
+  void load();
+  void save();
+
  signals:
   void dataModified();
 

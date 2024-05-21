@@ -26,8 +26,6 @@ class StylesWindow : public QWidget {
  private slots:
   void styleSelectionChanged(const QModelIndex& current,
                              const QModelIndex& previous); /**< @brief Slot for selection changes */
-  void styleSave();                           /**< @brief Save changed style */
-  void styleDiscard();                        /**< @brief Discard changes */
   void styleAdd();                            /**< @brief Add a new style */
   void styleCopy();                           /**< @brief Copy a existing style */
   void styleDelete();                         /**< @brief Delete the selected style */

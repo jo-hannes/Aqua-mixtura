@@ -39,6 +39,10 @@ class WaterSources : public QAbstractTableModel {
   bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
   Qt::ItemFlags flags(const QModelIndex& index) const;
 
+ public slots:
+  void load();
+  void save();
+
  private:
   QVector<Water> sources;
   Water noWater;

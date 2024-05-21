@@ -46,7 +46,7 @@ MaltWindow::MaltWindow(Malts* model, QWidget* parent) : QWidget{parent} {
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &MaltWindow::maltImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &MaltWindow::maltExport);
   QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MaltWindow::saveChanges);
-  QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &MaltWindow::cancel);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, malts, &Malts::load);  // just load on cancel
   mainLayout->addWidget(buttons);
 }
 
@@ -114,11 +114,7 @@ void MaltWindow::maltExport() {
 
 void MaltWindow::saveChanges() {
   malts->setSaved();
-  emit save();
-}
-
-void MaltWindow::cancel() {
-  emit load();
+  malts->save();
 }
 
 void MaltWindow::unsavedMalts(bool unsaved) {

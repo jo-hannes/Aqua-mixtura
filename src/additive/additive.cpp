@@ -3,6 +3,9 @@
 
 #include "additive.h"
 
+#include "../common/jsonhelper.h"
+#include "../common/paths.h"
+
 Additive::Additive() {
   for (int i = 0; i < static_cast<int>(Value::Size); i++) {
     enabled[i] = false;
@@ -116,4 +119,18 @@ QJsonObject Additive::toJson() const {
   QJsonObject outer;
   outer["WaterAdditives"] = inner;
   return outer;
+}
+
+void Additive::load()
+{
+  QString file = Paths::dataDir() + "/additive.json";
+  if (QFile::exists(file)) {
+    this->fromJson(JsonHelper::loadFile(file));
+  }
+}
+
+void Additive::save()
+{
+  QString file = Paths::dataDir() + "/additive.json";
+  JsonHelper::saveFile(file, this->toJson());
 }

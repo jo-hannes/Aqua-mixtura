@@ -29,12 +29,7 @@ class AdditiveWindow : public QWidget
   explicit AdditiveWindow(Additive* model, QWidget* parent = nullptr);
 
  private slots:
-  void saveChanges(); /**< @brief Save changes */
   void cancel();      /**< @brief Revert changes */
-
- signals:
-  void load();
-  void save();
 
  private:
   void update(); /**< @brief Update all values */

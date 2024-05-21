@@ -4,6 +4,7 @@
 #include "malts.h"
 
 #include "../common/jsonhelper.h"
+#include "../common/paths.h"
 
 #include <QFile>
 #include <QJsonArray>
@@ -215,6 +216,20 @@ Qt::ItemFlags Malts::flags(const QModelIndex& index) const {
     return Qt::NoItemFlags;
   }
   return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+}
+
+void Malts::load()
+{
+  QString file = Paths::dataDir() + "/malts.json";
+  if (QFile::exists(file)) {
+    this->fromJson(JsonHelper::loadFile(file));
+  }
+}
+
+void Malts::save()
+{
+  QString file = Paths::dataDir() + "/malts.json";
+  JsonHelper::saveFile(file, this->toJson());
 }
 
 void Malts::setUnsaved(bool unsaved) {

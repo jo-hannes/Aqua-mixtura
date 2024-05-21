@@ -59,8 +59,9 @@ StylesWindow::StylesWindow(Styles* model, QWidget* parent) : QWidget{parent} {
   QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &StylesWindow::styleDelete);
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &StylesWindow::styleImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &StylesWindow::styleExport);
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &StylesWindow::styleSave);
-  QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &StylesWindow::styleDiscard);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, styles, &Styles::save);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, styles, &Styles::load);
+
   mainLayout->addWidget(buttons, 2, 0, 1, 2, Qt::AlignHCenter);
 
   mainLayout->setColumnStretch(1, 1);
@@ -71,14 +72,6 @@ StylesWindow::StylesWindow(Styles* model, QWidget* parent) : QWidget{parent} {
 void StylesWindow::styleSelectionChanged(const QModelIndex& current, const QModelIndex& previous) {
   Q_UNUSED(previous);
   styleSelect(current.row());
-}
-
-void StylesWindow::styleSave() {
-  emit save();
-}
-
-void StylesWindow::styleDiscard() {
-  emit load();
 }
 
 void StylesWindow::styleAdd() {

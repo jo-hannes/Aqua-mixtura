@@ -99,7 +99,7 @@ void WatersourceWindow::selectSource(const QModelIndex& index) {
 void WatersourceWindow::saveProfile(Water& profile) {
   if (selected >= 0 && selected < sources->rowCount()) {
     sources->updateProfile(profile, selected);
-    emit save();
+    sources->save();
   }
 }
 

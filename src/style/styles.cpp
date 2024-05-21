@@ -4,6 +4,7 @@
 #include "styles.h"
 
 #include "../common/jsonhelper.h"
+#include "../common/paths.h"
 
 #include <QFile>
 #include <QJsonArray>
@@ -149,6 +150,20 @@ Qt::ItemFlags Styles::flags(const QModelIndex &index) const
     return Qt::NoItemFlags;
   }
   return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+}
+
+void Styles::load()
+{
+  QString file = Paths::dataDir() + "/styles.json";
+  if (QFile::exists(file)) {
+    this->fromJson(JsonHelper::loadFile(file));
+  }
+}
+
+void Styles::save()
+{
+  QString file = Paths::dataDir() + "/styles.json";
+  JsonHelper::saveFile(file, this->toJson());
 }
 
 void Styles::clear() {

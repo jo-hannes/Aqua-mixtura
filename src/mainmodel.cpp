@@ -3,7 +3,7 @@
 
 #include "mainmodel.h"
 
-#include "common/jsonhelper.h"
+#include "common/paths.h"
 
 #include <QDir>
 #include <QFile>
@@ -11,18 +11,8 @@
 #include <QStandardPaths>
 
 MainModel::MainModel() {
-  QString configDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-  if (configDir.isEmpty()) {
-    qFatal("Unable to get storage location");
-  }
+  QString configDir = Paths::dataDir();
   QDir().mkpath(configDir);
-
-  sourcesFile = configDir + "/sources.json";
-  additiveFile = configDir + "/additive.json";
-  maltsFile = configDir + "/malts.json";
-  stylesFile = configDir + "/styles.json";
-  mixturesFile = configDir + "/mixtures.json";
-  limitsFile = configDir + "/limits.json";
 
   mixtures = new Mixtures();
 
@@ -30,79 +20,19 @@ MainModel::MainModel() {
 }
 
 void MainModel::load() {
-  loadSources();
-  loadAdditive();
-  loadMalts();
-  loadStyles();
-  loadMixtures();
-  loadLimits();
+  mixtures->waterDb->load();
+  mixtures->additiveDb->load();
+  mixtures->maltDb->load();
+  mixtures->styleDb->load();
+  mixtures->limits->load();
+  mixtures->load();
 }
 
 void MainModel::save() {
-  saveSources();
-  saveAdditive();
-  saveMalts();
-  saveStyles();
-  saveMixtures();
-  saveLimits();
-}
-
-void MainModel::loadSources() {
-  if (QFile::exists(sourcesFile)) {
-    mixtures->waterDb->fromJson(JsonHelper::loadFile(sourcesFile));
-  }
-}
-
-void MainModel::saveSources() {
-  JsonHelper::saveFile(sourcesFile, mixtures->waterDb->profileToJson());
-}
-
-void MainModel::loadAdditive() {
-  if (QFile::exists(additiveFile)) {
-    mixtures->additiveDb->fromJson(JsonHelper::loadFile(additiveFile));
-  }
-}
-
-void MainModel::saveAdditive() {
-  JsonHelper::saveFile(additiveFile, mixtures->additiveDb->toJson());
-}
-
-void MainModel::loadMalts() {
-  if (QFile::exists(maltsFile)) {
-    mixtures->maltDb->fromJson(JsonHelper::loadFile(maltsFile));
-  }
-}
-
-void MainModel::saveMalts() {
-  JsonHelper::saveFile(maltsFile, mixtures->maltDb->toJson());
-}
-
-void MainModel::loadStyles() {
-  if (QFile::exists(stylesFile)) {
-    mixtures->styleDb->fromJson(JsonHelper::loadFile(stylesFile));
-  }
-}
-
-void MainModel::saveStyles() {
-  JsonHelper::saveFile(stylesFile, mixtures->styleDb->toJson());
-}
-
-void MainModel::loadMixtures() {
-  if (QFile::exists(mixturesFile)) {
-    mixtures->fromJson(JsonHelper::loadFile(mixturesFile));
-  }
-}
-
-void MainModel::saveMixtures() {
-  JsonHelper::saveFile(mixturesFile, mixtures->toJson());
-}
-
-void MainModel::loadLimits() {
-  if (QFile::exists(limitsFile)) {
-    mixtures->limits->fromJson(JsonHelper::loadFile(limitsFile));
-  }
-}
-
-void MainModel::saveLimits() {
-  JsonHelper::saveFile(limitsFile, mixtures->limits->toJson());
+  mixtures->waterDb->save();
+  mixtures->additiveDb->save();
+  mixtures->maltDb->save();
+  mixtures->styleDb->save();
+  mixtures->limits->save();
+  mixtures->save();
 }

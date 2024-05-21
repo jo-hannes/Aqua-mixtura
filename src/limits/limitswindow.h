@@ -26,10 +26,6 @@ class LimitsWindow : public QWidget {
   void limitsImport(); /**< @brief Import JSON limits */
   void limitsExport(); /**< @brief Export limits as JSON */
 
- signals:
-  void load(); /**< @brief Load limits */
-  void save(); /**< @brief Save limits*/
-
  private:
   Limits* limits;
   QTableView* limitsView;

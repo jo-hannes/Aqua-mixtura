@@ -27,7 +27,6 @@ class MaltWindow : public QWidget {
   void maltImport();               /**< @brief Slot for importing a malt form JSON */
   void maltExport();               /**< @brief Slot for exporting a malt to JSON */
   void saveChanges();              /**< @brief Slot for saving all malts */
-  void cancel();                   /**< @brief Slot for discarding all unsaved changes */
   void unsavedMalts(bool unsaved); /**< @brief Slot for indicating of unsaved changes exist */
 
  signals:

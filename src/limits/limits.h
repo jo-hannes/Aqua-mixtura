@@ -34,6 +34,10 @@ class Limits : public QAbstractTableModel, public Meta {
   bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
   Qt::ItemFlags flags(const QModelIndex& index) const;
 
+ public slots:
+  void load();
+  void save();
+
  private:
   float limits[static_cast<int>(AM::WaterValue::Size)][2];
 };

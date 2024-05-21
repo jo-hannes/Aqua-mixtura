@@ -34,6 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/common/global.h src/common/global.cpp
         src/common/jsonhelper.h src/common/jsonhelper.cpp
         src/common/meta.h src/common/meta.cpp
+        src/common/paths.h src/common/paths.cpp
         src/icons/icons.qrc
         src/limits/limits.h src/limits/limits.cpp
         src/limits/limitswindow.h src/limits/limitswindow.cpp

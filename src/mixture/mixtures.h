@@ -52,6 +52,10 @@ class Mixtures : public QAbstractTableModel {
   Styles* styleDb;       /**< @brief Model of styles */
   Limits* limits;        /**< @brief Model of limits */
 
+ public slots:
+  void load();
+  void save();
+
  private:
   QVector<MixtureWindow*> mixWindows; /**< @brief Array with pointer to mixture windows */
   QVector<Mixture> mixtures;

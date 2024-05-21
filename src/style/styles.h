@@ -35,6 +35,10 @@ class Styles : public QAbstractListModel {
   bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
   Qt::ItemFlags flags(const QModelIndex& index) const;
 
+ public slots:
+  void load();
+  void save();
+
  signals:
   void unsavedStyles(bool unsaved); /**< @brief Signal emitted if save state of Styles change */
 

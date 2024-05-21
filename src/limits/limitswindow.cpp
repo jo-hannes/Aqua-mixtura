@@ -34,8 +34,8 @@ LimitsWindow::LimitsWindow(Limits* model, QWidget* parent) : QWidget{parent} {
                                  tr("Speichern"), tr("Abbrechen"));
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &LimitsWindow::limitsImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &LimitsWindow::limitsExport);
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &LimitsWindow::save);
-  QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &LimitsWindow::load);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, limits, &Limits::save);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, limits, &Limits::load);
   layout->addWidget(buttons);
 
   setLayout(layout);

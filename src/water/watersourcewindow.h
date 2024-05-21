@@ -35,9 +35,6 @@ class WatersourceWindow : public QWidget {
   void profileImport(); /**< @brief Import a JSON profile */
   void profileExport(); /**< @brief Export a profile as JSON */
 
- signals:
-  void save();
-
  private:
   WaterSources* sources;       /**< @brief Pointer to model for accessing data */
   QListView* sourcesView;      /**< @brief List with all water sources */

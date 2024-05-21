@@ -3,6 +3,9 @@
 
 #include "watersources.h"
 
+#include "../common/jsonhelper.h"
+#include "../common/paths.h"
+
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -168,4 +171,16 @@ Qt::ItemFlags WaterSources::flags(const QModelIndex& index) const {
     return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
   }
   return QAbstractItemModel::flags(index);
+}
+
+void WaterSources::load() {
+  QString file = Paths::dataDir() + "/sources.json";
+  if (QFile::exists(file)) {
+    this->fromJson(JsonHelper::loadFile(file));
+  }
+}
+
+void WaterSources::save() {
+  QString file = Paths::dataDir() + "/sources.json";
+  JsonHelper::saveFile(file, this->profileToJson());
 }

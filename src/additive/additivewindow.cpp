@@ -73,7 +73,7 @@ AdditiveWindow::AdditiveWindow(Additive* model, QWidget* parent) : QWidget{paren
 
   // buttons
   Buttons* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &AdditiveWindow::saveChanges);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, additive, &Additive::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &AdditiveWindow::cancel);
   layout->addWidget(buttons, row++, 0, 1, -1, Qt::AlignHCenter);
 
@@ -82,12 +82,8 @@ AdditiveWindow::AdditiveWindow(Additive* model, QWidget* parent) : QWidget{paren
   update();
 }
 
-void AdditiveWindow::saveChanges() {
-  emit save();
-}
-
 void AdditiveWindow::cancel() {
-  emit load();
+  additive->load();
   update();
 }
 
