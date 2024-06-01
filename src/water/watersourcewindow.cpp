@@ -111,6 +111,7 @@ void WatersourceWindow::profileAdd() {
 void WatersourceWindow::profileCopy() {
   Water newProfile = sources->getProfile(selected);
   newProfile.updateCreationTime();
+  newProfile.newUuid();
   newProfile.setName("Copy of " + newProfile.getName());
   sources->addProfile(newProfile);
 }

@@ -175,6 +175,7 @@ void MainWindow::mixCopy() {
   }
   Mixture m = model->mixtures->getMixture(idx.row());
   m.updateCreationTime();
+  m.newUuid();
   m.setName("Copy of " + m.getName());
   model->mixtures->addMixture(m);
 }

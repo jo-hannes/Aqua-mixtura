@@ -64,6 +64,7 @@ void MaltWindow::maltCopy() {
   }
   Malt m = malts->getMalt(idx.row());
   m.updateCreationTime();
+  m.newUuid();
   m.setName("Copy of " + m.getName());
   malts->addMalt(m);
 }

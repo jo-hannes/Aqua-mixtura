@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QJsonObject>
 #include <QString>
+#include <QUuid>
 
 /**
  * @brief Class with common meta data
@@ -18,6 +19,8 @@ class Meta {
   QString getName() const;                /**< @brief Get name of object */
   QDateTime getCreationTime() const;      /**< @brief Get object creation time */
   QDateTime getModificationTime() const;  /**< @brief Get last modification time */
+  QString getUuid() const;                /**< @brief Get UUID as string */
+  QString newUuid();                      /**< @brief Generate new UUID and return it as string */
   void setName(const QString& newName);   /**< @brief Set object name */
   void updateEditTime();                  /**< @brief Update edit time to now */
   void updateCreationTime();              /**< @brief Update creation time to now */
@@ -28,8 +31,8 @@ class Meta {
   QString name;     /**< @brief Name of object */
   QDateTime create; /**< @brief Creation date of object */
   QDateTime edit;   /**< @brief Last time object was edited/saved */
+  QUuid uuid;       /**< @brief Uniq id of object */
   // Maybe add author name
-  // Maybe add UUID
 };
 
 #endif  // META_H

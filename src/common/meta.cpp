@@ -7,6 +7,7 @@ Meta::Meta(QString name) {
   this->name = name;
   create = QDateTime::currentDateTime();
   edit = QDateTime::currentDateTime();
+  uuid = QUuid::createUuid();
 }
 
 Meta::Meta(const QJsonObject& json) {
@@ -23,6 +24,15 @@ QDateTime Meta::getCreationTime() const {
 
 QDateTime Meta::getModificationTime() const {
   return edit;
+}
+
+QString Meta::getUuid() const {
+  return uuid.toString(QUuid::WithoutBraces);
+}
+
+QString Meta::newUuid() {
+  uuid.createUuid();
+  return uuid.toString(QUuid::WithoutBraces);
 }
 
 void Meta::setName(const QString& newName) {
@@ -46,6 +56,7 @@ bool Meta::fromJson(const QJsonObject& json) {
   name = jMeta["Name"].toString("");
   create = QDateTime::fromString(jMeta["Created"].toString(""), Qt::ISODate);
   edit = QDateTime::fromString(jMeta["Edited"].toString(""), Qt::ISODate);
+  uuid = QUuid::fromString(jMeta["UUID"].toString(""));
   if (!create.isValid()) {
     create = QDateTime::currentDateTime();
     ret = false;
@@ -53,6 +64,9 @@ bool Meta::fromJson(const QJsonObject& json) {
   if (!edit.isValid()) {
     edit = QDateTime::currentDateTime();
     ret = false;
+  }
+  if (uuid.isNull()) {
+    uuid = QUuid::createUuid();
   }
   return ret;
 }
@@ -62,5 +76,6 @@ void Meta::toJson(QJsonObject& json) const {
   jMeta["Name"] = name;
   jMeta["Created"] = create.toString(Qt::ISODate);
   jMeta["Edited"] = edit.toString(Qt::ISODate);
+  jMeta["UUID"] = uuid.toString(QUuid::WithoutBraces);
   json["Meta"] = jMeta;
 }
