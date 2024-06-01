@@ -44,8 +44,6 @@ class MainWindow : public QMainWindow {
   void mixDelete();  /**< @brief Slot to delete the currently selected mixture */
   void mixImport();  /**< @brief Slot for importing a mixture form JSON */
   void mixExport();  /**< @brief Slot for exporting a mixture to JSON */
-  void mixSave();    /**< @brief Slot for saving all mixtures */
-  void mixDiscard(); /**< @brief Slot for discarding all unsaved mixture changes */
   void mixDoubleClicked(const QModelIndex& idx); /**< @brief Slot for double clicks on mixtures */
 
  private:

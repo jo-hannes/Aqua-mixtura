@@ -37,7 +37,8 @@ bool Mixtures::fromJson(const QJsonObject& json) {
   beginResetModel();
   mixtures.clear();
   for (const auto& mix : jsonMixtures.toArray()) {
-    mixtures.append(Mixture(mix.toObject()));
+    QJsonObject mixObj = mix.toObject();
+    mixtures.append(Mixture(mixObj["file"].toString("")));
   }
   endResetModel();
   return true;
@@ -46,7 +47,9 @@ bool Mixtures::fromJson(const QJsonObject& json) {
 QJsonObject Mixtures::toJson() const {
   QJsonArray jsonMixtureArray;
   for (const auto& mix : mixtures) {
-    jsonMixtureArray.append(mix.toJson());
+    QJsonObject jmix;
+    jmix["file"] = mix.getPath();
+    jsonMixtureArray.append(jmix);
   }
   QJsonObject jsonMixtures;
   jsonMixtures["Mixtures"] = jsonMixtureArray;
@@ -62,6 +65,7 @@ bool Mixtures::importMixture(const QString& path) {
     return false;
   }
   Mixture imported(json["AquaMixture"].toObject());
+  imported.save();
   addMixture(imported);
   return true;
 }
@@ -180,35 +184,6 @@ QVariant Mixtures::headerData(int section, Qt::Orientation orientation, int role
     }
   } else {
     return QString("Row %1").arg(section);
-  }
-}
-
-bool Mixtures::setData(const QModelIndex& index, const QVariant& value, int role) {
-  if (!index.isValid()) {
-    return false;
-  }
-  if (role != Qt::EditRole) {
-    return false;
-  }
-  if (index.column() != 0) {
-    return false;
-  }
-  int row = index.row();
-  mixtures[row].setName(value.toString());
-  if (row < mixWindows.size() && mixWindows[row] != nullptr) {
-    mixWindows[row]->updateName();
-  }
-  return true;
-}
-
-Qt::ItemFlags Mixtures::flags(const QModelIndex& index) const {
-  if (!index.isValid()) {
-    return Qt::NoItemFlags;
-  }
-  if (index.column() == 0) {  // only name is editable
-    return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
-  } else {
-    return QAbstractItemModel::flags(index);
   }
 }
 

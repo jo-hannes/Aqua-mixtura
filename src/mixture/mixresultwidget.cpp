@@ -20,7 +20,12 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limi
   QGridLayout* layout = new QGridLayout();
   this->setLayout(layout);
 
-  layout->addWidget(new QLabel(tr("Ergebnis")), 0, 0);
+  layout->addWidget(new QLabel(tr("Ergebnis")), 0, 0, Qt::AlignLeft);
+  layout->addWidget(new QLabel(tr("Bierstil:")), 0, 1, 1, 2, Qt::AlignLeft);
+
+  styleSelect = new QComboBox();
+  layout->addWidget(styleSelect, 0, 3, Qt::AlignLeft);
+  QObject::connect(styleSelect, &QComboBox::activated, this, &MixResultWidget::selectStyle);
 
   // values
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
@@ -39,9 +44,11 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limi
   }
 
   update();
+  updateStyles();
 }
 
 void MixResultWidget::update(void) {
+  qDebug() << "Update reslut calculation";
   Water tst = mix.calc();
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
     vals[i]->setText(QString::number(tst.get(static_cast<AM::WaterValue>(i)), 'f', 2));
@@ -57,5 +64,26 @@ void MixResultWidget::update(void) {
       }
       bars[i]->setValue(tst.get(static_cast<AM::WaterValue>(i)));
     }
+  }
+}
+
+void MixResultWidget::selectStyle(int index) {
+  qDebug() << "TODO: Select style at index:" << index;
+}
+
+void MixResultWidget::updateStyles() {
+  // save selection
+  int selection = styleSelect->currentIndex();
+  styleSelect->clear();
+  // first add style from mixture
+  QString self = "[" + mix.style->getName() + "]";
+  styleSelect->addItem(self);
+  // add styles form database
+  for (int i = 0; i < sDb->rowCount(QModelIndex()); i++) {
+    styleSelect->addItem(sDb->getStyle(i)->getName());
+  }
+  // restore selection
+  if (selection >= 0) {
+    styleSelect->setCurrentIndex(selection);
   }
 }

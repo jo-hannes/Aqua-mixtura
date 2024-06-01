@@ -53,16 +53,13 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   mixturesView->verticalHeader()->setVisible(false);
   mixturesView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   QObject::connect(mixturesView, &QTableView::doubleClicked, this, &MainWindow::mixDoubleClicked);
-  Buttons* mixBtns =
-      new Buttons(tr("Aufbereitung hinzufügen"), tr("Aufbereitung kopieren"), tr("Aufbereitung löschen"),
-                  tr("Aufbereitung importieren"), tr("Aufbereitung exportieren"), tr("Speichern"), tr("Abbrechen"));
+  Buttons* mixBtns = new Buttons(tr("Aufbereitung hinzufügen"), tr("Aufbereitung kopieren"), tr("Aufbereitung löschen"),
+                                 tr("Aufbereitung importieren"), tr("Aufbereitung exportieren"), "", "");
   QObject::connect(mixBtns->btnAdd, &QPushButton::clicked, this, &MainWindow::mixAdd);
   QObject::connect(mixBtns->btnCopy, &QPushButton::clicked, this, &MainWindow::mixCopy);
   QObject::connect(mixBtns->btnDelete, &QPushButton::clicked, this, &MainWindow::mixDelete);
   QObject::connect(mixBtns->btnImport, &QPushButton::clicked, this, &MainWindow::mixImport);
   QObject::connect(mixBtns->btnExport, &QPushButton::clicked, this, &MainWindow::mixExport);
-  QObject::connect(mixBtns->btnSave, &QPushButton::clicked, this, &MainWindow::mixSave);
-  QObject::connect(mixBtns->btnCancel, &QPushButton::clicked, this, &MainWindow::mixDiscard);
 
   // sticking it together
   QGridLayout* mainLayout = new QGridLayout();
@@ -164,8 +161,11 @@ void MainWindow::limits() {
 }
 
 void MainWindow::mixAdd() {
-  Mixture m("New");
+  Mixture m;
+  m.setName("New");
+  m.save();
   model->mixtures->addMixture(m);
+  model->mixtures->save();
 }
 
 void MainWindow::mixCopy() {
@@ -176,8 +176,11 @@ void MainWindow::mixCopy() {
   Mixture m = model->mixtures->getMixture(idx.row());
   m.updateCreationTime();
   m.newUuid();
+  m.resetPath();
   m.setName("Copy of " + m.getName());
+  m.save();
   model->mixtures->addMixture(m);
+  model->mixtures->save();
 }
 
 void MainWindow::mixDelete() {
@@ -185,7 +188,19 @@ void MainWindow::mixDelete() {
   if (!idx.isValid()) {
     return;
   }
-  model->mixtures->deleteMixture(idx.row());
+  QMessageBox msgBox;
+  msgBox.setText(tr("Wirklich löschen?"));
+  msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+  msgBox.setDefaultButton(QMessageBox::No);
+  int ret = msgBox.exec();
+  switch (ret) {
+    case QMessageBox::Yes:
+      model->mixtures->deleteMixture(idx.row());
+      model->mixtures->save();
+    default:
+      // should never be reached
+      break;
+  }
 }
 
 void MainWindow::mixImport() {
@@ -201,6 +216,8 @@ void MainWindow::mixImport() {
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
+  } else {
+    model->mixtures->save();
   }
 }
 
@@ -225,18 +242,8 @@ void MainWindow::mixExport() {
   }
 }
 
-void MainWindow::mixSave() {
-  model->mixtures->save();
-}
-
-void MainWindow::mixDiscard() {
-  model->mixtures->load();
-}
-
 void MainWindow::mixDoubleClicked(const QModelIndex& idx) {
-  if (idx.column() != 0) {
-    model->mixtures->show(idx.row());
-  }
+  model->mixtures->show(idx.row());
 }
 
 void MainWindow::setupMenuBar() {

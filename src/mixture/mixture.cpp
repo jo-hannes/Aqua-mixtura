@@ -4,11 +4,17 @@
 #include "mixture.h"
 
 #include "../common/jsonhelper.h"
+#include "../common/paths.h"
 
 #include <QJsonArray>
 #include <QJsonValue>
 
-Mixture::Mixture(QString name) : Meta(name) {}
+Mixture::Mixture() {}
+
+Mixture::Mixture(QString path) {
+  this->path = path;
+  load();
+}
 
 Mixture::Mixture(const QJsonObject& json) {
   fromJson(json);
@@ -35,6 +41,29 @@ QJsonObject Mixture::toJson() const {
   JsonHelper::mergeJson(json, malts->toJson());
   json["Style"] = style->toJson();
   return json;
+}
+
+void Mixture::resetPath() {
+  path.clear();
+}
+
+QString Mixture::getPath() const {
+  if (path.isEmpty()) {
+    return Paths::dataDir() + "/" + this->getUuid() + ".json";
+  } else {
+    return path;
+  }
+}
+
+void Mixture::load() {
+  path = getPath();
+  if (QFile::exists(path)) {
+    this->fromJson(JsonHelper::loadFile(path));
+  }
+}
+
+void Mixture::save() const {
+  JsonHelper::saveFile(this->getPath(), this->toJson());
 }
 
 void Mixture::AddWater(Water water) {

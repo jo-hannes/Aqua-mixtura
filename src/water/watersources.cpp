@@ -157,6 +157,7 @@ bool WaterSources::setData(const QModelIndex& index, const QVariant& value, int 
   }
   if (index.column() == 2) {
     sources[row].set(AM::WaterValue::Volume, value.toFloat());
+    emit dataChanged(index, index);
     return true;
   }
   return false;

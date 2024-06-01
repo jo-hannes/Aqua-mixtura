@@ -14,12 +14,19 @@
 
 class Mixture : public Meta {
  public:
-  Mixture(QString name = "");
+  Mixture();
 
   // JSON conversion
+  Mixture(QString path);                  /**< @brief Create Mixture from JSON file */
   Mixture(const QJsonObject& json);       /**< @brief Create Mixture from JSON */
   bool fromJson(const QJsonObject& json); /**< @brief Update Mixture from JSON */
   QJsonObject toJson() const;             /**< @brief convert this Mixture to JSON */
+
+  // load and save
+  void resetPath();        /**< @brief Regenerate path from UUID */
+  QString getPath() const; /**< @brief Get storage path */
+  void load();             /**< @brief Load fixture from stored path */
+  void save() const;       /**< @brief Save mixture and return storage path */
 
   // TODO rethink the following functions
   void AddWater(Water water);
@@ -33,6 +40,9 @@ class Mixture : public Meta {
   Additive* additive{new Additive()};
   Malts* malts{new Malts()};
   Style* style{new Style()};
+
+ private:
+  QString path;
 };
 
 #endif // MIXTURE_H
