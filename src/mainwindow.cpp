@@ -43,9 +43,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   btnStyles = new QPushButton(tr("Bierstile"));
   QObject::connect(btnStyles, &QPushButton::clicked, this, &MainWindow::styles);
   btnLayout->addWidget(btnStyles);
-  btnLimits = new QPushButton(tr("Beschränkungen"));
-  QObject::connect(btnLimits, &QPushButton::clicked, this, &MainWindow::limits);
-  btnLayout->addWidget(btnLimits);
+  btnSettings = new QPushButton(tr("Einstellungen"));
+  QObject::connect(btnSettings, &QPushButton::clicked, this, &MainWindow::settings);
+  btnLayout->addWidget(btnSettings);
 
   // Mixtures
   mixturesView = new QTableView();
@@ -86,8 +86,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wstyles = new StylesWindow(model->mixtures->styleDb, this);
   wstyles->setWindowFlags(Qt::Window);
 
-  wLimits = new LimitsWindow(model->mixtures->limits, this);
-  wLimits->setWindowFlags(Qt::Window);
+  wSettings = new SettingsWindow(model->mixtures->limits, this);
+  wSettings->setWindowFlags(Qt::Window);
 
   setCentralWidget(mainWidget);
 
@@ -118,10 +118,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
 MainWindow::~MainWindow() {
   delete model;
-}
-
-void MainWindow::settings() {
-  QMessageBox::information(this, "settings", "TODO settings");
 }
 
 void MainWindow::save() {
@@ -156,8 +152,8 @@ void MainWindow::styles() {
   wstyles->show();
 }
 
-void MainWindow::limits() {
-  wLimits->show();
+void MainWindow::settings() {
+  wSettings->show();
 }
 
 void MainWindow::mixAdd() {

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-only
 // Copyright (c) 2024 jo-hannes <jo-hannes@dev-urandom.de>
 
-#include "limitswindow.h"
+#include "settingswindow.h"
 
 #include "../common/buttons.h"
 #include "../common/jsonhelper.h"
@@ -12,11 +12,11 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-LimitsWindow::LimitsWindow(Limits* model, QWidget* parent) : QWidget{parent} {
+SettingsWindow::SettingsWindow(Limits* model, QWidget* parent) : QWidget{parent} {
   this->limits = model;
 
   // Window title
-  setWindowTitle("Aqua mixtura - " + tr("Beschränkungen"));
+  setWindowTitle("Aqua mixtura - " + tr("Einstellungen"));
 
   // main layout
   QVBoxLayout* layout = new QVBoxLayout(this);
@@ -30,10 +30,10 @@ LimitsWindow::LimitsWindow(Limits* model, QWidget* parent) : QWidget{parent} {
   layout->addWidget(limitsView);
 
   // Buttons
-  Buttons* buttons = new Buttons("", "", "", tr("Beschränkungen importieren"), tr("Beschränkungen exportieren"),
+  Buttons* buttons = new Buttons("", "", "", tr("Einstellungen importieren"), tr("Einstellungen exportieren"),
                                  tr("Speichern"), tr("Abbrechen"));
-  QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &LimitsWindow::limitsImport);
-  QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &LimitsWindow::limitsExport);
+  QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &SettingsWindow::settingsImport);
+  QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &SettingsWindow::settingsExport);
   QObject::connect(buttons->btnSave, &QPushButton::clicked, limits, &Limits::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, limits, &Limits::load);
   layout->addWidget(buttons);
@@ -41,8 +41,8 @@ LimitsWindow::LimitsWindow(Limits* model, QWidget* parent) : QWidget{parent} {
   setLayout(layout);
 }
 
-void LimitsWindow::limitsImport() {
-  QString path = QFileDialog::getOpenFileName(this, tr("Beschränkungen Importieren"),
+void SettingsWindow::settingsImport() {
+  QString path = QFileDialog::getOpenFileName(this, tr("Einstellungen Importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
@@ -50,23 +50,23 @@ void LimitsWindow::limitsImport() {
   }
   if (!limits->fromJson(JsonHelper::loadFile(path))) {
     QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Beschränkungen nicht im JSON finden"));
+    msgBox.setText(tr("Konnte Einstellungen nicht im JSON finden"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
   }
 }
 
-void LimitsWindow::limitsExport() {
+void SettingsWindow::settingsExport() {
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" + "limits.json";
   QString path =
-      QFileDialog::getSaveFileName(this, tr("Beschränkungen Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+      QFileDialog::getSaveFileName(this, tr("Einstellungen Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
   if (!JsonHelper::saveFile(path, limits->toJson())) {
     QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Beschränkungen nicht exportieren"));
+    msgBox.setText(tr("Konnte Einstellungen nicht exportieren"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();

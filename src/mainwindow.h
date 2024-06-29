@@ -7,7 +7,7 @@
 #include "mainmodel.h"
 
 #include "additive/additivewindow.h"
-#include "settings/limitswindow.h"
+#include "settings/settingswindow.h"
 #include "malt/maltwindow.h"
 #include "style/styleswindow.h"
 #include "water/watersourcewindow.h"
@@ -26,7 +26,6 @@ class MainWindow : public QMainWindow {
 
  private slots:
   // menu slots
-  void settings();
   void save();
   void about();
 
@@ -36,7 +35,7 @@ class MainWindow : public QMainWindow {
   void malts();                    /**< @brief Slot to show window with malts */
   void unsavedMalts(bool unsaved); /**< @brief Slot for indicating of unsaved changes exist */
   void styles();                   /**< @brief Slot to show window with beer styles */
-  void limits();                   /**< @brief Slot to show window with limits */
+  void settings();                 /**< @brief Slot to show window with settings */
 
   // mixtures slots
   void mixAdd();     /**< @brief Slot for adding a new mixture */
@@ -55,11 +54,11 @@ class MainWindow : public QMainWindow {
   AdditiveWindow* wadditives;  /**< @brief Window for editing additives */
   MaltWindow* wmalts;          /**< @brief Window for editing malts */
   StylesWindow* wstyles;       /**< @brief Window for editing beer styles */
-  LimitsWindow* wLimits;       /**< @brief Window for editing limits */
+  SettingsWindow* wSettings;   /**< @brief Window for editing settings */
   QString txtMalts;            /**< @brief Text of malt window button */
 
   // Pointer to all buttons
-  QPushButton *btnSources, *btnAdditions, *btnMalts, *btnStyles, *btnLimits;
+  QPushButton *btnSources, *btnAdditions, *btnMalts, *btnStyles, *btnSettings;
 
   // mixtures
   QTableView* mixturesView;
