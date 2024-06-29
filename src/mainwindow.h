@@ -7,7 +7,7 @@
 #include "mainmodel.h"
 
 #include "additive/additivewindow.h"
-#include "limits/limitswindow.h"
+#include "settings/limitswindow.h"
 #include "malt/maltwindow.h"
 #include "style/styleswindow.h"
 #include "water/watersourcewindow.h"

@@ -8,7 +8,7 @@
 #include "mixturewindow.h"
 
 #include "../additive/additive.h"
-#include "../limits/limits.h"
+#include "../settings/limits.h"
 #include "../malt/malts.h"
 #include "../style/styles.h"
 #include "../water/watersources.h"

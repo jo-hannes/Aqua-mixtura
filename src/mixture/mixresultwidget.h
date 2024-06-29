@@ -8,7 +8,7 @@
 #include "resultbar.h"
 
 #include "../common/global.h"
-#include "../limits/limits.h"
+#include "../settings/limits.h"
 #include "../style/styles.h"
 
 #include <QComboBox>

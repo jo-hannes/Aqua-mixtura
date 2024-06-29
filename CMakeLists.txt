@@ -36,8 +36,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/common/meta.h src/common/meta.cpp
         src/common/paths.h src/common/paths.cpp
         src/icons/icons.qrc
-        src/limits/limits.h src/limits/limits.cpp
-        src/limits/limitswindow.h src/limits/limitswindow.cpp
         src/malt/malt.h src/malt/malt.cpp
         src/malt/maltphedit.h src/malt/maltphedit.cpp
         src/malt/malts.h src/malt/malts.cpp
@@ -51,6 +49,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/mixture/mixturewindow.h src/mixture/mixturewindow.cpp
         src/mixture/mixwaterwidget.h src/mixture/mixwaterwidget.cpp
         src/mixture/resultbar.h src/mixture/resultbar.cpp
+        src/settings/limits.h src/settings/limits.cpp
+        src/settings/limitswindow.h src/settings/limitswindow.cpp
         src/style/style.h src/style/style.cpp
         src/style/styles.h src/style/styles.cpp
         src/style/styleswindow.h src/style/styleswindow.cpp
