@@ -8,8 +8,8 @@
 #include "mixturewindow.h"
 
 #include "../additive/additive.h"
-#include "../settings/limits.h"
 #include "../malt/malts.h"
+#include "../settings/settings.h"
 #include "../style/styles.h"
 #include "../water/watersources.h"
 
@@ -48,7 +48,7 @@ class Mixtures : public QAbstractTableModel {
   Additive* additiveDb;  /**< @brief Model of additives */
   Malts* maltDb;         /**< @brief Model of malts */
   Styles* styleDb;       /**< @brief Model of styles */
-  Limits* limits;        /**< @brief Model of limits */
+  Settings settings;     /**< @brief Model of programm settings */
 
  public slots:
   void load();

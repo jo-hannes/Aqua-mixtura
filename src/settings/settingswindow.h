@@ -4,7 +4,7 @@
 #ifndef SETTINGSWINDOW_H
 #define SETTINGSWINDOW_H
 
-#include "limits.h"
+#include "settings.h"
 
 #include <QTableView>
 #include <QWidget>
@@ -20,14 +20,14 @@ class SettingsWindow : public QWidget {
    * @param model Pointer to model for accessing data
    * @param parent
    */
-  explicit SettingsWindow(Limits* model, QWidget* parent = nullptr);
+  explicit SettingsWindow(Settings& model, QWidget* parent = nullptr);
 
  private slots:
   void settingsImport(); /**< @brief Import JSON settings */
   void settingsExport(); /**< @brief Export settings as JSON */
 
  private:
-  Limits* limits;
+  Settings& settings;
   QTableView* limitsView;
 };
 

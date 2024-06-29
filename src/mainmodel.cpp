@@ -20,19 +20,19 @@ MainModel::MainModel() {
 }
 
 void MainModel::load() {
+  mixtures->settings.load();
   mixtures->waterDb->load();
   mixtures->additiveDb->load();
   mixtures->maltDb->load();
   mixtures->styleDb->load();
-  mixtures->limits->load();
   mixtures->load();
 }
 
 void MainModel::save() {
+  mixtures->settings.save();
   mixtures->waterDb->save();
   mixtures->additiveDb->save();
   mixtures->maltDb->save();
   mixtures->styleDb->save();
-  mixtures->limits->save();
   mixtures->save();
 }

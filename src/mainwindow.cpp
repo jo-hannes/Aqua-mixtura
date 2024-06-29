@@ -86,7 +86,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wstyles = new StylesWindow(model->mixtures->styleDb, this);
   wstyles->setWindowFlags(Qt::Window);
 
-  wSettings = new SettingsWindow(model->mixtures->limits, this);
+  wSettings = new SettingsWindow(model->mixtures->settings, this);
   wSettings->setWindowFlags(Qt::Window);
 
   setCentralWidget(mainWidget);

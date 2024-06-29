@@ -13,7 +13,6 @@ Mixtures::Mixtures(QObject* parent) : QAbstractTableModel{parent} {
   additiveDb = new Additive();
   maltDb = new Malts();
   styleDb = new Styles();
-  limits = new Limits(this);
 }
 
 Mixtures::Mixtures(const QJsonObject& json, QObject* parent) : Mixtures(parent) {
@@ -128,7 +127,7 @@ void Mixtures::show(qsizetype i) {
   }
   // create Window if needed
   if (mixWindows[i] == nullptr) {
-    mixWindows[i] = new MixtureWindow(mixtures[i], waterDb, additiveDb, maltDb, styleDb, limits);
+    mixWindows[i] = new MixtureWindow(mixtures[i], waterDb, additiveDb, maltDb, styleDb, &(settings.waterSettings));
   }
   mixWindows[i]->show();
 }

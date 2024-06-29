@@ -50,6 +50,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/mixture/mixwaterwidget.h src/mixture/mixwaterwidget.cpp
         src/mixture/resultbar.h src/mixture/resultbar.cpp
         src/settings/limits.h src/settings/limits.cpp
+        src/settings/settings.h src/settings/settings.cpp
         src/settings/settingswindow.h src/settings/settingswindow.cpp
         src/style/style.h src/style/style.cpp
         src/style/styles.h src/style/styles.cpp

@@ -12,9 +12,7 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-SettingsWindow::SettingsWindow(Limits* model, QWidget* parent) : QWidget{parent} {
-  this->limits = model;
-
+SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{parent}, settings(model) {
   // Window title
   setWindowTitle("Aqua mixtura - " + tr("Einstellungen"));
 
@@ -23,7 +21,7 @@ SettingsWindow::SettingsWindow(Limits* model, QWidget* parent) : QWidget{parent}
 
   // Table view with limits
   limitsView = new QTableView(this);
-  limitsView->setModel(limits);
+  limitsView->setModel(&(settings.waterSettings));
   // TODO add delegate
   limitsView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   limitsView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);
@@ -34,8 +32,8 @@ SettingsWindow::SettingsWindow(Limits* model, QWidget* parent) : QWidget{parent}
                                  tr("Speichern"), tr("Abbrechen"));
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &SettingsWindow::settingsImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &SettingsWindow::settingsExport);
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, limits, &Limits::save);
-  QObject::connect(buttons->btnCancel, &QPushButton::clicked, limits, &Limits::load);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, &settings, &Settings::save);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, &settings, &Settings::load);
   layout->addWidget(buttons);
 
   setLayout(layout);
@@ -48,7 +46,7 @@ void SettingsWindow::settingsImport() {
   if (path.isEmpty()) {
     return;
   }
-  if (!limits->fromJson(JsonHelper::loadFile(path))) {
+  if (!settings.fromJson(JsonHelper::loadFile(path))) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Einstellungen nicht im JSON finden"));
     msgBox.setStandardButtons(QMessageBox::Ok);
@@ -58,13 +56,13 @@ void SettingsWindow::settingsImport() {
 }
 
 void SettingsWindow::settingsExport() {
-  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" + "limits.json";
+  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" + "settings.json";
   QString path =
       QFileDialog::getSaveFileName(this, tr("Einstellungen Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
-  if (!JsonHelper::saveFile(path, limits->toJson())) {
+  if (!JsonHelper::saveFile(path, settings.toJson())) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Einstellungen nicht exportieren"));
     msgBox.setStandardButtons(QMessageBox::Ok);
