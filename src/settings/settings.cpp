@@ -26,6 +26,7 @@ bool Settings::fromJson(const QJsonObject& json) {
 
   bool ret = Meta::fromJson(jSettings);
   ret &= waterSettings.fromJson(jSettings);
+  ret &= additiveSettings.fromJson(jSettings);
 
   return ret;
 }
@@ -34,6 +35,7 @@ QJsonObject Settings::toJson() const {
   QJsonObject inner;
   Meta::toJson(inner);
   JsonHelper::mergeJson(inner, waterSettings.toJson());
+  additiveSettings.toJson(inner);
   QJsonObject outer;
   outer["Settings"] = inner;
   return outer;
