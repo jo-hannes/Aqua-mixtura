@@ -3,12 +3,11 @@
 
 #include "mixadditivewidget.h"
 
-MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, Additive* additiveDb, QWidget* parent)
-    : QFrame{parent} {
+MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings& additiveCfg, QWidget* parent)
+    : QFrame{parent}, aCfg(additiveCfg) {
   aMix = mixtureAdditive;
-  aDb = additiveDb;
-  mergeAdditive();
 
+  QGridLayout* layout;
   layout = new QGridLayout(this);
   this->setLayout(layout);
   this->setFrameStyle(QFrame::Panel | QFrame::Plain);
@@ -26,7 +25,7 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, Additive* additi
     amounts[i]->setMinimum(0);
     amounts[i]->setMaximum(9999);
     QObject::connect(amounts[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
-      aMix->set(static_cast<Additive::Value>(i), val);
+      valueChange(i, val);
     });
   }
 
@@ -37,7 +36,8 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, Additive* additi
   // heading liquids
   layout->addWidget(new QLabel("<b>" + tr("Säuren") + "</b>", this), row, 0, 1, 2, Qt::AlignLeft);
   layout->addWidget(new QLabel("<b>%</b>", this), row, 2, Qt::AlignRight);
-  layout->addWidget(new QLabel("<b>mL</b>", this), row, 3, Qt::AlignRight);
+  liquidUnit = new QLabel(this);
+  layout->addWidget(liquidUnit, row, 3, Qt::AlignRight);
   row++;
 
   // liquids
@@ -70,58 +70,35 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, Additive* additi
   layout->setRowStretch(row, 10);
 
   update();
-  QObject::connect(aDb, &Additive::dataModified, this, &MixAdditiveWidget::update);
+  QObject::connect(&aCfg, &AdditiveSettings::dataModified, this, &MixAdditiveWidget::update);
 }
 
 void MixAdditiveWidget::update() {
-  mergeAdditive();
-  // update values and show/hide additive
+  // update values
   for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
     Additive::Value what = static_cast<Additive::Value>(i);
-    bool show = aMix->isEnabled(what);
-    formulas[i]->setVisible(show);
-    texts[i]->setVisible(show);
     if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      percents[i]->setText(QString::number(aMix->getConcentration(what), 'f', 0));
-      percents[i]->setVisible(show);
+      double display = aMix->get(what) * 100 / aCfg.getConcentration(what);
+      percents[i]->setText(QString::number(aCfg.getConcentration(what), 'f', 0));
+      amounts[i]->setValue(display);  // TODO conversion for ml unit. Tis only works for g
+    } else {
+      amounts[i]->setValue(aMix->get(what));
     }
-    amounts[i]->setValue(aMix->get(what));
-    amounts[i]->setVisible(show);
+  }
+  // unit
+  if (aCfg.getLiquidUnit() == AdditiveSettings::LiquidUnit::milliLiter) {
+    liquidUnit->setText("<b>mL</b>");
+  } else {
+    liquidUnit->setText("<b>g</b>");
   }
 }
 
-void MixAdditiveWidget::mergeAdditive() {
-  // it is merged into the aMix but use percentages from aDb
-  // merge cases (Enabeld state)
-  // | aDb | aMix | Action                  |
-  // |---: | ---: | :---------------------- |
-  // |   0 |    0 | Nothng to do            |
-  // |   0 |    1 | Check if amount is zero |
-  // |   1 |    0 | Enable in aMix          |
-  // |   1 |    1 | Convert concentrations  |
-
-  // merge liquids
-  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    Additive::Value what = static_cast<Additive::Value>(i);
-    if (!aDb->isEnabled(what) && aMix->isEnabled((what)) && aMix->get(what) == 0) {
-      // Disable additive with zero amount if not also in database
-      aMix->enable(what, false);
-    }
-    if (aDb->isEnabled(what) && !aMix->isEnabled(what)) {
-      aMix->enable(what, true);
-      aMix->setConcentration(what, aDb->getConcentration(what));
-      aMix->set(what, 0);
-    }
-    if (aDb->isEnabled(what) && aMix->isEnabled(what) && aMix->getConcentration(what) != 0) {
-      float amount = aMix->get(what) * aMix->getConcentration(what) / aDb->getConcentration(what);
-      aMix->setConcentration(what, aDb->getConcentration(what));
-      aMix->set(what, amount);
-    }
-  }
-  // merge solids
-  for (int i = static_cast<int>(Additive::Value::lastLiquid) + 1; i < static_cast<int>(Additive::Value::Size); i++) {
-    // just need to add enble flag
-    Additive::Value what = static_cast<Additive::Value>(i);
-    aMix->enable(what, ((aMix->isEnabled(what) && (aMix->get(what) != 0)) || aDb->isEnabled(what)));
+void MixAdditiveWidget::valueChange(int idx, double val) {
+  Additive::Value what = static_cast<Additive::Value>(idx);
+  double oldVal = aMix->get(what);
+  double newVal = val / 100 * aCfg.getConcentration(what);  // TODO conversion for ml unit. Tis only works for g
+  // avoid rounding hell
+  if (abs(oldVal - newVal) > 0.05) {
+    aMix->set(what, newVal);
   }
 }

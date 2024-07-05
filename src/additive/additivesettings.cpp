@@ -3,12 +3,12 @@
 
 #include "additivesettings.h"
 
+#include "../common/jsonhelper.h"
+#include "../common/paths.h"
+
 AdditiveSettings::AdditiveSettings() {
-  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
-    enabled[i] = false;
-    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      concentration[i] = 10;  // default concentration = 10%
-    }
+  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+    concentration[i] = 10;  // default concentration = 10%
   }
   unit = LiquidUnit::gramm;
 }
@@ -36,14 +36,11 @@ bool AdditiveSettings::fromJson(const QJsonObject& json) {
   } else {
     unit = LiquidUnit::gramm;
   }
-  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
+  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
     QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
-    QJsonValue jVal = asettings[jsonKey];
-    enabled[i] = jVal["enabled"].toBool();
-    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      concentration[i] = jVal["concentration"].toDouble(0);
-    }
+    concentration[i] = asettings[jsonKey].toDouble(0);
   }
+  emit dataModified();
   return true;
 }
 
@@ -61,14 +58,9 @@ void AdditiveSettings::toJson(QJsonObject& json) const {
   } else {
     inner["liquidUnit"] = "gramm";
   }
-  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
+  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
     QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
-    QJsonObject jObj;
-    jObj["enabled"] = enabled[i];
-    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      jObj["concentration"] = concentration[i];
-    }
-    inner[jsonKey] = jObj;
+    inner[jsonKey] = concentration[i];
   }
   json["AdditiveSettings"] = inner;
 }
@@ -91,22 +83,7 @@ void AdditiveSettings::setConcentration(Additive::Value what, float value) {
     }
     concentration[static_cast<uint>(what)] = value;
     updateEditTime();
-    // emit dataModified();
-  }
-}
-
-bool AdditiveSettings::isEnabled(Additive::Value what) const {
-  if (what < Additive::Value::Size) {
-    return enabled[static_cast<uint>(what)];
-  }
-  return false;
-}
-
-void AdditiveSettings::enable(Additive::Value what, bool enable) {
-  if (what < Additive::Value::Size) {
-    enabled[static_cast<uint>(what)] = enable;
-    updateEditTime();
-    // emit dataModified();
+    emit dataModified();
   }
 }
 
@@ -116,5 +93,17 @@ AdditiveSettings::LiquidUnit AdditiveSettings::getLiquidUnit() const {
 
 void AdditiveSettings::setLiquidUnit(LiquidUnit newUnit) {
   unit = newUnit;
-  // emit dataModified();
+  emit dataModified();
+}
+
+void AdditiveSettings::load() {
+  QString file = Paths::dataDir() + "/additive.json";
+  if (QFile::exists(file)) {
+    this->fromJson(JsonHelper::loadFile(file));
+  }
+}
+
+void AdditiveSettings::save() {
+  QString file = Paths::dataDir() + "/additive.json";
+  JsonHelper::saveFile(file, this->toJson());
 }

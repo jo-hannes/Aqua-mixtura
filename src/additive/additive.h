@@ -64,26 +64,16 @@ class Additive : public QObject, public Meta {
   // setter and getter
   float get(Value what) const;                    /**< @brief get requested amount */
   void set(Value what, float value);              /**< @brief set given type with amount */
-  float getConcentration(Value what) const;       /**< @brief get requested concentration */
-  void setConcentration(Value what, float value); /**< @brief set given type with concentration */
-  bool isEnabled(Value what) const;               /**< @brief get enable status */
-  void enable(Value what, bool enable);           /**< @brief set enable status */
 
   // JSON conversion
   bool fromJson(const QJsonObject& json);            /**< @brief Update Additive from JSON */
   QJsonObject toJson() const;                        /**< @brief convert this Additive to JSON */
 
- public slots:
-  void load();
-  void save();
-
  signals:
   void dataModified();
 
  private:
-  bool enabled[static_cast<int>(Value::Size)];                  /**< @brief Enable status */
-  float amount[static_cast<int>(Value::Size)];                  /**< @brief Amount in g or ml */
-  float concentration[static_cast<int>(Value::lastLiquid) + 1]; /**< @brief Concentration in % */
+  float amount[static_cast<int>(Value::Size)]; /**< @brief Effective amount in g */
 };
 
 #endif  // ADDITIVE_H

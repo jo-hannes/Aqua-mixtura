@@ -5,6 +5,7 @@
 #define MIXADDITIVEWIDGET_H
 
 #include "../additive/additive.h"
+#include "../additive/additivesettings.h"
 
 #include <QDoubleSpinBox>
 #include <QFrame>
@@ -21,24 +22,22 @@ class MixAdditiveWidget : public QFrame {
   /**
    * @brief Create additive Widget
    * @param mixtureAdditive Pointer to additive of mixture
-   * @param additiveDb Pointer to out additive database
+   * @param additiveCfg Reference to out additive settings
    * @param parent QObject parent
    */
-  MixAdditiveWidget(Additive* mixtureAdditive, Additive* additiveDb, QWidget* parent = nullptr);
+  MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings& additiveCfg, QWidget* parent = nullptr);
 
  private slots:
   void update();
+  void valueChange(int idx, double val);
 
  private:
-  void mergeAdditive(); /** @brief Merge mixture additive and additive db */
-
   Additive* aMix;                                                   /** @brief Additive in mixture */
-  Additive* aDb;                                                    /** @brief Additive data base*/
-  QGridLayout* layout;                                              /**< @brief Main layout */
+  AdditiveSettings& aCfg;                                           /** @brief Additive settings */
+  QLabel* liquidUnit;                                               /**< @brief Unit for liquids */
   QLabel* formulas[static_cast<int>(Additive::Value::Size)];        /**< @brief Chemical formulas of additive */
   QLabel* texts[static_cast<int>(Additive::Value::Size)];           /**< @brief Name of additive */
-  QLabel*
-      percents[static_cast<int>(Additive::Value::lastLiquid) + 1];  /**< @brief Volume percent for liquid additives */
+  QLabel* percents[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Weight percent for liquids */
   QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)]; /** @brief Spin boxes of additive */
 };
 

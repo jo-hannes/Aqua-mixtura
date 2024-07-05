@@ -76,7 +76,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wsources = new WatersourceWindow(model->mixtures->waterDb, this);
   wsources->setWindowFlags(Qt::Window);
 
-  wadditives = new AdditiveWindow(model->mixtures->additiveDb, this);
+  wadditives = new AdditiveWindow(model->mixtures->additiveCfg, this);
   wadditives->setWindowFlags(Qt::Window);
 
   wmalts = new MaltWindow(model->mixtures->maltDb, this);

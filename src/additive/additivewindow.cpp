@@ -10,11 +10,9 @@
 #include <QLabel>
 #include <QPushButton>
 
-AdditiveWindow::AdditiveWindow(Additive* model, QWidget* parent) : QWidget{parent} {
-  this->additive = model;
-
-  layout = new QGridLayout();
+AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidget{parent}, additive(model) {
   int row = 0;
+  QGridLayout* layout = new QGridLayout();
 
   setWindowTitle("Aqua mixtura - " + tr("Zusatzstoffe"));
 
@@ -22,58 +20,39 @@ AdditiveWindow::AdditiveWindow(Additive* model, QWidget* parent) : QWidget{paren
   QLabel* txtAcids = new QLabel("<b>" + tr("Säuren") + "</b>");
   layout->addWidget(txtAcids, row, 0, 1, 2, Qt::AlignLeft);
   QLabel* txtPercent = new QLabel("<b>%</b>");
-  layout->addWidget(txtPercent, row, 2, Qt::AlignRight);
-  QLabel* txtMl = new QLabel("<b>mL</b>");
-  layout->addWidget(txtMl, row, 3, Qt::AlignRight);
+  layout->addWidget(txtPercent, row, 1, Qt::AlignRight);
   row++;
 
-  // liquids
+  // liquid concentrations
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    enabled[i] = new QCheckBox(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)]);
+    QLabel* txt = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)]);
+    layout->addWidget(txt, row, 0, Qt::AlignLeft);
     concentrations[i] = new QDoubleSpinBox();
-    amounts[i] = new QDoubleSpinBox();
-    addAcid(row++, enabled[i], Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)],
-            concentrations[i], amounts[i]);
-    QObject::connect(enabled[i], &QCheckBox::stateChanged, this, [=](int checked) {
-      bool en = checked == Qt::Checked;
-      additive->enable(static_cast<Additive::Value>(i), en);
-      amounts[i]->setEnabled(en);
-      concentrations[i]->setEnabled(en);
-    });
-    QObject::connect(amounts[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
-      additive->set(static_cast<Additive::Value>(i), val);
-    });
+    concentrations[i]->setDecimals(0);
+    concentrations[i]->setMinimum(1);
+    concentrations[i]->setMaximum(100);
+    layout->addWidget(concentrations[i], row, 1, Qt::AlignRight);
+
     QObject::connect(concentrations[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
-      additive->setConcentration(static_cast<Additive::Value>(i), val);
+      additive.setConcentration(static_cast<Additive::Value>(i), val);
     });
+    row++;
   }
 
-  // heading solids
-  QLabel* txtSolid = new QLabel("<b>" + tr("Feststoffe") + "</b>");
-  layout->addWidget(txtSolid, row, 0, 1, 3, Qt::AlignLeft);
-  QLabel* txtG = new QLabel("<b>g</b>");
-  txtG->setMaximumHeight(20);
-  layout->addWidget(txtG, row, 3, Qt::AlignRight);
+  // unit
+  QLabel* txtUnit = new QLabel("<b>Unit</b>");
+  layout->addWidget(txtUnit, row, 0, Qt::AlignLeft);
+  unitSelect = new QComboBox();
+  unitSelect->clear();
+  unitSelect->addItem("g");
+  unitSelect->addItem("ml");
+  layout->addWidget(unitSelect, row, 1, Qt::AlignRight);
+  QObject::connect(unitSelect, &QComboBox::activated, this, &AdditiveWindow::selectUnit);
   row++;
-
-  // solids
-  for (int i = static_cast<int>(Additive::Value::lastLiquid) + 1; i < static_cast<int>(Additive::Value::Size); i++) {
-    enabled[i] = new QCheckBox(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)]);
-    amounts[i] = new QDoubleSpinBox();
-    addSolid(row++, enabled[i], Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)], amounts[i]);
-    QObject::connect(enabled[i], &QCheckBox::stateChanged, this, [=](int checked) {
-      bool en = checked == Qt::Checked;
-      additive->enable(static_cast<Additive::Value>(i), en);
-      amounts[i]->setEnabled(en);
-    });
-    QObject::connect(amounts[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
-      additive->set(static_cast<Additive::Value>(i), val);
-    });
-  }
 
   // buttons
   Buttons* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, additive, &Additive::save);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, &additive, &AdditiveSettings::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &AdditiveWindow::cancel);
   layout->addWidget(buttons, row++, 0, 1, -1, Qt::AlignHCenter);
 
@@ -83,44 +62,25 @@ AdditiveWindow::AdditiveWindow(Additive* model, QWidget* parent) : QWidget{paren
 }
 
 void AdditiveWindow::cancel() {
-  additive->load();
+  additive.load();
   update();
 }
 
-void AdditiveWindow::update() {
-  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
-    bool en = additive->isEnabled(static_cast<Additive::Value>(i));
-    // qDebug() << "i: " << i << "en: " << en;
-    enabled[i]->setCheckState(en ? Qt::Checked : Qt::Unchecked);
-    amounts[i]->setValue(additive->get(static_cast<Additive::Value>(i)));
-    amounts[i]->setEnabled(en);
-    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      concentrations[i]->setValue(additive->getConcentration(static_cast<Additive::Value>(i)));
-      concentrations[i]->setEnabled(en);
-    }
+void AdditiveWindow::selectUnit(int index) {
+  if (index == 1) {
+    additive.setLiquidUnit(AdditiveSettings::LiquidUnit::milliLiter);
+  } else {
+    additive.setLiquidUnit(AdditiveSettings::LiquidUnit::gramm);
   }
 }
 
-void AdditiveWindow::addAcid(int row, QCheckBox* check, QString text, QDoubleSpinBox* percent, QDoubleSpinBox* ml) {
-  layout->addWidget(check, row, 0, Qt::AlignLeft);
-  QLabel* txt = new QLabel(text);
-  layout->addWidget(txt, row, 1, Qt::AlignLeft);
-  percent->setDecimals(0);
-  percent->setMinimum(0);
-  percent->setMaximum(100);
-  layout->addWidget(percent, row, 2, Qt::AlignRight);
-  ml->setDecimals(1);
-  ml->setMinimum(0);
-  ml->setMaximum(9999);
-  layout->addWidget(ml, row, 3, Qt::AlignRight);
-}
-
-void AdditiveWindow::addSolid(int row, QCheckBox* check, QString text, QDoubleSpinBox* g) {
-  layout->addWidget(check, row, 0, Qt::AlignLeft);
-  QLabel* txt = new QLabel(text);
-  layout->addWidget(txt, row, 1, 1, 2, Qt::AlignLeft);
-  g->setDecimals(1);
-  g->setMinimum(0);
-  g->setMaximum(9999);
-  layout->addWidget(g, row, 3, Qt::AlignRight);
+void AdditiveWindow::update() {
+  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+    concentrations[i]->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
+  }
+  if (additive.getLiquidUnit() == AdditiveSettings::LiquidUnit::milliLiter) {
+    unitSelect->setCurrentIndex(1);
+  } else {
+    unitSelect->setCurrentIndex(0);
+  }
 }

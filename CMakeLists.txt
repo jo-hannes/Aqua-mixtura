@@ -29,6 +29,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         src/mainmodel.h src/mainmodel.cpp
         src/additive/additive.h src/additive/additive.cpp
+        src/additive/additivesettings.h src/additive/additivesettings.cpp
         src/additive/additivewindow.h src/additive/additivewindow.cpp
         src/common/buttons.h src/common/buttons.cpp
         src/common/global.h src/common/global.cpp
@@ -49,7 +50,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/mixture/mixturewindow.h src/mixture/mixturewindow.cpp
         src/mixture/mixwaterwidget.h src/mixture/mixwaterwidget.cpp
         src/mixture/resultbar.h src/mixture/resultbar.cpp
-        src/settings/additivesettings.h src/settings/additivesettings.cpp
         src/settings/limits.h src/settings/limits.cpp
         src/settings/settings.h src/settings/settings.cpp
         src/settings/settingswindow.h src/settings/settingswindow.cpp

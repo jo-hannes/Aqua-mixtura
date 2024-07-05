@@ -4,7 +4,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "additivesettings.h"
 #include "limits.h"
 
 #include "../common/meta.h"
@@ -30,7 +29,6 @@ class Settings : public QObject, public Meta {
 
  public:
   Limits waterSettings;
-  AdditiveSettings additiveSettings;
 };
 
 #endif  // SETTINGS_H

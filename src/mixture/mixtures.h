@@ -7,7 +7,7 @@
 #include "mixture.h"
 #include "mixturewindow.h"
 
-#include "../additive/additive.h"
+#include "../additive/additivesettings.h"
 #include "../malt/malts.h"
 #include "../settings/settings.h"
 #include "../style/styles.h"
@@ -44,11 +44,11 @@ class Mixtures : public QAbstractTableModel {
   QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
   // data bases
-  WaterSources* waterDb; /**< @brief Model of water sources */
-  Additive* additiveDb;  /**< @brief Model of additives */
-  Malts* maltDb;         /**< @brief Model of malts */
-  Styles* styleDb;       /**< @brief Model of styles */
-  Settings settings;     /**< @brief Model of programm settings */
+  WaterSources* waterDb;        /**< @brief Model of water sources */
+  AdditiveSettings additiveCfg; /**< @brief Additive config */
+  Malts* maltDb;                /**< @brief Model of malts */
+  Styles* styleDb;              /**< @brief Model of styles */
+  Settings settings;            /**< @brief Model of programm settings */
 
  public slots:
   void load();

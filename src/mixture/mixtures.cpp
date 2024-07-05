@@ -10,7 +10,6 @@
 
 Mixtures::Mixtures(QObject* parent) : QAbstractTableModel{parent} {
   waterDb = new WaterSources();
-  additiveDb = new Additive();
   maltDb = new Malts();
   styleDb = new Styles();
 }
@@ -127,7 +126,7 @@ void Mixtures::show(qsizetype i) {
   }
   // create Window if needed
   if (mixWindows[i] == nullptr) {
-    mixWindows[i] = new MixtureWindow(mixtures[i], waterDb, additiveDb, maltDb, styleDb, &(settings.waterSettings));
+    mixWindows[i] = new MixtureWindow(mixtures[i], waterDb, additiveCfg, maltDb, styleDb, &(settings.waterSettings));
   }
   mixWindows[i]->show();
 }

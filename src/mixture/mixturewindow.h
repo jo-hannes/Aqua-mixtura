@@ -10,9 +10,9 @@
 #include "mixture.h"
 #include "mixwaterwidget.h"
 
-#include "../additive/additive.h"
-#include "../settings/limits.h"
+#include "../additive/additivesettings.h"
 #include "../malt/malts.h"
+#include "../settings/limits.h"
 #include "../style/styles.h"
 #include "../water/watersources.h"
 
@@ -22,8 +22,8 @@
 class MixtureWindow : public QWidget {
   Q_OBJECT
  public:
-  explicit MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* additiveDb, Malts* maltDb, Styles* styleDb,
-                         Limits* limits, QWidget* parent = nullptr);
+  explicit MixtureWindow(Mixture& mixture, WaterSources* waterDb, AdditiveSettings& additiveCfg, Malts* maltDb,
+                         Styles* styleDb, Limits* limits, QWidget* parent = nullptr);
 
  public slots:
   void setName(QString name);

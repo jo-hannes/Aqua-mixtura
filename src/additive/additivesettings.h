@@ -12,7 +12,9 @@
 /**
  * @brief Settings for additives
  */
-class AdditiveSettings : public Meta {
+class AdditiveSettings : public QObject, public Meta {
+  Q_OBJECT
+
  public:
   enum class LiquidUnit { gramm, milliLiter }; /**< @brief Used unit for liquids */
 
@@ -26,13 +28,17 @@ class AdditiveSettings : public Meta {
 
   float getConcentration(Additive::Value what) const;       /**< @brief get requested concentration */
   void setConcentration(Additive::Value what, float value); /**< @brief set given type with concentration */
-  bool isEnabled(Additive::Value what) const;               /**< @brief get enable status */
-  void enable(Additive::Value what, bool enable);           /**< @brief set enable status */
   LiquidUnit getLiquidUnit() const;                         /**< @brief get unit used for liquids */
   void setLiquidUnit(LiquidUnit newUnit);                   /**< @brief get unit used for liquids */
 
+ public slots:
+  void load();
+  void save();
+
+ signals:
+  void dataModified();
+
  private:
-  bool enabled[static_cast<int>(Additive::Value::Size)];                  /**< @brief Enable status */
   float concentration[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Concentration in % */
   LiquidUnit unit;
 };

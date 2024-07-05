@@ -5,8 +5,10 @@
 #define ADDITIVEWINDOW_H
 
 #include "additive.h"
+#include "additivesettings.h"
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDoubleSpinBox>
 #include <QGridLayout>
 #include <QObject>
@@ -23,26 +25,23 @@ class AdditiveWindow : public QWidget
  public:
   /**
    * @brief Constructor
-   * @param model Pointer to model for accessing data
+   * @param model Reference to model for accessing data
    * @param parent
    */
-  explicit AdditiveWindow(Additive* model, QWidget* parent = nullptr);
+  explicit AdditiveWindow(AdditiveSettings& model, QWidget* parent = nullptr);
 
  private slots:
-  void cancel();      /**< @brief Revert changes */
+  void cancel();              /**< @brief Revert changes */
+  void selectUnit(int index); /**< @brief Select unit (via QComboBox) */
 
  private:
   void update(); /**< @brief Update all values */
-  void addAcid(int row, QCheckBox* check, QString text, QDoubleSpinBox* percent, QDoubleSpinBox* ml);
-  void addSolid(int row, QCheckBox* check, QString text, QDoubleSpinBox* g);
 
-  Additive* additive;  /**< @brief Pointer to model for accessing data */
-  QGridLayout* layout; /**< @brief Main layout */
+  AdditiveSettings& additive; /**< @brief Reference to model for accessing data */
 
   // Pointer to UI elements
-  QCheckBox* enabled[static_cast<int>(Additive::Value::Size)];
-  QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)];
   QDoubleSpinBox* concentrations[static_cast<int>(Additive::Value::lastLiquid) + 1];
+  QComboBox* unitSelect;
 };
 
 #endif // ADDITIVEWINDOW_H

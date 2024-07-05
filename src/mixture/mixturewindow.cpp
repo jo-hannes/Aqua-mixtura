@@ -10,7 +10,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 
-MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* additiveDb, Malts* maltDb,
+MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, AdditiveSettings& additiveCfg, Malts* maltDb,
                              Styles* styleDb, Limits* limits, QWidget* parent)
     : QWidget{parent}, mix{mixture} {
   this->setWindowFlags(Qt::Window);
@@ -19,7 +19,7 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, Additive* 
   // sub widgets
   mww = new MixWaterWidget(mix.waters, waterDb, this);
   mmw = new MixMaltWidget(mix.malts, maltDb, this);
-  maw = new MixAdditiveWidget(mix.additive, additiveDb);
+  maw = new MixAdditiveWidget(mix.additive, additiveCfg);
   mrw = new MixResultWidget(mix, styleDb, limits, this);
   QObject::connect(mix.waters, &WaterSources::dataChanged, mrw, &MixResultWidget::update);
   // Name edit
