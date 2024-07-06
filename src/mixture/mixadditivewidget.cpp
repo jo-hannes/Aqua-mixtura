@@ -15,8 +15,6 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
 
   // create ui elements
   for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
-    formulas[i] = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)], this);
-    texts[i] = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)], this);
     if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
       percents[i] = new QLabel("", this);
     }
@@ -42,8 +40,10 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
 
   // liquids
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    layout->addWidget(formulas[i], row, 0, Qt::AlignLeft);
-    layout->addWidget(texts[i], row, 1, Qt::AlignLeft);
+    QLabel* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)], this);
+    layout->addWidget(formula, row, 0, Qt::AlignLeft);
+    QLabel* txt = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)], this);
+    layout->addWidget(txt, row, 1, Qt::AlignLeft);
     layout->addWidget(percents[i], row, 2, Qt::AlignRight);
     layout->addWidget(amounts[i], row, 3, Qt::AlignRight);
     row++;
@@ -59,9 +59,11 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
 
   // solids
   for (int i = static_cast<int>(Additive::Value::lastLiquid) + 1; i < static_cast<int>(Additive::Value::Size); i++) {
-    layout->addWidget(formulas[i], row, 0, Qt::AlignLeft);
-    // layout->addWidget(texts[i], row, 1, 1, 2, Qt::AlignLeft);
-    layout->addWidget(texts[i], row, 1, Qt::AlignLeft);
+    QLabel* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)], this);
+    layout->addWidget(formula, row, 0, Qt::AlignLeft);
+    QLabel* txt = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)], this);
+    // layout->addWidget(txt, row, 1, 1, 2, Qt::AlignLeft);
+    layout->addWidget(txt, row, 1, Qt::AlignLeft);
     layout->addWidget(amounts[i], row, 3, Qt::AlignRight);
     row++;
   }
@@ -74,6 +76,7 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
 }
 
 void MixAdditiveWidget::update() {
+  valChangeGuard = true;  // Disable valueChanges during ui only update
   // update values
   for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
     Additive::Value what = static_cast<Additive::Value>(i);
@@ -85,20 +88,19 @@ void MixAdditiveWidget::update() {
       amounts[i]->setValue(aMix->get(what));
     }
   }
-  // unit
+  // update unit
   if (aCfg.getLiquidUnit() == AdditiveSettings::LiquidUnit::milliLiter) {
     liquidUnit->setText("<b>mL</b>");
   } else {
     liquidUnit->setText("<b>g</b>");
   }
+  valChangeGuard = false;
 }
 
 void MixAdditiveWidget::valueChange(int idx, double val) {
-  Additive::Value what = static_cast<Additive::Value>(idx);
-  double oldVal = aMix->get(what);
-  double newVal = val / 100 * aCfg.getConcentration(what);  // TODO conversion for ml unit. Tis only works for g
-  // avoid rounding hell
-  if (abs(oldVal - newVal) > 0.05) {
+  if (!valChangeGuard) {
+    Additive::Value what = static_cast<Additive::Value>(idx);
+    double newVal = val / 100 * aCfg.getConcentration(what);  // TODO conversion for ml unit. Tis only works for g
     aMix->set(what, newVal);
   }
 }

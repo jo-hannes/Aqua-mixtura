@@ -32,11 +32,11 @@ class MixAdditiveWidget : public QFrame {
   void valueChange(int idx, double val);
 
  private:
-  Additive* aMix;                                                   /** @brief Additive in mixture */
-  AdditiveSettings& aCfg;                                           /** @brief Additive settings */
-  QLabel* liquidUnit;                                               /**< @brief Unit for liquids */
-  QLabel* formulas[static_cast<int>(Additive::Value::Size)];        /**< @brief Chemical formulas of additive */
-  QLabel* texts[static_cast<int>(Additive::Value::Size)];           /**< @brief Name of additive */
+  Additive* aMix;         /** @brief Additive in mixture */
+  AdditiveSettings& aCfg; /** @brief Additive settings */
+  bool valChangeGuard;    /**< @brief Guard to avoid value changes on ui updates */
+  QLabel* liquidUnit;     /**< @brief Unit for liquids */
+
   QLabel* percents[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Weight percent for liquids */
   QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)]; /** @brief Spin boxes of additive */
 };
