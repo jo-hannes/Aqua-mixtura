@@ -27,7 +27,7 @@ class MixAdditiveWidget : public QFrame {
    */
   MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings& additiveCfg, QWidget* parent = nullptr);
 
- private slots:
+ public slots:
   void update();
   void valueChange(int idx, double val);
 

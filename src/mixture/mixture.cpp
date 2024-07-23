@@ -80,8 +80,6 @@ void Mixture::RemoveWaterAt(qsizetype i) {
 
 Water Mixture::calc() {
   Water result = waters->getMix();
-  // Add additives
-  // TODO
-
+  result = *additive + result;
   return result;
 }

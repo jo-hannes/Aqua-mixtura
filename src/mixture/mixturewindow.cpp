@@ -22,6 +22,7 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, AdditiveSe
   maw = new MixAdditiveWidget(mix.additive, additiveCfg);
   mrw = new MixResultWidget(mix, styleDb, limits, this);
   QObject::connect(mix.waters, &WaterSources::dataChanged, mrw, &MixResultWidget::update);
+  QObject::connect(mix.additive, &Additive::dataModified, mrw, &MixResultWidget::update);
   // Name edit
   QFrame* nameFrame = new QFrame();
   nameFrame->setFrameStyle(QFrame::Panel | QFrame::Plain);
@@ -66,12 +67,12 @@ void MixtureWindow::setName(QString name) {
 
 void MixtureWindow::load() {
   mix.load();
-  // TODO update values
-  //  water => OK
-  //  malt
-  //  additive
-  //  ...
-  //  recalc
+  // update values if needed
+  this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
+  nameEdit->setText(mix.getName());
+  maw->update();
+  // update results
+  mrw->update();
 }
 
 void MixtureWindow::save() {

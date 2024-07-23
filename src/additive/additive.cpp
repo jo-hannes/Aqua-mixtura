@@ -60,3 +60,32 @@ QJsonObject Additive::toJson() const {
   outer["WaterAdditives"] = inner;
   return outer;
 }
+
+Water Additive::operator+(const Water& rhs) {
+  // first just copy values
+  float values[static_cast<int>(AM::WaterValue::LastAnion) + 1];
+  for (int w = 0; w <= static_cast<int>(AM::WaterValue::LastAnion); w++) {
+    values[w] = rhs.get(static_cast<AM::WaterValue>(w));
+  }
+
+  // sotre volume for later calculations
+  float volume = rhs.get(AM::WaterValue::Volume);
+
+  // loop over all water values
+  for (int w = 0; w <= static_cast<int>(AM::WaterValue::LastAnion); w++) {
+    float mg = 0;  // mg added or removed
+    // loop over all additive
+    for (int a = 0; a < static_cast<int>(Value::Size); a++) {
+      mg += amount[a] * calculationMatrix[a][w];
+    }
+    // add it to the water
+    values[w] += mg / volume;
+  }
+
+  // store calculated values in new water object
+  Water result(rhs.getName());
+  for (int w = 0; w <= static_cast<int>(AM::WaterValue::LastAnion); w++) {
+    result.set(static_cast<AM::WaterValue>(w), values[w]);
+  }
+  return result;
+}
