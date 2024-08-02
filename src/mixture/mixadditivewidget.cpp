@@ -81,9 +81,9 @@ void MixAdditiveWidget::update() {
   for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
     Additive::Value what = static_cast<Additive::Value>(i);
     if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      double display = aMix->get(what) * 100 / aCfg.getConcentration(what);
+      double display = aMix->get(what) * 100 / aCfg.getConcentration(what) / aCfg.getDensity(what);
       percents[i]->setText(QString::number(aCfg.getConcentration(what), 'f', 0));
-      amounts[i]->setValue(display);  // TODO conversion for ml unit. Tis only works for g
+      amounts[i]->setValue(display);
     } else {
       amounts[i]->setValue(aMix->get(what));
     }
@@ -100,7 +100,7 @@ void MixAdditiveWidget::update() {
 void MixAdditiveWidget::valueChange(int idx, double val) {
   if (!valChangeGuard) {
     Additive::Value what = static_cast<Additive::Value>(idx);
-    double newVal = val / 100 * aCfg.getConcentration(what);  // TODO conversion for ml unit. Tis only works for g
+    double newVal = val / 100 * aCfg.getConcentration(what) * aCfg.getDensity(what);
     aMix->set(what, newVal);
   }
 }

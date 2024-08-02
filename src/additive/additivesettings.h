@@ -30,6 +30,11 @@ class AdditiveSettings : public QObject, public Meta {
   void setConcentration(Additive::Value what, float value); /**< @brief set given type with concentration */
   LiquidUnit getLiquidUnit() const;                         /**< @brief get unit used for liquids */
   void setLiquidUnit(LiquidUnit newUnit);                   /**< @brief get unit used for liquids */
+  /**
+   * @brief get density for liquids when unit is ml
+   * Save to use in any case, will just return 1 when no liquid is selected or unit is g
+   */
+  float getDensity(Additive::Value what) const;
 
  public slots:
   void load();
@@ -41,6 +46,20 @@ class AdditiveSettings : public QObject, public Meta {
  private:
   float concentration[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Concentration in % */
   LiquidUnit unit;
+
+  // clang-format off
+  /**
+   * @brief Coefficients for calculating density
+   * Coefficients of formula a*x^2 + b*x + c
+   */
+  inline static const double densityCoefficients[static_cast<int>(Additive::Value::lastLiquid) +  1][3] = {
+    //  c         b           a
+      { 0.999137, 0.00236361, 0},          // c3h6o3
+      { 0.997681, 0.00503334, 0},          // hcl
+      { 0.993422, 0.00723747, 1.77195e-5}, // h2so4
+      { 0.999386, 0.00491011, 3.76331e-5}  // h3po4
+  };
+  // clang-format on
 };
 
 #endif  // ADDITIVESETTINGS_H

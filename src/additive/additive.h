@@ -81,8 +81,6 @@ class Additive : public QObject, public Meta {
  private:
   float amount[static_cast<int>(Value::Size)]; /**< @brief Effective amount in g */
 
-  float getWeight(Value what) const; /**< @brief Get net weight of additive in gramms */
-
   // clang-format off
   /**
    * @brief Calculation Matrix for effect of additives on water values

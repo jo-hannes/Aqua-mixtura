@@ -96,6 +96,24 @@ void AdditiveSettings::setLiquidUnit(LiquidUnit newUnit) {
   emit dataModified();
 }
 
+float AdditiveSettings::getDensity(Additive::Value what) const {
+  // only liqids have a density
+  if ((what <= Additive::Value::lastLiquid) && (unit == LiquidUnit::milliLiter)) {
+    uint idx = static_cast<uint>(what);
+    // first check for linear
+    if (densityCoefficients[idx][2] == 0) {
+      // linear
+      return densityCoefficients[idx][0] + densityCoefficients[idx][1] * concentration[idx];
+    } else {
+      // qubic
+      return densityCoefficients[idx][0] + densityCoefficients[idx][1] * concentration[idx] +
+             densityCoefficients[idx][2] * concentration[idx] * concentration[idx];
+    }
+  } else {
+    return 1;  // not a liquid or unit is not ml => just return 1
+  }
+}
+
 void AdditiveSettings::load() {
   QString file = Paths::dataDir() + "/additive.json";
   if (QFile::exists(file)) {
