@@ -32,11 +32,11 @@ class MixResultWidget : public QFrame {
   MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limits, QWidget* parent = nullptr);
 
  public slots:
-  void update(void); /**< @brief Update all shown values */
+  void update(void);       /**< @brief Update all shown values */
+  void updateStyles(void); /**< @brief Update beer style selection */
 
  private slots:
   void selectStyle(int index); /**< @brief Select style (via QComboBox) */
-  void updateStyles(void);     /**< @brief Update beer style selection */
 
  private:
   Mixture& mix;           /**< @brief Reference to mixture */

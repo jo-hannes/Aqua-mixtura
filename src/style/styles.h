@@ -41,6 +41,7 @@ class Styles : public QAbstractListModel {
 
  signals:
   void unsavedStyles(bool unsaved); /**< @brief Signal emitted if save state of Styles change */
+  void dataModified();
 
  private:
   void clear();                  /**< @brief Clear/remove all Styles*/

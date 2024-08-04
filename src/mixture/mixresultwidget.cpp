@@ -43,7 +43,6 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limi
     }
   }
 
-  update();
   updateStyles();
 }
 
@@ -67,10 +66,6 @@ void MixResultWidget::update(void) {
   }
 }
 
-void MixResultWidget::selectStyle(int index) {
-  qDebug() << "TODO: Select style at index:" << index;
-}
-
 void MixResultWidget::updateStyles() {
   // save selection
   int selection = styleSelect->currentIndex();
@@ -86,4 +81,10 @@ void MixResultWidget::updateStyles() {
   if (selection >= 0) {
     styleSelect->setCurrentIndex(selection);
   }
+  // update as style values may have changed
+  update();
+}
+
+void MixResultWidget::selectStyle(int index) {
+  qDebug() << "TODO: Select style at index:" << index;
 }

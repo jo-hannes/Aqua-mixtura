@@ -178,4 +178,5 @@ void Styles::setUnsaved(bool unsaved) {
     this->unsavedChanges = unsaved;
     emit unsavedStyles(unsaved);
   }
+  emit dataModified();
 }

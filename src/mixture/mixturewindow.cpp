@@ -24,6 +24,7 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, AdditiveSe
   QObject::connect(mix.waters, &WaterSources::dataChanged, mrw, &MixResultWidget::update);
   QObject::connect(mix.additive, &Additive::dataModified, mrw, &MixResultWidget::update);
   QObject::connect(limits, &Limits::dataModified, mrw, &MixResultWidget::update);
+  QObject::connect(styleDb, &Styles::dataModified, mrw, &MixResultWidget::updateStyles);
   // Name edit
   QFrame* nameFrame = new QFrame();
   nameFrame->setFrameStyle(QFrame::Panel | QFrame::Plain);
