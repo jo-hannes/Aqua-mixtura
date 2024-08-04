@@ -40,7 +40,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
   }
 
   // unit
-  QLabel* txtUnit = new QLabel("<b>Unit</b>");
+  QLabel* txtUnit = new QLabel("<b>" + tr("Einheit") + "</b>");
   layout->addWidget(txtUnit, row, 0, Qt::AlignLeft);
   unitSelect = new QComboBox();
   unitSelect->clear();

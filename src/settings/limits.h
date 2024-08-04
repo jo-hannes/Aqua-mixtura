@@ -38,6 +38,9 @@ class Limits : public QAbstractTableModel, public Meta {
   void load();
   void save();
 
+ signals:
+  void dataModified();
+
  private:
   float limits[static_cast<int>(AM::WaterValue::Size)][2];
 };

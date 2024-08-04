@@ -41,6 +41,7 @@ bool Limits::fromJson(const QJsonObject& json) {
     limits[i][1] = limit["Max"].toDouble(0);
   }
   endResetModel();
+  emit dataModified();
   return ret;
 }
 
@@ -79,6 +80,7 @@ void Limits::setMin(AM::WaterValue what, float value) {
   if (what < AM::WaterValue::Size) {
     limits[static_cast<uint>(what)][0] = value;
     updateEditTime();
+    emit dataModified();
   }
 }
 
@@ -86,6 +88,7 @@ void Limits::setMax(AM::WaterValue what, float value) {
   if (what < AM::WaterValue::Size) {
     limits[static_cast<uint>(what)][1] = value;
     updateEditTime();
+    emit dataModified();
   }
 }
 
@@ -162,6 +165,8 @@ bool Limits::setData(const QModelIndex& index, const QVariant& value, int role) 
     return false;
   }
   limits[row][col] = value.toFloat();
+  updateEditTime();
+  emit dataModified();
   return true;
 }
 
