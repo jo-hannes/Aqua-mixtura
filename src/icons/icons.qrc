@@ -15,5 +15,6 @@
         <file>x-mark.svg</file>
         <file>arrow-down-on-square.svg</file>
         <file>arrow-up-on-square.svg</file>
+        <file>logo_512x512.png</file>
     </qresource>
 </RCC>

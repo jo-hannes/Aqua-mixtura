@@ -5,8 +5,6 @@
 
 #include "common/buttons.h"
 #include "mixture/mixture.h"
-#include "water/water.h"
-#include "water/waterprofileview.h"
 
 #include <QFrame>
 #include <QLabel>
@@ -90,30 +88,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wSettings->setWindowFlags(Qt::Window);
 
   setCentralWidget(mainWidget);
-
-  // Playground
-#if 0
-  Mixture* mix = new Mixture();
-  Water* wNbg = new Water("Leitungswasser", 30, 47, 14, 6.5, 199, 11, 17, 0.11, 0);
-  Water* wDest = new Water("VE-Wasser", 10);
-  mix->AddWater(*wNbg);
-  mix->AddWater(*wDest);
-  Water result = mix->calc();
-
-  QVBoxLayout* mixL = new QVBoxLayout();
-  mixL->addWidget(new WaterProfileView(*wNbg, true), Qt::AlignTop);
-  mixL->addWidget(new WaterProfileView(*wDest, true), Qt::AlignTop);
-  mixL->addWidget(new QWidget());
-  mixL->addWidget(new WaterProfileView(result, true), Qt::AlignBottom);
-
-  QWidget* mixWidget = new QWidget();
-  mixWidget->setLayout(mixL);
-
-  QScrollArea* scrollArea = new QScrollArea(this);
-  scrollArea->setWidget(mixWidget);
-  scrollArea->setWindowFlags(Qt::Window);
-  scrollArea->show();
-#endif
 }
 
 MainWindow::~MainWindow() {
