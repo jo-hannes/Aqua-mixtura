@@ -20,10 +20,10 @@ class MixMaltWidget : public QFrame {
   /**
    * @brief Create malts Widget
    * @param mixtureMalts Pointer to malts of mixture
-   * @param maltDb Pointer to our malt database
+   * @param maltDb Reference to our malt database
    * @param parent QObject parent
    */
-  MixMaltWidget(Malts* mixtureMalts, Malts* maltDb, QWidget* parent = nullptr);
+  MixMaltWidget(Malts* mixtureMalts, Malts& maltDb, QWidget* parent = nullptr);
 
  private slots:
   void add(int i);     /**< @brief Add a malt */
@@ -34,7 +34,7 @@ class MixMaltWidget : public QFrame {
 
  private:
   Malts* mMix;          /**< @brief Waters used in mixture */
-  Malts* mDb;           /**< @brief Database with waters */
+  Malts& mDb;           /**< @brief Database with waters */
   QMenu* maltMenu;      /**< @brief Menu for add water button */
   QTableView* maltView; /**< @brief Table view for waters */
 };

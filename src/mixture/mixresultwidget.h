@@ -25,11 +25,11 @@ class MixResultWidget : public QFrame {
   /**
    * @brief Create result Widget
    * @param mixture Reference to mixture
-   * @param styleDb Pointer to beer styles database
+   * @param styleDb Reference to beer styles database
    * @param limits Pointer to configured limits
    * @param parent QObject parent
    */
-  MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limits, QWidget* parent = nullptr);
+  MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limits, QWidget* parent = nullptr);
 
  public slots:
   void update(void);       /**< @brief Update all shown values */
@@ -41,7 +41,7 @@ class MixResultWidget : public QFrame {
  private:
   Mixture& mix;           /**< @brief Reference to mixture */
   Style mixStyle;         /**< @brief Backup of style from mix */
-  Styles* sDb;            /**< @brief Pointer to beer styles database */
+  Styles& sDb;            /**< @brief Reference to beer styles database */
   Limits* lim;            /**< @brief Pointer to configured limits */
   QComboBox* styleSelect; /**< @brief ComboBox for selecting beer style */
   int styleIdx;           /**< @brief Index of selected style */

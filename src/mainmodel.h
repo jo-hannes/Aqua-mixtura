@@ -23,7 +23,7 @@ class MainModel : public QObject {
   void save();         /**< @brief Save all data to JSON files */
 
  public:
-  Mixtures* mixtures;    /**< @brief Model of mixtures */
+  Mixtures mixtures; /**< @brief Model of mixtures */
 };
 
 #endif // MAINMODEL_H

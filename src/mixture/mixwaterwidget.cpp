@@ -11,9 +11,8 @@
 #include <QString>
 #include <QVBoxLayout>
 
-MixWaterWidget::MixWaterWidget(WaterSources* mixtureWaters, WaterSources* waterDb, QWidget* parent) : QFrame{parent} {
-  wMix = mixtureWaters;
-  wDb = waterDb;
+MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterDb, QWidget* parent)
+    : QFrame{parent}, wMix{mixtureWaters}, wDb{waterDb} {
   // Build ui
   QVBoxLayout* layout = new QVBoxLayout(this);
   this->setLayout(layout);
@@ -26,7 +25,7 @@ MixWaterWidget::MixWaterWidget(WaterSources* mixtureWaters, WaterSources* waterD
 
   // View with waters
   waterView = new QTableView(this);
-  waterView->setModel(wMix);
+  waterView->setModel(&wMix);
   waterView->verticalHeader()->setVisible(false);
   waterView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   layout->addWidget(waterView);
@@ -40,12 +39,12 @@ MixWaterWidget::MixWaterWidget(WaterSources* mixtureWaters, WaterSources* waterD
   // build button menu
   waterMenu = new QMenu(this);
   updateWaterDb();
-  QObject::connect(wDb, &WaterSources::dataChanged, this, &MixWaterWidget::updateWaterDb);
+  QObject::connect(&wDb, &WaterSources::dataChanged, this, &MixWaterWidget::updateWaterDb);
   buttons->btnAdd->setMenu(waterMenu);
 }
 
 void MixWaterWidget::add(int i) {
-  wMix->addProfile(wDb->getProfile(i));
+  wMix.addProfile(wDb.getProfile(i));
 }
 
 void MixWaterWidget::remove() {
@@ -53,13 +52,13 @@ void MixWaterWidget::remove() {
   if (!idx.isValid()) {
     return;
   }
-  wMix->deleteProfile(idx.row());
+  wMix.deleteProfile(idx.row());
 }
 
 void MixWaterWidget::updateWaterDb() {
   waterMenu->clear();
-  for (int i = 0; i < wDb->rowCount(); i++) {
-    QAction* act = new QAction(wDb->getProfile(i).getName(), waterMenu);
+  for (int i = 0; i < wDb.rowCount(); i++) {
+    QAction* act = new QAction(wDb.getProfile(i).getName(), waterMenu);
     QObject::connect(act, &QAction::triggered, this, [=]() {
       add(i);
     });

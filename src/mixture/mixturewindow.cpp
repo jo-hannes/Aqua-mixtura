@@ -10,21 +10,22 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 
-MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources* waterDb, AdditiveSettings& additiveCfg, Malts* maltDb,
-                             Styles* styleDb, Limits* limits, QWidget* parent)
+MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSettings& additiveCfg, Malts& maltDb,
+                             Styles& styleDb, Limits* limits, QWidget* parent)
     : QWidget{parent}, mix{mixture} {
   this->setWindowFlags(Qt::Window);
 
   // build ui elements
   // sub widgets
-  mww = new MixWaterWidget(mix.waters, waterDb, this);
+  mww = new MixWaterWidget(*mix.waters, waterDb, this);
   mmw = new MixMaltWidget(mix.malts, maltDb, this);
   maw = new MixAdditiveWidget(mix.additive, additiveCfg);
   mrw = new MixResultWidget(mix, styleDb, limits, this);
+  // TODO move connect calls into MixResultWidget
   QObject::connect(mix.waters, &WaterSources::dataChanged, mrw, &MixResultWidget::update);
   QObject::connect(mix.additive, &Additive::dataModified, mrw, &MixResultWidget::update);
   QObject::connect(limits, &Limits::dataModified, mrw, &MixResultWidget::update);
-  QObject::connect(styleDb, &Styles::dataModified, mrw, &MixResultWidget::updateStyles);
+  QObject::connect(&styleDb, &Styles::dataModified, mrw, &MixResultWidget::updateStyles);
   // Name edit
   QFrame* nameFrame = new QFrame();
   nameFrame->setFrameStyle(QFrame::Panel | QFrame::Plain);

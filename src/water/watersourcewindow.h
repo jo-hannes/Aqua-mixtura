@@ -20,10 +20,10 @@ class WatersourceWindow : public QWidget {
  public:
   /**
    * @brief Constructor
-   * @param model Pointer to model for accessing data
+   * @param model Reference to model for accessing data
    * @param parent
    */
-  explicit WatersourceWindow(WaterSources* model, QWidget* parent = nullptr);
+  explicit WatersourceWindow(WaterSources& model, QWidget* parent = nullptr);
 
  public slots:
   void selectSource(const QModelIndex& index); /**< @brief Select source at index for profile editor */
@@ -36,7 +36,7 @@ class WatersourceWindow : public QWidget {
   void profileExport(); /**< @brief Export a profile as JSON */
 
  private:
-  WaterSources* sources;       /**< @brief Pointer to model for accessing data */
+  WaterSources& sources;       /**< @brief Reference to model for accessing data */
   QListView* sourcesView;      /**< @brief List with all water sources */
   WaterProfileEdit* waterEdit; /**< @brief Water profile editor */
   int selected;                /**< @brief Index of currently selected water profile */

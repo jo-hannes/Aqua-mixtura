@@ -44,11 +44,11 @@ class Mixtures : public QAbstractTableModel {
   QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
   // data bases
-  WaterSources* waterDb;        /**< @brief Model of water sources */
+  WaterSources waterDb;         /**< @brief Model of water sources */
   AdditiveSettings additiveCfg; /**< @brief Additive config */
-  Malts* maltDb;                /**< @brief Model of malts */
-  Styles* styleDb;              /**< @brief Model of styles */
-  Settings settings;            /**< @brief Model of programm settings */
+  Malts maltDb;                 /**< @brief Model of malts */
+  Styles styleDb;               /**< @brief Model of styles */
+  Settings settings;            /**< @brief Model of program settings */
 
  public slots:
   void load();

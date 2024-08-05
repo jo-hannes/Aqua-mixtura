@@ -47,7 +47,7 @@ class MainWindow : public QMainWindow {
 
  private:
   void setupMenuBar(); /**< @brief Creates menu bor for main window */
-  MainModel* model;    /**< @brief Pointer to main model */
+  MainModel model;     /**< @brief main model */
 
   // Windows
   WatersourceWindow* wsources; /**< @brief Window for editing water sources */

@@ -5,11 +5,9 @@
 
 #include <QGridLayout>
 
-MixResultWidget::MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limits, QWidget* parent)
-    : QFrame{parent}, mix{mixture} {
-  Q_ASSERT(styleDb != nullptr);
+MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limits, QWidget* parent)
+    : QFrame{parent}, mix{mixture}, sDb{styleDb} {
   Q_ASSERT(limits != nullptr);
-  sDb = styleDb;
   lim = limits;
   mixStyle.fromJson(mix.style->toJson());  // Make backup of style from mixture
 
@@ -75,8 +73,8 @@ void MixResultWidget::updateStyles() {
   QString self = "[Mix] " + mixStyle.getName();
   styleSelect->addItem(self);
   // add styles form database
-  for (int i = 0; i < sDb->rowCount(QModelIndex()); i++) {
-    styleSelect->addItem(sDb->getStyle(i)->getName());
+  for (int i = 0; i < sDb.rowCount(QModelIndex()); i++) {
+    styleSelect->addItem(sDb.getStyle(i)->getName());
   }
 
   // restore selection
@@ -89,7 +87,7 @@ void MixResultWidget::updateStyles() {
 
   // get uuid of current style
   QString uuid = mix.style->getUuid();
-  if (styleIdx > 0 && styleIdx < styleSelect->count() && uuid == sDb->getStyle(styleIdx - 1)->getUuid()) {
+  if (styleIdx > 0 && styleIdx < styleSelect->count() && uuid == sDb.getStyle(styleIdx - 1)->getUuid()) {
     // idx still valid and points to the same style
     styleSelect->setCurrentIndex(styleIdx);
     qDebug() << "Matched by idx";
@@ -98,8 +96,8 @@ void MixResultWidget::updateStyles() {
   }
 
   // try to find mix by uuid
-  for (int i = 0; i < sDb->rowCount(QModelIndex()); i++) {
-    if (uuid == sDb->getStyle(i)->getUuid()) {
+  for (int i = 0; i < sDb.rowCount(QModelIndex()); i++) {
+    if (uuid == sDb.getStyle(i)->getUuid()) {
       styleIdx = i + 1;
       styleSelect->setCurrentIndex(styleIdx);
       qDebug() << "Matched by uuid";
@@ -123,14 +121,14 @@ void MixResultWidget::selectStyle(int index) {
   if (index == 0) {
     mix.style->fromJson(mixStyle.toJson());
     update();
-  } else if (--index < sDb->rowCount(QModelIndex())) {
-    mix.style->fromJson(sDb->getStyle(index)->toJson());
+  } else if (--index < sDb.rowCount(QModelIndex())) {
+    mix.style->fromJson(sDb.getStyle(index)->toJson());
     update();
   }
 
   // delete selection for possible deleted old style
   int lastIdx = styleSelect->count() - 1;
-  if (lastIdx > styleIdx && lastIdx > sDb->rowCount(QModelIndex())) {
+  if (lastIdx > styleIdx && lastIdx > sDb.rowCount(QModelIndex())) {
     styleSelect->removeItem(lastIdx);
   }
 }

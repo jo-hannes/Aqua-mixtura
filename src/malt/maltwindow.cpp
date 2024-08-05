@@ -16,20 +16,18 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-MaltWindow::MaltWindow(Malts* model, QWidget* parent) : QWidget{parent} {
-  this->malts = model;
-
+MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{model} {
   // Window tittle
   title = "Aqua mixtura - " + tr("Malze");
   this->setWindowTitle(title);
-  QObject::connect(malts, &Malts::unsavedMalts, this, &MaltWindow::unsavedMalts);
+  QObject::connect(&malts, &Malts::unsavedMalts, this, &MaltWindow::unsavedMalts);
 
   // main layout
   QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
   // Table View
   maltsView = new QTableView();
-  maltsView->setModel(malts);
+  maltsView->setModel(&malts);
   maltsView->verticalHeader()->setVisible(false);
   MaltTableDelegate* delegate = new MaltTableDelegate(this);
   maltsView->setItemDelegate(delegate);
@@ -46,7 +44,7 @@ MaltWindow::MaltWindow(Malts* model, QWidget* parent) : QWidget{parent} {
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &MaltWindow::maltImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &MaltWindow::maltExport);
   QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MaltWindow::saveChanges);
-  QObject::connect(buttons->btnCancel, &QPushButton::clicked, malts, &Malts::load);  // just load on cancel
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, &malts, &Malts::load);  // just load on cancel
   mainLayout->addWidget(buttons);
 }
 
@@ -54,7 +52,7 @@ MaltWindow::~MaltWindow() {}
 
 void MaltWindow::maltAdd() {
   Malt m;
-  malts->addMalt(m);
+  malts.addMalt(m);
 }
 
 void MaltWindow::maltCopy() {
@@ -62,11 +60,11 @@ void MaltWindow::maltCopy() {
   if (!idx.isValid()) {
     return;
   }
-  Malt m = malts->getMalt(idx.row());
+  Malt m = malts.getMalt(idx.row());
   m.updateCreationTime();
   m.newUuid();
   m.setName("Copy of " + m.getName());
-  malts->addMalt(m);
+  malts.addMalt(m);
 }
 
 void MaltWindow::maltDelete() {
@@ -74,7 +72,7 @@ void MaltWindow::maltDelete() {
   if (!idx.isValid()) {
     return;
   }
-  malts->deleteMalt(idx.row());
+  malts.deleteMalt(idx.row());
 }
 
 void MaltWindow::maltImport() {
@@ -84,7 +82,7 @@ void MaltWindow::maltImport() {
   if (path.isEmpty()) {
     return;
   }
-  if (!malts->importMalt(path)) {
+  if (!malts.importMalt(path)) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Malz nicht im JSON finden"));
     msgBox.setStandardButtons(QMessageBox::Ok);
@@ -99,12 +97,12 @@ void MaltWindow::maltExport() {
     return;
   }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              malts->getMalt(idx.row()).getName() + ".json";
+                              malts.getMalt(idx.row()).getName() + ".json";
   QString path = QFileDialog::getSaveFileName(this, tr("Malz Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
-  if (!malts->exportMalt(path, idx.row())) {
+  if (!malts.exportMalt(path, idx.row())) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Malz nicht speichern"));
     msgBox.setStandardButtons(QMessageBox::Ok);
@@ -114,8 +112,8 @@ void MaltWindow::maltExport() {
 }
 
 void MaltWindow::saveChanges() {
-  malts->setSaved();
-  malts->save();
+  malts.setSaved();
+  malts.save();
 }
 
 void MaltWindow::unsavedMalts(bool unsaved) {

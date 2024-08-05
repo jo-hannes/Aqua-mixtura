@@ -20,8 +20,7 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-StylesWindow::StylesWindow(Styles* model, QWidget* parent) : QWidget{parent} {
-  this->styles = model;
+StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, styles{model} {
   selected = -1;
 
   // mainLayout
@@ -36,14 +35,14 @@ StylesWindow::StylesWindow(Styles* model, QWidget* parent) : QWidget{parent} {
 
   // List/Table views
   stylesView = new QListView();
-  stylesView->setModel(styles);
+  stylesView->setModel(&styles);
   stylesView->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   QItemSelectionModel* selectionModel = stylesView->selectionModel();
   QObject::connect(selectionModel, &QItemSelectionModel::currentChanged, this, &StylesWindow::styleSelectionChanged);
 
   mainLayout->addWidget(stylesView, 1, 0);
   styleTableView = new QTableView();
-  styleTableView->setModel(styles->getStyle(0));
+  styleTableView->setModel(styles.getStyle(0));
   StyleTableDelegate* delegate = new StyleTableDelegate(this);
   styleTableView->setItemDelegate(delegate);
   styleTableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
@@ -59,8 +58,8 @@ StylesWindow::StylesWindow(Styles* model, QWidget* parent) : QWidget{parent} {
   QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &StylesWindow::styleDelete);
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &StylesWindow::styleImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &StylesWindow::styleExport);
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, styles, &Styles::save);
-  QObject::connect(buttons->btnCancel, &QPushButton::clicked, styles, &Styles::load);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, &styles, &Styles::save);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, &styles, &Styles::load);
 
   mainLayout->addWidget(buttons, 2, 0, 1, 2, Qt::AlignHCenter);
 
@@ -75,23 +74,23 @@ void StylesWindow::styleSelectionChanged(const QModelIndex& current, const QMode
 }
 
 void StylesWindow::styleAdd() {
-  styles->addStyle(new Style(tr("New")));
+  styles.addStyle(new Style(tr("New")));
   // Select new style = last style
-  styleSelect(styles->rowCount() - 1);
+  styleSelect(styles.rowCount() - 1);
 }
 
 void StylesWindow::styleCopy() {
   // Qt objects can't be copied, so we need to do this by our own
-  Style* copy = styles->getStyle(selected)->copy();
+  Style* copy = styles.getStyle(selected)->copy();
   copy->updateCreationTime();
   copy->setName(tr("Copy of ") + copy->getName());
-  styles->addStyle(copy);
+  styles.addStyle(copy);
   // Select copied style = last style
-  styleSelect(styles->rowCount() - 1);
+  styleSelect(styles.rowCount() - 1);
 }
 
 void StylesWindow::styleDelete() {
-  styles->deleteStyle(selected);
+  styles.deleteStyle(selected);
 }
 
 void StylesWindow::styleImport() {
@@ -101,9 +100,9 @@ void StylesWindow::styleImport() {
   if (path.isEmpty()) {
     return;
   }
-  if (styles->importStyle(path)) {
+  if (styles.importStyle(path)) {
     // Select imported style = last style
-    styleSelect(styles->rowCount() - 1);
+    styleSelect(styles.rowCount() - 1);
   } else {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Bierstil nicht im JSON finden"));
@@ -115,12 +114,12 @@ void StylesWindow::styleImport() {
 
 void StylesWindow::styleExport() {
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              styles->getStyle(selected)->getName() + ".json";
+                              styles.getStyle(selected)->getName() + ".json";
   QString path = QFileDialog::getSaveFileName(this, tr("Bierstil Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
-  if (!styles->exportStyle(path, selected)) {
+  if (!styles.exportStyle(path, selected)) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Bierstil nicht exportieren"));
     msgBox.setStandardButtons(QMessageBox::Ok);
@@ -135,5 +134,5 @@ void StylesWindow::styleSelect(const qsizetype index) {
   }
   selected = index;
   stylesView->setCurrentIndex(stylesView->model()->index(selected, 0));
-  styleTableView->setModel(styles->getStyle(selected));
+  styleTableView->setModel(styles.getStyle(selected));
 }

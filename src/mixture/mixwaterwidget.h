@@ -18,11 +18,11 @@ class MixWaterWidget : public QFrame {
  public:
   /**
    * @brief Create water sources Widget
-   * @param mixtureWaters Pointer to waters of mixture
-   * @param waterDb Pointer to our water database
+   * @param mixtureWaters Reference to waters of mixture
+   * @param waterDb Reference to our water database
    * @param parent QObject parent
    */
-  explicit MixWaterWidget(WaterSources* mixtureWaters, WaterSources* waterDb, QWidget* parent = nullptr);
+  explicit MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterDb, QWidget* parent = nullptr);
 
  private slots:
   void add(int i);      /**< @brief Slot for adding water */
@@ -32,8 +32,8 @@ class MixWaterWidget : public QFrame {
  signals:
 
  private:
-  WaterSources* wMix;    /**< @brief Waters used in mixture */
-  WaterSources* wDb;     /**< @brief Database with waters */
+  WaterSources& wMix;    /**< @brief Waters used in mixture */
+  WaterSources& wDb;     /**< @brief Database with waters */
   QMenu* waterMenu;      /**< @brief Menu for add water button */
   QTableView* waterView; /**< @brief Table view for waters */
 };

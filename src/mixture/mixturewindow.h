@@ -22,8 +22,8 @@
 class MixtureWindow : public QWidget {
   Q_OBJECT
  public:
-  explicit MixtureWindow(Mixture& mixture, WaterSources* waterDb, AdditiveSettings& additiveCfg, Malts* maltDb,
-                         Styles* styleDb, Limits* limits, QWidget* parent = nullptr);
+  explicit MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSettings& additiveCfg, Malts& maltDb,
+                         Styles& styleDb, Limits* limits, QWidget* parent = nullptr);
 
  public slots:
   void setName(QString name);

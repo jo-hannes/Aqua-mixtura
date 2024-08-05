@@ -16,8 +16,7 @@
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
-WatersourceWindow::WatersourceWindow(WaterSources* model, QWidget* parent) : QWidget(parent) {
-  this->sources = model;
+WatersourceWindow::WatersourceWindow(WaterSources& model, QWidget* parent) : QWidget(parent), sources{model} {
   selected = -1;
   // Überschriften
   setWindowTitle("Aqua mixtura - " + tr("Wasserquellen"));
@@ -31,7 +30,7 @@ WatersourceWindow::WatersourceWindow(WaterSources* model, QWidget* parent) : QWi
   QVBoxLayout* layoutQuellen = new QVBoxLayout();
 
   sourcesView = new QListView();
-  sourcesView->setModel(sources);
+  sourcesView->setModel(&sources);
   layoutQuellen->addWidget(sourcesView);
 
   // buttons für quellen
@@ -75,12 +74,12 @@ void WatersourceWindow::selectSource(const QModelIndex& index) {
         // Save, then siwtch source
         waterEdit->save();
         selected = index.row();
-        waterEdit->setProfile(sources->getProfile(selected));
+        waterEdit->setProfile(sources.getProfile(selected));
         break;
       case QMessageBox::Discard:
         // Just switch to new selection
         selected = index.row();
-        waterEdit->setProfile(sources->getProfile(selected));
+        waterEdit->setProfile(sources.getProfile(selected));
         break;
       case QMessageBox::Cancel:
         // Select previously selected item
@@ -92,32 +91,32 @@ void WatersourceWindow::selectSource(const QModelIndex& index) {
     }
   } else {
     selected = index.row();
-    waterEdit->setProfile(sources->getProfile(selected));
+    waterEdit->setProfile(sources.getProfile(selected));
   }
 }
 
 void WatersourceWindow::saveProfile(Water& profile) {
-  if (selected >= 0 && selected < sources->rowCount()) {
-    sources->updateProfile(profile, selected);
-    sources->save();
+  if (selected >= 0 && selected < sources.rowCount()) {
+    sources.updateProfile(profile, selected);
+    sources.save();
   }
 }
 
 void WatersourceWindow::profileAdd() {
   Water newProfile("New");
-  sources->addProfile(newProfile);
+  sources.addProfile(newProfile);
 }
 
 void WatersourceWindow::profileCopy() {
-  Water newProfile = sources->getProfile(selected);
+  Water newProfile = sources.getProfile(selected);
   newProfile.updateCreationTime();
   newProfile.newUuid();
   newProfile.setName("Copy of " + newProfile.getName());
-  sources->addProfile(newProfile);
+  sources.addProfile(newProfile);
 }
 
 void WatersourceWindow::profileDelete() {
-  sources->deleteProfile(selected);
+  sources.deleteProfile(selected);
 }
 
 void WatersourceWindow::profileImport() {
@@ -130,7 +129,7 @@ void WatersourceWindow::profileImport() {
   QJsonObject jsonSource = JsonHelper::loadFile(path);
   if (jsonSource.contains("WaterSource")) {
     Water wp(jsonSource["WaterSource"].toObject());
-    sources->addProfile(wp);
+    sources.addProfile(wp);
   } else {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Wasserquelle nicht im JSON finden"));
@@ -142,14 +141,14 @@ void WatersourceWindow::profileImport() {
 
 void WatersourceWindow::profileExport() {
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              sources->getProfile(selected).getName() + ".json";
+                              sources.getProfile(selected).getName() + ".json";
   QString path =
       QFileDialog::getSaveFileName(this, tr("Wasserquelle Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
   QJsonObject jsonSource;
-  jsonSource["WaterSource"] = sources->getProfile(selected).profileToJson();
+  jsonSource["WaterSource"] = sources.getProfile(selected).profileToJson();
   bool success = JsonHelper::saveFile(path, jsonSource);
   if (!success) {
     QMessageBox msgBox;

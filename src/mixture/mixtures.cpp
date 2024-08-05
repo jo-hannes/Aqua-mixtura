@@ -9,9 +9,6 @@
 #include <QJsonArray>
 
 Mixtures::Mixtures(QObject* parent) : QAbstractTableModel{parent} {
-  waterDb = new WaterSources();
-  maltDb = new Malts();
-  styleDb = new Styles();
 }
 
 Mixtures::Mixtures(const QJsonObject& json, QObject* parent) : Mixtures(parent) {

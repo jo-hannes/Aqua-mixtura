@@ -18,10 +18,10 @@ class StylesWindow : public QWidget {
  public:
   /**
    * @brief StylesWindow constructor
-   * @param model Pointer to model for accessing data
+   * @param model Reference to model for accessing data
    * @param parent
    */
-  explicit StylesWindow(Styles* model, QWidget* parent = nullptr);
+  explicit StylesWindow(Styles& model, QWidget* parent = nullptr);
 
  private slots:
   void styleSelectionChanged(const QModelIndex& current,
@@ -40,7 +40,7 @@ class StylesWindow : public QWidget {
  private:
   void styleSelect(const qsizetype index); /**< @brief Select style at index for style editor */
 
-  Styles* styles;             /**< @brief Pointer to data model */
+  Styles& styles;             /**< @brief Reference to data model */
   QListView* stylesView;      /**< @brief View with list of styles */
   QTableView* styleTableView; /**< @brief View with style data */
   qsizetype selected;         /**< @brief Index of currently selected style */

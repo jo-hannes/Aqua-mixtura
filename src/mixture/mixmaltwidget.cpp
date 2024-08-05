@@ -11,9 +11,8 @@
 #include <QString>
 #include <QVBoxLayout>
 
-MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts* maltDb, QWidget* parent) : QFrame{parent} {
+MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts& maltDb, QWidget* parent) : QFrame{parent}, mDb{maltDb} {
   mMix = mixtureMalts;
-  mDb = maltDb;
   // Build ui
   QVBoxLayout* layout = new QVBoxLayout(this);
   this->setLayout(layout);
@@ -40,12 +39,12 @@ MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts* maltDb, QWidget* parent
   // build button menu
   maltMenu = new QMenu(this);
   updateMaltDb();
-  QObject::connect(mDb, &Malts::dataModified, this, &MixMaltWidget::updateMaltDb);
+  QObject::connect(&mDb, &Malts::dataModified, this, &MixMaltWidget::updateMaltDb);
   buttons->btnAdd->setMenu(maltMenu);
 }
 
 void MixMaltWidget::add(int i) {
-  mMix->addMalt(mDb->getMalt(i));
+  mMix->addMalt(mDb.getMalt(i));
 }
 
 void MixMaltWidget::remove() {
@@ -58,8 +57,8 @@ void MixMaltWidget::remove() {
 
 void MixMaltWidget::updateMaltDb() {
   maltMenu->clear();
-  for (int i = 0; i < mDb->rowCount(); i++) {
-    QAction* act = new QAction(mDb->getMalt(i).getName(), maltMenu);
+  for (int i = 0; i < mDb.rowCount(); i++) {
+    QAction* act = new QAction(mDb.getMalt(i).getName(), maltMenu);
     QObject::connect(act, &QAction::triggered, this, [=]() {
       add(i);
     });

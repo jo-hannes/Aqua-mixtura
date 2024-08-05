@@ -14,9 +14,6 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   setWindowTitle("Aqua mixtura");
 
-  // initialize all models
-  model = new MainModel();
-
   setupMenuBar();
 
   // Headlines
@@ -47,7 +44,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
   // Mixtures
   mixturesView = new QTableView();
-  mixturesView->setModel(model->mixtures);
+  mixturesView->setModel(&model.mixtures);
   mixturesView->verticalHeader()->setVisible(false);
   mixturesView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   QObject::connect(mixturesView, &QTableView::doubleClicked, this, &MainWindow::mixDoubleClicked);
@@ -71,27 +68,26 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   mainWidget->setLayout(mainLayout);
 
   // create separate windows
-  wsources = new WatersourceWindow(model->mixtures->waterDb, this);
+  wsources = new WatersourceWindow(model.mixtures.waterDb, this);
   wsources->setWindowFlags(Qt::Window);
 
-  wadditives = new AdditiveWindow(model->mixtures->additiveCfg, this);
+  wadditives = new AdditiveWindow(model.mixtures.additiveCfg, this);
   wadditives->setWindowFlags(Qt::Window);
 
-  wmalts = new MaltWindow(model->mixtures->maltDb, this);
+  wmalts = new MaltWindow(model.mixtures.maltDb, this);
   wmalts->setWindowFlags(Qt::Window);
   QObject::connect(wmalts, &MaltWindow::maltWindowUnsavedChanges, this, &MainWindow::unsavedMalts);
 
-  wstyles = new StylesWindow(model->mixtures->styleDb, this);
+  wstyles = new StylesWindow(model.mixtures.styleDb, this);
   wstyles->setWindowFlags(Qt::Window);
 
-  wSettings = new SettingsWindow(model->mixtures->settings, this);
+  wSettings = new SettingsWindow(model.mixtures.settings, this);
   wSettings->setWindowFlags(Qt::Window);
 
   setCentralWidget(mainWidget);
 }
 
 MainWindow::~MainWindow() {
-  delete model;
 }
 
 void MainWindow::save() {
@@ -134,8 +130,8 @@ void MainWindow::mixAdd() {
   Mixture m;
   m.setName("New");
   m.save();
-  model->mixtures->addMixture(m);
-  model->mixtures->save();
+  model.mixtures.addMixture(m);
+  model.mixtures.save();
 }
 
 void MainWindow::mixCopy() {
@@ -143,14 +139,14 @@ void MainWindow::mixCopy() {
   if (!idx.isValid()) {
     return;
   }
-  Mixture m = model->mixtures->getMixture(idx.row());
+  Mixture m = model.mixtures.getMixture(idx.row());
   m.updateCreationTime();
   m.newUuid();
   m.resetPath();
   m.setName("Copy of " + m.getName());
   m.save();
-  model->mixtures->addMixture(m);
-  model->mixtures->save();
+  model.mixtures.addMixture(m);
+  model.mixtures.save();
 }
 
 void MainWindow::mixDelete() {
@@ -165,8 +161,8 @@ void MainWindow::mixDelete() {
   int ret = msgBox.exec();
   switch (ret) {
     case QMessageBox::Yes:
-      model->mixtures->deleteMixture(idx.row());
-      model->mixtures->save();
+      model.mixtures.deleteMixture(idx.row());
+      model.mixtures.save();
     default:
       // should never be reached
       break;
@@ -180,14 +176,14 @@ void MainWindow::mixImport() {
   if (path.isEmpty()) {
     return;
   }
-  if (!model->mixtures->importMixture(path)) {
+  if (!model.mixtures.importMixture(path)) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Aufbereitung nicht im JSON finden"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
   } else {
-    model->mixtures->save();
+    model.mixtures.save();
   }
 }
 
@@ -197,13 +193,13 @@ void MainWindow::mixExport() {
     return;
   }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              model->mixtures->getMixture(idx.row()).getName() + ".json";
+                              model.mixtures.getMixture(idx.row()).getName() + ".json";
   QString path =
       QFileDialog::getSaveFileName(this, tr("Aufbereitung Exportieren"), suggestedFileName, tr("JSON (*.json)"));
   if (path.isEmpty()) {
     return;
   }
-  if (!model->mixtures->exportMixture(path, idx.row())) {
+  if (!model.mixtures.exportMixture(path, idx.row())) {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Aufbereitung nicht speichern"));
     msgBox.setStandardButtons(QMessageBox::Ok);
@@ -213,7 +209,7 @@ void MainWindow::mixExport() {
 }
 
 void MainWindow::mixDoubleClicked(const QModelIndex& idx) {
-  model->mixtures->show(idx.row());
+  model.mixtures.show(idx.row());
 }
 
 void MainWindow::setupMenuBar() {

@@ -14,10 +14,10 @@ class MaltWindow : public QWidget {
  public:
   /**
    * @brief Create MaltWindow
-   * @param model Pointer to model
+   * @param model Reference to model
    * @param parent QWidget parent
    */
-  explicit MaltWindow(Malts* model, QWidget* parent = nullptr);
+  explicit MaltWindow(Malts& model, QWidget* parent = nullptr);
   ~MaltWindow();
 
  private slots:
@@ -35,7 +35,7 @@ class MaltWindow : public QWidget {
   void maltWindowUnsavedChanges(bool changed); /**< @brief Singal to notify save state of malts */
 
  private:
-  Malts* malts;          /**< @brief Pointer to model for accessing data */
+  Malts& malts;          /**< @brief Reference to model for accessing data */
   QTableView* maltsView; /**< @brief Table view for malts */
   QString title;         /**< @brief Window tittle */
 };
