@@ -40,9 +40,11 @@ class MixResultWidget : public QFrame {
 
  private:
   Mixture& mix;           /**< @brief Reference to mixture */
+  Style mixStyle;         /**< @brief Backup of style from mix */
   Styles* sDb;            /**< @brief Pointer to beer styles database */
   Limits* lim;            /**< @brief Pointer to configured limits */
   QComboBox* styleSelect; /**< @brief ComboBox for selecting beer style */
+  int styleIdx;           /**< @brief Index of selected style */
 
   QLabel* vals[static_cast<int>(AM::WaterValue::Size)];    /**< @brief Labels with calculated valued */
   ResultBar* bars[static_cast<int>(AM::WaterValue::Size)]; /**< @brief Graphical bar indicating value */

@@ -11,6 +11,7 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limi
   Q_ASSERT(limits != nullptr);
   sDb = styleDb;
   lim = limits;
+  mixStyle.fromJson(mix.style->toJson());  // Make backup of style from mixture
 
   // set frame
   this->setFrameStyle(QFrame::Panel | QFrame::Plain);
@@ -43,11 +44,12 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles* styleDb, Limits* limi
     }
   }
 
+  styleIdx = 0;  // Select style of mixture
   updateStyles();
+  update();
 }
 
 void MixResultWidget::update(void) {
-  qDebug() << "Update reslut calculation";
   Water tst = mix.calc();
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
     vals[i]->setText(QString::number(tst.get(static_cast<AM::WaterValue>(i)), 'f', 2));
@@ -67,24 +69,68 @@ void MixResultWidget::update(void) {
 }
 
 void MixResultWidget::updateStyles() {
-  // save selection
-  int selection = styleSelect->currentIndex();
+  // rebuild list with styles
   styleSelect->clear();
   // first add style from mixture
-  QString self = "[" + mix.style->getName() + "]";
+  QString self = "[Mix] " + mixStyle.getName();
   styleSelect->addItem(self);
   // add styles form database
   for (int i = 0; i < sDb->rowCount(QModelIndex()); i++) {
     styleSelect->addItem(sDb->getStyle(i)->getName());
   }
+
   // restore selection
-  if (selection >= 0) {
-    styleSelect->setCurrentIndex(selection);
+  if (styleIdx == 0) {
+    // special case style of mixture
+    styleSelect->setCurrentIndex(styleIdx);
+    qDebug() << "Mixture Style";
+    return;
   }
-  // update as style values may have changed
-  update();
+
+  // get uuid of current style
+  QString uuid = mix.style->getUuid();
+  if (styleIdx > 0 && styleIdx < styleSelect->count() && uuid == sDb->getStyle(styleIdx - 1)->getUuid()) {
+    // idx still valid and points to the same style
+    styleSelect->setCurrentIndex(styleIdx);
+    qDebug() << "Matched by idx";
+    update();
+    return;
+  }
+
+  // try to find mix by uuid
+  for (int i = 0; i < sDb->rowCount(QModelIndex()); i++) {
+    if (uuid == sDb->getStyle(i)->getUuid()) {
+      styleIdx = i + 1;
+      styleSelect->setCurrentIndex(styleIdx);
+      qDebug() << "Matched by uuid";
+      update();
+      return;
+    }
+  }
+
+  // Currently selected style no where found => style was deleted
+  styleSelect->addItem("[Deleted] " + mix.style->getName());
+  styleIdx = styleSelect->count() - 1;
+  styleSelect->setCurrentIndex(styleIdx);
 }
 
 void MixResultWidget::selectStyle(int index) {
-  qDebug() << "TODO: Select style at index:" << index;
+  styleIdx = index;
+  // We make a copy of the style on selection
+  // For getting changes, the user needs to re select the same style
+
+  // check if mixture style is selectd
+  if (index == 0) {
+    mix.style->fromJson(mixStyle.toJson());
+    update();
+  } else if (--index < sDb->rowCount(QModelIndex())) {
+    mix.style->fromJson(sDb->getStyle(index)->toJson());
+    update();
+  }
+
+  // delete selection for possible deleted old style
+  int lastIdx = styleSelect->count() - 1;
+  if (lastIdx > styleIdx && lastIdx > sDb->rowCount(QModelIndex())) {
+    styleSelect->removeItem(lastIdx);
+  }
 }
