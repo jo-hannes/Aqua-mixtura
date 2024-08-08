@@ -28,11 +28,6 @@ class Mixture : public Meta {
   void load();             /**< @brief Load fixture from stored path */
   void save() const;       /**< @brief Save mixture and return storage path */
 
-  // TODO rethink the following functions
-  void AddWater(Water water);
-  void ClearWater();
-  void RemoveWaterAt(qsizetype i);
-
   Water calc();
 
   // private:

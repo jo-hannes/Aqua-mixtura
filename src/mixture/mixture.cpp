@@ -66,20 +66,6 @@ void Mixture::save() const {
   JsonHelper::saveFile(this->getPath(), this->toJson());
 }
 
-void Mixture::AddWater(Water water) {
-  waters->addProfile(water);
-}
-
-void Mixture::ClearWater() {
-  // waters.clear();
-}
-
-void Mixture::RemoveWaterAt(qsizetype i) {
-  waters->deleteProfile(i);
-}
-
 Water Mixture::calc() {
-  Water result = waters->getMix();
-  result = *additive + result;
-  return result;
+  return *additive + waters->getMix();
 }
