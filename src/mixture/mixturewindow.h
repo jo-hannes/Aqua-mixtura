@@ -29,8 +29,13 @@ class MixtureWindow : public QWidget {
   void setName(QString name);
   void load();
   void save();
+  void update();
 
  private:
+  void changed(bool changed);
+
+  bool unsavedChanges; /**< @brief Changes made but not saved */
+
   Mixture& mix;
   QLineEdit* nameEdit;
   MixWaterWidget* mww;

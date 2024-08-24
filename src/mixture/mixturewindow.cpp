@@ -53,26 +53,48 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   layout->addWidget(maw);
   layout->addWidget(mrw);
 
-  this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
   nameEdit->setText(mix.getName());
+  changed(false);
+
+  // get changes
+  QObject::connect(mix.waters, &WaterSources::dataChanged, this, &MixtureWindow::update);
+  QObject::connect(mix.waters, &WaterSources::dataModified, this, &MixtureWindow::update);
+  QObject::connect(mix.additive, &Additive::dataModified, this, &MixtureWindow::update);
+  QObject::connect(mix.malts, &Malts::dataModified, this, &MixtureWindow::update);
 }
 
 void MixtureWindow::setName(QString name) {
   mix.setName(name);
-  this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
-  nameEdit->setText(mix.getName());
+  changed(true);
 }
 
 void MixtureWindow::load() {
   mix.load();
   // update values if needed
-  this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
   nameEdit->setText(mix.getName());
   maw->update();
   // update results
   mrw->update();
+  // update change state and window title
+  changed(false);
 }
 
 void MixtureWindow::save() {
   mix.save();
+  changed(false);
+}
+
+void MixtureWindow::update() {
+  mrw->update();
+  changed(true);
+}
+
+void MixtureWindow::changed(bool changed) {
+  unsavedChanges = changed;
+  if (unsavedChanges) {
+    this->setWindowTitle("* Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
+    mix.updateEditTime();
+  } else {
+    this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
+  }
 }

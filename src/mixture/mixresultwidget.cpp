@@ -47,8 +47,6 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limi
   update();
 
   // get changes
-  QObject::connect(mix.waters, &WaterSources::dataChanged, this, &MixResultWidget::update);
-  QObject::connect(mix.additive, &Additive::dataModified, this, &MixResultWidget::update);
   QObject::connect(lim, &Limits::dataModified, this, &MixResultWidget::update);
   QObject::connect(&sDb, &Styles::dataModified, this, &MixResultWidget::updateStyles);
 }

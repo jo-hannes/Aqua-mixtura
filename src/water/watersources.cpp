@@ -27,6 +27,7 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   for (const auto& profile : jsonSources.toArray()) {
     sources.append(Water(profile.toObject()));
   }
+  emit dataModified();
   endResetModel();
   return true;
 }
@@ -78,6 +79,7 @@ void WaterSources::addProfile(const Water& profile) {
   qsizetype i = sources.size();
   beginInsertRows(QModelIndex(), i, i);
   sources.append(profile);
+  emit dataModified();
   endInsertRows();
 }
 
@@ -85,6 +87,7 @@ void WaterSources::deleteProfile(qsizetype i) {
   if (i >= 0 && i < sources.size()) {
     beginRemoveRows(QModelIndex(), i, i);
     sources.removeAt(i);
+    emit dataModified();
     endRemoveRows();
   }
 }

@@ -43,6 +43,9 @@ class WaterSources : public QAbstractTableModel {
   void load();
   void save();
 
+ signals:
+  void dataModified();
+
  private:
   QVector<Water> sources;
   Water noWater;
