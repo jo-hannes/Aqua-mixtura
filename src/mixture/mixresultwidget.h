@@ -31,6 +31,9 @@ class MixResultWidget : public QFrame {
    */
   MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limits, QWidget* parent = nullptr);
 
+ signals:
+  void selectionChanged();
+
  public slots:
   void update(void);       /**< @brief Update all shown values */
   void updateStyles(void); /**< @brief Update beer style selection */

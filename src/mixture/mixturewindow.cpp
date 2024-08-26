@@ -56,27 +56,35 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   nameEdit->setText(mix.getName());
   changed(false);
 
+  loadGuard = false;
+
   // get changes
   QObject::connect(mix.waters, &WaterSources::dataChanged, this, &MixtureWindow::update);
   QObject::connect(mix.waters, &WaterSources::dataModified, this, &MixtureWindow::update);
   QObject::connect(mix.additive, &Additive::dataModified, this, &MixtureWindow::update);
   QObject::connect(mix.malts, &Malts::dataModified, this, &MixtureWindow::update);
+  QObject::connect(mrw, &MixResultWidget::selectionChanged, this, &MixtureWindow::update);
 }
 
 void MixtureWindow::setName(QString name) {
+  qDebug() << "MixtureWindow::setName " << name;
   mix.setName(name);
   changed(true);
 }
 
 void MixtureWindow::load() {
+  loadGuard = true;
+  qDebug() << "Loading mixture";
   mix.load();
   // update values if needed
   nameEdit->setText(mix.getName());
   maw->update();
   // update results
   mrw->update();
+  mrw->updateStyles();
   // update change state and window title
   changed(false);
+  loadGuard = false;
 }
 
 void MixtureWindow::save() {
@@ -91,8 +99,10 @@ void MixtureWindow::update() {
 
 void MixtureWindow::changed(bool changed) {
   unsavedChanges = changed;
-  if (unsavedChanges) {
+  qDebug() << "MixtureWindow::changed; changed " << changed << " unsavedChanges " << unsavedChanges;
+  if (unsavedChanges && !loadGuard) {
     this->setWindowTitle("* Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
+    qDebug() << "Update edit time";
     mix.updateEditTime();
   } else {
     this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());

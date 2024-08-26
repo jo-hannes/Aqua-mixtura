@@ -100,6 +100,14 @@ void MixResultWidget::updateStyles() {
   }
 
   // try to find mix by uuid
+  // Also check mixStyle
+  if (uuid == mixStyle.getUuid()) {
+    styleIdx = 0;
+    styleSelect->setCurrentIndex(styleIdx);
+    qDebug() << "Matched mixture style by uuid";
+    update();
+    return;
+  }
   for (int i = 0; i < sDb.rowCount(QModelIndex()); i++) {
     if (uuid == sDb.getStyle(i)->getUuid()) {
       styleIdx = i + 1;
@@ -135,4 +143,5 @@ void MixResultWidget::selectStyle(int index) {
   if (lastIdx > styleIdx && lastIdx > sDb.rowCount(QModelIndex())) {
     styleSelect->removeItem(lastIdx);
   }
+  emit selectionChanged();
 }

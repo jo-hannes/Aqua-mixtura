@@ -35,6 +35,7 @@ class MixtureWindow : public QWidget {
   void changed(bool changed);
 
   bool unsavedChanges; /**< @brief Changes made but not saved */
+  bool loadGuard;      /**< @brief Guard to avoid updating cheng time during load */
 
   Mixture& mix;
   QLineEdit* nameEdit;

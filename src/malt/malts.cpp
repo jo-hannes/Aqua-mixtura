@@ -236,5 +236,6 @@ void Malts::setUnsaved(bool unsaved) {
   if (this->unsavedChanges != unsaved) {
     this->unsavedChanges = unsaved;
     emit unsavedMalts(unsaved);
+    emit dataModified();
   }
 }
