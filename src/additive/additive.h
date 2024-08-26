@@ -50,12 +50,12 @@ class Additive : public QObject, public Meta {
       {"hcl", "HCl", QObject::tr("Salzsäure")},
       {"h2so4", "H₂SO₄", QObject::tr("Schwefelsäure")},
       {"h3po4", "H₃PO₄", QObject::tr("Phosphorsäure")},
-      {"caso4", "CaSO₄", QObject::tr("Calciumsulfat (Braugips)")},
-      {"cacl2", "CaCl₂", QObject::tr("Calciumchlorid")},
+      {"caso4", "CaSO₄ 2H₂O", QObject::tr("Calciumsulfat (Braugips)")},
+      {"cacl2", "CaCl₂ 2H₂O", QObject::tr("Calciumchlorid")},
       {"nacl", "NaCl", QObject::tr("Natriumchlorid (Kochsalz)")},
       {"nahco3", "NaHCO₃", QObject::tr("Natriumhydrogencarbonat (Natron)")},
-      {"mgcl2", "MgCl₂", QObject::tr("Magnesiumchlorid")},
-      {"mgso4", "MgSO₄", QObject::tr("Magnesiumsulfat")},
+      {"mgcl2", "MgCl₂ 6H₂O", QObject::tr("Magnesiumchlorid")},
+      {"mgso4", "MgSO₄ 7H₂O", QObject::tr("Magnesiumsulfat")},
       {"caco3", "CaCO₃", QObject::tr("Calciumcarbonat")},
   };
 
@@ -88,18 +88,18 @@ class Additive : public QObject, public Meta {
    * Amount of mg added or removed per added g of additive
    */
   inline static const float calculationMatrix[static_cast<int>(Value::Size)][static_cast<int>(AM::WaterValue::LastAnion) + 1] = {
-// Volume Calcium Magnesium Natrium Hydrogencarbonat Chlorid  Sulfat Phosphat Lactat
-    {  0,      0,        0,      0,         -677.18,      0,      0,       0,  999}, // c3h6o3
-    {  0,      0,        0,      0,        -1673.07, 972.60,      0,       0,    0}, // hcl
-    {  0,      0,        0,      0,        -1243.88,      0, 979.59,       0,    0}, // h2so4
-    {  0,      0,        0,      0,         -622.45,      0,      0,  972.37,    0}, // h3po4
-    {  0, 272.60,        0,      0,               0,      0, 557.93,       0,    0}, // caso4
-    {  0, 272.60,        0,      0,               0, 482.28,      0,       0,    0}, // cacl2
-    {  0,      0,        0, 393.39,               0, 606.66,      0,       0,    0}, // nacl
-    {  0,      0,        0, 273.66,          726.34,      0,      0,       0,    0}, // nahco3
-    {  0,      0,    59.78,      0,               0, 174.39,      0,       0,    0}, // mgcl2
-    {  0,      0,    98.59,      0,               0,      0, 389.73,       0,    0}, // mgso4
-    {  0,    400,        0,      0,            1220,      0,      0,       0,    0}  // caco3
+// Volume Calcium Magnesium Natrium Hydrogencarbonat Chlorid  Sulfat Phosphat  Lactat
+    {  0,      0,        0,      0,         -677.37,      0,      0,       0, 988.81}, // c3h6o3
+    {  0,      0,        0,      0,        -1673.60, 972.35,      0,       0,      0}, // hcl
+    {  0,      0,        0,      0,        -1244.31,      0, 979.44,       0,      0}, // h2so4
+    {  0,      0,        0,      0,         -622.65,      0,      0,  989.71,      0}, // h3po4
+    {  0, 232.78,        0,      0,               0,      0, 557.91,       0,      0}, // caso4
+    {  0, 272.60,        0,      0,               0, 482.25,      0,       0,      0}, // cacl2
+    {  0,      0,        0, 393.39,               0, 606.61,      0,       0,      0}, // nacl
+    {  0,      0,        0, 273.67,          726.33,      0,      0,       0,      0}, // nahco3
+    {  0,      0,   119.55,      0,               0, 348.75,      0,       0,      0}, // mgcl2
+    {  0,      0,    98.61,      0,               0,      0, 389.71,       0,      0}, // mgso4
+    {  0, 400.42,        0,      0,         1219.22,      0,      0,       0,      0}  // caco3
   };
   // clang-format on
 };
