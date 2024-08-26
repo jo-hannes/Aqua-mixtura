@@ -18,20 +18,22 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
 
   // heading liquids
   QLabel* txtAcids = new QLabel("<b>" + tr("Säuren") + "</b>");
-  layout->addWidget(txtAcids, row, 0, 1, 2, Qt::AlignLeft);
+  layout->addWidget(txtAcids, row, 0, 1, 3, Qt::AlignLeft);
   QLabel* txtPercent = new QLabel("<b>%</b>");
-  layout->addWidget(txtPercent, row, 1, Qt::AlignRight);
+  layout->addWidget(txtPercent, row, 2, Qt::AlignRight);
   row++;
 
   // liquid concentrations
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+    QLabel* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)]);
+    layout->addWidget(formula, row, 0, Qt::AlignLeft);
     QLabel* txt = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Description)]);
-    layout->addWidget(txt, row, 0, Qt::AlignLeft);
+    layout->addWidget(txt, row, 1, Qt::AlignLeft);
     concentrations[i] = new QDoubleSpinBox();
     concentrations[i]->setDecimals(0);
     concentrations[i]->setMinimum(1);
     concentrations[i]->setMaximum(100);
-    layout->addWidget(concentrations[i], row, 1, Qt::AlignRight);
+    layout->addWidget(concentrations[i], row, 2, Qt::AlignRight);
 
     QObject::connect(concentrations[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
       additive.setConcentration(static_cast<Additive::Value>(i), val);
@@ -41,12 +43,12 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
 
   // unit
   QLabel* txtUnit = new QLabel("<b>" + tr("Einheit") + "</b>");
-  layout->addWidget(txtUnit, row, 0, Qt::AlignLeft);
+  layout->addWidget(txtUnit, row, 0, 1, 2, Qt::AlignLeft);
   unitSelect = new QComboBox();
   unitSelect->clear();
   unitSelect->addItem("g");
   unitSelect->addItem("ml");
-  layout->addWidget(unitSelect, row, 1, Qt::AlignRight);
+  layout->addWidget(unitSelect, row, 2, Qt::AlignRight);
   QObject::connect(unitSelect, &QComboBox::activated, this, &AdditiveWindow::selectUnit);
   row++;
 
