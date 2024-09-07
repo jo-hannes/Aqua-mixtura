@@ -7,6 +7,7 @@ Additive::Additive() {
   for (int i = 0; i < static_cast<int>(Value::Size); i++) {
     amount[i] = 0;
   }
+  changed = false;
 }
 
 Additive::Additive(const QJsonObject& json) {
@@ -24,8 +25,7 @@ float Additive::get(Value what) const {
 void Additive::set(Value what, float value) {
   if (what < Value::Size) {
     amount[static_cast<uint>(what)] = value;
-    updateEditTime();
-    emit dataModified();
+    setChanged(true);
   }
 }
 
@@ -46,6 +46,7 @@ bool Additive::fromJson(const QJsonObject& json) {
     QString jsonKey = strings[i][static_cast<uint>(StringIdx::JsonKey)];
     amount[i] = additives[jsonKey].toDouble(0);
   }
+  setChanged(false);
   return true;
 }
 
@@ -61,7 +62,7 @@ QJsonObject Additive::toJson() const {
   return outer;
 }
 
-Water Additive::operator+(const Water& rhs) {
+Water Additive::operator+(const Water& rhs) const {
   // first just copy values
   float values[static_cast<int>(AM::WaterValue::LastAnion) + 1];
   for (int w = 0; w <= static_cast<int>(AM::WaterValue::LastAnion); w++) {
@@ -88,4 +89,16 @@ Water Additive::operator+(const Water& rhs) {
     result.set(static_cast<AM::WaterValue>(w), values[w]);
   }
   return result;
+}
+
+bool Additive::isChanged() const {
+  return changed;
+}
+
+void Additive::setChanged(bool changed) {
+  this->changed = changed;
+  if (changed) {
+    updateEditTime();
+  }
+  emit dataModified();
 }

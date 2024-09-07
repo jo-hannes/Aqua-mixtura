@@ -73,12 +73,17 @@ class Additive : public QObject, public Meta {
   /**
    * @brief Additive::operator + calculates effect of additive to water values
    */
-  Water operator+(const Water& rhs);
+  Water operator+(const Water& rhs) const;
+
+  bool isChanged() const; /**< @brief True if changes not saved */
 
  signals:
   void dataModified();
 
  private:
+  void setChanged(bool changed); /**< @brief Mark unsaved/saved */
+  bool changed;                  /**< @brief True if changed but not saved */
+
   float amount[static_cast<int>(Value::Size)]; /**< @brief Effective amount in g */
 
   // clang-format off

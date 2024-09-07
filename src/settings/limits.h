@@ -21,10 +21,12 @@ class Limits : public QAbstractTableModel, public Meta {
   QJsonObject toJson() const;             /**< @brief convert Limits to JSON */
 
   // getter und setter
-  float getMin(AM::WaterValue what);             /**< @brief get lower limit */
-  float getMax(AM::WaterValue what);             /**< @brief get upper limit */
+  float getMin(AM::WaterValue what) const;       /**< @brief get lower limit */
+  float getMax(AM::WaterValue what) const;       /**< @brief get upper limit */
   void setMin(AM::WaterValue what, float value); /**< @brief set lower limi */
   void setMax(AM::WaterValue what, float value); /**< @brief set upper limit */
+
+  bool isChanged() const; /**< @brief True if changes not saved */
 
   // for QAbstractTableModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;
@@ -42,6 +44,9 @@ class Limits : public QAbstractTableModel, public Meta {
   void dataModified();
 
  private:
+  void setChanged(bool changed); /**< @brief Mark unsaved/saved */
+  bool changed;                  /**< @brief True if changed but not saved */
+
   float limits[static_cast<int>(AM::WaterValue::Size)][2];
 };
 

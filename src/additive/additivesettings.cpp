@@ -11,6 +11,7 @@ AdditiveSettings::AdditiveSettings() {
     concentration[i] = 10;  // default concentration = 10%
   }
   unit = LiquidUnit::gramm;
+  changed = false;
 }
 
 AdditiveSettings::AdditiveSettings(const QJsonObject& json) {
@@ -40,7 +41,7 @@ bool AdditiveSettings::fromJson(const QJsonObject& json) {
     QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
     concentration[i] = asettings[jsonKey].toDouble(0);
   }
-  emit dataModified();
+  setChanged(false);
   return true;
 }
 
@@ -82,8 +83,7 @@ void AdditiveSettings::setConcentration(Additive::Value what, float value) {
       value = 100;
     }
     concentration[static_cast<uint>(what)] = value;
-    updateEditTime();
-    emit dataModified();
+    setChanged(true);
   }
 }
 
@@ -93,7 +93,7 @@ AdditiveSettings::LiquidUnit AdditiveSettings::getLiquidUnit() const {
 
 void AdditiveSettings::setLiquidUnit(LiquidUnit newUnit) {
   unit = newUnit;
-  emit dataModified();
+  setChanged(true);
 }
 
 float AdditiveSettings::getDensity(Additive::Value what) const {
@@ -114,6 +114,10 @@ float AdditiveSettings::getDensity(Additive::Value what) const {
   }
 }
 
+bool AdditiveSettings::isChanged() const {
+  return changed;
+}
+
 void AdditiveSettings::load() {
   QString file = Paths::dataDir() + "/additive.json";
   if (QFile::exists(file)) {
@@ -124,4 +128,13 @@ void AdditiveSettings::load() {
 void AdditiveSettings::save() {
   QString file = Paths::dataDir() + "/additive.json";
   JsonHelper::saveFile(file, this->toJson());
+  setChanged(false);
+}
+
+void AdditiveSettings::setChanged(bool changed) {
+  this->changed = changed;
+  if (changed) {
+    updateEditTime();
+  }
+  emit dataModified();
 }

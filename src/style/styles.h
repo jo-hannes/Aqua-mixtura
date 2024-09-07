@@ -22,12 +22,13 @@ class Styles : public QAbstractListModel {
   bool fromJson(const QJsonObject& json);             /**< @brief Update Styles from JSON */
   QJsonObject toJson() const;                         /**< @brief convert Styles to JSON */
   bool importStyle(const QString& path);              /**< @brief import and add a Style from JSON */
-  bool exportStyle(const QString& path, qsizetype i); /**< @brief export a Style at index as JSON */
+  bool exportStyle(const QString& path, qsizetype i) const; /**< @brief export a Style at index as JSON */
 
   Style* getStyle(qsizetype i);  /**< @brief Get style at index */
   void addStyle(Style* style);   /**< @brief Add a style */
   void deleteStyle(qsizetype i); /**< @brief Delete style at index */
-  void setSaved();               /**< @brief Mark all styles as saved */
+
+  bool isChanged() const; /**< @brief True if changes not saved */
 
   // for QAbstractListModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;
@@ -40,15 +41,15 @@ class Styles : public QAbstractListModel {
   void save();
 
  signals:
-  void unsavedStyles(bool unsaved); /**< @brief Signal emitted if save state of Styles change */
   void dataModified();
 
  private:
-  void clear();                  /**< @brief Clear/remove all Styles*/
-  void setUnsaved(bool unsaved); /**< @brief Mark styles unsaved/saved */
+  void setChanged(bool changed); /**< @brief Mark unsaved/saved */
+  bool changed;                  /**< @brief True if changed but not saved */
+
+  void clear(); /**< @brief Clear/remove all Styles*/
 
   QVector<Style*> styles;
-  bool unsavedChanges; /**< @brief True if styles where changed but not saved */
   Style* noStyle;      /**< @brief Empty style used to return no style on error */
 };
 

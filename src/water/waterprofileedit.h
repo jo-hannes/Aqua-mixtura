@@ -21,7 +21,7 @@ class WaterProfileEdit : public QWidget
   explicit WaterProfileEdit(QWidget* parent = nullptr);
 
   void setProfile(const Water& profile);
-  bool isChanged() const;
+  bool isChanged() const; /**< @brief True if changes not saved */
 
  public slots:
   void updateAll();        /**< @brief Update all values in view */

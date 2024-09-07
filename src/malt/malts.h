@@ -27,7 +27,7 @@ class Malts : public QAbstractTableModel {
   void addMalt(const Malt& malt);           /**< @brief Add a malt */
   void deleteMalt(qsizetype i);             /**< @brief Delete malt at index */
 
-  bool isChanged() const;
+  bool isChanged() const; /**< @brief True if changes not saved */
 
   // for QAbstractTableModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;

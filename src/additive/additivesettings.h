@@ -36,6 +36,8 @@ class AdditiveSettings : public QObject, public Meta {
    */
   float getDensity(Additive::Value what) const;
 
+  bool isChanged() const; /**< @brief True if changes not saved */
+
  public slots:
   void load();
   void save();
@@ -44,6 +46,9 @@ class AdditiveSettings : public QObject, public Meta {
   void dataModified();
 
  private:
+  void setChanged(bool changed); /**< @brief Mark unsaved/saved */
+  bool changed;                  /**< @brief True if changed but not saved */
+
   float concentration[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Concentration in % */
   LiquidUnit unit;
 

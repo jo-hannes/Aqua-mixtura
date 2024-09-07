@@ -31,6 +31,8 @@ class MixResultWidget : public QFrame {
    */
   MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limits, QWidget* parent = nullptr);
 
+  bool isChanged() const; /**< @brief True if changes not saved */
+
  signals:
   void selectionChanged();
 

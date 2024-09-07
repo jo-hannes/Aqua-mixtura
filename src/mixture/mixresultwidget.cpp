@@ -51,6 +51,10 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limi
   QObject::connect(&sDb, &Styles::dataModified, this, &MixResultWidget::updateStyles);
 }
 
+bool MixResultWidget::isChanged() const {
+  return styleIdx != 0;
+}
+
 void MixResultWidget::update(void) {
   Water tst = mix.calc();
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {

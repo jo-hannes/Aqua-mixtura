@@ -13,6 +13,7 @@ Limits::Limits(QObject* parent) : QAbstractTableModel{parent} {
       limits[i][j] = 0;
     }
   }
+  changed = false;
 }
 
 Limits::Limits(const QJsonObject& json) {
@@ -41,7 +42,7 @@ bool Limits::fromJson(const QJsonObject& json) {
     limits[i][1] = limit["Max"].toDouble(0);
   }
   endResetModel();
-  emit dataModified();
+  setChanged(false);
   return ret;
 }
 
@@ -62,14 +63,14 @@ QJsonObject Limits::toJson() const {
   return outer;
 }
 
-float Limits::getMin(AM::WaterValue what) {
+float Limits::getMin(AM::WaterValue what) const {
   if (what < AM::WaterValue::Size) {
     return limits[static_cast<uint>(what)][0];
   }
   return -1;
 }
 
-float Limits::getMax(AM::WaterValue what) {
+float Limits::getMax(AM::WaterValue what) const {
   if (what < AM::WaterValue::Size) {
     return limits[static_cast<uint>(what)][1];
   }
@@ -79,17 +80,19 @@ float Limits::getMax(AM::WaterValue what) {
 void Limits::setMin(AM::WaterValue what, float value) {
   if (what < AM::WaterValue::Size) {
     limits[static_cast<uint>(what)][0] = value;
-    updateEditTime();
-    emit dataModified();
+    setChanged(true);
   }
 }
 
 void Limits::setMax(AM::WaterValue what, float value) {
   if (what < AM::WaterValue::Size) {
     limits[static_cast<uint>(what)][1] = value;
-    updateEditTime();
-    emit dataModified();
+    setChanged(true);
   }
+}
+
+bool Limits::isChanged() const {
+  return changed;
 }
 
 int Limits::rowCount(const QModelIndex& parent) const {
@@ -165,8 +168,7 @@ bool Limits::setData(const QModelIndex& index, const QVariant& value, int role) 
     return false;
   }
   limits[row][col] = value.toFloat();
-  updateEditTime();
-  emit dataModified();
+  setChanged(true);
   return true;
 }
 
@@ -187,4 +189,13 @@ void Limits::load() {
 void Limits::save() {
   QString file = Paths::dataDir() + "/limits.json";
   JsonHelper::saveFile(file, this->toJson());
+  setChanged(false);
+}
+
+void Limits::setChanged(bool changed) {
+  this->changed = changed;
+  if (changed) {
+    updateEditTime();
+  }
+  emit dataModified();
 }

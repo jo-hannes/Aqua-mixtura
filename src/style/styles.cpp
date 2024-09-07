@@ -12,10 +12,11 @@
 
 Styles::Styles() {
   noStyle = new Style("No Style");
-  unsavedChanges = false;
+  changed = false;
 }
 
 Styles::Styles(const QJsonObject& json) {
+  Styles();
   fromJson(json);
 }
 
@@ -39,7 +40,7 @@ bool Styles::fromJson(const QJsonObject& json) {
   for (const auto& style : jsonStyles.toArray()) {
     styles.append(new Style(style.toObject()));
   }
-  setUnsaved(false);
+  setChanged(false);
   endResetModel();
   return true;
 }
@@ -63,11 +64,11 @@ bool Styles::importStyle(const QString& path) {
     return false;
   }
   addStyle(new Style(json["BeerStyle"].toObject()));
-  setUnsaved(true);
+  setChanged(true);
   return true;
 }
 
-bool Styles::exportStyle(const QString& path, qsizetype i) {
+bool Styles::exportStyle(const QString& path, qsizetype i) const {
   if (path.isEmpty()) {
     return false;
   }
@@ -92,7 +93,7 @@ void Styles::addStyle(Style* style) {
   beginInsertRows(QModelIndex(), i, i);
   styles.append(style);
   endInsertRows();
-  setUnsaved(true);
+  setChanged(true);
 }
 
 void Styles::deleteStyle(qsizetype i) {
@@ -101,12 +102,12 @@ void Styles::deleteStyle(qsizetype i) {
     delete styles[i];
     styles.removeAt(i);
     endRemoveRows();
-    setUnsaved(true);
+    setChanged(true);
   }
 }
 
-void Styles::setSaved() {
-  setUnsaved(false);
+bool Styles::isChanged() const {
+  return changed;
 }
 
 int Styles::rowCount(const QModelIndex& parent) const {
@@ -140,7 +141,7 @@ bool Styles::setData(const QModelIndex &index, const QVariant &value, int role)
     return false;
   }
   styles[index.row()]->setName(value.toString());
-  setUnsaved(true);
+  setChanged(true);
   return true;
 }
 
@@ -164,6 +165,12 @@ void Styles::save()
 {
   QString file = Paths::dataDir() + "/styles.json";
   JsonHelper::saveFile(file, this->toJson());
+  setChanged(false);
+}
+
+void Styles::setChanged(bool changed) {
+  this->changed = changed;
+  emit dataModified();
 }
 
 void Styles::clear() {
@@ -171,12 +178,4 @@ void Styles::clear() {
     delete style;
   }
   styles.clear();
-}
-
-void Styles::setUnsaved(bool unsaved) {
-  if (this->unsavedChanges != unsaved) {
-    this->unsavedChanges = unsaved;
-    emit unsavedStyles(unsaved);
-  }
-  emit dataModified();
 }
