@@ -7,6 +7,7 @@
 #include "waterprofileedit.h"
 #include "watersources.h"
 
+#include <QCloseEvent>
 #include <QListView>
 #include <QObject>
 #include <QWidget>
@@ -25,6 +26,8 @@ class WatersourceWindow : public QWidget {
    */
   explicit WatersourceWindow(WaterSources& model, QWidget* parent = nullptr);
 
+  void closeEvent(QCloseEvent* event) override;
+
  public slots:
   void selectSource(const QModelIndex& index); /**< @brief Select source at index for profile editor */
   void saveProfile(Water& profile);            /**< @brief Save changed profile */
@@ -36,6 +39,15 @@ class WatersourceWindow : public QWidget {
   void profileExport(); /**< @brief Export a profile as JSON */
 
  private:
+  /**
+   * @brief Check for unsaved changes and ask user how to handle this
+   * @return 0                    No changes done we could save
+   * @return QMessageBox::Save    User clicked "Save"
+   * @return QMessageBox::Discard User clicked "Don't Save"
+   * @return QMessageBox::Cancel  User clicked "Cancel"
+   */
+  int saveChangesDialog();
+
   WaterSources& sources;       /**< @brief Reference to model for accessing data */
   QListView* sourcesView;      /**< @brief List with all water sources */
   WaterProfileEdit* waterEdit; /**< @brief Water profile editor */

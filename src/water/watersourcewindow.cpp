@@ -57,39 +57,33 @@ WatersourceWindow::WatersourceWindow(WaterSources& model, QWidget* parent) : QWi
 
   QObject::connect(sourcesView, &QListView::pressed, this, &WatersourceWindow::selectSource);
   QObject::connect(waterEdit, &WaterProfileEdit::saveProfile, this, &WatersourceWindow::saveProfile);
+
+  // select first water
+  if (sources.rowCount(QModelIndex()) >= 1) {
+    sourcesView->setCurrentIndex(sourcesView->model()->index(0, 0));
+    selectSource(sourcesView->model()->index(0, 0));
+  }
+}
+
+void WatersourceWindow::closeEvent(QCloseEvent* event) {
+  // check for changes
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    event->ignore();
+  } else {
+    event->accept();
+  }
 }
 
 void WatersourceWindow::selectSource(const QModelIndex& index) {
   if (selected == index.row()) {  // same row selected again => do noting
     return;
   }
-  if (waterEdit->isChanged()) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Änderungen speichern?"));
-    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    msgBox.setDefaultButton(QMessageBox::Cancel);
-    int ret = msgBox.exec();
-    switch (ret) {
-      case QMessageBox::Save:
-        // Save, then siwtch source
-        waterEdit->save();
-        selected = index.row();
-        waterEdit->setProfile(sources.getProfile(selected));
-        break;
-      case QMessageBox::Discard:
-        // Just switch to new selection
-        selected = index.row();
-        waterEdit->setProfile(sources.getProfile(selected));
-        break;
-      case QMessageBox::Cancel:
-        // Select previously selected item
-        sourcesView->setCurrentIndex(sourcesView->model()->index(selected, 0));
-        break;
-      default:
-        // should never be reached
-        break;
-    }
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    // Select previously selected item
+    sourcesView->setCurrentIndex(sourcesView->model()->index(selected, 0));
   } else {
+    // Just switch to new selection
     selected = index.row();
     waterEdit->setProfile(sources.getProfile(selected));
   }
@@ -103,23 +97,58 @@ void WatersourceWindow::saveProfile(Water& profile) {
 }
 
 void WatersourceWindow::profileAdd() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   Water newProfile("New");
   sources.addProfile(newProfile);
+  sources.save();
+  // select new profile
+  QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
+  sourcesView->setCurrentIndex(idx);
+  selectSource(idx);
 }
 
 void WatersourceWindow::profileCopy() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   Water newProfile = sources.getProfile(selected);
   newProfile.updateCreationTime();
   newProfile.newUuid();
   newProfile.setName("Copy of " + newProfile.getName());
   sources.addProfile(newProfile);
+  sources.save();
+  // select new profile
+  QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
+  sourcesView->setCurrentIndex(idx);
+  selectSource(idx);
 }
 
 void WatersourceWindow::profileDelete() {
-  sources.deleteProfile(selected);
+  QMessageBox msgBox;
+  msgBox.setText(tr("Wasser wirklich löschen?"));
+  msgBox.setInformativeText(sources.getProfile(selected).getName());
+  msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+  msgBox.setDefaultButton(QMessageBox::No);
+  msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
+  if (msgBox.exec() == QMessageBox::Yes) {
+    // Delete profile, save cahnges and select another water
+    waterEdit->cancel();  // reset changed flag before delition
+    sources.deleteProfile(selected);
+    sources.save();
+    sourcesView->setCurrentIndex(sourcesView->model()->index(std::max(0, selected - 1), 0));
+    selectSource(sourcesView->model()->index(std::max(0, selected - 1), 0));
+  }
 }
 
 void WatersourceWindow::profileImport() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   QString path = QFileDialog::getOpenFileName(this, tr("Wasserquelle Importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
@@ -130,16 +159,26 @@ void WatersourceWindow::profileImport() {
   if (jsonSource.contains("WaterSource")) {
     Water wp(jsonSource["WaterSource"].toObject());
     sources.addProfile(wp);
+    sources.save();
+    // select imported profile
+    QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
+    sourcesView->setCurrentIndex(idx);
+    selectSource(idx);
   } else {
     QMessageBox msgBox;
     msgBox.setText(tr("Konnte Wasserquelle nicht im JSON finden"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
     msgBox.exec();
   }
 }
 
 void WatersourceWindow::profileExport() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
                               sources.getProfile(selected).getName() + ".json";
   QString path =
@@ -155,6 +194,31 @@ void WatersourceWindow::profileExport() {
     msgBox.setText(tr("Konnte Wasserquelle nicht speichern"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
     msgBox.exec();
+  }
+}
+
+int WatersourceWindow::saveChangesDialog() {
+  if (waterEdit->isChanged()) {
+    QMessageBox msgBox;
+    msgBox.setText(tr("Änderungen speichern?"));
+    msgBox.setInformativeText(tr("\"%1\" hat ungespeicherte Änderungen").arg(sources.getProfile(selected).getName()));
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Cancel);
+    msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
+    int ret = msgBox.exec();
+    // save or discard
+    switch (ret) {
+      case QMessageBox::Save:
+        waterEdit->save();
+        break;
+      case QMessageBox::Discard:
+        waterEdit->cancel();  // discard changes
+        break;
+    }
+    return ret;
+  } else {
+    return 0;
   }
 }
