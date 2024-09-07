@@ -19,12 +19,15 @@ Mit einem $pK_s = 3,90$ ist Milchsäure eine starke Säure.
 Folglich wird jedes Milchsäure Molekül ein $H^+$ abgeben, welches mit dem Hydrogencarbonat reagiert.
 Bei dieser Reaktion wird das Hydrogencarbonat abgebaut.
 
-$$ C₃H₆O₃ = 90,078 \frac{g}{mol} $$
-$$ C₃H₅O₃ = 89,07 \frac{g}{mol} $$
-$$ HCO₃ = 61,016 \frac{g}{mol} $$
+$$ C_3H_6O_3 = 90,078 \frac{g}{mol} $$
 
-$$ C₃H₅O₃ = \frac{1000 \cdot mg}{g} \cdot \frac{Na}{NaHCO₃} = 1000\frac{mg}{g} \cdot \frac{89,07 \frac{g}{mol}}{90,078 \frac{g}{mol}} = 988,81 \frac{mg}{g} $$
-$$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{HCO₃}{NaHCO₃} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{90,078 \frac{g}{mol}} = 677,37 \frac{mg}{g} $$
+$$ C_3H_5O_3 = 89,07 \frac{g}{mol} $$
+
+$$ HCO_3 = 61,016 \frac{g}{mol} $$
+
+$$ C_3H_5O_3 = \frac{1000 \cdot mg}{g} \cdot \frac{C_3H_5O_3}{C_3H_6O_3} = 1000\frac{mg}{g} \cdot \frac{89,07 \frac{g}{mol}}{90,078 \frac{g}{mol}} = 988,81 \frac{mg}{g} $$
+
+$$ HCO_3 = \frac{1000 \cdot mg}{g} \cdot \frac{HCO_3}{C_3H_6O_3} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{90,078 \frac{g}{mol}} = 677,37 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -40,11 +43,14 @@ Folglich wird jedes Salzsäure Molekül ein $H^+$ abgeben, welches mit dem Hydro
 Bei dieser Reaktion wird das Hydrogencarbonat abgebaut.
 
 $$ HCl = 36,458 \frac{g}{mol} $$
+
 $$ Cl = 35,45 \frac{g}{mol} $$
-$$ HCO₃ = 61,016 \frac{g}{mol} $$
+
+$$ HCO_3 = 61,016 \frac{g}{mol} $$
 
 $$ Cl = \frac{1000 \cdot mg}{g} \cdot \frac{Cl}{HCl} = 1000\frac{mg}{g} \cdot \frac{35,45 \frac{g}{mol}}{36,458 \frac{g}{mol}} = 972,35 \frac{mg}{g} $$
-$$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{HCO₃}{HCl} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{36,458 \frac{g}{mol}} = 1673,60 \frac{mg}{g} $$
+
+$$ HCO_3 = \frac{1000 \cdot mg}{g} \cdot \frac{HCO_3}{HCl} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{36,458 \frac{g}{mol}} = 1673,60 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -59,18 +65,21 @@ Schwefelsäure besitzt folgend $pK_s$ Werte:
 
 | Formel    | $pK_s$ | Stärke     |
 | :-------- | :----- | :--------- |
-| $H₂SO₄$   | -3     | sehr stark |
+| $H_2SO_4$ | -3     | sehr stark |
 | $HSO_4^-$ | 1,9    | stark      |
 
 Es ist davon aus zu gehen das jedes Schwefelsäure Molekül zwei $H^+$ abgibt, welche mit dem Hydrogencarbonat reagieren.
 Bei dieser Reaktion wird das Hydrogencarbonat abgebaut.
 
-$$ H₂SO₄ = 98,072 \frac{g}{mol} $$
-$$ SO₄ = ( 32,06 + 4 \cdot 15,999 ) \frac{g}{mol} = 96,056 \frac{g}{mol} $$
-$$ HCO₃ = 61,016 \frac{g}{mol} $$
+$$ H_2SO_4 = 98,072 \frac{g}{mol} $$
 
-$$ SO₄ = \frac{1000 \cdot mg}{g} \cdot \frac{SO₄}{H₂SO₄} = 1000\frac{mg}{g} \cdot \frac{96,056 \frac{g}{mol}}{98,072 \frac{g}{mol}} = 979,44 \frac{mg}{g} $$
-$$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{2 \cdot HCO₃}{H₂SO₄} = 1000\frac{mg}{g} \cdot \frac{122,032 \frac{g}{mol}}{98,072 \frac{g}{mol}} = 1244,31 \frac{mg}{g} $$
+$$ SO_4 = ( 32,06 + 4 \cdot 15,999 ) \frac{g}{mol} = 96,056 \frac{g}{mol} $$
+
+$$ HCO_3 = 61,016 \frac{g}{mol} $$
+
+$$ SO_4 = \frac{1000 \cdot mg}{g} \cdot \frac{SO_4}{H_2SO_4} = 1000\frac{mg}{g} \cdot \frac{96,056 \frac{g}{mol}}{98,072 \frac{g}{mol}} = 979,44 \frac{mg}{g} $$
+
+$$ HCO_3 = \frac{1000 \cdot mg}{g} \cdot \frac{2 \cdot HCO_3}{H_2SO_4} = 1000\frac{mg}{g} \cdot \frac{122,032 \frac{g}{mol}}{98,072 \frac{g}{mol}} = 1244,31 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -92,12 +101,15 @@ Phosphorsäure besitzt folgend $pK_s$ Werte:
 Phosphorsäure ist eine eher schwache Säure, von daher ist davon aus zu gehen das jedes Phosphorsäure Molekül ein $H^+$ abgibt, welches mit dem Hydrogencarbonat reagiert.
 Bei dieser Reaktion wird das Hydrogencarbonat abgebaut.
 
-$$ H₃PO₄ = 97,993761998 \frac{g}{mol} $$
-$$ H₂PO₄ = 96,985761998 \frac{g}{mol} $$
-$$ HCO₃ = 61,016 \frac{g}{mol} $$
+$$ H_3PO_4 = 97,993761998 \frac{g}{mol} $$
 
-$$ H₂PO₄ = \frac{1000 \cdot mg}{g} \cdot \frac{H₂PO₄}{H₃PO₄} = 1000\frac{mg}{g} \cdot \frac{96,985761998 \frac{g}{mol}}{97,993761998 \frac{g}{mol}} = 989,71 \frac{mg}{g} $$
-$$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{HCO₃}{H₃PO₄} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{97,993761998 \frac{g}{mol}} = 622,65 \frac{mg}{g} $$
+$$ H_2PO_4 = 96,985761998 \frac{g}{mol} $$
+
+$$ HCO_3 = 61,016 \frac{g}{mol} $$
+
+$$ H_2PO_4 = \frac{1000 \cdot mg}{g} \cdot \frac{H_2PO_4}{H_3PO_4} = 1000\frac{mg}{g} \cdot \frac{96,985761998 \frac{g}{mol}}{97,993761998 \frac{g}{mol}} = 989,71 \frac{mg}{g} $$
+
+$$ HCO_3 = \frac{1000 \cdot mg}{g} \cdot \frac{HCO_3}{H_3PO_4} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{97,993761998 \frac{g}{mol}} = 622,65 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -110,12 +122,15 @@ $$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{HCO₃}{H₃PO₄} = 1000\frac{m
 
 Wir gehen immer von Calciumsulfat-Dihydrat aus.
 
-$$ CaSO₄ + 2 \cdot H₂O = 172,17 \frac{g}{mol} $$
-$$ Ca = 40,078 \frac{g}{mol} $$
-$$ SO₄ = ( 32,06 + 4 \cdot 15,999 ) \frac{g}{mol} = 96,056 \frac{g}{mol} $$
+$$ CaSO_4 + 2 \cdot H_2O = 172,17 \frac{g}{mol} $$
 
-$$ Ca = \frac{1000 \cdot mg}{g} \cdot \frac{Ca}{CaSO₄ + 2 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{40,078 \frac{g}{mol}}{172,17 \frac{g}{mol}} = 232,78 \frac{mg}{g} $$
-$$ SO₄ = \frac{1000 \cdot mg}{g} \cdot \frac{SO₄}{CaSO₄ + 2 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{96,056 \frac{g}{mol}}{172,17 \frac{g}{mol}} = 557,91 \frac{mg}{g} $$
+$$ Ca = 40,078 \frac{g}{mol} $$
+
+$$ SO_4 = ( 32,06 + 4 \cdot 15,999 ) \frac{g}{mol} = 96,056 \frac{g}{mol} $$
+
+$$ Ca = \frac{1000 \cdot mg}{g} \cdot \frac{Ca}{CaSO_4 + 2 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{40,078 \frac{g}{mol}}{172,17 \frac{g}{mol}} = 232,78 \frac{mg}{g} $$
+
+$$ SO_4 = \frac{1000 \cdot mg}{g} \cdot \frac{SO_4}{CaSO_4 + 2 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{96,056 \frac{g}{mol}}{172,17 \frac{g}{mol}} = 557,91 \frac{mg}{g} $$
 
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
@@ -130,12 +145,15 @@ $$ SO₄ = \frac{1000 \cdot mg}{g} \cdot \frac{SO₄}{CaSO₄ + 2 \cdot H₂O} =
 
 Wir gehen immer von Calciumchlorid-Dihydrat aus.
 
-$$ CaCl₂ + 2 \cdot H₂O = 147,02 \frac{g}{mol} $$
-$$ Ca = 40,078 \frac{g}{mol} $$
-$$ Cl₂ = ( 2 \cdot 35,45 ) \frac{g}{mol} = 70,90 \frac{g}{mol} $$
+$$ CaCl_2 + 2 \cdot H_2O = 147,02 \frac{g}{mol} $$
 
-$$ Ca = \frac{1000 \cdot mg}{g} \cdot \frac{Ca}{CaCl₂ + 2 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{40,078 \frac{g}{mol}}{147,02 \frac{g}{mol}} = 272,60 \frac{mg}{g} $$
-$$ Cl₂ = \frac{1000 \cdot mg}{g} \cdot \frac{Cl₂}{CaCl₂ + 2 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{70,90 \frac{g}{mol}}{147,02 \frac{g}{mol}} = 482,25 \frac{mg}{g} $$
+$$ Ca = 40,078 \frac{g}{mol} $$
+
+$$ Cl_2 = ( 2 \cdot 35,45 ) \frac{g}{mol} = 70,90 \frac{g}{mol} $$
+
+$$ Ca = \frac{1000 \cdot mg}{g} \cdot \frac{Ca}{CaCl_2 + 2 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{40,078 \frac{g}{mol}}{147,02 \frac{g}{mol}} = 272,60 \frac{mg}{g} $$
+
+$$ Cl_2 = \frac{1000 \cdot mg}{g} \cdot \frac{Cl_2}{CaCl_2 + 2 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{70,90 \frac{g}{mol}}{147,02 \frac{g}{mol}} = 482,25 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -148,10 +166,13 @@ $$ Cl₂ = \frac{1000 \cdot mg}{g} \cdot \frac{Cl₂}{CaCl₂ + 2 \cdot H₂O} =
 ### Natriumchlorid (Kochsalz) NaCl
 
 $$ NaCl = 58,44 \frac{g}{mol} $$
+
 $$ Na = 22,98976928 \frac{g}{mol} $$
+
 $$ Cl = 35,45 \frac{g}{mol} $$
 
 $$ Na = \frac{1000 \cdot mg}{g} \cdot \frac{Na}{NaCl} = 1000\frac{mg}{g} \cdot \frac{22,98976928 \frac{g}{mol}}{58,44 \frac{g}{mol}} = 393,39 \frac{mg}{g} $$
+
 $$ Cl = \frac{1000 \cdot mg}{g} \cdot \frac{Cl}{NaCl} = 1000\frac{mg}{g} \cdot \frac{35,45 \frac{g}{mol}}{58,44 \frac{g}{mol}} = 606,61 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
@@ -164,12 +185,15 @@ $$ Cl = \frac{1000 \cdot mg}{g} \cdot \frac{Cl}{NaCl} = 1000\frac{mg}{g} \cdot \
 
 ### Natriumhydrogencarbonat (Natron) NaHCO₃
 
-$$ NaHCO₃ = 84,00576928 \frac{g}{mol} $$
-$$ Na = 22,98976928 \frac{g}{mol} $$
-$$ HCO₃ = 61,016 \frac{g}{mol} $$
+$$ NaHCO_3 = 84,00576928 \frac{g}{mol} $$
 
-$$ Na = \frac{1000 \cdot mg}{g} \cdot \frac{Na}{NaHCO₃} = 1000\frac{mg}{g} \cdot \frac{22,98976928 \frac{g}{mol}}{84,00576928 \frac{g}{mol}} = 273,67 \frac{mg}{g} $$
-$$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{HCO₃}{NaHCO₃} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{84,00576928 \frac{g}{mol}} = 726,33 \frac{mg}{g} $$
+$$ Na = 22,98976928 \frac{g}{mol} $$
+
+$$ HCO_3 = 61,016 \frac{g}{mol} $$
+
+$$ Na = \frac{1000 \cdot mg}{g} \cdot \frac{Na}{NaHCO_3} = 1000\frac{mg}{g} \cdot \frac{22,98976928 \frac{g}{mol}}{84,00576928 \frac{g}{mol}} = 273,67 \frac{mg}{g} $$
+
+$$ HCO_3 = \frac{1000 \cdot mg}{g} \cdot \frac{HCO_3}{NaHCO_3} = 1000\frac{mg}{g} \cdot \frac{61,016 \frac{g}{mol}}{84,00576928 \frac{g}{mol}} = 726,33 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -183,12 +207,15 @@ $$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{HCO₃}{NaHCO₃} = 1000\frac{mg
 
 Wir gehen immer von Magnesiumchlorid Hexahydrat aus.
 
-$$ MgCl₂ + 6 \cdot H₂O = 203,3 \frac{g}{mol} $$
-$$ Mg = 24,305 \frac{g}{mol} $$
-$$ Cl₂ = ( 2 \cdot 35,45 ) \frac{g}{mol} = 70,90 \frac{g}{mol} $$
+$$ MgCl_2 + 6 \cdot H_2O = 203,3 \frac{g}{mol} $$
 
-$$ Mg = \frac{1000 \cdot mg}{g} \cdot \frac{Mg}{MgCl₂ + 6 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{24,305 \frac{g}{mol}}{203,3 \frac{g}{mol}} = 119,55 \frac{mg}{g} $$
-$$ Cl₂ = \frac{1000 \cdot mg}{g} \cdot \frac{Cl₂}{MgCl₂ + 6 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{70,90 \frac{g}{mol}}{203,3 \frac{g}{mol}} = 348,75 \frac{mg}{g} $$
+$$ Mg = 24,305 \frac{g}{mol} $$
+
+$$ Cl_2 = ( 2 \cdot 35,45 ) \frac{g}{mol} = 70,90 \frac{g}{mol} $$
+
+$$ Mg = \frac{1000 \cdot mg}{g} \cdot \frac{Mg}{MgCl_2 + 6 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{24,305 \frac{g}{mol}}{203,3 \frac{g}{mol}} = 119,55 \frac{mg}{g} $$
+
+$$ Cl_2 = \frac{1000 \cdot mg}{g} \cdot \frac{Cl_2}{MgCl_2 + 6 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{70,90 \frac{g}{mol}}{203,3 \frac{g}{mol}} = 348,75 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -203,12 +230,15 @@ TODO: Faktor zwei zwischen meiner Berechnung und den anderen bei Chlorid! Wie ko
 
 Wir gehen immer von Magnesiumsulfat Heptahydrat aus.
 
-$$ MgSO₄ + 7 \cdot H₂O = 246,48 \frac{g}{mol} $$
-$$ Mg = 24,305 \frac{g}{mol} $$
-$$ SO₄ = ( 32,06 + 4 \cdot 15,999 ) \frac{g}{mol} = 96,056 \frac{g}{mol} $$
+$$ MgSO_4 + 7 \cdot H_2O = 246,48 \frac{g}{mol} $$
 
-$$ Mg = \frac{1000 \cdot mg}{g} \cdot \frac{Mg}{MgSO₄ + 7 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{24,305 \frac{g}{mol}}{246,48 \frac{g}{mol}} = 98,61 \frac{mg}{g} $$
-$$ SO₄ = \frac{1000 \cdot mg}{g} \cdot \frac{SO₄}{MgSO₄ + 7 \cdot H₂O} = 1000\frac{mg}{g} \cdot \frac{96,056 \frac{g}{mol}}{246,48 \frac{g}{mol}} = 389,71 \frac{mg}{g} $$
+$$ Mg = 24,305 \frac{g}{mol} $$
+
+$$ SO_4 = ( 32,06 + 4 \cdot 15,999 ) \frac{g}{mol} = 96,056 \frac{g}{mol} $$
+
+$$ Mg = \frac{1000 \cdot mg}{g} \cdot \frac{Mg}{MgSO_4 + 7 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{24,305 \frac{g}{mol}}{246,48 \frac{g}{mol}} = 98,61 \frac{mg}{g} $$
+
+$$ SO_4 = \frac{1000 \cdot mg}{g} \cdot \frac{SO_4}{MgSO_4 + 7 \cdot H_2O} = 1000\frac{mg}{g} \cdot \frac{96,056 \frac{g}{mol}}{246,48 \frac{g}{mol}} = 389,71 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -222,16 +252,19 @@ $$ SO₄ = \frac{1000 \cdot mg}{g} \cdot \frac{SO₄}{MgSO₄ + 7 \cdot H₂O} =
 
 Calciumcarbonat wird nicht einfach gelöst sondern reagiert mit dem Brauwasser nach folgender Formel:
  
-$$ CaCO₃ + CO₂ + H₂O \Rightarrow Ca(HCO₃)₂ $$
+$$ CaCO_3 + CO_2 + H_2O \Rightarrow Ca(HCO_3)_2 $$
 
 Es entstehen also aus einem Calciumcarbonat Molekül ein Calcium und zwei Hydrogencarbonat Moleküle
 
-$$ CaCO₃ = 100,09 \frac{g}{mol} $$
-$$ Ca = 40,078 \frac{g}{mol} $$
-$$ HCO₃ = 61,016 \frac{g}{mol} $$
+$$ CaCO_3 = 100,09 \frac{g}{mol} $$
 
-$$ Ca = \frac{1000 \cdot mg}{g} \cdot \frac{Ca}{CaCO₃} = 1000\frac{mg}{g} \cdot \frac{40,078 \frac{g}{mol}}{100,09 \frac{g}{mol}} = 400,42 \frac{mg}{g} $$
-$$ HCO₃ = \frac{1000 \cdot mg}{g} \cdot \frac{2 \cdot HCO₃}{NaHCO₃} = 1000\frac{mg}{g} \cdot \frac{122,032 \frac{g}{mol}}{100,09 \frac{g}{mol}} = 1219,22 \frac{mg}{g} $$
+$$ Ca = 40,078 \frac{g}{mol} $$
+
+$$ HCO_3 = 61,016 \frac{g}{mol} $$
+
+$$ Ca = \frac{1000 \cdot mg}{g} \cdot \frac{Ca}{CaCO_3} = 1000\frac{mg}{g} \cdot \frac{40,078 \frac{g}{mol}}{100,09 \frac{g}{mol}} = 400,42 \frac{mg}{g} $$
+
+$$ HCO_3 = \frac{1000 \cdot mg}{g} \cdot \frac{2 \cdot HCO_3}{NaHCO_3} = 1000\frac{mg}{g} \cdot \frac{122,032 \frac{g}{mol}}{100,09 \frac{g}{mol}} = 1219,22 \frac{mg}{g} $$
 
 |     Quelle | Calcium | Magnesium | Natrium | Hydrogencarbonat | Chlorid | Sulfat | Phosphat | Lactat |
 | ---------: | :------ | :-------- | :------ | :--------------- | :------ | :----- | :------- | :----- |
@@ -257,17 +290,17 @@ Bei der Recherche wurden Sicherheitsdatenblätter größtenteils ignoriert, da d
 
 Aus Datenblätter im Internet konnten folgende Werte ermittelt werden:
 
-|      Gew. % |                 g/ml | Referenz |
-| ----------: | -------------------: | :------- |
-| 20,5 - 21,5 | 1,045 - 1,055 (20°C) | [1]      |
-|          20 |          1,05 (20°C) | [3]      |
-| 79,5 - 80,5 |   1,18 - 1,21 ( ?°C) | [2]      |
-|          80 |          1,18 (20°C) | [3]      |
-|          80 |         1,168 (20°C) | [4]      |
-| 79,5 - 80,5 |   1,18 - 1,20 (20°C) | [5]      |
-| 79,0 - 81,0 |   1,18 - 1,20 (20°C) | [6]      |
-|          90 |          1,22 (20°C) | [3]      |
-|        > 88 |   1,20 - 1,21 (20°C) | [7]      |
+| $\omega$ [Gew. %] |        $\rho$ [g/ml] | Quelle |
+| ----------------: | -------------------: | :----- |
+|       20,5 - 21,5 | 1,045 - 1,055 (20°C) | [1]    |
+|                20 |          1,05 (20°C) | [3]    |
+|       79,5 - 80,5 |   1,18 - 1,21 ( ?°C) | [2]    |
+|                80 |          1,18 (20°C) | [3]    |
+|                80 |         1,168 (20°C) | [4]    |
+|       79,5 - 80,5 |   1,18 - 1,20 (20°C) | [5]    |
+|       79,0 - 81,0 |   1,18 - 1,20 (20°C) | [6]    |
+|                90 |          1,22 (20°C) | [3]    |
+|              > 88 |   1,20 - 1,21 (20°C) | [7]    |
 
 [1]: https://shop.es-drei.de/documents/spezifikation/SPEC_S100453_L(+)-Milchs%C3%A4ure_21_DE.pdf
 [2]: https://www.syskem.de/syskem_pdf_spez/spdb_Milchsaeure_80_.pdf
@@ -279,146 +312,145 @@ Aus Datenblätter im Internet konnten folgende Werte ermittelt werden:
 
 Hieraus werden folgende Werte extrahiert:
 
-| Gew. % | g/ml  |
-| -----: | :---- |
-|      0 | 0,998 |
-|     21 | 1,05  |
-|     80 | 1,19  |
-|     90 | 1,21  |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] |
+| ----------------: | :------------ |
+|                 0 | 0,998         |
+|                21 | 1,05          |
+|                80 | 1,19          |
+|                90 | 1,21          |
 
 
 Hieraus ergibt sich folgende Formel für eine Lineare Annäherung:
 
-$$ d[g/ml] = 0.00236361 * c[Gew. \%] + 0.999137 $$
+$$ \rho[g/ml] = 0.00236361 * \omega + 0.999137 $$
 
 Eine Quadratische Annäherung bringt keine nennenswerte Verbesserung.
 Die Abweichung von den eingangswerten ist auch minimal.
 
-| Gew. % | g/ml  | Rechnung   | diff        |
-| -----: | :---- | :--------- | :---------- |
-|      0 | 0,998 | 0,999137   | +0,001137   |
-|     21 | 1,05  | 1,04877281 | -0,00122719 |
-|     80 | 1,19  | 1,1882258  | -0,0017742  |
-|     90 | 1,21  | 1,2118619  | +0,0018619  |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] | Rechnung   | diff        |
+| ----------------: | :------------ | :--------- | :---------- |
+|                 0 | 0,998         | 0,999137   | +0,001137   |
+|                21 | 1,05          | 1,04877281 | -0,00122719 |
+|                80 | 1,19          | 1,1882258  | -0,0017742  |
+|                90 | 1,21          | 1,2118619  | +0,0018619  |
 
 ### Salzsäure HCl
 
 Folgende Formel ist aus der [Wikipedia](https://de.wikipedia.org/wiki/Salzs%C3%A4ure#Eigenschaften) entnommen:
 
-$$ c[Gew. \%] = ( d[g/ml] - 1) * 200 $$
+$$ \omega = ( \rho[g/ml] - 1) * 200 $$
 
 Durch umstellen ergibt sich hieraus:
 
-$$ d[g/ml] = \frac{c[Gew. \%]}{200} + 1 = 0.005 * c[Gew. \%] + 1 $$
+$$ \rho[g/ml] = \frac{\omega}{200} + 1 = 0.005 * \omega + 1 $$
 
 
 Daneben ist noch eine Tabelle mit Werten:
 
-| Gew. % | g/ml  |
-| -----: | :---- |
-|      0 | 0,998 |
-|   10,5 | 1,050 |
-|   15,5 | 1,075 |
-|   20,4 | 1,100 |
-|   22,3 | 1,110 |
-|   24,3 | 1,120 |
-|   26,2 | 1,130 |
-|   28,2 | 1,140 |
-|   30,1 | 1,150 |
-|   32,1 | 1,160 |
-|   34,2 | 1,170 |
-|   36,2 | 1,180 |
-|   38,3 | 1,190 |
-|   40,4 | 1,200 |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] |
+| ----------------: | :------------ |
+|                 0 | 0,998         |
+|              10,5 | 1,050         |
+|              15,5 | 1,075         |
+|              20,4 | 1,100         |
+|              22,3 | 1,110         |
+|              24,3 | 1,120         |
+|              26,2 | 1,130         |
+|              28,2 | 1,140         |
+|              30,1 | 1,150         |
+|              32,1 | 1,160         |
+|              34,2 | 1,170         |
+|              36,2 | 1,180         |
+|              38,3 | 1,190         |
+|              40,4 | 1,200         |
 
 Hieraus ergibt sich folgende Formel für eine Lineare Annäherung:
 
-$$ d[g/ml] = 0.00503334 * c[Gew. \%] + 0.997681 $$
+$$ \rho[g/ml] = 0.00503334 * \omega + 0.997681 $$
 
 Eine Quadratische Annäherung bringt keine nennenswerte Verbesserung.
 Die Abweichung von den eingangswerten ist auch minimal.
 
-| Gew. % | g/ml  | Rechnung    | diff         |
-| -----: | :---- | :---------- | :----------- |
-|      0 | 0,998 | 0,997681    | -0,000319    |
-|   10,5 | 1,050 | 1,05053107  | +0,00053107  |
-|   15,5 | 1,075 | 1,07569777  | +0,00069777  |
-|   20,4 | 1,100 | 1,100361136 | +0,000361136 |
-|   22,3 | 1,110 | 1,109924482 | -0,000075518 |
-|   24,3 | 1,120 | 1,119991162 | -0,000008838 |
-|   26,2 | 1,130 | 1,129554508 | -0,000445492 |
-|   28,2 | 1,140 | 1,139621188 | -0,000378812 |
-|   30,1 | 1,150 | 1,149184534 | -0,000815466 |
-|   32,1 | 1,160 | 1,159251214 | -0,000748786 |
-|   34,2 | 1,170 | 1,169821228 | -0,000178772 |
-|   36,2 | 1,180 | 1,179887908 | -0,000112092 |
-|   38,3 | 1,190 | 1,190457922 | +0,000457922 |
-|   40,4 | 1,200 | 1,201027936 | +0,001027936 |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] | Rechnung    | diff         |
+| ----------------: | :------------ | :---------- | :----------- |
+|                 0 | 0,998         | 0,997681    | -0,000319    |
+|              10,5 | 1,050         | 1,05053107  | +0,00053107  |
+|              15,5 | 1,075         | 1,07569777  | +0,00069777  |
+|              20,4 | 1,100         | 1,100361136 | +0,000361136 |
+|              22,3 | 1,110         | 1,109924482 | -0,000075518 |
+|              24,3 | 1,120         | 1,119991162 | -0,000008838 |
+|              26,2 | 1,130         | 1,129554508 | -0,000445492 |
+|              28,2 | 1,140         | 1,139621188 | -0,000378812 |
+|              30,1 | 1,150         | 1,149184534 | -0,000815466 |
+|              32,1 | 1,160         | 1,159251214 | -0,000748786 |
+|              34,2 | 1,170         | 1,169821228 | -0,000178772 |
+|              36,2 | 1,180         | 1,179887908 | -0,000112092 |
+|              38,3 | 1,190         | 1,190457922 | +0,000457922 |
+|              40,4 | 1,200         | 1,201027936 | +0,001027936 |
 
 ### Phosphorsäure H₃PO₄
 
 Folgende Werte wurden ermittelt:
 
-| Gew. % | g/ml  |
-| -----: | :---- |
-|      0 | 0,998 |
-|     25 | 1,150 |
-|     40 | 1,255 |
-|     50 | 1,336 |
-|     75 | 1,58  |
-|     85 | 1,689 |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] |
+| ----------------: | :------------ |
+|                 0 | 0,998         |
+|                25 | 1,150         |
+|                40 | 1,255         |
+|                50 | 1,336         |
+|                75 | 1,58          |
+|                85 | 1,689         |
 
 Quelle: https://www.carlroth.com/de/de/von-a-bis-z/ortho-phosphorsaeure/p/4332.1
 
 Hieraus ergibt sich folgende Formel für eine Quadratische Annäherung:
 
-$$ d[g/ml] = 0.999386 + 0.00491011 * c[Gew. \%] + 3.76331 * 10^{-5} * c[Gew. \%]^2 $$
+$$ \rho[g/ml] = 0.999386 + 0.00491011 * \omega + 3.76331 * 10^{-5} * \omega^2 $$
 
 Die Abweichung von den eingangswerten ist minimal.
 
-| Gew. % | g/ml  | Rechnung     | diff          |
-| -----: | :---- | :----------- | :------------ |
-|      0 | 0,998 | 0,999386     | +0,001386     |
-|     25 | 1,150 | 1,1456591875 | -0,0043408125 |
-|     40 | 1,255 | 1,25600296   | +0,00100296   |
-|     50 | 1,336 | 1,33897375   | +0,00297375   |
-|     75 | 1,58  | 1,5793296875 | -0,0006703125 |
-|     85 | 1,689 | 1,6886436475 | -0,0003563525 |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] | Rechnung     | diff          |
+| ----------------: | :------------ | :----------- | :------------ |
+|                 0 | 0,998         | 0,999386     | +0,001386     |
+|                25 | 1,150         | 1,1456591875 | -0,0043408125 |
+|                40 | 1,255         | 1,25600296   | +0,00100296   |
+|                50 | 1,336         | 1,33897375   | +0,00297375   |
+|                75 | 1,58          | 1,5793296875 | -0,0006703125 |
+|                85 | 1,689         | 1,6886436475 | -0,0003563525 |
 
 ### Schwefelsäure H₂SO₄
 
 Folgende Werte wurden ermittelt:
 
-| Gew. % | g/ml  |
-| -----: | :---- |
-|      0 | 0,998 |
-|      2 | 1,013 |
-|     10 | 1,068 |
-|     20 | 1,139 |
-|     30 | 1,219 |
-|     40 | 1,303 |
-|     50 | 1,395 |
-|     75 | 1,669 |
-|     96 | 1,835 |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] |
+| ----------------: | :------------ |
+|                 0 | 0,998         |
+|                 2 | 1,013         |
+|                10 | 1,068         |
+|                20 | 1,139         |
+|                30 | 1,219         |
+|                40 | 1,303         |
+|                50 | 1,395         |
+|                75 | 1,669         |
+|                96 | 1,835         |
 
 Quelle: https://www.carlroth.com/de/de/von-a-bis-z/schwefelsaeure/p/2800.1
 
 Hieraus ergibt sich folgende Formel für eine Quadratische Annäherung:
 
-$$ d[g/ml] = 0.993422 + 0.00723747 * c[Gew. \%] + 1.77195 * 10^{-5} * c[Gew. \%]^2 $$
-sqrt(WSSR/ndf)    : 0.016328
+$$ \rho[g/ml] = 0.993422 + 0.00723747 * \omega + 1.77195 * 10^{-5} * \omega^2 $$
 
 Leider ist die Näherung nicht so gut wie bei den andere Säuren, aber eine höhere Ordnung verbessert die Näherung nur minimal.
 Auch sollte die Genauigkeit trotzdem mehr als ausreichen sein.
 
-| Gew. % | g/ml  | Rechnung     | diff          |
-| -----: | :---- | :----------- | :------------ |
-|      0 | 0,998 | 0,993422     | -0,004578     |
-|      2 | 1,013 | 1,007967818  | -0,005032182  |
-|     10 | 1,068 | 1,06756865   | -0,00043135   |
-|     20 | 1,139 | 1,1452592    | +0,0062592    |
-|     30 | 1,219 | 1,22649365   | +0,00749365   |
-|     40 | 1,303 | 1,311272     | +0,008272     |
-|     50 | 1,395 | 1,39959425   | +0,00459425   |
-|     75 | 1,669 | 1,6359044375 | -0,0330955625 |
-|     96 | 1,835 | 1,851522032  | +0,016522032  |
+| $\omega$ [Gew. %] | $\rho$ [g/ml] | Rechnung     | diff          |
+| ----------------: | :------------ | :----------- | :------------ |
+|                 0 | 0,998         | 0,993422     | -0,004578     |
+|                 2 | 1,013         | 1,007967818  | -0,005032182  |
+|                10 | 1,068         | 1,06756865   | -0,00043135   |
+|                20 | 1,139         | 1,1452592    | +0,0062592    |
+|                30 | 1,219         | 1,22649365   | +0,00749365   |
+|                40 | 1,303         | 1,311272     | +0,008272     |
+|                50 | 1,395         | 1,39959425   | +0,00459425   |
+|                75 | 1,669         | 1,6359044375 | -0,0330955625 |
+|                96 | 1,835         | 1,851522032  | +0,016522032  |
