@@ -20,7 +20,7 @@ MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{m
   // Window tittle
   title = "Aqua mixtura - " + tr("Malze");
   this->setWindowTitle(title);
-  QObject::connect(&malts, &Malts::unsavedMalts, this, &MaltWindow::unsavedMalts);
+  QObject::connect(&malts, &Malts::dataModified, this, &MaltWindow::unsavedMalts);
 
   // main layout
   QVBoxLayout* mainLayout = new QVBoxLayout(this);
@@ -43,7 +43,7 @@ MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{m
   QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &MaltWindow::maltDelete);
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &MaltWindow::maltImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &MaltWindow::maltExport);
-  QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MaltWindow::saveChanges);
+  QObject::connect(buttons->btnSave, &QPushButton::clicked, &malts, &Malts::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, &malts, &Malts::load);  // just load on cancel
   mainLayout->addWidget(buttons);
 }
@@ -111,16 +111,11 @@ void MaltWindow::maltExport() {
   }
 }
 
-void MaltWindow::saveChanges() {
-  malts.setSaved();
-  malts.save();
-}
-
-void MaltWindow::unsavedMalts(bool unsaved) {
-  if (unsaved) {
+void MaltWindow::unsavedMalts() {
+  if (malts.isChanged()) {
     setWindowTitle("* " + title);
   } else {
     setWindowTitle(title);
   }
-  emit maltWindowUnsavedChanges(unsaved);
+  emit maltWindowUnsavedChanges(malts.isChanged());
 }

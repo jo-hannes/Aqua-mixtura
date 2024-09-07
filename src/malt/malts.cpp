@@ -11,7 +11,7 @@
 #include <QJsonDocument>
 
 Malts::Malts() {
-  unsavedChanges = false;
+  changed = false;
 }
 
 Malts::Malts(const QJsonObject& json) {
@@ -33,8 +33,8 @@ bool Malts::fromJson(const QJsonObject& json) {
   for (const auto& malt : jsonMalts.toArray()) {
     malts.append(Malt(malt.toObject()));
   }
-  setUnsaved(false);
   endResetModel();
+  setChanged(false);
   return true;
 }
 
@@ -58,11 +58,11 @@ bool Malts::importMalt(const QString& path) {
   }
   Malt m(jsonMalt["Malt"].toObject());
   addMalt(m);
-  setUnsaved(true);
+  setChanged(true);
   return true;
 }
 
-bool Malts::exportMalt(const QString& path, qsizetype i) {
+bool Malts::exportMalt(const QString& path, qsizetype i) const {
   if (path.isEmpty()) {
     return false;
   }
@@ -82,20 +82,12 @@ const Malt& Malts::getMalt(qsizetype i) {
   }
 }
 
-void Malts::updateMalt(Malt& malt, qsizetype i) {
-  if (i >= 0 && i < malts.size()) {
-    malts.replace(i, malt);
-    emit dataChanged(index(i, 0), index(i, 3));
-    setUnsaved(true);
-  }
-}
-
 void Malts::addMalt(const Malt& malt) {
   qsizetype i = malts.size();
   beginInsertRows(QModelIndex(), i, i);
   malts.append(malt);
   endInsertRows();
-  setUnsaved(true);
+  setChanged(true);
 }
 
 void Malts::deleteMalt(qsizetype i) {
@@ -103,24 +95,12 @@ void Malts::deleteMalt(qsizetype i) {
     beginRemoveRows(QModelIndex(), i, i);
     malts.removeAt(i);
     endRemoveRows();
-    setUnsaved(true);
+    setChanged(true);
   }
 }
 
-void Malts::setMalts(const QVector<Malt>& newMalts) {
-  beginResetModel();
-  malts = newMalts;
-  endResetModel();
-  setUnsaved(false);
-}
-
-QVector<Malt>& Malts::getMalts() {
-  return malts;
-}
-
-void Malts::setSaved() {
-  setUnsaved(false);
-  emit dataModified();
+bool Malts::isChanged() const {
+  return changed;
 }
 
 int Malts::rowCount(const QModelIndex& parent) const {
@@ -207,7 +187,7 @@ bool Malts::setData(const QModelIndex& index, const QVariant& value, int role) {
       return false;
       break;
   }
-  setUnsaved(true);
+  setChanged(true);
   return true;
 }
 
@@ -230,12 +210,10 @@ void Malts::save()
 {
   QString file = Paths::dataDir() + "/malts.json";
   JsonHelper::saveFile(file, this->toJson());
+  setChanged(false);
 }
 
-void Malts::setUnsaved(bool unsaved) {
-  if (this->unsavedChanges != unsaved) {
-    this->unsavedChanges = unsaved;
-    emit unsavedMalts(unsaved);
-    emit dataModified();
-  }
+void Malts::setChanged(bool changed) {
+  this->changed = changed;
+  emit dataModified();
 }

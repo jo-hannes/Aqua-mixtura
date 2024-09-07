@@ -21,16 +21,13 @@ class Malts : public QAbstractTableModel {
   bool fromJson(const QJsonObject& json); /**< @brief Update Malts from JSON */
   QJsonObject toJson() const;             /**< @brief convert this Malts to JSON */
   bool importMalt(const QString& path);   /**< @brief import and add a Malt from JSON */
-  bool exportMalt(const QString& path, qsizetype i); /**< @brief export a Malt at index as JSON */
+  bool exportMalt(const QString& path, qsizetype i) const; /**< @brief export a Malt at index as JSON */
 
   const Malt& getMalt(qsizetype i);         /**< @brief Get malt at index */
-  void updateMalt(Malt& malt, qsizetype i); /**< @brief Update malt at index */
   void addMalt(const Malt& malt);           /**< @brief Add a malt */
   void deleteMalt(qsizetype i);             /**< @brief Delete malt at index */
 
-  void setMalts(const QVector<Malt>& newMalts); /**< @brief Replace all malts */
-  QVector<Malt>& getMalts();                    /**< @brief Get all malts */
-  void setSaved();                              /**< @brief Mark malts as saved */
+  bool isChanged() const;
 
   // for QAbstractTableModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;
@@ -45,14 +42,13 @@ class Malts : public QAbstractTableModel {
   void save();
 
  signals:
-  void unsavedMalts(bool unsaved); /**< @brief Signal emitted if save state of malts change */
   void dataModified();
 
  private:
-  void setUnsaved(bool unsaved); /**< @brief Mark malts unsaved/saved */
+  void setChanged(bool changed); /**< @brief Mark malts unsaved/saved */
 
   QVector<Malt> malts; /**< @brief Vector containing all malts */
-  bool unsavedChanges; /**< @brief True if malts where changed but not saved */
+  bool changed;        /**< @brief True if malts where changed but not saved */
   Malt noMalt;         /**< @brief Empty malt used to return no malt on error */
 };
 
