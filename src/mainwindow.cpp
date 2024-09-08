@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 
 #include "common/buttons.h"
+#include "common/dialogs.h"
 #include "mixture/mixture.h"
 
 #include <QFrame>
@@ -154,18 +155,10 @@ void MainWindow::mixDelete() {
   if (!idx.isValid()) {
     return;
   }
-  QMessageBox msgBox;
-  msgBox.setText(tr("Wirklich löschen?"));
-  msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-  msgBox.setDefaultButton(QMessageBox::No);
-  int ret = msgBox.exec();
-  switch (ret) {
-    case QMessageBox::Yes:
-      model.mixtures.deleteMixture(idx.row());
-      model.mixtures.save();
-    default:
-      // should never be reached
-      break;
+  int ret = Dialogs::yesNo(tr("Mix wirklich löschen?"), model.mixtures.getMixture(idx.row()).getName());
+  if (ret == QMessageBox::Yes) {
+    model.mixtures.deleteMixture(idx.row());
+    model.mixtures.save();
   }
 }
 
@@ -177,11 +170,7 @@ void MainWindow::mixImport() {
     return;
   }
   if (!model.mixtures.importMixture(path)) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Aufbereitung nicht im JSON finden"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Aufbereitung nicht im JSON finden"));
   } else {
     model.mixtures.save();
   }
@@ -200,11 +189,7 @@ void MainWindow::mixExport() {
     return;
   }
   if (!model.mixtures.exportMixture(path, idx.row())) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Aufbereitung nicht speichern"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Aufbereitung nicht speichern"));
   }
 }
 

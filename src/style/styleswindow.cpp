@@ -6,6 +6,7 @@
 #include "styletabledelegate.h"
 
 #include "../common/buttons.h"
+#include "../common/dialogs.h"
 
 #include <QDialogButtonBox>
 #include <QFileDialog>
@@ -14,7 +15,6 @@
 #include <QHeaderView>
 #include <QItemSelectionModel>
 #include <QLabel>
-#include <QMessageBox>
 #include <QPushButton>
 #include <QSizePolicy>
 #include <QStandardPaths>
@@ -104,11 +104,7 @@ void StylesWindow::styleImport() {
     // Select imported style = last style
     styleSelect(styles.rowCount() - 1);
   } else {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Bierstil nicht im JSON finden"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Bierstil nicht im JSON finden"));
   }
 }
 
@@ -120,11 +116,7 @@ void StylesWindow::styleExport() {
     return;
   }
   if (!styles.exportStyle(path, selected)) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Bierstil nicht exportieren"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Bierstil nicht speichern"));
   }
 }
 

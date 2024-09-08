@@ -49,7 +49,7 @@ enum WaterIdx { JsonKey = 0, Unit };
 
 // Need to match order of WaterValue enum
 // Strings are: json key, unit, ...
-inline const QString waterStrings[static_cast<int>(WaterValue::Size)][2] = {
+inline static const QString waterStrings[static_cast<int>(WaterValue::Size)][2] = {
     {"Volume",            "l"},
     {"Calcium",           "mg/l"},
     {"Magnesium",         "mg/l"},

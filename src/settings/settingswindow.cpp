@@ -4,11 +4,11 @@
 #include "settingswindow.h"
 
 #include "../common/buttons.h"
+#include "../common/dialogs.h"
 #include "../common/jsonhelper.h"
 
 #include <QFileDialog>
 #include <QHeaderView>
-#include <QMessageBox>
 #include <QStandardPaths>
 #include <QVBoxLayout>
 
@@ -47,11 +47,7 @@ void SettingsWindow::settingsImport() {
     return;
   }
   if (!settings.fromJson(JsonHelper::loadFile(path))) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Einstellungen nicht im JSON finden"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Einstellungen nicht im JSON finden"));
   }
 }
 
@@ -63,10 +59,6 @@ void SettingsWindow::settingsExport() {
     return;
   }
   if (!JsonHelper::saveFile(path, settings.toJson())) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Einstellungen nicht exportieren"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Einstellungen nicht speichern"));
   }
 }

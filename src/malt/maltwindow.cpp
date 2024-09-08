@@ -6,12 +6,12 @@
 #include "malttabledelegate.h"
 
 #include "../common/buttons.h"
+#include "../common/dialogs.h"
 
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QHeaderView>
-#include <QMessageBox>
 #include <QPushButton>
 #include <QStandardPaths>
 #include <QVBoxLayout>
@@ -83,11 +83,7 @@ void MaltWindow::maltImport() {
     return;
   }
   if (!malts.importMalt(path)) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Malz nicht im JSON finden"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Malz nicht im JSON finden"));
   }
 }
 
@@ -103,11 +99,7 @@ void MaltWindow::maltExport() {
     return;
   }
   if (!malts.exportMalt(path, idx.row())) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Malz nicht speichern"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Malz nicht speichern"));
   }
 }
 

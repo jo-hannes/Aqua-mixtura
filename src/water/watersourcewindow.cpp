@@ -4,6 +4,7 @@
 #include "watersourcewindow.h"
 
 #include "../common/buttons.h"
+#include "../common/dialogs.h"
 #include "../common/jsonhelper.h"
 
 #include <QDialogButtonBox>
@@ -11,7 +12,6 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QMessageBox>
 #include <QPushButton>
 #include <QStandardPaths>
 #include <QVBoxLayout>
@@ -128,13 +128,8 @@ void WatersourceWindow::profileCopy() {
 }
 
 void WatersourceWindow::profileDelete() {
-  QMessageBox msgBox;
-  msgBox.setText(tr("Wasser wirklich löschen?"));
-  msgBox.setInformativeText(sources.getProfile(selected).getName());
-  msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-  msgBox.setDefaultButton(QMessageBox::No);
-  msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
-  if (msgBox.exec() == QMessageBox::Yes) {
+  int ret = Dialogs::yesNo(tr("Wasser wirklich löschen?"), sources.getProfile(selected).getName());
+  if (ret == QMessageBox::Yes) {
     // Delete profile, save cahnges and select another water
     waterEdit->cancel();  // reset changed flag before delition
     sources.deleteProfile(selected);
@@ -165,12 +160,7 @@ void WatersourceWindow::profileImport() {
     sourcesView->setCurrentIndex(idx);
     selectSource(idx);
   } else {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Wasserquelle nicht im JSON finden"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Wasserquelle nicht im JSON finden"));
   }
 }
 
@@ -190,25 +180,16 @@ void WatersourceWindow::profileExport() {
   jsonSource["WaterSource"] = sources.getProfile(selected).profileToJson();
   bool success = JsonHelper::saveFile(path, jsonSource);
   if (!success) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Konnte Wasserquelle nicht speichern"));
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
-    msgBox.exec();
+    Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Wasserquelle nicht speichern"));
   }
 }
 
 int WatersourceWindow::saveChangesDialog() {
   if (waterEdit->isChanged()) {
-    QMessageBox msgBox;
-    msgBox.setText(tr("Änderungen speichern?"));
-    msgBox.setInformativeText(tr("\"%1\" hat ungespeicherte Änderungen").arg(sources.getProfile(selected).getName()));
-    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    msgBox.setDefaultButton(QMessageBox::Cancel);
-    msgBox.setIconPixmap(QPixmap(":/icons/logo_512x512.png"));
-    int ret = msgBox.exec();
-    // save or discard
+    int ret =
+        Dialogs::saveChanges(tr("Änderungen speichern?"),
+                             tr("\"%1\" hat ungespeicherte Änderungen").arg(sources.getProfile(selected).getName()));
+    //  save or discard
     switch (ret) {
       case QMessageBox::Save:
         waterEdit->save();

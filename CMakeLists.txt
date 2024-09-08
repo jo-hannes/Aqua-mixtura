@@ -32,6 +32,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/additive/additivesettings.h src/additive/additivesettings.cpp
         src/additive/additivewindow.h src/additive/additivewindow.cpp
         src/common/buttons.h src/common/buttons.cpp
+        src/common/dialogs.h src/common/dialogs.cpp
         src/common/global.h src/common/global.cpp
         src/common/jsonhelper.h src/common/jsonhelper.cpp
         src/common/meta.h src/common/meta.cpp
