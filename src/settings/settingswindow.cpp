@@ -39,6 +39,25 @@ SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{paren
   setLayout(layout);
 }
 
+void SettingsWindow::closeEvent(QCloseEvent* event) {
+  if (settings.isChanged()) {
+    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Einstellungen wurden nicht gespeicherte"));
+    switch (ret) {
+      case QMessageBox::Save:
+        settings.save();  // save and close window
+        break;
+      case QMessageBox::Discard:
+        settings.load();
+        break;
+      case QMessageBox::Cancel:
+        event->ignore();  // ignore event to keep window open
+        return;
+        break;
+    }
+  }
+  event->accept();
+}
+
 void SettingsWindow::settingsImport() {
   QString path = QFileDialog::getOpenFileName(this, tr("Einstellungen Importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),

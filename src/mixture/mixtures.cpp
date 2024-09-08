@@ -128,6 +128,17 @@ void Mixtures::show(qsizetype i) {
   mixWindows[i]->show();
 }
 
+bool Mixtures::closeAll() {
+  for (MixtureWindow* w : mixWindows) {
+    if (w != nullptr) {
+      if (!w->close()) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 int Mixtures::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
   return mixtures.size();

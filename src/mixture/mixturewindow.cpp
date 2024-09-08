@@ -4,6 +4,7 @@
 #include "mixturewindow.h"
 
 #include "../common/buttons.h"
+#include "../common/dialogs.h"
 
 #include <QFrame>
 #include <QHBoxLayout>
@@ -64,6 +65,26 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   QObject::connect(mix.additive, &Additive::dataModified, this, &MixtureWindow::update);
   QObject::connect(mix.malts, &Malts::dataModified, this, &MixtureWindow::update);
   QObject::connect(mrw, &MixResultWidget::selectionChanged, this, &MixtureWindow::update);
+}
+
+void MixtureWindow::closeEvent(QCloseEvent* event) {
+  if (unsavedChanges) {
+    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"),
+                                   tr("Aufbereitung \"%1\" hat ungespeicherte Änderungen").arg(mix.getName()));
+    switch (ret) {
+      case QMessageBox::Save:
+        save();  // save and close window
+        break;
+      case QMessageBox::Discard:
+        load();
+        break;
+      case QMessageBox::Cancel:
+        event->ignore();  // ignore event to keep window open
+        return;
+        break;
+    }
+  }
+  event->accept();
 }
 
 void MixtureWindow::setName(QString name) {

@@ -186,9 +186,9 @@ void WatersourceWindow::profileExport() {
 
 int WatersourceWindow::saveChangesDialog() {
   if (waterEdit->isChanged()) {
-    int ret =
-        Dialogs::saveChanges(tr("Änderungen speichern?"),
-                             tr("\"%1\" hat ungespeicherte Änderungen").arg(sources.getProfile(selected).getName()));
+    int ret = Dialogs::saveChanges(
+        tr("Änderungen speichern?"),
+        tr("Wasser \"%1\" hat ungespeicherte Änderungen").arg(sources.getProfile(selected).getName()));
     //  save or discard
     switch (ret) {
       case QMessageBox::Save:

@@ -91,6 +91,36 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 MainWindow::~MainWindow() {
 }
 
+void MainWindow::closeEvent(QCloseEvent* event) {
+  // close all other windows
+  if (!wsources->close()) {
+    event->ignore();
+    return;
+  }
+  if (!wadditives->close()) {
+    event->ignore();
+    return;
+  }
+  if (!wmalts->close()) {
+    event->ignore();
+    return;
+  }
+  if (!wstyles->close()) {
+    event->ignore();
+    return;
+  }
+  if (!wSettings->close()) {
+    event->ignore();
+    return;
+  }
+  // close all mixtures
+  if (!model.mixtures.closeAll()) {
+    event->ignore();
+    return;
+  }
+  event->accept();
+}
+
 void MainWindow::save() {
   QMessageBox::information(this, "save", "TODO save");
 }

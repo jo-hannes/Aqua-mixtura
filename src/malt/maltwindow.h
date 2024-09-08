@@ -6,6 +6,7 @@
 
 #include "malts.h"
 
+#include <QCloseEvent>
 #include <QTableView>
 #include <QWidget>
 
@@ -19,6 +20,8 @@ class MaltWindow : public QWidget {
    */
   explicit MaltWindow(Malts& model, QWidget* parent = nullptr);
   ~MaltWindow();
+
+  void closeEvent(QCloseEvent* event) override;
 
  private slots:
   void maltAdd();                  /**< @brief Slot for adding a new malt */

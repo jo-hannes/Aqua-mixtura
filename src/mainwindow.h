@@ -24,6 +24,8 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
+  void closeEvent(QCloseEvent* event) override;
+
  private slots:
   // menu slots
   void save();

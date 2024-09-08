@@ -8,6 +8,7 @@
 #include "additivesettings.h"
 
 #include <QCheckBox>
+#include <QCloseEvent>
 #include <QComboBox>
 #include <QDoubleSpinBox>
 #include <QGridLayout>
@@ -29,6 +30,8 @@ class AdditiveWindow : public QWidget
    * @param parent
    */
   explicit AdditiveWindow(AdditiveSettings& model, QWidget* parent = nullptr);
+
+  void closeEvent(QCloseEvent* event) override;
 
  private slots:
   void cancel();              /**< @brief Revert changes */

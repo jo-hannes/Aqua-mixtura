@@ -68,6 +68,25 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   setLayout(mainLayout);
 }
 
+void StylesWindow::closeEvent(QCloseEvent* event) {
+  if (styles.isChanged()) {
+    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Bierstile haben ungespeicherte Änderungen"));
+    switch (ret) {
+      case QMessageBox::Save:
+        styles.save();  // save and close window
+        break;
+      case QMessageBox::Discard:
+        styles.load();
+        break;
+      case QMessageBox::Cancel:
+        event->ignore();  // ignore event to keep window open
+        return;
+        break;
+    }
+  }
+  event->accept();
+}
+
 void StylesWindow::styleSelectionChanged(const QModelIndex& current, const QModelIndex& previous) {
   Q_UNUSED(previous);
   styleSelect(current.row());

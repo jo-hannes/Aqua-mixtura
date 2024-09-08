@@ -186,6 +186,7 @@ void Settings::load() {
 void Settings::save() {
   QString file = Paths::dataDir() + "/settings.json";
   JsonHelper::saveFile(file, this->toJson());
+  setChanged(false);
 }
 
 void Settings::setChanged(bool changed) {

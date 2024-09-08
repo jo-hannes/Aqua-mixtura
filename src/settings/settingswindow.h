@@ -6,6 +6,7 @@
 
 #include "settings.h"
 
+#include <QCloseEvent>
 #include <QTableView>
 #include <QWidget>
 
@@ -21,6 +22,8 @@ class SettingsWindow : public QWidget {
    * @param parent
    */
   explicit SettingsWindow(Settings& model, QWidget* parent = nullptr);
+
+  void closeEvent(QCloseEvent* event) override;
 
  private slots:
   void settingsImport(); /**< @brief Import JSON settings */

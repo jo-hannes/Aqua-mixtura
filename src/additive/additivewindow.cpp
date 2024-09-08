@@ -4,6 +4,7 @@
 #include "additivewindow.h"
 
 #include "../common/buttons.h"
+#include "../common/dialogs.h"
 
 #include <QCheckBox>
 #include <QDialogButtonBox>
@@ -33,6 +34,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
     concentrations[i]->setDecimals(0);
     concentrations[i]->setMinimum(1);
     concentrations[i]->setMaximum(100);
+    concentrations[i]->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
     layout->addWidget(concentrations[i], row, 2, Qt::AlignRight);
 
     QObject::connect(concentrations[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
@@ -61,6 +63,25 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
   this->setLayout(layout);
 
   update();
+}
+
+void AdditiveWindow::closeEvent(QCloseEvent* event) {
+  if (additive.isChanged()) {
+    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Additive haben ungespeicherte Änderungen"));
+    switch (ret) {
+      case QMessageBox::Save:
+        additive.save();  // save and close window
+        break;
+      case QMessageBox::Discard:
+        cancel();  // undo changes and close window
+        break;
+      case QMessageBox::Cancel:
+        event->ignore();  // ignore event to keep window open
+        return;
+        break;
+    }
+  }
+  event->accept();
 }
 
 void AdditiveWindow::cancel() {

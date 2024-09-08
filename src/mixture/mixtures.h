@@ -36,6 +36,7 @@ class Mixtures : public QAbstractTableModel {
   void addMixture(Mixture& mixture);                 /**< @brief Add a mixture */
   void deleteMixture(qsizetype i);                   /**< @brief Delete mixture at index */
   void show(qsizetype i);                            /**< @brief Show mixture window at index */
+  bool closeAll();                                   /**< @brief Try to close all mixture windows */
 
   // for QAbstractTableModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;

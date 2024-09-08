@@ -50,6 +50,25 @@ MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{m
 
 MaltWindow::~MaltWindow() {}
 
+void MaltWindow::closeEvent(QCloseEvent* event) {
+  if (malts.isChanged()) {
+    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Malze haben ungespeicherte Änderungen"));
+    switch (ret) {
+      case QMessageBox::Save:
+        malts.save();  // save and close window
+        break;
+      case QMessageBox::Discard:
+        malts.load();
+        break;
+      case QMessageBox::Cancel:
+        event->ignore();  // ignore event to keep window open
+        return;
+        break;
+    }
+  }
+  event->accept();
+}
+
 void MaltWindow::maltAdd() {
   Malt m;
   malts.addMalt(m);

@@ -16,6 +16,7 @@
 #include "../style/styles.h"
 #include "../water/watersources.h"
 
+#include <QCloseEvent>
 #include <QLineEdit>
 #include <QWidget>
 
@@ -24,6 +25,8 @@ class MixtureWindow : public QWidget {
  public:
   explicit MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSettings& additiveCfg, Malts& maltDb,
                          Styles& styleDb, Settings& settings, QWidget* parent = nullptr);
+
+  void closeEvent(QCloseEvent* event) override;
 
  public slots:
   void setName(QString name);

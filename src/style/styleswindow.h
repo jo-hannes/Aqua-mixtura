@@ -6,6 +6,7 @@
 
 #include "styles.h"
 
+#include <QCloseEvent>
 #include <QListView>
 #include <QTableView>
 #include <QWidget>
@@ -22,6 +23,8 @@ class StylesWindow : public QWidget {
    * @param parent
    */
   explicit StylesWindow(Styles& model, QWidget* parent = nullptr);
+
+  void closeEvent(QCloseEvent* event) override;
 
  private slots:
   void styleSelectionChanged(const QModelIndex& current,
