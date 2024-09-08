@@ -123,7 +123,7 @@ void Mixtures::show(qsizetype i) {
   }
   // create Window if needed
   if (mixWindows[i] == nullptr) {
-    mixWindows[i] = new MixtureWindow(mixtures[i], waterDb, additiveCfg, maltDb, styleDb, &(settings.waterSettings));
+    mixWindows[i] = new MixtureWindow(mixtures[i], waterDb, additiveCfg, maltDb, styleDb, settings);
   }
   mixWindows[i]->show();
 }

@@ -5,10 +5,8 @@
 
 #include <QGridLayout>
 
-MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limits, QWidget* parent)
-    : QFrame{parent}, mix{mixture}, sDb{styleDb} {
-  Q_ASSERT(limits != nullptr);
-  lim = limits;
+MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& settings, QWidget* parent)
+    : QFrame{parent}, mix{mixture}, sDb{styleDb}, lim{settings} {
   mixStyle.fromJson(mix.style->toJson());  // Make backup of style from mixture
 
   // set frame
@@ -47,7 +45,7 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limi
   update();
 
   // get changes
-  QObject::connect(lim, &Limits::dataModified, this, &MixResultWidget::update);
+  QObject::connect(&lim, &Settings::dataModified, this, &MixResultWidget::update);
   QObject::connect(&sDb, &Styles::dataModified, this, &MixResultWidget::updateStyles);
 }
 
@@ -61,7 +59,7 @@ void MixResultWidget::update(void) {
     vals[i]->setText(QString::number(tst.get(static_cast<AM::WaterValue>(i)), 'f', 2));
     // Update Bars
     if (i != static_cast<int>(AM::WaterValue::Volume)) {  // Skip volume
-      bars[i]->setLimits(lim->getMin(static_cast<AM::WaterValue>(i)), lim->getMax(static_cast<AM::WaterValue>(i)));
+      bars[i]->setLimits(lim.getMin(static_cast<AM::WaterValue>(i)), lim.getMax(static_cast<AM::WaterValue>(i)));
       if (mix.style->isLimited(static_cast<AM::WaterValue>(i))) {
         bars[i]->setStyle(mix.style->get(static_cast<AM::WaterValue>(i), Style::Limit::Min),
                           mix.style->get(static_cast<AM::WaterValue>(i), Style::Limit::Target),

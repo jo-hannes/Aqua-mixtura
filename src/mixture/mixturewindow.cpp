@@ -11,7 +11,7 @@
 #include <QVBoxLayout>
 
 MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSettings& additiveCfg, Malts& maltDb,
-                             Styles& styleDb, Limits* limits, QWidget* parent)
+                             Styles& styleDb, Settings& settings, QWidget* parent)
     : QWidget{parent}, mix{mixture} {
   this->setWindowFlags(Qt::Window);
 
@@ -20,7 +20,7 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   mww = new MixWaterWidget(*mix.waters, waterDb, this);
   mmw = new MixMaltWidget(mix.malts, maltDb, this);
   maw = new MixAdditiveWidget(mix.additive, additiveCfg);
-  mrw = new MixResultWidget(mix, styleDb, limits, this);
+  mrw = new MixResultWidget(mix, styleDb, settings, this);
   // Name edit
   QFrame* nameFrame = new QFrame();
   nameFrame->setFrameStyle(QFrame::Panel | QFrame::Plain);

@@ -21,7 +21,7 @@ SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{paren
 
   // Table view with limits
   limitsView = new QTableView(this);
-  limitsView->setModel(&(settings.waterSettings));
+  limitsView->setModel(&settings);
   // TODO add delegate
   limitsView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   limitsView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);

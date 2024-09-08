@@ -8,7 +8,7 @@
 #include "resultbar.h"
 
 #include "../common/global.h"
-#include "../settings/limits.h"
+#include "../settings/settings.h"
 #include "../style/styles.h"
 
 #include <QComboBox>
@@ -29,7 +29,7 @@ class MixResultWidget : public QFrame {
    * @param limits Pointer to configured limits
    * @param parent QObject parent
    */
-  MixResultWidget(Mixture& mixture, Styles& styleDb, Limits* limits, QWidget* parent = nullptr);
+  MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& settings, QWidget* parent = nullptr);
 
   bool isChanged() const; /**< @brief True if changes not saved */
 
@@ -47,7 +47,7 @@ class MixResultWidget : public QFrame {
   Mixture& mix;           /**< @brief Reference to mixture */
   Style mixStyle;         /**< @brief Backup of style from mix */
   Styles& sDb;            /**< @brief Reference to beer styles database */
-  Limits* lim;            /**< @brief Pointer to configured limits */
+  Settings& lim;          /**< @brief Reference to configured limits */
   QComboBox* styleSelect; /**< @brief ComboBox for selecting beer style */
   int styleIdx;           /**< @brief Index of selected style */
 
