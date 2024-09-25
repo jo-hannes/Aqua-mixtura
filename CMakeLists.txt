@@ -20,6 +20,41 @@ set(PROJECT_SOURCES
     src/main.cpp
     src/mainwindow.cpp
     src/mainwindow.h
+    src/mainmodel.h src/mainmodel.cpp
+    src/additive/additive.h src/additive/additive.cpp
+    src/additive/additivesettings.h src/additive/additivesettings.cpp
+    src/additive/additivewindow.h src/additive/additivewindow.cpp
+    src/common/buttons.h src/common/buttons.cpp
+    src/common/dialogs.h src/common/dialogs.cpp
+    src/common/global.h src/common/global.cpp
+    src/common/jsonhelper.h src/common/jsonhelper.cpp
+    src/common/meta.h src/common/meta.cpp
+    src/common/paths.h src/common/paths.cpp
+    src/icons/icons.qrc
+    src/malt/malt.h src/malt/malt.cpp
+    src/malt/maltphedit.h src/malt/maltphedit.cpp
+    src/malt/malts.h src/malt/malts.cpp
+    src/malt/malttabledelegate.h src/malt/malttabledelegate.cpp
+    src/malt/maltwindow.h src/malt/maltwindow.cpp
+    src/mixture/mixadditivewidget.h src/mixture/mixadditivewidget.cpp
+    src/mixture/mixmaltwidget.h src/mixture/mixmaltwidget.cpp
+    src/mixture/mixresultwidget.h src/mixture/mixresultwidget.cpp
+    src/mixture/mixture.h src/mixture/mixture.cpp
+    src/mixture/mixtures.h src/mixture/mixtures.cpp
+    src/mixture/mixturewindow.h src/mixture/mixturewindow.cpp
+    src/mixture/mixwaterwidget.h src/mixture/mixwaterwidget.cpp
+    src/mixture/resultbar.h src/mixture/resultbar.cpp
+    src/settings/settings.h src/settings/settings.cpp
+    src/settings/settingswindow.h src/settings/settingswindow.cpp
+    src/style/style.h src/style/style.cpp
+    src/style/styles.h src/style/styles.cpp
+    src/style/styleswindow.h src/style/styleswindow.cpp
+    src/style/styletabledelegate.h src/style/styletabledelegate.cpp
+    src/water/water.h src/water/water.cpp
+    src/water/waterprofileedit.h src/water/waterprofileedit.cpp
+    src/water/waterprofileview.h src/water/waterprofileview.cpp
+    src/water/watersources.h src/water/watersources.cpp
+    src/water/watersourcewindow.h src/water/watersourcewindow.cpp
     ${TS_FILES}
 )
 
@@ -27,41 +62,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Aqua-mixtura
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        src/mainmodel.h src/mainmodel.cpp
-        src/additive/additive.h src/additive/additive.cpp
-        src/additive/additivesettings.h src/additive/additivesettings.cpp
-        src/additive/additivewindow.h src/additive/additivewindow.cpp
-        src/common/buttons.h src/common/buttons.cpp
-        src/common/dialogs.h src/common/dialogs.cpp
-        src/common/global.h src/common/global.cpp
-        src/common/jsonhelper.h src/common/jsonhelper.cpp
-        src/common/meta.h src/common/meta.cpp
-        src/common/paths.h src/common/paths.cpp
-        src/icons/icons.qrc
-        src/malt/malt.h src/malt/malt.cpp
-        src/malt/maltphedit.h src/malt/maltphedit.cpp
-        src/malt/malts.h src/malt/malts.cpp
-        src/malt/malttabledelegate.h src/malt/malttabledelegate.cpp
-        src/malt/maltwindow.h src/malt/maltwindow.cpp
-        src/mixture/mixadditivewidget.h src/mixture/mixadditivewidget.cpp
-        src/mixture/mixmaltwidget.h src/mixture/mixmaltwidget.cpp
-        src/mixture/mixresultwidget.h src/mixture/mixresultwidget.cpp
-        src/mixture/mixture.h src/mixture/mixture.cpp
-        src/mixture/mixtures.h src/mixture/mixtures.cpp
-        src/mixture/mixturewindow.h src/mixture/mixturewindow.cpp
-        src/mixture/mixwaterwidget.h src/mixture/mixwaterwidget.cpp
-        src/mixture/resultbar.h src/mixture/resultbar.cpp
-        src/settings/settings.h src/settings/settings.cpp
-        src/settings/settingswindow.h src/settings/settingswindow.cpp
-        src/style/style.h src/style/style.cpp
-        src/style/styles.h src/style/styles.cpp
-        src/style/styleswindow.h src/style/styleswindow.cpp
-        src/style/styletabledelegate.h src/style/styletabledelegate.cpp
-        src/water/water.h src/water/water.cpp
-        src/water/waterprofileedit.h src/water/waterprofileedit.cpp
-        src/water/waterprofileview.h src/water/waterprofileview.cpp
-        src/water/watersources.h src/water/watersources.cpp
-        src/water/watersourcewindow.h src/water/watersourcewindow.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Aqua-mixtura APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
