@@ -38,6 +38,9 @@ class Style : public QAbstractTableModel, public Meta {
   bool isLimited(AM::WaterValue what);                     /**< @brief is value limited */
   void limit(AM::WaterValue what, bool limit);             /**< @brief Limit value */
 
+  bool isChanged() const;        /**< @brief True if changes not saved */
+  void setChanged(bool changed); /**< @brief Set changed state */
+
   // for QAbstractTableModel, see QT documentation for details
   int rowCount(const QModelIndex& parent = QModelIndex()) const;
   int columnCount(const QModelIndex& parent = QModelIndex()) const;
@@ -47,6 +50,8 @@ class Style : public QAbstractTableModel, public Meta {
   Qt::ItemFlags flags(const QModelIndex& index) const;
 
  private:
+  bool changed; /**< @brief True if changed but not saved */
+
   bool limited[static_cast<int>(AM::WaterValue::Size)];
   float limits[static_cast<int>(AM::WaterValue::Size)][static_cast<int>(Limit::Size)];
 

@@ -36,8 +36,7 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   // List view
   stylesView = new QListView();
   stylesView->setModel(&styles);
-  QItemSelectionModel* selectionModel = stylesView->selectionModel();
-  QObject::connect(selectionModel, &QItemSelectionModel::currentChanged, this, &StylesWindow::styleSelectionChanged);
+  QObject::connect(stylesView, &QListView::pressed, this, &StylesWindow::styleSelect);
   mainLayout->addWidget(stylesView, 1, 0, 2, 1);
   // Name edit
   mainLayout->addWidget(new QLabel(tr("Name:")), 1, 1, Qt::AlignLeft);
@@ -63,58 +62,56 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &StylesWindow::styleImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &StylesWindow::styleExport);
   QObject::connect(buttons->btnSave, &QPushButton::clicked, &styles, &Styles::save);
-  QObject::connect(buttons->btnCancel, &QPushButton::clicked, &styles, &Styles::load);
+  QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &StylesWindow::stylesLoad);
 
   mainLayout->addWidget(buttons, 3, 0, 1, 3, Qt::AlignHCenter);
 
   mainLayout->setColumnStretch(2, 1);
 
   setLayout(mainLayout);
+
+  if (styles.rowCount() >= 1) {
+    styleSelect(stylesView->model()->index(0, 0));
+  }
 }
 
 void StylesWindow::closeEvent(QCloseEvent* event) {
-  if (styles.isChanged()) {
-    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Bierstile haben ungespeicherte Änderungen"));
-    switch (ret) {
-      case QMessageBox::Save:
-        styles.save();  // save and close window
-        break;
-      case QMessageBox::Discard:
-        styles.load();
-        break;
-      case QMessageBox::Cancel:
-        event->ignore();  // ignore event to keep window open
-        return;
-        break;
-    }
+  // check for changes
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    event->ignore();
+  } else {
+    event->accept();
   }
-  event->accept();
 }
 
 void StylesWindow::setName(QString name) {
   styles.getStyle(selected)->setName(name);
+  styles.getStyle(selected)->setChanged(true);
   stylesView->update(stylesView->currentIndex());
 }
 
-void StylesWindow::styleSelectionChanged(const QModelIndex& current, const QModelIndex& previous) {
-  Q_UNUSED(previous);
-  styleSelect(current.row());
-}
-
 void StylesWindow::styleAdd() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   styles.addStyle(new Style(tr("New")));
   // Select new style = last style
-  styleSelect(styles.rowCount() - 1);
+  styleSelect(stylesView->model()->index(styles.rowCount() - 1, 0));
 }
 
 void StylesWindow::styleCopy() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   // Qt objects can't be copied, so we need to do this by our own
   Style* copy = styles.getStyle(selected)->copy();
   copy->updateCreationTime();
   copy->setName(tr("Copy of ") + copy->getName());
   styles.addStyle(copy);
   // Select copied style = last style
-  styleSelect(styles.rowCount() - 1);
+  styleSelect(stylesView->model()->index(styles.rowCount() - 1, 0));
 }
 
 void StylesWindow::styleDelete() {
@@ -122,6 +119,10 @@ void StylesWindow::styleDelete() {
 }
 
 void StylesWindow::styleImport() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   QString path = QFileDialog::getOpenFileName(this, tr("Bierstil Importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
@@ -130,13 +131,17 @@ void StylesWindow::styleImport() {
   }
   if (styles.importStyle(path)) {
     // Select imported style = last style
-    styleSelect(styles.rowCount() - 1);
+    styleSelect(stylesView->model()->index(styles.rowCount() - 1, 0));
   } else {
     Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Bierstil nicht im JSON finden"));
   }
 }
 
 void StylesWindow::styleExport() {
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    return;  // user cancelation => do nothing
+  }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
                               styles.getStyle(selected)->getName() + ".json";
   QString path = QFileDialog::getSaveFileName(this, tr("Bierstil Exportieren"), suggestedFileName, tr("JSON (*.json)"));
@@ -148,12 +153,49 @@ void StylesWindow::styleExport() {
   }
 }
 
-void StylesWindow::styleSelect(const qsizetype index) {
-  if (selected == index) {  // same row selected again => do noting
+void StylesWindow::stylesLoad() {
+  styles.load();
+  if (styles.rowCount() >= 1) {
+    selected = -1;  // force re selection of style
+    styleSelect(stylesView->model()->index(0, 0));
+  } else {
+    selected = -1;
+  }
+}
+
+void StylesWindow::styleSelect(const QModelIndex& index) {
+  if (selected == index.row()) {  // same row selected again => do noting
     return;
   }
-  selected = index;
-  stylesView->setCurrentIndex(stylesView->model()->index(selected, 0));
-  styleTableView->setModel(styles.getStyle(selected));
-  nameEdit->setText(styles.getStyle(selected)->getName());
+  // check for changes first
+  if (saveChangesDialog() == QMessageBox::Cancel) {
+    // Select previously selected item
+    stylesView->setCurrentIndex(stylesView->model()->index(selected, 0));
+  } else {
+    // Just switch to new selection
+    selected = index.row();
+    stylesView->setCurrentIndex(stylesView->model()->index(selected, 0));
+    styleTableView->setModel(styles.getStyle(selected));
+    nameEdit->setText(styles.getStyle(selected)->getName());
+  }
+}
+
+int StylesWindow::saveChangesDialog() {
+  if (styles.isChanged() || styles.getStyle(selected)->isChanged()) {
+    int ret = Dialogs::saveChanges(
+        tr("Änderungen speichern?"),
+        tr("Bierstil \"%1\" hat ungespeicherte Änderungen").arg(styles.getStyle(selected)->getName()));
+    //  save or discard
+    switch (ret) {
+      case QMessageBox::Save:
+        styles.save();
+        break;
+      case QMessageBox::Discard:
+        styles.load();  // discard changes
+        break;
+    }
+    return ret;
+  } else {
+    return 0;
+  }
 }

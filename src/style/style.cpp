@@ -12,6 +12,7 @@ Style::Style(QString name) : Meta(name) {
       limits[i][j] = 0;
     }
   }
+  changed = false;
 }
 
 Style::Style(const QJsonObject& json) {
@@ -29,6 +30,7 @@ bool Style::fromJson(const QJsonObject& json) {
       limits[i][j] = limit[jsonKeys[j]].toDouble(0);
     }
   }
+  changed = false;
   return ret;
 }
 
@@ -74,6 +76,7 @@ void Style::set(AM::WaterValue what, Limit limit, float value) {
   if (what < AM::WaterValue::Size && limit < Limit::Size) {
     limits[static_cast<uint>(what)][static_cast<uint>(limit)] = value;
     updateEditTime();
+    changed = true;
   }
 }
 
@@ -90,7 +93,16 @@ void Style::limit(AM::WaterValue what, bool limit)
   if (what < AM::WaterValue::Size) {
     limited[static_cast<uint>(what)] = limit;
     updateEditTime();
+    changed = true;
   }
+}
+
+bool Style::isChanged() const {
+  return changed;
+}
+
+void Style::setChanged(bool changed) {
+  this->changed = changed;
 }
 
 int Style::rowCount(const QModelIndex& parent) const {
@@ -175,11 +187,15 @@ bool Style::setData(const QModelIndex& index, const QVariant& value, int role) {
   // enable disable
   if (col == 0) {
     limited[row] = value.toBool();
+    updateEditTime();
+    changed = true;
     return true;
   }
   // values
   if (col > 0 && col < static_cast<int>(Limit::Size) + 1) {
     limits[row][col - 1] = value.toFloat();
+    updateEditTime();
+    changed = true;
     return true;
   }
   // mark as unsaved!!

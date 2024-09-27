@@ -29,21 +29,23 @@ class StylesWindow : public QWidget {
 
  private slots:
   void setName(QString name);
-  void styleSelectionChanged(const QModelIndex& current,
-                             const QModelIndex& previous); /**< @brief Slot for selection changes */
   void styleAdd();                            /**< @brief Add a new style */
   void styleCopy();                           /**< @brief Copy a existing style */
   void styleDelete();                         /**< @brief Delete the selected style */
   void styleImport();                         /**< @brief Import a JSON style */
   void styleExport();                         /**< @brief Export a style as JSON */
-
- signals:
-  void load();
-  void save();
-  void stylesWindowUnsavedChanges(bool changed); /**< @brief Singal to notify save state of styles */
+  void stylesLoad();                          /**< @brief Load styles */
+  void styleSelect(const QModelIndex& index); /**< @brief Select style at index for style editor */
 
  private:
-  void styleSelect(const qsizetype index); /**< @brief Select style at index for style editor */
+  /**
+   * @brief Check for unsaved changes and ask user how to handle this
+   * @return 0                    No changes done we could save
+   * @return QMessageBox::Save    User clicked "Save"
+   * @return QMessageBox::Discard User clicked "Don't Save"
+   * @return QMessageBox::Cancel  User clicked "Cancel"
+   */
+  int saveChangesDialog();
 
   Styles& styles;             /**< @brief Reference to data model */
   QListView* stylesView;      /**< @brief View with list of styles */

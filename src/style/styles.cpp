@@ -143,7 +143,7 @@ void Styles::save()
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);
   for (const auto style : styles) {
-    style->saved();
+    style->setChanged(false);
   }
 }
 
