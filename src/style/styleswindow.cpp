@@ -33,21 +33,25 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   QLabel* txtValues = new QLabel("<b>" + tr("Werte") + "</b>");
   mainLayout->addWidget(txtValues, 0, 1, Qt::AlignLeft);
 
-  // List/Table views
+  // List view
   stylesView = new QListView();
   stylesView->setModel(&styles);
-  stylesView->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   QItemSelectionModel* selectionModel = stylesView->selectionModel();
   QObject::connect(selectionModel, &QItemSelectionModel::currentChanged, this, &StylesWindow::styleSelectionChanged);
-
-  mainLayout->addWidget(stylesView, 1, 0);
+  mainLayout->addWidget(stylesView, 1, 0, 2, 1);
+  // Name edit
+  mainLayout->addWidget(new QLabel(tr("Name:")), 1, 1, Qt::AlignLeft);
+  nameEdit = new QLineEdit();
+  QObject::connect(nameEdit, &QLineEdit::textEdited, this, &StylesWindow::setName);
+  mainLayout->addWidget(nameEdit, 1, 2);
+  // Table view
   styleTableView = new QTableView();
   styleTableView->setModel(styles.getStyle(0));
   StyleTableDelegate* delegate = new StyleTableDelegate(this);
   styleTableView->setItemDelegate(delegate);
   styleTableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   styleTableView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);
-  mainLayout->addWidget(styleTableView, 1, 1);
+  mainLayout->addWidget(styleTableView, 2, 1, 1, 2);
 
   // Buttons
   Buttons* buttons =
@@ -61,9 +65,9 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   QObject::connect(buttons->btnSave, &QPushButton::clicked, &styles, &Styles::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, &styles, &Styles::load);
 
-  mainLayout->addWidget(buttons, 2, 0, 1, 2, Qt::AlignHCenter);
+  mainLayout->addWidget(buttons, 3, 0, 1, 3, Qt::AlignHCenter);
 
-  mainLayout->setColumnStretch(1, 1);
+  mainLayout->setColumnStretch(2, 1);
 
   setLayout(mainLayout);
 }
@@ -85,6 +89,11 @@ void StylesWindow::closeEvent(QCloseEvent* event) {
     }
   }
   event->accept();
+}
+
+void StylesWindow::setName(QString name) {
+  styles.getStyle(selected)->setName(name);
+  stylesView->update(stylesView->currentIndex());
 }
 
 void StylesWindow::styleSelectionChanged(const QModelIndex& current, const QModelIndex& previous) {
@@ -146,4 +155,5 @@ void StylesWindow::styleSelect(const qsizetype index) {
   selected = index;
   stylesView->setCurrentIndex(stylesView->model()->index(selected, 0));
   styleTableView->setModel(styles.getStyle(selected));
+  nameEdit->setText(styles.getStyle(selected)->getName());
 }

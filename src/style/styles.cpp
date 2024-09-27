@@ -129,30 +129,6 @@ QVariant Styles::data(const QModelIndex& index, int role) const {
   return styles.at(row)->getName();
 }
 
-bool Styles::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-  if (!index.isValid()) {
-    return false;
-  }
-  if (index.row() < 0 || index.row() >= styles.size()) {
-    return false;
-  }
-  if (role != Qt::EditRole) {
-    return false;
-  }
-  styles[index.row()]->setName(value.toString());
-  setChanged(true);
-  return true;
-}
-
-Qt::ItemFlags Styles::flags(const QModelIndex &index) const
-{
-  if (!index.isValid()) {
-    return Qt::NoItemFlags;
-  }
-  return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
-}
-
 void Styles::load()
 {
   QString file = Paths::dataDir() + "/styles.json";
@@ -166,6 +142,9 @@ void Styles::save()
   QString file = Paths::dataDir() + "/styles.json";
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);
+  for (const auto style : styles) {
+    style->saved();
+  }
 }
 
 void Styles::setChanged(bool changed) {

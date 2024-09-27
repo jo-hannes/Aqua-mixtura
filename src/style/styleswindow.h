@@ -7,6 +7,7 @@
 #include "styles.h"
 
 #include <QCloseEvent>
+#include <QLineEdit>
 #include <QListView>
 #include <QTableView>
 #include <QWidget>
@@ -27,6 +28,7 @@ class StylesWindow : public QWidget {
   void closeEvent(QCloseEvent* event) override;
 
  private slots:
+  void setName(QString name);
   void styleSelectionChanged(const QModelIndex& current,
                              const QModelIndex& previous); /**< @brief Slot for selection changes */
   void styleAdd();                            /**< @brief Add a new style */
@@ -45,6 +47,7 @@ class StylesWindow : public QWidget {
 
   Styles& styles;             /**< @brief Reference to data model */
   QListView* stylesView;      /**< @brief View with list of styles */
+  QLineEdit* nameEdit;        /**< @brief Editor for style name */
   QTableView* styleTableView; /**< @brief View with style data */
   qsizetype selected;         /**< @brief Index of currently selected style */
 };
