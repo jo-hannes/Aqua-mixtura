@@ -15,19 +15,23 @@ ResultBar::ResultBar(QWidget* parent) : QWidget{parent} {
   // This widget has a fixed size!
   setFixedSize(width, height);
 
+  negative = false;
+  logarithmic = false;
   style = false;
 }
 
-void ResultBar::setLimits(float min, float max) {
-  lmin = min;
-  lmax = max;
+void ResultBar::setLimits(float min, float max, bool negative, bool logarithmic) {
+  this->lMin = min;
+  this->lMax = max;
+  this->negative = negative;
+  this->logarithmic = logarithmic;
   update();
 }
 
 void ResultBar::setStyle(float min, float target, float max) {
-  this->min = min;
+  this->sMin = min;
   this->target = target;
-  this->max = max;
+  this->sMax = max;
   style = true;
   update();
 }
@@ -48,46 +52,41 @@ void ResultBar::paintEvent(QPaintEvent* event) {
   painter.setPen(pen);
   QBrush brush(Qt::red);
 
+  // ensure valid gMin and gMax
+  updateMinMax();
+
   if (style) {
-    // first calculate max value displayed
-    if (max > lmax) {
-      gMax = max * 1.1;
-    } else {
-      gMax = lmax * 1.1;
-    }
     // just start with all red
     brush.setColor(Qt::red);
     painter.setBrush(brush);
     painter.drawRect(0, 0, width, height);
     // calculate start and end of yellow area
-    float s = lmin / gMax * width;
-    float e = lmax / gMax * width - s;
+    float s = val2graph(lMin);
+    float e = val2graph(lMax) - s;
     brush.setColor(Qt::yellow);
     painter.setBrush(brush);
     painter.drawRect(s, 0, e, height);
     // calculate start and end of green area
-    s = min / gMax * width;
-    e = max / gMax * width - s;
+    s = val2graph(sMin);
+    e = val2graph(sMax) - s;
     brush.setColor(Qt::green);
     painter.setBrush(brush);
     painter.drawRect(s, 0, e, height);
     // calculate location of dark green target indicator
-    s = target / gMax * width;
+    s = val2graph(target);
     int i = round(s);
     brush.setColor(Qt::darkGreen);
     painter.setBrush(brush);
     painter.drawRect(i - 1, 0, 2, height);
   } else {
     // Show only limits
-    // first calculate max value displayed
-    gMax = lmax * 1.1;  // add 10% over limit
     // just start with all red
     brush.setColor(Qt::red);
     painter.setBrush(brush);
     painter.drawRect(0, 0, width, height);
     // calculate start and end of green area
-    float s = lmin / gMax * width;
-    float e = lmax / gMax * width - s;
+    float s = val2graph(lMin);
+    float e = val2graph(lMax) - s;
     // green till lmax
     brush.setColor(Qt::green);
     painter.setBrush(brush);
@@ -97,7 +96,36 @@ void ResultBar::paintEvent(QPaintEvent* event) {
   // print indicator
   brush.setColor(Qt::black);
   painter.setBrush(brush);
-  float ind = value / gMax * width;
+  float ind = val2graph(value);
   QPoint points[3] = {QPoint(ind - 5, height), QPoint(ind, height / 2), QPoint(ind + 5, height)};
   painter.drawPolygon(points, 3);
+}
+
+void ResultBar::updateMinMax() {
+  float tMin, tMax, tDiff;
+  // first get min and max from limits and style
+  if (style) {
+    // first calculate max value displayed
+    tMin = std::min(lMin, sMin);
+    tMax = std::max(lMax, sMax);
+  } else {
+    tMin = lMin;
+    tMax = lMax;
+  }
+  tDiff = tMax - tMin;
+
+  // Add 10% on each side // TODO also 10% with logarithmic scale?
+  gMin = tMin - 0.1 * tDiff;
+  gMax = tMax + 0.1 * tDiff;
+  // ne negative values without negaive set
+  if (gMin < 0 && !negative) {
+    gMin = 0;
+  }
+}
+
+float ResultBar::val2graph(float value) {
+  // TODO add support for logarithmic scale
+  float gDiff = gMax - gMin;
+  value -= gMin;
+  return value / gDiff * width;
 }

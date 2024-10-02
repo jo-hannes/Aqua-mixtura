@@ -20,7 +20,7 @@ class ResultBar : public QWidget {
    * @param min Minimum value
    * @param max Maximum value
    */
-  void setLimits(float min, float max);
+  void setLimits(float min, float max, bool negative, bool logarithmic);
 
   /**
    * @brief Set style limits
@@ -44,20 +44,27 @@ class ResultBar : public QWidget {
  signals:
 
  protected:
+  // Overwrite qt paintEvent
   void paintEvent(QPaintEvent* event) override;
 
  private:
-  static inline int width = 122;
-  static inline int height = 20;
+  void updateMinMax(void);      /**< @brief Update gMin and gMax */
+  float val2graph(float value); /**< @brief trans form value into graph coordinate */
 
-  float lmin;
-  float min;
-  float target;
-  float max;
-  float lmax;
-  float value;
-  float gMax;
-  bool style;
+  static inline int width = 122; /**< @brief width of result bar in pixel */
+  static inline int height = 20; /**< @brief height of result bar in pixel */
+
+  float gMin;       /**< @brief minimum value displayed in graph */
+  float lMin;       /**< @brief minimum from settings */
+  float sMin;       /**< @brief minimum from style */
+  float target;     /**< @brief target from style */
+  float sMax;       /**< @brief maximum from style */
+  float lMax;       /**< @brief maximum from settings */
+  float gMax;       /**< @brief maximum value displayed in graph */
+  float value;      /**< @brief value to be displayed */
+  bool negative;    /**< @brief negative values are valid */
+  bool logarithmic; /**< @brief logarithmic scale */
+  bool style;       /**< @brief Indicates if a style is set */
 };
 
 #endif  // RESULTBAR_H

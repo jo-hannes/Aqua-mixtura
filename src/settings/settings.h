@@ -4,8 +4,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "limits.h"
-
 #include "../common/global.h"
 #include "../common/meta.h"
 
@@ -31,6 +29,11 @@ class Settings : public QAbstractTableModel, public Meta {
   void setMin(AM::WaterValue what, float value); /**< @brief set lower limi */
   void setMax(AM::WaterValue what, float value); /**< @brief set upper limit */
 
+  bool isNegativeAllowed(AM::WaterValue what) const;         /**< @brief get if negative values are allowed */
+  void setNegativeAllowed(AM::WaterValue what, bool value);  /**< @brief set if negative values are allowed */
+  bool isLogarithmicScale(AM::WaterValue what) const;        /**< @brief get if scale is logarithmic */
+  void setLogarithmicScale(AM::WaterValue what, bool value); /**< @brief set logarithmic scale */
+
   bool isChanged() const; /**< @brief True if changes not saved */
 
   // for QAbstractTableModel, see QT documentation for details
@@ -53,6 +56,8 @@ class Settings : public QAbstractTableModel, public Meta {
   bool changed;                  /**< @brief True if changed but not saved */
 
   float limits[static_cast<int>(AM::WaterValue::Size)][2];
+  bool negative[static_cast<int>(AM::WaterValue::Size)];
+  bool logarithmic[static_cast<int>(AM::WaterValue::Size)];
 };
 
 #endif  // SETTINGS_H

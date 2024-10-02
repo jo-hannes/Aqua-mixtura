@@ -12,6 +12,8 @@ Settings::Settings(QObject* parent) : QAbstractTableModel{parent} {
     for (int j = 0; j < 2; j++) {
       limits[i][j] = 0;
     }
+    negative[i] = false;
+    logarithmic[i] = false;
   }
   changed = false;
 }
@@ -35,9 +37,11 @@ bool Settings::fromJson(const QJsonObject& json) {
   // start at index 1 to skip volume
   for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
     // get sub object
-    QJsonValue limit = jSettings[AM::waterStrings[i][AM::JsonKey]];
-    limits[i][0] = limit["Min"].toDouble(0);
-    limits[i][1] = limit["Max"].toDouble(0);
+    QJsonValue setting = jSettings[AM::waterStrings[i][AM::JsonKey]];
+    limits[i][0] = setting["Min"].toDouble(0);
+    limits[i][1] = setting["Max"].toDouble(0);
+    negative[i] = setting["AllowNegative"].toBool(false);
+    logarithmic[i] = setting["LogarithmicScale"].toBool(false);
   }
   endResetModel();
   setChanged(false);
@@ -48,12 +52,14 @@ QJsonObject Settings::toJson() const {
   QJsonObject inner;
   Meta::toJson(inner);
   for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
-    // create limit object
-    QJsonObject limit;
-    limit["Min"] = limits[i][0];
-    limit["Max"] = limits[i][1];
+    // create settings object
+    QJsonObject setting;
+    setting["Min"] = limits[i][0];
+    setting["Max"] = limits[i][1];
+    setting["AllowNegative"] = negative[i];
+    setting["LogarithmicScale"] = logarithmic[i];
     // add object to main json
-    inner[AM::waterStrings[i][AM::JsonKey]] = limit;
+    inner[AM::waterStrings[i][AM::JsonKey]] = setting;
   }
   QJsonObject outer;
   outer["Settings"] = inner;
@@ -88,6 +94,34 @@ void Settings::setMax(AM::WaterValue what, float value) {
   }
 }
 
+bool Settings::isNegativeAllowed(AM::WaterValue what) const {
+  if (what < AM::WaterValue::Size) {
+    return negative[static_cast<uint>(what)];
+  }
+  return false;
+}
+
+void Settings::setNegativeAllowed(AM::WaterValue what, bool value) {
+  if (what < AM::WaterValue::Size) {
+    negative[static_cast<uint>(what)] = value;
+    setChanged(true);
+  }
+}
+
+bool Settings::isLogarithmicScale(AM::WaterValue what) const {
+  if (what < AM::WaterValue::Size) {
+    return logarithmic[static_cast<uint>(what)];
+  }
+  return false;
+}
+
+void Settings::setLogarithmicScale(AM::WaterValue what, bool value) {
+  if (what < AM::WaterValue::Size) {
+    logarithmic[static_cast<uint>(what)] = value;
+    setChanged(true);
+  }
+}
+
 bool Settings::isChanged() const {
   return changed;
 }
@@ -99,8 +133,8 @@ int Settings::rowCount(const QModelIndex& parent) const {
 
 int Settings::columnCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  // only Min + Max column
-  return 2;
+  // Min, Max, negative, logarithimc
+  return 3;  // TODO do not hide logarithmic setting
 }
 
 QVariant Settings::data(const QModelIndex& index, int role) const {
@@ -115,10 +149,22 @@ QVariant Settings::data(const QModelIndex& index, int role) const {
     return QVariant();
   }
   qsizetype col = index.column();
-  if (col < 0 || col >= 2) {
-    return QVariant();
+  switch (col) {
+    case 0:
+    case 1:
+      return limits[row][col];
+      break;
+    case 2:
+      return negative[row];
+      break;
+    case 3:
+      return logarithmic[row];
+      break;
+    default:
+      return QVariant();
+      break;
   }
-  return limits[row][col];
+  return QVariant();
 }
 
 QVariant Settings::headerData(int section, Qt::Orientation orientation, int role) const {
@@ -132,6 +178,10 @@ QVariant Settings::headerData(int section, Qt::Orientation orientation, int role
         return tr("Minimum");
       case 1:
         return tr("Maximum");
+      case 2:
+        return tr("Negative Werte");
+      case 3:
+        return tr("Logarithmische Skala");
       default:
         return QVariant();
     }
@@ -160,13 +210,26 @@ bool Settings::setData(const QModelIndex& index, const QVariant& value, int role
   if (row < 0 || row >= static_cast<int>(AM::WaterValue::Size)) {
     return false;
   }
+
   qsizetype col = index.column();
-  if (col < 0 || col >= 2) {
-    return false;
+  switch (col) {
+    case 0:
+    case 1:
+      limits[row][col] = value.toFloat();
+      setChanged(true);
+      return true;
+    case 2:
+      negative[row] = value.toBool();
+      setChanged(true);
+      return true;
+    case 3:
+      return logarithmic[row] = value.toBool();
+      setChanged(true);
+      return true;
+    default:
+      return false;
   }
-  limits[row][col] = value.toFloat();
-  setChanged(true);
-  return true;
+  return false;
 }
 
 Qt::ItemFlags Settings::flags(const QModelIndex& index) const {

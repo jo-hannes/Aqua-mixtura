@@ -59,7 +59,9 @@ void MixResultWidget::update(void) {
     vals[i]->setText(QString::number(tst.get(static_cast<AM::WaterValue>(i)), 'f', 2));
     // Update Bars
     if (i != static_cast<int>(AM::WaterValue::Volume)) {  // Skip volume
-      bars[i]->setLimits(lim.getMin(static_cast<AM::WaterValue>(i)), lim.getMax(static_cast<AM::WaterValue>(i)));
+      bars[i]->setLimits(lim.getMin(static_cast<AM::WaterValue>(i)), lim.getMax(static_cast<AM::WaterValue>(i)),
+                         lim.isNegativeAllowed(static_cast<AM::WaterValue>(i)),
+                         lim.isLogarithmicScale(static_cast<AM::WaterValue>(i)));
       if (mix.style->isLimited(static_cast<AM::WaterValue>(i))) {
         bars[i]->setStyle(mix.style->get(static_cast<AM::WaterValue>(i), Style::Limit::Min),
                           mix.style->get(static_cast<AM::WaterValue>(i), Style::Limit::Target),
