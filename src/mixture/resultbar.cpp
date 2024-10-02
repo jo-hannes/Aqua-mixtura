@@ -97,7 +97,25 @@ void ResultBar::paintEvent(QPaintEvent* event) {
   brush.setColor(Qt::black);
   painter.setBrush(brush);
   float ind = val2graph(value);
-  QPoint points[3] = {QPoint(ind - 5, height), QPoint(ind, height / 2), QPoint(ind + 5, height)};
+  // check if we are out of range
+  QPoint points[3];
+  if (ind < 0) {
+    // below range
+    points[0] = QPoint(0, height - 5);
+    points[1] = QPoint(10, height - 10);
+    points[2] = QPoint(10, height);
+
+  } else if (ind > width) {
+    // over range
+    points[0] = QPoint(width, height - 5);
+    points[1] = QPoint(width - 10, height - 10);
+    points[2] = QPoint(width - 10, height);
+  } else {
+    // in range
+    points[0] = QPoint(ind - 5, height);
+    points[1] = QPoint(ind, height / 2);
+    points[2] = QPoint(ind + 5, height);
+  }
   painter.drawPolygon(points, 3);
 }
 
