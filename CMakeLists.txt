@@ -52,7 +52,6 @@ set(PROJECT_SOURCES
     src/style/styletabledelegate.h src/style/styletabledelegate.cpp
     src/water/water.h src/water/water.cpp
     src/water/waterprofileedit.h src/water/waterprofileedit.cpp
-    src/water/waterprofileview.h src/water/waterprofileview.cpp
     src/water/watersources.h src/water/watersources.cpp
     src/water/watersourcewindow.h src/water/watersourcewindow.cpp
     ${TS_FILES}

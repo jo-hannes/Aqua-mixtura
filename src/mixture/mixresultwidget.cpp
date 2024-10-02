@@ -27,7 +27,7 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   // values
   for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
     // Description
-    layout->addWidget(new QLabel(AM::waterStrings[i][AM::JsonKey]), i + 1, 0);
+    layout->addWidget(new QLabel(AM::waterStrings[i][AM::Description]), i + 1, 0);
     // value
     vals[i] = new QLabel();
     layout->addWidget(vals[i], i + 1, 1);

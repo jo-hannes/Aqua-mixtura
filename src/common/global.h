@@ -4,6 +4,7 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include <QObject>
 #include <QString>
 
 /**
@@ -43,29 +44,29 @@ enum class WaterValue {
 /**
  * @brief Index for 2nd dimension of waterStrings
  */
-enum WaterIdx { JsonKey = 0, Unit };
+enum WaterIdx { JsonKey = 0, Unit, Description };
 
 // clang-format off
 
 // Need to match order of WaterValue enum
 // Strings are: json key, unit, ...
-inline static const QString waterStrings[static_cast<int>(WaterValue::Size)][2] = {
-    {"Volume",            "l"},
-    {"Calcium",           "mg/l"},
-    {"Magnesium",         "mg/l"},
-    {"Natrium",           "mg/l"},
-    {"Hydrogencarbonat",  "mg/l"},
-    {"Chlorid",           "mg/l"},
-    {"Sulfat",            "mg/l"},
-    {"Phosphat",          "mg/l"},
-    {"Lactat",            "mg/l"},
-    {"Restalkalitaet",    "°dH"},
-    {"Gesamthaerte",      "°dH"},
-    {"Carbonhaerte",      "°dH"},
-    {"NichtCarbonhaerte", "°dH"},
-    {"CaHaerte",          "°dH"},
-    {"MgHaerte",          "°dH"},
-    {"SO4ClVerhaeltnis",  ""}
+inline static const QString waterStrings[static_cast<int>(WaterValue::Size)][3] = {
+    {"Volume",            "l",    QObject::tr("Volumen")},
+    {"ca",                "mg/l", QObject::tr("Calcium")},
+    {"mg",                "mg/l", QObject::tr("Magnesium")},
+    {"na",                "mg/l", QObject::tr("Natrium")},
+    {"hco3",              "mg/l", QObject::tr("Hydrogencarbonat")},
+    {"cl",                "mg/l", QObject::tr("Chlorid")},
+    {"so4",               "mg/l", QObject::tr("Sulfat")},
+    {"h2po4",             "mg/l", QObject::tr("Phosphat")},
+    {"c3h5o3",            "mg/l", QObject::tr("Lactat")},
+    {"Restalkalitaet",    "°dH",  QObject::tr("Restalkalität")},
+    {"Gesamthaerte",      "°dH",  QObject::tr("Gesamthärte")},
+    {"Carbonhaerte",      "°dH",  QObject::tr("Carbonhärte")},
+    {"NichtCarbonhaerte", "°dH",  QObject::tr("Nichtcarbonhärte")},
+    {"CaHaerte",          "°dH",  QObject::tr("Ca-Härte")},
+    {"MgHaerte",          "°dH",  QObject::tr("Mg-Härte")},
+    {"SO4ClVerhaeltnis",  "",     QObject::tr("SO₄/Cl-Verhältnis")}
   };
 // clang-format on
 

@@ -28,15 +28,21 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout->addWidget(txtKat, row++, 0, 1, 3, Qt::AlignLeft);
 
   calcium = new QDoubleSpinBox();
-  addEditableValue(row++, calcium, tr("Calcium"), "mg/l");
+  addEditableValue(row++, calcium,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Calcium)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Calcium)][AM::WaterIdx::Unit]);
   QObject::connect(calcium, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeCalcium);
 
   magnesium = new QDoubleSpinBox();
-  addEditableValue(row++, magnesium, tr("Magnesium"), "mg/l");
+  addEditableValue(row++, magnesium,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Magnesium)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Magnesium)][AM::WaterIdx::Unit]);
   QObject::connect(magnesium, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeMagnesium);
 
   natrium = new QDoubleSpinBox();
-  addEditableValue(row++, natrium, tr("Natrium"), "mg/l");
+  addEditableValue(row++, natrium,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Natrium)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Natrium)][AM::WaterIdx::Unit]);
   QObject::connect(natrium, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeNatrium);
 
   // Anionen
@@ -45,23 +51,33 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout->addWidget(txtAni, row++, 0, 1, 3, Qt::AlignLeft);
 
   hydrogencarbonat = new QDoubleSpinBox();
-  addEditableValue(row++, hydrogencarbonat, tr("Hydrogencarbonat"), "mg/l");
+  addEditableValue(row++, hydrogencarbonat,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Hydrogencarbonat)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Hydrogencarbonat)][AM::WaterIdx::Unit]);
   QObject::connect(hydrogencarbonat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeHydrogencarbonat);
 
   chlorid = new QDoubleSpinBox();
-  addEditableValue(row++, chlorid, tr("Chlorid"), "mg/l");
+  addEditableValue(row++, chlorid,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Chlorid)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Chlorid)][AM::WaterIdx::Unit]);
   QObject::connect(chlorid, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeChlorid);
 
   sulfat = new QDoubleSpinBox();
-  addEditableValue(row++, sulfat, tr("Sulfat"), "mg/l");
+  addEditableValue(row++, sulfat,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Sulfat)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Sulfat)][AM::WaterIdx::Unit]);
   QObject::connect(sulfat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeSulfat);
 
   phosphat = new QDoubleSpinBox();
-  addEditableValue(row++, phosphat, tr("Phosphat"), "mg/l");
+  addEditableValue(row++, phosphat,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Phosphat)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Phosphat)][AM::WaterIdx::Unit]);
   QObject::connect(phosphat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangePhosphat);
 
   lactat = new QDoubleSpinBox();
-  addEditableValue(row++, lactat, tr("Lactat"), "mg/l");
+  addEditableValue(row++, lactat,
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Lactat)][AM::WaterIdx::Description],
+                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Lactat)][AM::WaterIdx::Unit]);
   QObject::connect(lactat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeLactat);
 
   QLabel* txtCalc = new QLabel(tr("Berechnet"));
@@ -69,25 +85,39 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout->addWidget(txtCalc, row++, 0, 1, 3, Qt::AlignLeft);
 
   restalkallität = new QLabel("");
-  addCalculatedValue(row++, restalkallität, tr("Restalaklität"), "°dH");
+  addCalculatedValue(row++, restalkallität,
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Restalkalitaet)][AM::WaterIdx::Description],
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Restalkalitaet)][AM::WaterIdx::Unit]);
 
   gesammtHaerte = new QLabel("");
-  addCalculatedValue(row++, gesammtHaerte, tr("Gesammthärte"), "°dH");
+  addCalculatedValue(row++, gesammtHaerte,
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Gesamthaerte)][AM::WaterIdx::Description],
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Gesamthaerte)][AM::WaterIdx::Unit]);
 
   carbonHaerte = new QLabel("");
-  addCalculatedValue(row++, carbonHaerte, tr("Carbonhärte"), "°dH");
+  addCalculatedValue(row++, carbonHaerte,
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Carbonhaerte)][AM::WaterIdx::Description],
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Carbonhaerte)][AM::WaterIdx::Unit]);
 
   caHaerte = new QLabel("");
-  addCalculatedValue(row++, caHaerte, tr("Ca-Härte"), "°dH");
+  addCalculatedValue(row++, caHaerte,
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::CaHaerte)][AM::WaterIdx::Description],
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::CaHaerte)][AM::WaterIdx::Unit]);
 
   mgHaerte = new QLabel();
-  addCalculatedValue(row++, mgHaerte, tr("Mg-Härte"), "°dH");
+  addCalculatedValue(row++, mgHaerte,
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::MgHaerte)][AM::WaterIdx::Description],
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::MgHaerte)][AM::WaterIdx::Unit]);
 
   nichtcarbonHaerte = new QLabel();
-  addCalculatedValue(row++, nichtcarbonHaerte, tr("Nichtcarbonhärte"), "°dH");
+  addCalculatedValue(row++, nichtcarbonHaerte,
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::NichtCarbonhaerte)][AM::WaterIdx::Description],
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::NichtCarbonhaerte)][AM::WaterIdx::Unit]);
 
   so4cl = new QLabel();
-  addCalculatedValue(row++, so4cl, tr("SO4/Cl-Verhältnis"), "");
+  addCalculatedValue(row++, so4cl,
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::SO4ClVerhaeltnis)][AM::WaterIdx::Description],
+                     AM::waterStrings[static_cast<uint>(AM::WaterValue::SO4ClVerhaeltnis)][AM::WaterIdx::Unit]);
 
   // buttons
   row++;
