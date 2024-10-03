@@ -302,11 +302,13 @@
     </message>
     <message>
         <location filename="../src/malt/maltwindow.cpp" line="39"/>
+        <location filename="../src/malt/maltwindow.cpp" line="98"/>
         <source>Malz importieren</source>
         <translation>Malz importieren</translation>
     </message>
     <message>
         <location filename="../src/malt/maltwindow.cpp" line="40"/>
+        <location filename="../src/malt/maltwindow.cpp" line="116"/>
         <source>Malz exportieren</source>
         <translation>Malz exportieren</translation>
     </message>
@@ -331,9 +333,8 @@
         <translation>Malze haben ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/malt/maltwindow.cpp" line="98"/>
         <source>Malz Importieren</source>
-        <translation>Malz Importieren</translation>
+        <translation type="vanished">Malz Importieren</translation>
     </message>
     <message>
         <location filename="../src/malt/maltwindow.cpp" line="100"/>
@@ -351,9 +352,8 @@
         <translation>Konnte Malz nicht im JSON finden</translation>
     </message>
     <message>
-        <location filename="../src/malt/maltwindow.cpp" line="116"/>
         <source>Malz Exportieren</source>
-        <translation>Malz Exportieren</translation>
+        <translation type="vanished">Malz Exportieren</translation>
     </message>
     <message>
         <location filename="../src/malt/maltwindow.cpp" line="121"/>

@@ -95,7 +95,7 @@ void MaltWindow::maltDelete() {
 }
 
 void MaltWindow::maltImport() {
-  QString path = QFileDialog::getOpenFileName(this, tr("Malz Importieren"),
+  QString path = QFileDialog::getOpenFileName(this, tr("Malz importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
@@ -113,7 +113,7 @@ void MaltWindow::maltExport() {
   }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
                               malts.getMalt(idx.row()).getName() + ".json";
-  QString path = QFileDialog::getSaveFileName(this, tr("Malz Exportieren"), suggestedFileName, "JSON (*.json)");
+  QString path = QFileDialog::getSaveFileName(this, tr("Malz exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }
