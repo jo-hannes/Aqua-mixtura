@@ -44,8 +44,8 @@ class WaterProfileEdit : public QWidget
   void saveProfile(Water& profile); /**< @brief Send signal with profile we want to save */
 
  private:
-  void addEditableValue(int row, QDoubleSpinBox* spinBox, QString text, QString unit);
-  void addCalculatedValue(int row, QLabel* value, QString text, QString unit);
+  void addEditableValue(int row, QDoubleSpinBox* spinBox, Water::Value what);
+  void addCalculatedValue(int row, QLabel* value, Water::Value what);
   bool changed;
   Water givenProfile, volatileProfile;
 

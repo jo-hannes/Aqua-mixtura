@@ -118,9 +118,9 @@ QVariant WaterSources::data(const QModelIndex& index, int role) const {
     case 0:
       return sources.at(row).getName();
     case 1:
-      return sources.at(row).get(AM::WaterValue::Restalkalitaet);
+      return sources.at(row).get(Water::Value::Restalkalitaet);
     case 2:
-      return sources.at(row).get(AM::WaterValue::Volume);
+      return sources.at(row).get(Water::Value::Volume);
     default:
       return QVariant();
   }
@@ -159,7 +159,7 @@ bool WaterSources::setData(const QModelIndex& index, const QVariant& value, int 
     return false;
   }
   if (index.column() == 2) {
-    sources[row].set(AM::WaterValue::Volume, value.toFloat());
+    sources[row].set(Water::Value::Volume, value.toFloat());
     emit dataChanged(index, index);
     return true;
   }

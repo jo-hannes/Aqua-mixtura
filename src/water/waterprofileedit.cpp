@@ -28,21 +28,15 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout->addWidget(txtKat, row++, 0, 1, 3, Qt::AlignLeft);
 
   calcium = new QDoubleSpinBox();
-  addEditableValue(row++, calcium,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Calcium)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Calcium)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, calcium, Water::Value::Calcium);
   QObject::connect(calcium, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeCalcium);
 
   magnesium = new QDoubleSpinBox();
-  addEditableValue(row++, magnesium,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Magnesium)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Magnesium)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, magnesium, Water::Value::Magnesium);
   QObject::connect(magnesium, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeMagnesium);
 
   natrium = new QDoubleSpinBox();
-  addEditableValue(row++, natrium,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Natrium)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Natrium)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, natrium, Water::Value::Natrium);
   QObject::connect(natrium, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeNatrium);
 
   // Anionen
@@ -51,33 +45,23 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout->addWidget(txtAni, row++, 0, 1, 3, Qt::AlignLeft);
 
   hydrogencarbonat = new QDoubleSpinBox();
-  addEditableValue(row++, hydrogencarbonat,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Hydrogencarbonat)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Hydrogencarbonat)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, hydrogencarbonat, Water::Value::Hydrogencarbonat);
   QObject::connect(hydrogencarbonat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeHydrogencarbonat);
 
   chlorid = new QDoubleSpinBox();
-  addEditableValue(row++, chlorid,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Chlorid)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Chlorid)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, chlorid, Water::Value::Chlorid);
   QObject::connect(chlorid, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeChlorid);
 
   sulfat = new QDoubleSpinBox();
-  addEditableValue(row++, sulfat,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Sulfat)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Sulfat)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, sulfat, Water::Value::Sulfat);
   QObject::connect(sulfat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeSulfat);
 
   phosphat = new QDoubleSpinBox();
-  addEditableValue(row++, phosphat,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Phosphat)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Phosphat)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, phosphat, Water::Value::Phosphat);
   QObject::connect(phosphat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangePhosphat);
 
   lactat = new QDoubleSpinBox();
-  addEditableValue(row++, lactat,
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Lactat)][AM::WaterIdx::Description],
-                   AM::waterStrings[static_cast<uint>(AM::WaterValue::Lactat)][AM::WaterIdx::Unit]);
+  addEditableValue(row++, lactat, Water::Value::Lactat);
   QObject::connect(lactat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeLactat);
 
   QLabel* txtCalc = new QLabel(tr("Berechnet"));
@@ -85,39 +69,25 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout->addWidget(txtCalc, row++, 0, 1, 3, Qt::AlignLeft);
 
   restalkallität = new QLabel("");
-  addCalculatedValue(row++, restalkallität,
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Restalkalitaet)][AM::WaterIdx::Description],
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Restalkalitaet)][AM::WaterIdx::Unit]);
+  addCalculatedValue(row++, restalkallität, Water::Value::Restalkalitaet);
 
   gesammtHaerte = new QLabel("");
-  addCalculatedValue(row++, gesammtHaerte,
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Gesamthaerte)][AM::WaterIdx::Description],
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Gesamthaerte)][AM::WaterIdx::Unit]);
+  addCalculatedValue(row++, gesammtHaerte, Water::Value::Gesamthaerte);
 
   carbonHaerte = new QLabel("");
-  addCalculatedValue(row++, carbonHaerte,
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Carbonhaerte)][AM::WaterIdx::Description],
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::Carbonhaerte)][AM::WaterIdx::Unit]);
+  addCalculatedValue(row++, carbonHaerte, Water::Value::Carbonhaerte);
 
   caHaerte = new QLabel("");
-  addCalculatedValue(row++, caHaerte,
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::CaHaerte)][AM::WaterIdx::Description],
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::CaHaerte)][AM::WaterIdx::Unit]);
+  addCalculatedValue(row++, caHaerte, Water::Value::CaHaerte);
 
   mgHaerte = new QLabel();
-  addCalculatedValue(row++, mgHaerte,
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::MgHaerte)][AM::WaterIdx::Description],
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::MgHaerte)][AM::WaterIdx::Unit]);
+  addCalculatedValue(row++, mgHaerte, Water::Value::MgHaerte);
 
   nichtcarbonHaerte = new QLabel();
-  addCalculatedValue(row++, nichtcarbonHaerte,
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::NichtCarbonhaerte)][AM::WaterIdx::Description],
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::NichtCarbonhaerte)][AM::WaterIdx::Unit]);
+  addCalculatedValue(row++, nichtcarbonHaerte, Water::Value::NichtCarbonhaerte);
 
   so4cl = new QLabel();
-  addCalculatedValue(row++, so4cl,
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::SO4ClVerhaeltnis)][AM::WaterIdx::Description],
-                     AM::waterStrings[static_cast<uint>(AM::WaterValue::SO4ClVerhaeltnis)][AM::WaterIdx::Unit]);
+  addCalculatedValue(row++, so4cl, Water::Value::SO4ClVerhaeltnis);
 
   // buttons
   row++;
@@ -142,25 +112,25 @@ bool WaterProfileEdit::isChanged() const {
 
 void WaterProfileEdit::updateAll() {
   name->setText(volatileProfile.getName());
-  calcium->setValue(volatileProfile.get(AM::WaterValue::Calcium));
-  magnesium->setValue(volatileProfile.get(AM::WaterValue::Magnesium));
-  natrium->setValue(volatileProfile.get(AM::WaterValue::Natrium));
-  hydrogencarbonat->setValue(volatileProfile.get(AM::WaterValue::Hydrogencarbonat));
-  chlorid->setValue(volatileProfile.get(AM::WaterValue::Chlorid));
-  sulfat->setValue(volatileProfile.get(AM::WaterValue::Sulfat));
-  phosphat->setValue(volatileProfile.get(AM::WaterValue::Phosphat));
-  lactat->setValue(volatileProfile.get(AM::WaterValue::Lactat));
+  calcium->setValue(volatileProfile.get(Water::Value::Calcium));
+  magnesium->setValue(volatileProfile.get(Water::Value::Magnesium));
+  natrium->setValue(volatileProfile.get(Water::Value::Natrium));
+  hydrogencarbonat->setValue(volatileProfile.get(Water::Value::Hydrogencarbonat));
+  chlorid->setValue(volatileProfile.get(Water::Value::Chlorid));
+  sulfat->setValue(volatileProfile.get(Water::Value::Sulfat));
+  phosphat->setValue(volatileProfile.get(Water::Value::Phosphat));
+  lactat->setValue(volatileProfile.get(Water::Value::Lactat));
   updateCalculated();
 }
 
 void WaterProfileEdit::updateCalculated() {
-  restalkallität->setText(QString::number(volatileProfile.get(AM::WaterValue::Restalkalitaet), 'f', 2));
-  gesammtHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::Gesamthaerte), 'f', 2));
-  carbonHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::Carbonhaerte), 'f', 2));
-  caHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::CaHaerte), 'f', 2));
-  mgHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::MgHaerte), 'f', 2));
-  nichtcarbonHaerte->setText(QString::number(volatileProfile.get(AM::WaterValue::NichtCarbonhaerte), 'f', 2));
-  so4cl->setText(QString::number(volatileProfile.get(AM::WaterValue::SO4ClVerhaeltnis), 'f', 2));
+  restalkallität->setText(QString::number(volatileProfile.get(Water::Value::Restalkalitaet), 'f', 2));
+  gesammtHaerte->setText(QString::number(volatileProfile.get(Water::Value::Gesamthaerte), 'f', 2));
+  carbonHaerte->setText(QString::number(volatileProfile.get(Water::Value::Carbonhaerte), 'f', 2));
+  caHaerte->setText(QString::number(volatileProfile.get(Water::Value::CaHaerte), 'f', 2));
+  mgHaerte->setText(QString::number(volatileProfile.get(Water::Value::MgHaerte), 'f', 2));
+  nichtcarbonHaerte->setText(QString::number(volatileProfile.get(Water::Value::NichtCarbonhaerte), 'f', 2));
+  so4cl->setText(QString::number(volatileProfile.get(Water::Value::SO4ClVerhaeltnis), 'f', 2));
 }
 
 void WaterProfileEdit::save() {
@@ -181,68 +151,70 @@ void WaterProfileEdit::valChangName(const QString& name) {
 }
 
 void WaterProfileEdit::valChangeCalcium(double val) {
-  volatileProfile.set(AM::WaterValue::Calcium, val);
+  volatileProfile.set(Water::Value::Calcium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeMagnesium(double val) {
-  volatileProfile.set(AM::WaterValue::Magnesium, val);
+  volatileProfile.set(Water::Value::Magnesium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeNatrium(double val) {
-  volatileProfile.set(AM::WaterValue::Natrium, val);
+  volatileProfile.set(Water::Value::Natrium, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeHydrogencarbonat(double val) {
-  volatileProfile.set(AM::WaterValue::Hydrogencarbonat, val);
+  volatileProfile.set(Water::Value::Hydrogencarbonat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeChlorid(double val) {
-  volatileProfile.set(AM::WaterValue::Chlorid, val);
+  volatileProfile.set(Water::Value::Chlorid, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeSulfat(double val) {
-  volatileProfile.set(AM::WaterValue::Sulfat, val);
+  volatileProfile.set(Water::Value::Sulfat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangePhosphat(double val) {
-  volatileProfile.set(AM::WaterValue::Phosphat, val);
+  volatileProfile.set(Water::Value::Phosphat, val);
   changed = true;
   updateCalculated();
 }
 
 void WaterProfileEdit::valChangeLactat(double val) {
-  volatileProfile.set(AM::WaterValue::Lactat, val);
+  volatileProfile.set(Water::Value::Lactat, val);
   changed = true;
   updateCalculated();
 }
 
-void WaterProfileEdit::addEditableValue(int row, QDoubleSpinBox* spinBox, QString text, QString unit) {
+void WaterProfileEdit::addEditableValue(int row, QDoubleSpinBox* spinBox, Water::Value what) {
   spinBox->setDecimals(2);
   spinBox->setMinimum(0);
   spinBox->setMaximum(999);  // TODO what to use as maximum?
-  QLabel* txt = new QLabel(text);
+  QLabel* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
   txt->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(spinBox, row, 1, Qt::AlignRight);
-  layout->addWidget(new QLabel(unit), row, 2, Qt::AlignRight);
+  layout->addWidget(new QLabel(Water::waterStrings[static_cast<uint>(what)][static_cast<uint>(Water::Idx::Unit)]), row,
+                    2, Qt::AlignRight);
 }
 
-void WaterProfileEdit::addCalculatedValue(int row, QLabel* value, QString text, QString unit) {
-  QLabel* txt = new QLabel(text);
+void WaterProfileEdit::addCalculatedValue(int row, QLabel* value, Water::Value what) {
+  QLabel* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
   txt->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(value, row, 1, Qt::AlignRight);
-  layout->addWidget(new QLabel(unit), row, 2, Qt::AlignRight);
+  layout->addWidget(new QLabel(Water::waterStrings[static_cast<uint>(what)][static_cast<uint>(Water::Idx::Unit)]), row,
+                    2, Qt::AlignRight);
 }

@@ -4,8 +4,8 @@
 #ifndef STYLE_H
 #define STYLE_H
 
-#include "../common/global.h"
 #include "../common/meta.h"
+#include "../water/water.h"
 
 #include <QAbstractTableModel>
 #include <QJsonObject>
@@ -33,10 +33,10 @@ class Style : public QAbstractTableModel, public Meta {
   Style* copy() const; /**< @brief create a copy*/
 
   // getter und setter
-  float get(AM::WaterValue what, Limit limit) const;       /**< @brief get requested value */
-  void set(AM::WaterValue what, Limit limit, float value); /**< @brief set given type with value */
-  bool isLimited(AM::WaterValue what);                     /**< @brief is value limited */
-  void limit(AM::WaterValue what, bool limit);             /**< @brief Limit value */
+  float get(Water::Value what, Limit limit) const;       /**< @brief get requested value */
+  void set(Water::Value what, Limit limit, float value); /**< @brief set given type with value */
+  bool isLimited(Water::Value what);                     /**< @brief is value limited */
+  void limit(Water::Value what, bool limit);             /**< @brief Limit value */
 
   bool isChanged() const;        /**< @brief True if changes not saved */
   void setChanged(bool changed); /**< @brief Set changed state */
@@ -52,8 +52,8 @@ class Style : public QAbstractTableModel, public Meta {
  private:
   bool changed; /**< @brief True if changed but not saved */
 
-  bool limited[static_cast<int>(AM::WaterValue::Size)];
-  float limits[static_cast<int>(AM::WaterValue::Size)][static_cast<int>(Limit::Size)];
+  bool limited[static_cast<int>(Water::Value::Size)];
+  float limits[static_cast<int>(Water::Value::Size)][static_cast<int>(Limit::Size)];
 
   static const inline QString jsonKeys[static_cast<int>(Limit::Size)] = {"Min", "Target", "Max"};
 };

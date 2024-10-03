@@ -4,8 +4,8 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "../common/global.h"
 #include "../common/meta.h"
+#include "../water/water.h"
 
 #include <QAbstractTableModel>
 #include <QJsonObject>
@@ -24,15 +24,15 @@ class Settings : public QAbstractTableModel, public Meta {
   QJsonObject toJson() const;             /**< @brief convert Settings to JSON */
 
   // getter und setter
-  float getMin(AM::WaterValue what) const;       /**< @brief get lower limit */
-  float getMax(AM::WaterValue what) const;       /**< @brief get upper limit */
-  void setMin(AM::WaterValue what, float value); /**< @brief set lower limi */
-  void setMax(AM::WaterValue what, float value); /**< @brief set upper limit */
+  float getMin(Water::Value what) const;       /**< @brief get lower limit */
+  float getMax(Water::Value what) const;       /**< @brief get upper limit */
+  void setMin(Water::Value what, float value); /**< @brief set lower limi */
+  void setMax(Water::Value what, float value); /**< @brief set upper limit */
 
-  bool isNegativeAllowed(AM::WaterValue what) const;         /**< @brief get if negative values are allowed */
-  void setNegativeAllowed(AM::WaterValue what, bool value);  /**< @brief set if negative values are allowed */
-  bool isLogarithmicScale(AM::WaterValue what) const;        /**< @brief get if scale is logarithmic */
-  void setLogarithmicScale(AM::WaterValue what, bool value); /**< @brief set logarithmic scale */
+  bool isNegativeAllowed(Water::Value what) const;         /**< @brief get if negative values are allowed */
+  void setNegativeAllowed(Water::Value what, bool value);  /**< @brief set if negative values are allowed */
+  bool isLogarithmicScale(Water::Value what) const;        /**< @brief get if scale is logarithmic */
+  void setLogarithmicScale(Water::Value what, bool value); /**< @brief set logarithmic scale */
 
   bool isChanged() const; /**< @brief True if changes not saved */
 
@@ -55,9 +55,9 @@ class Settings : public QAbstractTableModel, public Meta {
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
   bool changed;                  /**< @brief True if changed but not saved */
 
-  float limits[static_cast<int>(AM::WaterValue::Size)][2];
-  bool negative[static_cast<int>(AM::WaterValue::Size)];
-  bool logarithmic[static_cast<int>(AM::WaterValue::Size)];
+  float limits[static_cast<int>(Water::Value::Size)][2];
+  bool negative[static_cast<int>(Water::Value::Size)];
+  bool logarithmic[static_cast<int>(Water::Value::Size)];
 };
 
 #endif  // SETTINGS_H

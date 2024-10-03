@@ -8,7 +8,7 @@
 
 Settings::Settings(QObject* parent) : QAbstractTableModel{parent} {
   // init all values
-  for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
     for (int j = 0; j < 2; j++) {
       limits[i][j] = 0;
     }
@@ -35,9 +35,9 @@ bool Settings::fromJson(const QJsonObject& json) {
   bool ret = Meta::fromJson(jSettings);
   beginResetModel();
   // start at index 1 to skip volume
-  for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // get sub object
-    QJsonValue setting = jSettings[AM::waterStrings[i][AM::JsonKey]];
+    QJsonValue setting = jSettings[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]];
     limits[i][0] = setting["Min"].toDouble(0);
     limits[i][1] = setting["Max"].toDouble(0);
     negative[i] = setting["AllowNegative"].toBool(false);
@@ -51,7 +51,7 @@ bool Settings::fromJson(const QJsonObject& json) {
 QJsonObject Settings::toJson() const {
   QJsonObject inner;
   Meta::toJson(inner);
-  for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // create settings object
     QJsonObject setting;
     setting["Min"] = limits[i][0];
@@ -59,64 +59,64 @@ QJsonObject Settings::toJson() const {
     setting["AllowNegative"] = negative[i];
     setting["LogarithmicScale"] = logarithmic[i];
     // add object to main json
-    inner[AM::waterStrings[i][AM::JsonKey]] = setting;
+    inner[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]] = setting;
   }
   QJsonObject outer;
   outer["Settings"] = inner;
   return outer;
 }
 
-float Settings::getMin(AM::WaterValue what) const {
-  if (what < AM::WaterValue::Size) {
+float Settings::getMin(Water::Value what) const {
+  if (what < Water::Value::Size) {
     return limits[static_cast<uint>(what)][0];
   }
   return -1;
 }
 
-float Settings::getMax(AM::WaterValue what) const {
-  if (what < AM::WaterValue::Size) {
+float Settings::getMax(Water::Value what) const {
+  if (what < Water::Value::Size) {
     return limits[static_cast<uint>(what)][1];
   }
   return -1;
 }
 
-void Settings::setMin(AM::WaterValue what, float value) {
-  if (what < AM::WaterValue::Size) {
+void Settings::setMin(Water::Value what, float value) {
+  if (what < Water::Value::Size) {
     limits[static_cast<uint>(what)][0] = value;
     setChanged(true);
   }
 }
 
-void Settings::setMax(AM::WaterValue what, float value) {
-  if (what < AM::WaterValue::Size) {
+void Settings::setMax(Water::Value what, float value) {
+  if (what < Water::Value::Size) {
     limits[static_cast<uint>(what)][1] = value;
     setChanged(true);
   }
 }
 
-bool Settings::isNegativeAllowed(AM::WaterValue what) const {
-  if (what < AM::WaterValue::Size) {
+bool Settings::isNegativeAllowed(Water::Value what) const {
+  if (what < Water::Value::Size) {
     return negative[static_cast<uint>(what)];
   }
   return false;
 }
 
-void Settings::setNegativeAllowed(AM::WaterValue what, bool value) {
-  if (what < AM::WaterValue::Size) {
+void Settings::setNegativeAllowed(Water::Value what, bool value) {
+  if (what < Water::Value::Size) {
     negative[static_cast<uint>(what)] = value;
     setChanged(true);
   }
 }
 
-bool Settings::isLogarithmicScale(AM::WaterValue what) const {
-  if (what < AM::WaterValue::Size) {
+bool Settings::isLogarithmicScale(Water::Value what) const {
+  if (what < Water::Value::Size) {
     return logarithmic[static_cast<uint>(what)];
   }
   return false;
 }
 
-void Settings::setLogarithmicScale(AM::WaterValue what, bool value) {
-  if (what < AM::WaterValue::Size) {
+void Settings::setLogarithmicScale(Water::Value what, bool value) {
+  if (what < Water::Value::Size) {
     logarithmic[static_cast<uint>(what)] = value;
     setChanged(true);
   }
@@ -128,7 +128,7 @@ bool Settings::isChanged() const {
 
 int Settings::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return static_cast<int>(AM::WaterValue::Size) - 1;
+  return static_cast<int>(Water::Value::Size) - 1;
 }
 
 int Settings::columnCount(const QModelIndex& parent) const {
@@ -145,7 +145,7 @@ QVariant Settings::data(const QModelIndex& index, int role) const {
     return QVariant();
   }
   qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(AM::WaterValue::Size)) {
+  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
     return QVariant();
   }
   qsizetype col = index.column();
@@ -187,11 +187,12 @@ QVariant Settings::headerData(int section, Qt::Orientation orientation, int role
     }
   } else {
     int idx = section + 1;  // skip volume
-    if (idx > 0 && idx < static_cast<int>(AM::WaterValue::Size)) {
-      if (!AM::waterStrings[idx][AM::Unit].isEmpty()) {
-        return AM::waterStrings[idx][AM::Description] + " (" + AM::waterStrings[idx][AM::Unit] + ")";
+    if (idx > 0 && idx < static_cast<int>(Water::Value::Size)) {
+      if (!Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)].isEmpty()) {
+        return Water::translatableStrings[idx] + " (" + Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)] +
+               ")";
       } else {
-        return AM::waterStrings[idx][AM::Description];
+        return Water::translatableStrings[idx];
       }
     }
   }
@@ -206,7 +207,7 @@ bool Settings::setData(const QModelIndex& index, const QVariant& value, int role
     return false;
   }
   qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(AM::WaterValue::Size)) {
+  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
     return false;
   }
 

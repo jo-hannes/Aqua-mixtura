@@ -3,55 +3,76 @@
 
 #include "water.h"
 
-Water::Water() {}
+Water::Water() {
+  if (translatableStrings[0].isEmpty()) {
+    translatableStrings[0] = QObject::tr("Volumen");
+    translatableStrings[1] = QObject::tr("Calcium");
+    translatableStrings[2] = QObject::tr("Magnesium");
+    translatableStrings[3] = QObject::tr("Natrium");
+    translatableStrings[4] = QObject::tr("Hydrogencarbonat");
+    translatableStrings[5] = QObject::tr("Chlorid");
+    translatableStrings[6] = QObject::tr("Sulfat");
+    translatableStrings[7] = QObject::tr("Phosphat");
+    translatableStrings[8] = QObject::tr("Lactat");
+    translatableStrings[9] = QObject::tr("Restalkalität");
+    translatableStrings[10] = QObject::tr("Gesamthärte");
+    translatableStrings[11] = QObject::tr("Carbonhärte");
+    translatableStrings[12] = QObject::tr("Nichtcarbonhärte");
+    translatableStrings[13] = QObject::tr("Ca-Härte");
+    translatableStrings[14] = QObject::tr("Mg-Härte");
+    translatableStrings[15] = QObject::tr("SO₄/Cl-Verhältnis");
+  }
+}
 
 Water::Water(QString name, float volume, float calzium, float magnesium, float natrium, float hydrogencarbonat,
              float chlorid, float sulfat, float phosphat, float lactat)
     : Meta(name) {
-  values[static_cast<uint>(AM::WaterValue::Volume)] = volume;
-  values[static_cast<uint>(AM::WaterValue::Calcium)] = calzium;
-  values[static_cast<uint>(AM::WaterValue::Magnesium)] = magnesium;
-  values[static_cast<uint>(AM::WaterValue::Natrium)] = natrium;
-  values[static_cast<uint>(AM::WaterValue::Hydrogencarbonat)] = hydrogencarbonat;
-  values[static_cast<uint>(AM::WaterValue::Chlorid)] = chlorid;
-  values[static_cast<uint>(AM::WaterValue::Sulfat)] = sulfat;
-  values[static_cast<uint>(AM::WaterValue::Phosphat)] = phosphat;
-  values[static_cast<uint>(AM::WaterValue::Lactat)] = lactat;
+  Water();
+  values[static_cast<uint>(Value::Volume)] = volume;
+  values[static_cast<uint>(Value::Calcium)] = calzium;
+  values[static_cast<uint>(Value::Magnesium)] = magnesium;
+  values[static_cast<uint>(Value::Natrium)] = natrium;
+  values[static_cast<uint>(Value::Hydrogencarbonat)] = hydrogencarbonat;
+  values[static_cast<uint>(Value::Chlorid)] = chlorid;
+  values[static_cast<uint>(Value::Sulfat)] = sulfat;
+  values[static_cast<uint>(Value::Phosphat)] = phosphat;
+  values[static_cast<uint>(Value::Lactat)] = lactat;
 }
 
 Water::Water(const QJsonObject& json) {
+  Water();
   fromJson(json);
 }
 
-float Water::get(AM::WaterValue what) const {
+float Water::get(Value what) const {
   // stored values
-  if (what <= AM::WaterValue::LastAnion) {
+  if (what <= Value::LastAnion) {
     return values[static_cast<uint>(what)];
   }
   // calculated values
   switch (what) {
-    case AM::WaterValue::Restalkalitaet:
+    case Value::Restalkalitaet:
       return calculateRestalkalitaet();
-    case AM::WaterValue::Gesamthaerte:
+    case Value::Gesamthaerte:
       return calculateGesamthaerte();
-    case AM::WaterValue::Carbonhaerte:
+    case Value::Carbonhaerte:
       return calculateCarbonhaerte();
-    case AM::WaterValue::NichtCarbonhaerte:
+    case Value::NichtCarbonhaerte:
       return calculateNichtCarbonhaerte();
-    case AM::WaterValue::CaHaerte:
+    case Value::CaHaerte:
       return calculateCaHaerte();
-    case AM::WaterValue::MgHaerte:
+    case Value::MgHaerte:
       return calculateMgHaerte();
-    case AM::WaterValue::SO4ClVerhaeltnis:
+    case Value::SO4ClVerhaeltnis:
       return calculateSO4ClVerhaeltnis();
     default:
       return -1;
   }
 }
 
-void Water::set(AM::WaterValue what, float value) {
+void Water::set(Value what, float value) {
   // only stored values
-  if (what <= AM::WaterValue::LastAnion) {
+  if (what <= Value::LastAnion) {
     values[static_cast<uint>(what)] = value;
     updateEditTime();
   }
@@ -59,8 +80,8 @@ void Water::set(AM::WaterValue what, float value) {
 
 bool Water::fromJson(const QJsonObject& json) {
   bool ret = Meta::fromJson(json);
-  for (int i = 0; i <= static_cast<int>(AM::WaterValue::LastAnion); i++) {
-    const QString& key = AM::waterStrings[i][AM::JsonKey];
+  for (int i = 0; i <= static_cast<int>(Value::LastAnion); i++) {
+    const QString& key = waterStrings[i][static_cast<int>(Idx::JsonKey)];
     values[i] = json[key].toDouble(0);
   }
   return ret;
@@ -69,8 +90,8 @@ bool Water::fromJson(const QJsonObject& json) {
 QJsonObject Water::toJson() const {
   QJsonObject json;
   Meta::toJson(json);
-  for (int i = 0; i <= static_cast<int>(AM::WaterValue::LastAnion); i++) {
-    const QString& key = AM::waterStrings[i][AM::JsonKey];
+  for (int i = 0; i <= static_cast<int>(Value::LastAnion); i++) {
+    const QString& key = waterStrings[i][static_cast<int>(Idx::JsonKey)];
     json[key] = values[i];
   }
   return json;
@@ -83,16 +104,16 @@ QJsonObject Water::profileToJson() const {
 }
 
 Water& Water::operator+=(const Water& rhs) {
-  float volThis = this->values[static_cast<uint>(AM::WaterValue::Volume)];
-  float volRhs = rhs.values[static_cast<uint>(AM::WaterValue::Volume)];
+  float volThis = this->values[static_cast<uint>(Value::Volume)];
+  float volRhs = rhs.values[static_cast<uint>(Value::Volume)];
   float volSum = volThis + volRhs;
   if (volSum == 0) {  // avoid zero division
     return *this;
   }
-  for (int i = static_cast<uint>(AM::WaterValue::Volume) + 1; i < static_cast<int>(AM::WaterValue::LastAnion); i++) {
+  for (int i = static_cast<uint>(Value::Volume) + 1; i < static_cast<int>(Value::LastAnion); i++) {
     this->values[i] = (this->values[i] * volThis + rhs.values[i] * volRhs) / volSum;
   }
-  this->values[static_cast<uint>(AM::WaterValue::Volume)] = volSum;
+  this->values[static_cast<uint>(Value::Volume)] = volSum;
   return *this;
 }
 
@@ -118,15 +139,15 @@ float Water::calculateGesamthaerte() const {
 }
 
 float Water::calculateCaHaerte() const {
-  return 0.14 * get(AM::WaterValue::Calcium);
+  return 0.14 * get(Value::Calcium);
 }
 
 float Water::calculateMgHaerte() const {
-  return 0.23 * get(AM::WaterValue::Magnesium);
+  return 0.23 * get(Value::Magnesium);
 }
 
 float Water::calculateCarbonhaerte() const {
-  return get(AM::WaterValue::Hydrogencarbonat) / 61.017 * 2.8;
+  return get(Value::Hydrogencarbonat) / 61.017 * 2.8;
 }
 
 float Water::calculateNichtCarbonhaerte() const {
@@ -134,8 +155,8 @@ float Water::calculateNichtCarbonhaerte() const {
 }
 
 float Water::calculateSO4ClVerhaeltnis() const {
-  if (get(AM::WaterValue::Chlorid) != 0)
-    return get(AM::WaterValue::Sulfat) / get(AM::WaterValue::Chlorid);
+  if (get(Value::Chlorid) != 0)
+    return get(Value::Sulfat) / get(Value::Chlorid);
   else
     return HUGE_VAL;
 }

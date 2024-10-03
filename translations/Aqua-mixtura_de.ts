@@ -2,6 +2,64 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>Additive</name>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="12"/>
+        <source>Milchsäure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="13"/>
+        <source>Salzsäure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="14"/>
+        <source>Schwefelsäure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="15"/>
+        <source>Phosphorsäure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="16"/>
+        <source>Calciumsulfat (Braugips)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="17"/>
+        <source>Calciumchlorid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="18"/>
+        <source>Natriumchlorid (Kochsalz)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="19"/>
+        <source>Natriumhydrogencarbonat (Natron)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="20"/>
+        <source>Magnesiumchlorid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="21"/>
+        <source>Magnesiumsulfat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/additive/additive.cpp" line="22"/>
+        <source>Calciumcarbonat</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AdditiveWindow</name>
     <message>
         <location filename="../src/additive/additivewindow.cpp" line="18"/>
@@ -466,137 +524,82 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/additive/additive.h" line="49"/>
-        <source>Milchsäure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="50"/>
-        <source>Salzsäure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="51"/>
-        <source>Schwefelsäure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="52"/>
-        <source>Phosphorsäure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="53"/>
-        <source>Calciumsulfat (Braugips)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="54"/>
-        <source>Calciumchlorid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="55"/>
-        <source>Natriumchlorid (Kochsalz)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="56"/>
-        <source>Natriumhydrogencarbonat (Natron)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="57"/>
-        <source>Magnesiumchlorid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="58"/>
-        <source>Magnesiumsulfat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/additive/additive.h" line="59"/>
-        <source>Calciumcarbonat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/common/global.h" line="54"/>
+        <location filename="../src/water/water.cpp" line="8"/>
         <source>Volumen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="55"/>
+        <location filename="../src/water/water.cpp" line="9"/>
         <source>Calcium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="56"/>
+        <location filename="../src/water/water.cpp" line="10"/>
         <source>Magnesium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="57"/>
+        <location filename="../src/water/water.cpp" line="11"/>
         <source>Natrium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="58"/>
+        <location filename="../src/water/water.cpp" line="12"/>
         <source>Hydrogencarbonat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="59"/>
+        <location filename="../src/water/water.cpp" line="13"/>
         <source>Chlorid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="60"/>
+        <location filename="../src/water/water.cpp" line="14"/>
         <source>Sulfat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="61"/>
+        <location filename="../src/water/water.cpp" line="15"/>
         <source>Phosphat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="62"/>
+        <location filename="../src/water/water.cpp" line="16"/>
         <source>Lactat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="63"/>
+        <location filename="../src/water/water.cpp" line="17"/>
         <source>Restalkalität</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="64"/>
+        <location filename="../src/water/water.cpp" line="18"/>
         <source>Gesamthärte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="65"/>
+        <location filename="../src/water/water.cpp" line="19"/>
         <source>Carbonhärte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="66"/>
+        <location filename="../src/water/water.cpp" line="20"/>
         <source>Nichtcarbonhärte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="67"/>
+        <location filename="../src/water/water.cpp" line="21"/>
         <source>Ca-Härte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="68"/>
+        <location filename="../src/water/water.cpp" line="22"/>
         <source>Mg-Härte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/global.h" line="69"/>
+        <location filename="../src/water/water.cpp" line="23"/>
         <source>SO₄/Cl-Verhältnis</source>
         <translation type="unfinished"></translation>
     </message>
@@ -705,22 +708,22 @@
 <context>
     <name>Style</name>
     <message>
-        <location filename="../src/style/style.cpp" line="151"/>
+        <location filename="../src/style/style.cpp" line="149"/>
         <source>Limitieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/style/style.cpp" line="153"/>
+        <location filename="../src/style/style.cpp" line="151"/>
         <source>Minimum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/style/style.cpp" line="155"/>
+        <location filename="../src/style/style.cpp" line="153"/>
         <source>Ziel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/style/style.cpp" line="157"/>
+        <location filename="../src/style/style.cpp" line="155"/>
         <source>Maximum</source>
         <translation type="unfinished"></translation>
     </message>
@@ -852,22 +855,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="49"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="43"/>
         <source>Anionen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="83"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="67"/>
         <source>Berechnet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="124"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="94"/>
         <source>Speichern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="124"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="94"/>
         <source>Abbrechen</source>
         <translation type="unfinished"></translation>
     </message>

@@ -7,9 +7,9 @@
 #include "mixture.h"
 #include "resultbar.h"
 
-#include "../common/global.h"
 #include "../settings/settings.h"
 #include "../style/styles.h"
+#include "../water/water.h"
 
 #include <QComboBox>
 #include <QFrame>
@@ -51,8 +51,8 @@ class MixResultWidget : public QFrame {
   QComboBox* styleSelect; /**< @brief ComboBox for selecting beer style */
   int styleIdx;           /**< @brief Index of selected style */
 
-  QLabel* vals[static_cast<int>(AM::WaterValue::Size)];    /**< @brief Labels with calculated valued */
-  ResultBar* bars[static_cast<int>(AM::WaterValue::Size)]; /**< @brief Graphical bar indicating value */
+  QLabel* vals[static_cast<int>(Water::Value::Size)];    /**< @brief Labels with calculated valued */
+  ResultBar* bars[static_cast<int>(Water::Value::Size)]; /**< @brief Graphical bar indicating value */
 };
 
 #endif  // MIXRESULTWIDGET_H

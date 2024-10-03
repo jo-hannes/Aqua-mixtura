@@ -8,6 +8,19 @@ Additive::Additive() {
     amount[i] = 0;
   }
   changed = false;
+  if (translatableStrings[0].isEmpty()) {
+    translatableStrings[0] = tr("Milchsäure");
+    translatableStrings[1] = tr("Salzsäure");
+    translatableStrings[2] = tr("Schwefelsäure");
+    translatableStrings[3] = tr("Phosphorsäure");
+    translatableStrings[4] = tr("Calciumsulfat (Braugips)");
+    translatableStrings[5] = tr("Calciumchlorid");
+    translatableStrings[6] = tr("Natriumchlorid (Kochsalz)");
+    translatableStrings[7] = tr("Natriumhydrogencarbonat (Natron)");
+    translatableStrings[8] = tr("Magnesiumchlorid");
+    translatableStrings[9] = tr("Magnesiumsulfat");
+    translatableStrings[10] = tr("Calciumcarbonat");
+  }
 }
 
 Additive::Additive(const QJsonObject& json) {
@@ -64,16 +77,16 @@ QJsonObject Additive::toJson() const {
 
 Water Additive::operator+(const Water& rhs) const {
   // first just copy values
-  float values[static_cast<int>(AM::WaterValue::LastAnion) + 1];
-  for (int w = 0; w <= static_cast<int>(AM::WaterValue::LastAnion); w++) {
-    values[w] = rhs.get(static_cast<AM::WaterValue>(w));
+  float values[static_cast<int>(Water::Value::LastAnion) + 1];
+  for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
+    values[w] = rhs.get(static_cast<Water::Value>(w));
   }
 
   // sotre volume for later calculations
-  float volume = rhs.get(AM::WaterValue::Volume);
+  float volume = rhs.get(Water::Value::Volume);
 
   // loop over all water values
-  for (int w = 0; w <= static_cast<int>(AM::WaterValue::LastAnion); w++) {
+  for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
     float mg = 0;  // mg added or removed
     // loop over all additive
     for (int a = 0; a < static_cast<int>(Value::Size); a++) {
@@ -85,8 +98,8 @@ Water Additive::operator+(const Water& rhs) const {
 
   // store calculated values in new water object
   Water result(rhs.getName());
-  for (int w = 0; w <= static_cast<int>(AM::WaterValue::LastAnion); w++) {
-    result.set(static_cast<AM::WaterValue>(w), values[w]);
+  for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
+    result.set(static_cast<Water::Value>(w), values[w]);
   }
   return result;
 }

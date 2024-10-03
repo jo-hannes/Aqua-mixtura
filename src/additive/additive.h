@@ -40,24 +40,22 @@ class Additive : public QObject, public Meta {
   /**
    * @brief Index for 2nd dimension of strings
    */
-  enum class StringIdx { JsonKey = 0, Formula, Description };
+  enum class StringIdx { JsonKey = 0, Formula };
 
   /**
    * @brief Additive specific strings
    */
-  inline static const QString strings[static_cast<int>(Value::Size)][3] = {
-      {"c3h6o3", "C₃H₆O₃", QObject::tr("Milchsäure")},
-      {"hcl", "HCl", QObject::tr("Salzsäure")},
-      {"h2so4", "H₂SO₄", QObject::tr("Schwefelsäure")},
-      {"h3po4", "H₃PO₄", QObject::tr("Phosphorsäure")},
-      {"caso4", "CaSO₄ 2H₂O", QObject::tr("Calciumsulfat (Braugips)")},
-      {"cacl2", "CaCl₂ 2H₂O", QObject::tr("Calciumchlorid")},
-      {"nacl", "NaCl", QObject::tr("Natriumchlorid (Kochsalz)")},
-      {"nahco3", "NaHCO₃", QObject::tr("Natriumhydrogencarbonat (Natron)")},
-      {"mgcl2", "MgCl₂ 6H₂O", QObject::tr("Magnesiumchlorid")},
-      {"mgso4", "MgSO₄ 7H₂O", QObject::tr("Magnesiumsulfat")},
-      {"caco3", "CaCO₃", QObject::tr("Calciumcarbonat")},
+  inline static const QString strings[static_cast<int>(Value::Size)][2] = {
+      {"c3h6o3", "C₃H₆O₃"},    {"hcl", "HCl"},          {"h2so4", "H₂SO₄"}, {"h3po4", "H₃PO₄"},
+      {"caso4", "CaSO₄ 2H₂O"}, {"cacl2", "CaCl₂ 2H₂O"}, {"nacl", "NaCl"},   {"nahco3", "NaHCO₃"},
+      {"mgcl2", "MgCl₂ 6H₂O"}, {"mgso4", "MgSO₄ 7H₂O"}, {"caco3", "CaCO₃"},
   };
+
+  /**
+   * @brief Translatable Additive strings
+   * These cant be const or translations wont work here.
+   */
+  inline static QString translatableStrings[static_cast<int>(Value::Size)];
 
   Additive();
   Additive(const QJsonObject& json); /**< @brief Create Additive from JSON */
@@ -92,7 +90,7 @@ class Additive : public QObject, public Meta {
    *
    * Amount of mg added or removed per added g of additive
    */
-  inline static const float calculationMatrix[static_cast<int>(Value::Size)][static_cast<int>(AM::WaterValue::LastAnion) + 1] = {
+  inline static const float calculationMatrix[static_cast<int>(Value::Size)][static_cast<int>(Water::Value::LastAnion) + 1] = {
 // Volume Calcium Magnesium Natrium Hydrogencarbonat Chlorid  Sulfat Phosphat  Lactat
     {  0,      0,        0,      0,         -677.37,      0,      0,       0, 988.81}, // c3h6o3
     {  0,      0,        0,      0,        -1673.60, 972.35,      0,       0,      0}, // hcl

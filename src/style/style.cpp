@@ -6,7 +6,7 @@
 #include "QJsonValue"
 
 Style::Style(QString name) : Meta(name) {
-  for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
     limited[i] = false;
     for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
       limits[i][j] = 0;
@@ -22,9 +22,9 @@ Style::Style(const QJsonObject& json) {
 bool Style::fromJson(const QJsonObject& json) {
   bool ret = Meta::fromJson(json);
   // start at index 1 to skip volume
-  for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // get sub object
-    QJsonValue limit = json[AM::waterStrings[i][AM::JsonKey]];
+    QJsonValue limit = json[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]];
     limited[i] = limit.isObject();
     for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
       limits[i][j] = limit[jsonKeys[j]].toDouble(0);
@@ -38,7 +38,7 @@ QJsonObject Style::toJson() const {
   QJsonObject json;
   Meta::toJson(json);
   // start at index 1 to skip volume
-  for (int i = 1; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // skip values not limited
     if (!limited[i]) {
       continue;
@@ -49,14 +49,14 @@ QJsonObject Style::toJson() const {
       limit[jsonKeys[j]] = limits[i][j];
     }
     // add object to main json
-    json[AM::waterStrings[i][AM::JsonKey]] = limit;
+    json[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]] = limit;
   }
   return json;
 }
 
 Style* Style::copy() const {
   Style* copy = new Style(this->getName());
-  for (int i = 0; i < static_cast<int>(AM::WaterValue::Size); i++) {
+  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
     copy->limited[i] = this->limited[i];
     for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
       copy->limits[i][j] = this->limits[i][j];
@@ -65,32 +65,30 @@ Style* Style::copy() const {
   return copy;
 }
 
-float Style::get(AM::WaterValue what, Limit limit) const {
-  if (what < AM::WaterValue::Size && limit < Limit::Size) {
+float Style::get(Water::Value what, Limit limit) const {
+  if (what < Water::Value::Size && limit < Limit::Size) {
     return limits[static_cast<uint>(what)][static_cast<uint>(limit)];
   }
   return -1;
 }
 
-void Style::set(AM::WaterValue what, Limit limit, float value) {
-  if (what < AM::WaterValue::Size && limit < Limit::Size) {
+void Style::set(Water::Value what, Limit limit, float value) {
+  if (what < Water::Value::Size && limit < Limit::Size) {
     limits[static_cast<uint>(what)][static_cast<uint>(limit)] = value;
     updateEditTime();
     changed = true;
   }
 }
 
-bool Style::isLimited(AM::WaterValue what)
-{
-  if (what < AM::WaterValue::Size) {
+bool Style::isLimited(Water::Value what) {
+  if (what < Water::Value::Size) {
     return limited[static_cast<uint>(what)];
   }
   return false;
 }
 
-void Style::limit(AM::WaterValue what, bool limit)
-{
-  if (what < AM::WaterValue::Size) {
+void Style::limit(Water::Value what, bool limit) {
+  if (what < Water::Value::Size) {
     limited[static_cast<uint>(what)] = limit;
     updateEditTime();
     changed = true;
@@ -108,7 +106,7 @@ void Style::setChanged(bool changed) {
 int Style::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
   // limits without volume
-  return static_cast<int>(AM::WaterValue::Size) - 1;
+  return static_cast<int>(Water::Value::Size) - 1;
 }
 
 int Style::columnCount(const QModelIndex& parent) const {
@@ -125,7 +123,7 @@ QVariant Style::data(const QModelIndex& index, int role) const {
     return QVariant();
   }
   qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(AM::WaterValue::Size)) {
+  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
     return QVariant();
   }
   qsizetype col = index.column();
@@ -160,11 +158,12 @@ QVariant Style::headerData(int section, Qt::Orientation orientation, int role) c
     }
   } else {
     int idx = section + 1;  // skip volume
-    if (idx > 0 && idx < static_cast<int>(AM::WaterValue::Size)) {
-      if (!AM::waterStrings[idx][AM::Unit].isEmpty()) {
-        return AM::waterStrings[idx][AM::Description] + " (" + AM::waterStrings[idx][AM::Unit] + ")";
+    if (idx > 0 && idx < static_cast<int>(Water::Value::Size)) {
+      if (!Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)].isEmpty()) {
+        return Water::translatableStrings[idx] + " (" + Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)] +
+               ")";
       } else {
-        return AM::waterStrings[idx][AM::Description];
+        return Water::translatableStrings[idx];
       }
     }
   }
@@ -179,7 +178,7 @@ bool Style::setData(const QModelIndex& index, const QVariant& value, int role) {
     return false;
   }
   qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(AM::WaterValue::Size)) {
+  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
     return false;
   }
   qsizetype col = index.column();
