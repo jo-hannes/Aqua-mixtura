@@ -113,7 +113,7 @@ void MaltWindow::maltExport() {
   }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
                               malts.getMalt(idx.row()).getName() + ".json";
-  QString path = QFileDialog::getSaveFileName(this, tr("Malz Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+  QString path = QFileDialog::getSaveFileName(this, tr("Malz Exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }

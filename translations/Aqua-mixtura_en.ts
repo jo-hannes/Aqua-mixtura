@@ -147,11 +147,13 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="53"/>
+        <location filename="../src/mainwindow.cpp" line="200"/>
         <source>Aufbereitung importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="53"/>
+        <location filename="../src/mainwindow.cpp" line="220"/>
         <source>Aufbereitung exportieren</source>
         <translation type="unfinished"></translation>
     </message>
@@ -162,12 +164,32 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="192"/>
-        <source>Mix wirklich löschen?</source>
+        <source>Aufbereitung wirklich löschen?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="200"/>
-        <source>Aufbereitung Importieren</source>
+        <location filename="../src/mainwindow.cpp" line="246"/>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="252"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="257"/>
+        <source>About Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="263"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="267"/>
+        <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -186,83 +208,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="221"/>
-        <source>Aufbereitung Exportieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="221"/>
-        <source>JSON (*.json)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="225"/>
         <source>Fehler beim Exportieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="225"/>
         <source>Konnte Aufbereitung nicht speichern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="236"/>
+        <location filename="../src/mainwindow.cpp" line="235"/>
         <source>Preferences...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="237"/>
+        <location filename="../src/mainwindow.cpp" line="236"/>
         <source>Die Anwendung Konfigurieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="242"/>
+        <location filename="../src/mainwindow.cpp" line="241"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="243"/>
+        <location filename="../src/mainwindow.cpp" line="242"/>
         <source>Save changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="247"/>
-        <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="248"/>
         <source>Exit the application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="253"/>
-        <source>&amp;About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="254"/>
         <source>Show the application&apos;s About box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="258"/>
-        <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="259"/>
         <source>Show the Qt library&apos;s About box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="264"/>
-        <source>&amp;File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="268"/>
-        <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -270,17 +257,17 @@
     <name>MaltPhEdit</name>
     <message>
         <location filename="../src/malt/maltphedit.cpp" line="16"/>
-        <source>Malze &lt;120 EBC:</source>
+        <source>Malze &lt;120 EBC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/malt/maltphedit.cpp" line="18"/>
-        <source>Caramalz:</source>
+        <source>Caramalz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/malt/maltphedit.cpp" line="20"/>
-        <source>Röstmalz:</source>
+        <source>Röstmalz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -369,11 +356,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/malt/maltwindow.cpp" line="116"/>
-        <source>JSON (*.json)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/malt/maltwindow.cpp" line="121"/>
         <source>Fehler beim Exportieren</source>
         <translation type="unfinished"></translation>
@@ -447,7 +429,7 @@
     </message>
     <message>
         <location filename="../src/mixture/mixresultwidget.cpp" line="21"/>
-        <source>Bierstil:</source>
+        <source>Bierstil</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -473,7 +455,7 @@
     <name>MixtureWindow</name>
     <message>
         <location filename="../src/mixture/mixturewindow.cpp" line="31"/>
-        <source>Name:</source>
+        <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -499,7 +481,7 @@
     <message>
         <location filename="../src/mixture/mixturewindow.cpp" line="125"/>
         <location filename="../src/mixture/mixturewindow.cpp" line="129"/>
-        <source>Aufbereitung: </source>
+        <source>Aufbereitung</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -636,11 +618,13 @@
     </message>
     <message>
         <location filename="../src/settings/settingswindow.cpp" line="31"/>
+        <location filename="../src/settings/settingswindow.cpp" line="62"/>
         <source>Einstellungen importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/settings/settingswindow.cpp" line="31"/>
+        <location filename="../src/settings/settingswindow.cpp" line="76"/>
         <source>Einstellungen exportieren</source>
         <translation type="unfinished"></translation>
     </message>
@@ -665,11 +649,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="62"/>
-        <source>Einstellungen Importieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/settings/settingswindow.cpp" line="64"/>
         <source>JSON (*.json);; Any (*.*)</source>
         <translation type="unfinished"></translation>
@@ -682,16 +661,6 @@
     <message>
         <location filename="../src/settings/settingswindow.cpp" line="69"/>
         <source>Konnte Einstellungen nicht im JSON finden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settings/settingswindow.cpp" line="76"/>
-        <source>Einstellungen Exportieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settings/settingswindow.cpp" line="76"/>
-        <source>JSON (*.json)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -743,7 +712,7 @@
     </message>
     <message>
         <location filename="../src/style/styleswindow.cpp" line="42"/>
-        <source>Name:</source>
+        <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -763,11 +732,13 @@
     </message>
     <message>
         <location filename="../src/style/styleswindow.cpp" line="58"/>
+        <location filename="../src/style/styleswindow.cpp" line="126"/>
         <source>Bierstil importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/style/styleswindow.cpp" line="58"/>
+        <location filename="../src/style/styleswindow.cpp" line="147"/>
         <source>Bierstil exportieren</source>
         <translation type="unfinished"></translation>
     </message>
@@ -792,11 +763,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="126"/>
-        <source>Bierstil Importieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/style/styleswindow.cpp" line="128"/>
         <source>JSON (*.json);; Any (*.*)</source>
         <translation type="unfinished"></translation>
@@ -809,16 +775,6 @@
     <message>
         <location filename="../src/style/styleswindow.cpp" line="136"/>
         <source>Konnte Bierstil nicht im JSON finden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/style/styleswindow.cpp" line="147"/>
-        <source>Bierstil Exportieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/style/styleswindow.cpp" line="147"/>
-        <source>JSON (*.json)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -908,82 +864,69 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="38"/>
-        <source>Wasserquelle hinzufügen</source>
+        <location filename="../src/water/watersourcewindow.cpp" line="37"/>
+        <source>Wasser hinzufügen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/water/watersourcewindow.cpp" line="37"/>
+        <source>Wasser kopieren</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/water/watersourcewindow.cpp" line="37"/>
+        <source>Wasser löschen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/water/watersourcewindow.cpp" line="38"/>
-        <source>Wasserquelle kopieren</source>
+        <location filename="../src/water/watersourcewindow.cpp" line="146"/>
+        <source>Wasser importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/water/watersourcewindow.cpp" line="38"/>
-        <source>Wasserquelle löschen</source>
+        <location filename="../src/water/watersourcewindow.cpp" line="173"/>
+        <source>Wasser exportieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="39"/>
-        <source>Wasserquelle importieren</source>
+        <location filename="../src/water/watersourcewindow.cpp" line="162"/>
+        <source>Konnte Wasser nicht im JSON finden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="39"/>
-        <source>Wasserquelle exportieren</source>
+        <location filename="../src/water/watersourcewindow.cpp" line="181"/>
+        <source>Konnte Wasser nicht speichern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="131"/>
+        <location filename="../src/water/watersourcewindow.cpp" line="130"/>
         <source>Wasser wirklich löschen?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="147"/>
-        <source>Wasserquelle Importieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="149"/>
+        <location filename="../src/water/watersourcewindow.cpp" line="148"/>
         <source>JSON (*.json);; Any (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="163"/>
+        <location filename="../src/water/watersourcewindow.cpp" line="162"/>
         <source>Fehler beim Importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="163"/>
-        <source>Konnte Wasserquelle nicht im JSON finden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="175"/>
-        <source>Wasserquelle Exportieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="175"/>
-        <source>JSON (*.json)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="183"/>
+        <location filename="../src/water/watersourcewindow.cpp" line="181"/>
         <source>Fehler beim Exportieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="183"/>
-        <source>Konnte Wasserquelle nicht speichern</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="190"/>
+        <location filename="../src/water/watersourcewindow.cpp" line="188"/>
         <source>Änderungen speichern?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersourcewindow.cpp" line="191"/>
+        <location filename="../src/water/watersourcewindow.cpp" line="189"/>
         <source>Wasser &quot;%1&quot; hat ungespeicherte Änderungen</source>
         <translation type="unfinished"></translation>
     </message>

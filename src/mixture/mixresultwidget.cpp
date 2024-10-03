@@ -18,7 +18,7 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   this->setLayout(layout);
 
   layout->addWidget(new QLabel(tr("Ergebnis")), 0, 0, Qt::AlignLeft);
-  layout->addWidget(new QLabel(tr("Bierstil:")), 0, 1, 1, 2, Qt::AlignLeft);
+  layout->addWidget(new QLabel(tr("Bierstil") + ":"), 0, 1, 1, 2, Qt::AlignLeft);
 
   styleSelect = new QComboBox();
   layout->addWidget(styleSelect, 0, 3, Qt::AlignLeft);

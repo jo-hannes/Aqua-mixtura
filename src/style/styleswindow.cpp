@@ -39,7 +39,7 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   QObject::connect(stylesView, &QListView::pressed, this, &StylesWindow::styleSelect);
   mainLayout->addWidget(stylesView, 1, 0, 2, 1);
   // Name edit
-  mainLayout->addWidget(new QLabel(tr("Name:")), 1, 1, Qt::AlignLeft);
+  mainLayout->addWidget(new QLabel(tr("Name") + ":"), 1, 1, Qt::AlignLeft);
   nameEdit = new QLineEdit();
   QObject::connect(nameEdit, &QLineEdit::textEdited, this, &StylesWindow::setName);
   mainLayout->addWidget(nameEdit, 1, 2);
@@ -123,7 +123,7 @@ void StylesWindow::styleImport() {
   if (saveChangesDialog() == QMessageBox::Cancel) {
     return;  // user cancelation => do nothing
   }
-  QString path = QFileDialog::getOpenFileName(this, tr("Bierstil Importieren"),
+  QString path = QFileDialog::getOpenFileName(this, tr("Bierstil importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
@@ -144,7 +144,7 @@ void StylesWindow::styleExport() {
   }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
                               styles.getStyle(selected)->getName() + ".json";
-  QString path = QFileDialog::getSaveFileName(this, tr("Bierstil Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+  QString path = QFileDialog::getSaveFileName(this, tr("Bierstil exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }

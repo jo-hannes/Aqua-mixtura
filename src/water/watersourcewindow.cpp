@@ -34,9 +34,8 @@ WatersourceWindow::WatersourceWindow(WaterSources& model, QWidget* parent) : QWi
   layoutQuellen->addWidget(sourcesView);
 
   // buttons für quellen
-  Buttons* buttonsQuellen =
-      new Buttons(tr("Wasserquelle hinzufügen"), tr("Wasserquelle kopieren"), tr("Wasserquelle löschen"),
-                  tr("Wasserquelle importieren"), tr("Wasserquelle exportieren"));
+  Buttons* buttonsQuellen = new Buttons(tr("Wasser hinzufügen"), tr("Wasser kopieren"), tr("Wasser löschen"),
+                                        tr("Wasser importieren"), tr("Wasser exportieren"));
   QObject::connect(buttonsQuellen->btnAdd, &QPushButton::clicked, this, &WatersourceWindow::profileAdd);
   QObject::connect(buttonsQuellen->btnCopy, &QPushButton::clicked, this, &WatersourceWindow::profileCopy);
   QObject::connect(buttonsQuellen->btnDelete, &QPushButton::clicked, this, &WatersourceWindow::profileDelete);
@@ -144,7 +143,7 @@ void WatersourceWindow::profileImport() {
   if (saveChangesDialog() == QMessageBox::Cancel) {
     return;  // user cancelation => do nothing
   }
-  QString path = QFileDialog::getOpenFileName(this, tr("Wasserquelle Importieren"),
+  QString path = QFileDialog::getOpenFileName(this, tr("Wasser importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
@@ -160,7 +159,7 @@ void WatersourceWindow::profileImport() {
     sourcesView->setCurrentIndex(idx);
     selectSource(idx);
   } else {
-    Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Wasserquelle nicht im JSON finden"));
+    Dialogs::info(tr("Fehler beim Importieren"), tr("Konnte Wasser nicht im JSON finden"));
   }
 }
 
@@ -171,8 +170,7 @@ void WatersourceWindow::profileExport() {
   }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
                               sources.getProfile(selected).getName() + ".json";
-  QString path =
-      QFileDialog::getSaveFileName(this, tr("Wasserquelle Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+  QString path = QFileDialog::getSaveFileName(this, tr("Wasser exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }
@@ -180,7 +178,7 @@ void WatersourceWindow::profileExport() {
   jsonSource["WaterSource"] = sources.getProfile(selected).profileToJson();
   bool success = JsonHelper::saveFile(path, jsonSource);
   if (!success) {
-    Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Wasserquelle nicht speichern"));
+    Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Wasser nicht speichern"));
   }
 }
 

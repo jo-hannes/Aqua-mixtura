@@ -59,7 +59,7 @@ void SettingsWindow::closeEvent(QCloseEvent* event) {
 }
 
 void SettingsWindow::settingsImport() {
-  QString path = QFileDialog::getOpenFileName(this, tr("Einstellungen Importieren"),
+  QString path = QFileDialog::getOpenFileName(this, tr("Einstellungen importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
@@ -73,7 +73,7 @@ void SettingsWindow::settingsImport() {
 void SettingsWindow::settingsExport() {
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" + "settings.json";
   QString path =
-      QFileDialog::getSaveFileName(this, tr("Einstellungen Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+      QFileDialog::getSaveFileName(this, tr("Einstellungen exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }

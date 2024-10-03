@@ -28,7 +28,7 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   nameFrame->setLineWidth(2);
   QHBoxLayout* nameLayout = new QHBoxLayout();
   nameFrame->setLayout(nameLayout);
-  QLabel* nameLabel = new QLabel(tr("Name:"));
+  QLabel* nameLabel = new QLabel(tr("Name") + ":");
   nameLayout->addWidget(nameLabel);
   nameEdit = new QLineEdit();
   QObject::connect(nameEdit, &QLineEdit::textEdited, this, &MixtureWindow::setName);
@@ -122,10 +122,10 @@ void MixtureWindow::changed(bool changed) {
   unsavedChanges = changed;
   qDebug() << "MixtureWindow::changed; changed " << changed << " unsavedChanges " << unsavedChanges;
   if (unsavedChanges && !loadGuard) {
-    this->setWindowTitle("* Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
+    this->setWindowTitle("* Aqua mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
     qDebug() << "Update edit time";
     mix.updateEditTime();
   } else {
-    this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung: ") + mix.getName());
+    this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
   }
 }

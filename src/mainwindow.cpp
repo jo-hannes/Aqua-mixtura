@@ -189,7 +189,7 @@ void MainWindow::mixDelete() {
   if (!idx.isValid()) {
     return;
   }
-  int ret = Dialogs::yesNo(tr("Mix wirklich löschen?"), model.mixtures.getMixture(idx.row()).getName());
+  int ret = Dialogs::yesNo(tr("Aufbereitung wirklich löschen?"), model.mixtures.getMixture(idx.row()).getName());
   if (ret == QMessageBox::Yes) {
     model.mixtures.deleteMixture(idx.row());
     model.mixtures.save();
@@ -197,7 +197,7 @@ void MainWindow::mixDelete() {
 }
 
 void MainWindow::mixImport() {
-  QString path = QFileDialog::getOpenFileName(this, tr("Aufbereitung Importieren"),
+  QString path = QFileDialog::getOpenFileName(this, tr("Aufbereitung importieren"),
                                               QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
                                               tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
@@ -217,8 +217,7 @@ void MainWindow::mixExport() {
   }
   QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
                               model.mixtures.getMixture(idx.row()).getName() + ".json";
-  QString path =
-      QFileDialog::getSaveFileName(this, tr("Aufbereitung Exportieren"), suggestedFileName, tr("JSON (*.json)"));
+  QString path = QFileDialog::getSaveFileName(this, tr("Aufbereitung exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }
@@ -244,28 +243,28 @@ void MainWindow::setupMenuBar() {
   saveAct->setShortcut(QKeySequence::Save);
   connect(saveAct, &QAction::triggered, this, &MainWindow::save);
 
-  QAction* exitAct = new QAction(tr("E&xit"), this);
+  QAction* exitAct = new QAction(tr("Exit"), this);
   exitAct->setStatusTip(tr("Exit the application"));
   exitAct->setShortcuts(QKeySequence::Quit);
   exitAct->setMenuRole(QAction::QuitRole);
   connect(exitAct, &QAction::triggered, this, &QWidget::close);
 
-  QAction* aboutAct = new QAction(tr("&About"), this);
+  QAction* aboutAct = new QAction(tr("About"), this);
   aboutAct->setStatusTip(tr("Show the application's About box"));
   aboutAct->setMenuRole(QAction::AboutRole);
   connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
 
-  QAction* aboutQtAct = new QAction(tr("About &Qt"), this);
+  QAction* aboutQtAct = new QAction(tr("About Qt"), this);
   aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
   aboutQtAct->setMenuRole(QAction::AboutQtRole);
   connect(aboutQtAct, &QAction::triggered, qApp, &QApplication::aboutQt);
 
   // menu bar
-  QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
+  QMenu* fileMenu = menuBar()->addMenu(tr("File"));
   fileMenu->addAction(settingsAct);
   fileMenu->addAction(saveAct);
   fileMenu->addAction(exitAct);
-  QMenu* helpMenu = menuBar()->addMenu(tr("&Help"));
+  QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
   helpMenu->addAction(aboutAct);
   helpMenu->addAction(aboutQtAct);
 }

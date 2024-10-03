@@ -5,6 +5,7 @@
 
 #include <QApplication>
 #include <QIcon>
+#include <QLibraryInfo>
 #include <QLocale>
 #include <QTranslator>
 
@@ -15,12 +16,17 @@ int main(int argc, char *argv[]) {
   a.setApplicationName("Aqua-mixtura");
   a.setWindowIcon(QIcon(":/icons/logo_512x512.png"));
 
-  QTranslator translator;
+  QTranslator trMyApp;
+  QTranslator trQt;
   const QStringList uiLanguages = QLocale::system().uiLanguages();
   for (const QString &locale : uiLanguages) {
-    const QString baseName = "Aqua-mixtura_" + QLocale::languageToCode(QLocale(locale).language());
-    if (translator.load(":/i18n/" + baseName)) {
-      a.installTranslator(&translator);
+    const QString languageCode = QLocale::languageToCode(QLocale(locale).language());
+    if (trMyApp.load(":/i18n/Aqua-mixtura_" + languageCode)) {
+      a.installTranslator(&trMyApp);
+      // Also load qt translator
+      if (trQt.load("qt_" + languageCode, QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
+        a.installTranslator(&trQt);
+      }
       break;
     }
   }

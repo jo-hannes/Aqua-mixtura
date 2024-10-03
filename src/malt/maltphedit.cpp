@@ -13,11 +13,11 @@ MaltPhEdit::MaltPhEdit(QWidget *parent)
 {
   QGridLayout* mainLayout = new QGridLayout(this);
   // malt names
-  QLabel* txtMalt = new QLabel(tr("Malze <120 EBC:"));
+  QLabel* txtMalt = new QLabel(tr("Malze <120 EBC") + ":");
   mainLayout->addWidget(txtMalt, 0, 0, Qt::AlignRight);
-  QLabel* txtCaramalz = new QLabel(tr("Caramalz:"));
+  QLabel* txtCaramalz = new QLabel(tr("Caramalz") + ":");
   mainLayout->addWidget(txtCaramalz, 1, 0, Qt::AlignRight);
-  QLabel* txtRoestmalz = new QLabel(tr("Röstmalz:"));
+  QLabel* txtRoestmalz = new QLabel(tr("Röstmalz") + ":");
   mainLayout->addWidget(txtRoestmalz, 2, 0, Qt::AlignRight);
   // calculated ph values
   phMalt = new QLabel();
