@@ -13,7 +13,8 @@ find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
 set(TS_FILES
-    translations/Aqua-mixtura_de_DE.ts
+    translations/Aqua-mixtura_de.ts
+    translations/Aqua-mixtura_en.ts
 )
 
 set(PROJECT_SOURCES
@@ -54,7 +55,6 @@ set(PROJECT_SOURCES
     src/water/waterprofileedit.h src/water/waterprofileedit.cpp
     src/water/watersources.h src/water/watersources.cpp
     src/water/watersourcewindow.h src/water/watersourcewindow.cpp
-    ${TS_FILES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -67,7 +67,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    qt_add_translations(
+        Aqua-mixtura
+        SOURCES ${PROJECT_SOURCES}
+        TS_FILES ${TS_FILES}
+    )
+    # Always rebuild translations
+    add_dependencies(Aqua-mixtura Aqua-mixtura_lupdate)
+    add_dependencies(Aqua-mixtura Aqua-mixtura_lrelease)
 else()
     message(FATAL_ERROR "At least Qt6 is needed!")
 endif()
