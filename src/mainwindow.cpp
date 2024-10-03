@@ -122,11 +122,15 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 }
 
 void MainWindow::save() {
-  QMessageBox::information(this, "save", "TODO save");
+  model.save();
 }
 
 void MainWindow::about() {
-  QMessageBox::about(this, tr("About"), tr("TODO about this app"));
+  Dialogs::info("Aqua-mixtura",
+                tr("Rechner zur Wasseraufbereitung fürs Bierbrauen.<br>"
+                   "<br>"
+                   "<a href=\"https://github.com/jo-hannes/Aqua-mixtura\">github.com/jo-hannes/Aqua-mixtura</a>"),
+                this);
 }
 
 void MainWindow::sources() {

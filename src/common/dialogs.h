@@ -5,6 +5,8 @@
 #define DIALOGS_H
 
 #include <QMessageBox>
+#include <QString>
+#include <QWidget>
 
 namespace Dialogs {
 
@@ -16,14 +18,14 @@ namespace Dialogs {
  * @return QMessageBox::Discard User clicked "Don't Save"
  * @return QMessageBox::Cancel  User clicked "Cancel"
  */
-int saveChanges(const QString& text, const QString& infoText);
+int saveChanges(const QString& text, const QString& infoText, QWidget* parent = nullptr);
 
 /**
  * @brief Show information box with OK button only
  * @param text Main text displayed bold
  * @param infoText Additional informative text
  */
-void info(const QString& text, const QString& infoText);
+void info(const QString& text, const QString& infoText, QWidget* parent = nullptr);
 
 /**
  * @brief Ask user question with yes and no as possible answer
@@ -32,7 +34,7 @@ void info(const QString& text, const QString& infoText);
  * @return QMessageBox::Yes User clicked "Yes"
  * @return QMessageBox::No  User clicked "No"
  */
-int yesNo(const QString& text, const QString& infoText);
+int yesNo(const QString& text, const QString& infoText, QWidget* parent = nullptr);
 
 };  // namespace Dialogs
 
