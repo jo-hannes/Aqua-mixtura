@@ -9,8 +9,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Network)
 
 set(TS_FILES
     translations/Aqua-mixtura_de.ts
@@ -27,6 +27,7 @@ set(PROJECT_SOURCES
     src/additive/additivewindow.h src/additive/additivewindow.cpp
     src/common/buttons.h src/common/buttons.cpp
     src/common/dialogs.h src/common/dialogs.cpp
+    src/common/download.h src/common/download.cpp
     src/common/jsonhelper.h src/common/jsonhelper.cpp
     src/common/meta.h src/common/meta.cpp
     src/common/paths.h src/common/paths.cpp
@@ -78,7 +79,7 @@ else()
     message(FATAL_ERROR "At least Qt6 is needed!")
 endif()
 
-target_link_libraries(Aqua-mixtura PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(Aqua-mixtura PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

@@ -3,6 +3,7 @@
 
 #include "watersources.h"
 
+#include "../common/download.h"
 #include "../common/jsonhelper.h"
 #include "../common/paths.h"
 
@@ -178,7 +179,9 @@ Qt::ItemFlags WaterSources::flags(const QModelIndex& index) const {
 }
 
 void WaterSources::load() {
-  QString file = Paths::dataDir() + "/sources.json";
+  const QString fileName = "sources.json";
+  Download::loadDefaults(fileName);
+  QString file = Paths::dataDir() + "/" + fileName;
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }

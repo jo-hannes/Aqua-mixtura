@@ -369,17 +369,17 @@
 <context>
     <name>Malts</name>
     <message>
-        <location filename="../src/malt/malts.cpp" line="149"/>
+        <location filename="../src/malt/malts.cpp" line="150"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/malt/malts.cpp" line="151"/>
+        <location filename="../src/malt/malts.cpp" line="152"/>
         <source>Menge</source>
         <translation>Menge</translation>
     </message>
     <message>
-        <location filename="../src/malt/malts.cpp" line="153"/>
+        <location filename="../src/malt/malts.cpp" line="154"/>
         <source>Farbe</source>
         <translation>Farbe</translation>
     </message>
@@ -589,22 +589,22 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/settings/settings.cpp" line="178"/>
+        <location filename="../src/settings/settings.cpp" line="179"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/settings/settings.cpp" line="180"/>
+        <location filename="../src/settings/settings.cpp" line="181"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/settings/settings.cpp" line="182"/>
+        <location filename="../src/settings/settings.cpp" line="183"/>
         <source>Negative Werte</source>
         <translation>Negative Werte</translation>
     </message>
     <message>
-        <location filename="../src/settings/settings.cpp" line="184"/>
+        <location filename="../src/settings/settings.cpp" line="185"/>
         <source>Logarithmische Skala</source>
         <translation>Logarithmische Skala</translation>
     </message>
@@ -834,18 +834,18 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="137"/>
-        <location filename="../src/water/watersources.cpp" line="145"/>
+        <location filename="../src/water/watersources.cpp" line="138"/>
+        <location filename="../src/water/watersources.cpp" line="146"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="139"/>
+        <location filename="../src/water/watersources.cpp" line="140"/>
         <source>Restalkalität</source>
         <translation>Restalkalität</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="141"/>
+        <location filename="../src/water/watersources.cpp" line="142"/>
         <source>Menge</source>
         <translation>Menge</translation>
     </message>

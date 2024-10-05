@@ -3,6 +3,7 @@
 
 #include "styles.h"
 
+#include "../common/download.h"
 #include "../common/jsonhelper.h"
 #include "../common/paths.h"
 
@@ -131,7 +132,9 @@ QVariant Styles::data(const QModelIndex& index, int role) const {
 
 void Styles::load()
 {
-  QString file = Paths::dataDir() + "/styles.json";
+  const QString fileName = "styles.json";
+  Download::loadDefaults(fileName);
+  QString file = Paths::dataDir() + "/" + fileName;
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }

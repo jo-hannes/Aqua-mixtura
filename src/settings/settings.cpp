@@ -3,6 +3,7 @@
 
 #include "settings.h"
 
+#include "../common/download.h"
 #include "../common/jsonhelper.h"
 #include "../common/paths.h"
 
@@ -240,7 +241,9 @@ Qt::ItemFlags Settings::flags(const QModelIndex& index) const {
 }
 
 void Settings::load() {
-  QString file = Paths::dataDir() + "/settings.json";
+  const QString fileName = "settings.json";
+  Download::loadDefaults(fileName);
+  QString file = Paths::dataDir() + "/" + fileName;
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }

@@ -3,6 +3,7 @@
 
 #include "malts.h"
 
+#include "../common/download.h"
 #include "../common/jsonhelper.h"
 #include "../common/paths.h"
 
@@ -200,7 +201,9 @@ Qt::ItemFlags Malts::flags(const QModelIndex& index) const {
 
 void Malts::load()
 {
-  QString file = Paths::dataDir() + "/malts.json";
+  const QString fileName = "malts.json";
+  Download::loadDefaults(fileName);
+  QString file = Paths::dataDir() + "/" + fileName;
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }
