@@ -63,7 +63,7 @@ void MaltTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index)
     case 2: {
       // ph
       float ph = index.model()->data(index, Qt::DisplayRole).toFloat();
-      QModelIndex ebcIdx = index.siblingAtColumn(2);
+      QModelIndex ebcIdx = index.siblingAtColumn(1);
       float ebc = ebcIdx.model()->data(ebcIdx, Qt::DisplayRole).toFloat();
       MaltPhEdit* phEdit = static_cast<MaltPhEdit*>(editor);
       phEdit->setData(ph, ebc);
