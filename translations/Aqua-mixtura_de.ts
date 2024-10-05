@@ -760,7 +760,7 @@
     <message>
         <location filename="../src/style/styleswindow.cpp" line="111"/>
         <source>Copy of </source>
-        <translation>Kopei von </translation>
+        <translation>Kopie von </translation>
     </message>
     <message>
         <location filename="../src/style/styleswindow.cpp" line="128"/>
