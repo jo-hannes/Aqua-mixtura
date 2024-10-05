@@ -22,8 +22,8 @@ QWidget* StyleTableDelegate::createEditor(QWidget* parent, const QStyleOptionVie
       // Use double spin box for all other
       QDoubleSpinBox* editor = new QDoubleSpinBox(parent);
       editor->setFrame(false);
-      editor->setMinimum(0);
-      editor->setMaximum(9999);
+      editor->setMinimum(-999);
+      editor->setMaximum(999);
       editor->setDecimals(2);
       editor->setSingleStep(1);
       return editor;
