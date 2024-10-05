@@ -21,6 +21,7 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   layout->addWidget(new QLabel(tr("Bierstil") + ":"), 0, 1, 1, 2, Qt::AlignLeft);
 
   styleSelect = new QComboBox();
+  styleSelect->setMaximumWidth(122);  // TODO Replace magic number here. Need to be same as ResultBar::width
   layout->addWidget(styleSelect, 0, 3, Qt::AlignLeft);
   QObject::connect(styleSelect, &QComboBox::activated, this, &MixResultWidget::selectStyle);
 
