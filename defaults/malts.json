@@ -1,0 +1,290 @@
+{
+    "Malts": [
+        {
+            "EBC": 2,
+            "Meta": {
+                "Created": "2024-02-18T16:22:54",
+                "Edited": "2024-10-05T13:52:07",
+                "Name": "Pilsner Malz extra hell",
+                "UUID": "3f397ff1-e423-4ca2-9077-02d5da9bd82a"
+            },
+            "mass": 0,
+            "pH": 5.980000019073486
+        },
+        {
+            "EBC": 4,
+            "Meta": {
+                "Created": "2024-02-18T16:22:54",
+                "Edited": "2024-10-05T13:52:17",
+                "Name": "Pilsner Malz",
+                "UUID": "79584e69-36f0-4cd3-bb38-01745aaa1aa7"
+            },
+            "mass": 0,
+            "pH": 5.800000190734863
+        },
+        {
+            "EBC": 4,
+            "Meta": {
+                "Created": "2024-10-05T13:45:42",
+                "Edited": "2024-10-05T13:52:46",
+                "Name": "Weizenbraumalz hell",
+                "UUID": "789131d1-0a44-4d17-b1a6-43afc6d9aebe"
+            },
+            "mass": 0,
+            "pH": 5.800000190734863
+        },
+        {
+            "EBC": 7,
+            "Meta": {
+                "Created": "2024-02-18T16:22:54",
+                "Edited": "2024-10-05T13:52:21",
+                "Name": "Pale Ale Malz",
+                "UUID": "00c7941e-5465-40cc-bbce-54cdc6da75ad"
+            },
+            "mass": 0,
+            "pH": 5.659999847412109
+        },
+        {
+            "EBC": 8,
+            "Meta": {
+                "Created": "2024-10-05T13:42:09",
+                "Edited": "2024-10-05T13:52:25",
+                "Name": "Wiener Malz",
+                "UUID": "37e2c425-0763-4882-8b5b-cea8d7281c59"
+            },
+            "mass": 0,
+            "pH": 5.630000114440918
+        },
+        {
+            "EBC": 15,
+            "Meta": {
+                "Created": "2024-10-05T13:42:41",
+                "Edited": "2024-10-05T13:52:28",
+                "Name": "Münchner Malz Typ 1",
+                "UUID": "77d5c93e-4699-4763-9248-ec9dea828544"
+            },
+            "mass": 0,
+            "pH": 5.46999979019165
+        },
+        {
+            "EBC": 18,
+            "Meta": {
+                "Created": "2024-10-05T13:45:42",
+                "Edited": "2024-10-05T13:52:50",
+                "Name": "Weizenbraumalz dunkel",
+                "UUID": "da9f9467-6980-45e0-b1ea-7e66030be8a3"
+            },
+            "mass": 0,
+            "pH": 5.420000076293945
+        },
+        {
+            "EBC": 23,
+            "Meta": {
+                "Created": "2024-10-05T13:43:11",
+                "Edited": "2024-10-05T13:52:38",
+                "Name": "Münchner Malz Typ 2",
+                "UUID": "c19beac1-c5e0-42ea-b26e-f51c0f0b4e8a"
+            },
+            "mass": 0,
+            "pH": 5.360000133514404
+        },
+        {
+            "EBC": 70,
+            "Meta": {
+                "Created": "2024-10-05T13:43:12",
+                "Edited": "2024-10-05T13:52:42",
+                "Name": "Melanoidinmalz",
+                "UUID": "7431743e-6881-4c63-9a68-4ad7976eaa19"
+            },
+            "mass": 0,
+            "pH": 5.070000171661377
+        },
+        {
+            "EBC": 5,
+            "Meta": {
+                "Created": "2024-10-05T14:01:28",
+                "Edited": "2024-10-05T14:02:57",
+                "Name": "Carapils",
+                "UUID": "3c6e1d97-25f1-41d1-9bd6-7f9febe57a38"
+            },
+            "mass": 0,
+            "pH": 5.599999904632568
+        },
+        {
+            "EBC": 25,
+            "Meta": {
+                "Created": "2024-10-05T14:01:28",
+                "Edited": "2024-10-05T14:03:21",
+                "Name": "Carahell",
+                "UUID": "c8f90031-169a-4626-9a9a-92ac22c9456f"
+            },
+            "mass": 0,
+            "pH": 5.139999866485596
+        },
+        {
+            "EBC": 33,
+            "Meta": {
+                "Created": "2024-10-05T14:01:28",
+                "Edited": "2024-10-05T14:03:41",
+                "Name": "Carabelg",
+                "UUID": "1970ba1f-4611-42ec-83dd-6dd81a2f1653"
+            },
+            "mass": 0,
+            "pH": 5.059999942779541
+        },
+        {
+            "EBC": 50,
+            "Meta": {
+                "Created": "2024-10-05T14:03:51",
+                "Edited": "2024-10-05T14:04:04",
+                "Name": "Carared",
+                "UUID": "5d5dea7b-9893-4e3c-962f-3462296a1bce"
+            },
+            "mass": 0,
+            "pH": 4.940000057220459
+        },
+        {
+            "EBC": 70,
+            "Meta": {
+                "Created": "2024-10-05T14:03:52",
+                "Edited": "2024-10-05T14:04:26",
+                "Name": "Caraamber",
+                "UUID": "cd003fb6-c994-4fe7-922d-9e5182d76f1e"
+            },
+            "mass": 0,
+            "pH": 4.840000152587891
+        },
+        {
+            "EBC": 90,
+            "Meta": {
+                "Created": "2024-10-05T14:03:52",
+                "Edited": "2024-10-05T14:04:48",
+                "Name": "Caramünch Typ 1",
+                "UUID": "c8fae30a-4c34-4edb-8f19-9d581d07bd51"
+            },
+            "mass": 0,
+            "pH": 4.769999980926514
+        },
+        {
+            "EBC": 120,
+            "Meta": {
+                "Created": "2024-10-05T14:04:55",
+                "Edited": "2024-10-05T14:05:20",
+                "Name": "Caramünch Typ 2",
+                "UUID": "c8fae30a-4c34-4edb-8f19-9d581d07bd51"
+            },
+            "mass": 0,
+            "pH": 4.690000057220459
+        },
+        {
+            "EBC": 150,
+            "Meta": {
+                "Created": "2024-10-05T14:04:56",
+                "Edited": "2024-10-05T14:05:34",
+                "Name": "Caramünch Typ 3",
+                "UUID": "c8fae30a-4c34-4edb-8f19-9d581d07bd51"
+            },
+            "mass": 0,
+            "pH": 4.619999885559082
+        },
+        {
+            "EBC": 125,
+            "Meta": {
+                "Created": "2024-10-05T14:01:27",
+                "Edited": "2024-10-05T14:02:01",
+                "Name": "Carawheat",
+                "UUID": "30b923d6-0071-46b3-8603-6768dc0089eb"
+            },
+            "mass": 0,
+            "pH": 4.670000076293945
+        },
+        {
+            "EBC": 175,
+            "Meta": {
+                "Created": "2024-10-05T14:06:06",
+                "Edited": "2024-10-05T14:06:20",
+                "Name": "Cararey",
+                "UUID": "3b8791dd-a4a3-4a49-9efe-3e5975122c00"
+            },
+            "mass": 0,
+            "pH": 4.579999923706055
+        },
+        {
+            "EBC": 195,
+            "Meta": {
+                "Created": "2024-10-05T14:06:07",
+                "Edited": "2024-10-05T14:06:45",
+                "Name": "Carabohemian",
+                "UUID": "d990aad3-5733-420b-8c61-0a24881e2f80"
+            },
+            "mass": 0,
+            "pH": 4.550000190734863
+        },
+        {
+            "EBC": 400,
+            "Meta": {
+                "Created": "2024-10-05T14:06:52",
+                "Edited": "2024-10-05T14:07:04",
+                "Name": "Caraaroma",
+                "UUID": "8ad0107e-fd4d-4d64-99b6-0bea6be8f63e"
+            },
+            "mass": 0,
+            "pH": 4.340000152587891
+        },
+        {
+            "EBC": 900,
+            "Meta": {
+                "Created": "2024-10-05T14:08:19",
+                "Edited": "2024-10-05T14:10:03",
+                "Name": "Carafa Typ 1",
+                "UUID": "6d310f6c-7819-4184-8ba7-5f5b7d316909"
+            },
+            "mass": 0,
+            "pH": 4.650000095367432
+        },
+        {
+            "EBC": 1150,
+            "Meta": {
+                "Created": "2024-10-05T14:08:19",
+                "Edited": "2024-10-05T14:09:12",
+                "Name": "Carafa Typ 2",
+                "UUID": "bf35623b-9733-4aeb-97d4-b9c0aa1b556f"
+            },
+            "mass": 0,
+            "pH": 4.650000095367432
+        },
+        {
+            "EBC": 1400,
+            "Meta": {
+                "Created": "2024-10-05T14:08:20",
+                "Edited": "2024-10-05T14:10:13",
+                "Name": "Carafa Typ 3",
+                "UUID": "5cfd2add-54a6-4da0-8465-d7b7eba6abcb"
+            },
+            "mass": 0,
+            "pH": 4.650000095367432
+        },
+        {
+            "EBC": 1050,
+            "Meta": {
+                "Created": "2024-10-05T14:01:28",
+                "Edited": "2024-10-05T14:02:30",
+                "Name": "Weizenröstmalz",
+                "UUID": "58481655-790b-4b94-acf7-64e697f019f5"
+            },
+            "mass": 0,
+            "pH": 4.650000095367432
+        },
+        {
+            "EBC": 3,
+            "Meta": {
+                "Created": "2024-10-05T13:43:12",
+                "Edited": "2024-10-05T14:12:31",
+                "Name": "Sauermalz",
+                "UUID": "83421327-d8d1-4013-8256-499b5cb67f82"
+            },
+            "mass": 0,
+            "pH": 3.5299999713897705
+        }
+    ]
+}

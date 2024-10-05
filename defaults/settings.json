@@ -1,0 +1,100 @@
+{
+    "Settings": {
+        "CaHaerte": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 21,
+            "Min": 0
+        },
+        "Carbonhaerte": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 23,
+            "Min": 0
+        },
+        "Gesamthaerte": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 26,
+            "Min": 0
+        },
+        "Meta": {
+            "Created": "2024-06-29T22:39:15",
+            "Edited": "2024-10-05T14:43:36",
+            "Name": "",
+            "UUID": "721e1e87-1334-4373-b9cb-e5453ffe7256"
+        },
+        "MgHaerte": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 4.599999904632568,
+            "Min": 0
+        },
+        "NichtCarbonhaerte": {
+            "AllowNegative": true,
+            "LogarithmicScale": true,
+            "Max": 26,
+            "Min": -23
+        },
+        "Restalkalitaet": {
+            "AllowNegative": true,
+            "LogarithmicScale": false,
+            "Max": 17,
+            "Min": -17
+        },
+        "SO4ClVerhaeltnis": {
+            "AllowNegative": false,
+            "LogarithmicScale": true,
+            "Max": 10,
+            "Min": 0
+        },
+        "c3h5o3": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 300,
+            "Min": 0
+        },
+        "ca": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 150,
+            "Min": 50
+        },
+        "cl": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 150,
+            "Min": 0
+        },
+        "h2po4": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 999,
+            "Min": 0
+        },
+        "hco3": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 500,
+            "Min": 0
+        },
+        "mg": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 20,
+            "Min": 0
+        },
+        "na": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 50,
+            "Min": 0
+        },
+        "so4": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 250,
+            "Min": 0
+        }
+    }
+}
