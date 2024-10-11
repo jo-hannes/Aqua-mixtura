@@ -122,10 +122,10 @@ void MixtureWindow::changed(bool changed) {
   unsavedChanges = changed;
   qDebug() << "MixtureWindow::changed; changed " << changed << " unsavedChanges " << unsavedChanges;
   if (unsavedChanges && !loadGuard) {
-    this->setWindowTitle("* Aqua mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
+    this->setWindowTitle("* Aqua-mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
     qDebug() << "Update edit time";
     mix.updateEditTime();
   } else {
-    this->setWindowTitle("Aqua mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
+    this->setWindowTitle("Aqua-mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
   }
 }

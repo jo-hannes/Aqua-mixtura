@@ -19,7 +19,7 @@
 WatersourceWindow::WatersourceWindow(WaterSources& model, QWidget* parent) : QWidget(parent), sources{model} {
   selected = -1;
   // Überschriften
-  setWindowTitle("Aqua mixtura - " + tr("Wasserquellen"));
+  setWindowTitle("Aqua-mixtura - " + tr("Wasserquellen"));
   QLabel* txtQuellen = new QLabel(tr("Wasserquellen"));
   txtQuellen->setStyleSheet("font-weight: bold");
 

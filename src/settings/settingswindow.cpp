@@ -14,7 +14,7 @@
 
 SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{parent}, settings(model) {
   // Window title
-  setWindowTitle("Aqua mixtura - " + tr("Einstellungen"));
+  setWindowTitle("Aqua-mixtura - " + tr("Einstellungen"));
 
   // main layout
   QVBoxLayout* layout = new QVBoxLayout(this);

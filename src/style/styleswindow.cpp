@@ -27,7 +27,7 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   QGridLayout* mainLayout = new QGridLayout();
 
   // Headlines
-  setWindowTitle("Aqua mixtura - " + tr("Bierstile"));
+  setWindowTitle("Aqua-mixtura - " + tr("Bierstile"));
   QLabel* txtStyles = new QLabel("<b>" + tr("Bierstile") + "</b>");
   mainLayout->addWidget(txtStyles, 0, 0, Qt::AlignLeft);
   QLabel* txtValues = new QLabel("<b>" + tr("Werte") + "</b>");

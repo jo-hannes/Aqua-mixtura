@@ -15,7 +15,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
   int row = 0;
   QGridLayout* layout = new QGridLayout();
 
-  setWindowTitle("Aqua mixtura - " + tr("Zusatzstoffe"));
+  setWindowTitle("Aqua-mixtura - " + tr("Zusatzstoffe"));
 
   // heading liquids
   QLabel* txtAcids = new QLabel("<b>" + tr("Säuren") + "</b>");

@@ -18,7 +18,7 @@
 
 MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{model} {
   // Window tittle
-  title = "Aqua mixtura - " + tr("Malze");
+  title = "Aqua-mixtura - " + tr("Malze");
   this->setWindowTitle(title);
   QObject::connect(&malts, &Malts::dataModified, this, &MaltWindow::unsavedMalts);
 
