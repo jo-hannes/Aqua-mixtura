@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Aqua-mixtura
+GenericName=@CMAKE_PROJECT_NAME@
+Exec=Aqua-mixtura
+Icon=/usr/share/aqua-mixtura/aqua-mixtura.png
+Type=Application
+Categories=Miscellaneous;

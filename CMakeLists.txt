@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Aqua-mixtura VERSION 0.0.1 LANGUAGES CXX)
+project(Aqua-mixtura VERSION 0.0.1 LANGUAGES CXX DESCRIPTION "Water treatment for brewing beer")
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -107,3 +107,6 @@ install(TARGETS Aqua-mixtura
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(Aqua-mixtura)
 endif()
+
+# build packs with cpack
+add_subdirectory(pack)
