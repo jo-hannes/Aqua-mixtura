@@ -22,7 +22,6 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     RENAME aqua-mixtura.png)
 
   # common linux settings
-  set(CPACK_GENERATOR DEB)
   set(CPACK_DEBIAN_PACKAGE_SECTION Miscellaneous)
   set(CPACK_DEBIAN_PACKAGE_MAINTAINER "jo-hannes")
 
@@ -32,12 +31,22 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -cs
       OUTPUT_VARIABLE LSB_CODENAME
       OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -is
+      OUTPUT_VARIABLE LSB_DISTRO
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
   endif()
   # distro specific settings
   if ("${LSB_CODENAME}" STREQUAL "bookworm") # Debian 12
+    set(CPACK_GENERATOR DEB)
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6, libqt6gui6, libqt6widgets6, libqt6network6")
   elseif("${LSB_CODENAME}" STREQUAL "noble")  # Ubuntu 24.04
+    set(CPACK_GENERATOR DEB)
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6, libqt6gui6, libqt6widgets6, libqt6network6")
+  # Match RPM distros
+  elseif (("${LSB_DISTRO}" STREQUAL "Fedora") OR ("${LSB_DISTRO}" STREQUAL "openSUSE"))
+    set(CPACK_GENERATOR RPM)
+    set(CPACK_RPM_PACKAGE_LICENSE "GPL-2.0-only")
+    message(STATUS "TODO")
   endif()
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
