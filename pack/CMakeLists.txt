@@ -46,12 +46,26 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   elseif (("${LSB_DISTRO}" STREQUAL "Fedora") OR ("${LSB_DISTRO}" STREQUAL "openSUSE"))
     set(CPACK_GENERATOR RPM)
     set(CPACK_RPM_PACKAGE_LICENSE "GPL-2.0-only")
-    message(STATUS "TODO")
   endif()
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   set(CPACK_GENERATOR DragNDrop)
-  message(STATUS "TODO")
+  # add icon(s)
+  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.icns
+    COMMAND ${CMAKE_SOURCE_DIR}/pack/buildMacIcon.sh
+    ARGS ${CMAKE_SOURCE_DIR}/src/icons/ ${CMAKE_CURRENT_BINARY_DIR}
+  )
+  set(MACOSX_BUNDLE_ICON_FILE icon.icns)
+  set(RESOURCE_FILES
+    ${RESOURCE_FILES}
+    ${CMAKE_CURRENT_BINARY_DIR}/icon.icns
+  )
+  # add qt lib to app bundle
+  find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
+  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND "${MACDEPLOYQT_EXECUTABLE}"
+    ARGS "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app" -no-plugins
+  )
 
 endif ()
 

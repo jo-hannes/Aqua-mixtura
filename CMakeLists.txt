@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Aqua-mixtura VERSION 0.0.1 LANGUAGES CXX DESCRIPTION "Water treatment for brewing beer")
+set (PROJECT_NAME Aqua-mixtura)
+
+project(${PROJECT_NAME} VERSION 0.0.1 LANGUAGES CXX DESCRIPTION "Water treatment for brewing beer")
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -58,28 +60,24 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(Aqua-mixtura
+    qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET Aqua-mixtura APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
     qt_add_translations(
-        Aqua-mixtura
+        ${PROJECT_NAME}
         SOURCES ${PROJECT_SOURCES}
         TS_FILES ${TS_FILES}
     )
     # Always rebuild translations
-    add_dependencies(Aqua-mixtura Aqua-mixtura_lupdate)
-    add_dependencies(Aqua-mixtura Aqua-mixtura_lrelease)
+    add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_lupdate)
+    add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_lrelease)
 else()
     message(FATAL_ERROR "At least Qt6 is needed!")
 endif()
 
-target_link_libraries(Aqua-mixtura PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -87,26 +85,32 @@ target_link_libraries(Aqua-mixtura PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT
 if(${QT_VERSION} VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.Aqua-mixtura)
 endif()
-set_target_properties(Aqua-mixtura PROPERTIES
+
+# build packs with cpack
+include(pack/CMakeLists.txt)
+
+target_sources(${PROJECT_NAME} PRIVATE ${RESOURCE_FILES})
+set_source_files_properties(${RESOURCE_FILES}
+  MACOSX_PACKAGE_LOCATION "Resources"
+)
+set_target_properties(${PROJECT_NAME} PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
+    RESOURCE "${RESOURCE_FILES}"
 )
 
-target_compile_options(Aqua-mixtura PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 
 include(GNUInstallDirs)
-install(TARGETS Aqua-mixtura
+install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(Aqua-mixtura)
+    qt_finalize_executable(${PROJECT_NAME})
 endif()
-
-# build packs with cpack
-add_subdirectory(pack)
