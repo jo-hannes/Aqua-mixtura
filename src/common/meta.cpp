@@ -40,13 +40,11 @@ void Meta::setName(const QString& newName) {
   updateEditTime();
 }
 
-void Meta::updateEditTime()
-{
+void Meta::updateEditTime() {
   edit = QDateTime::currentDateTime();
 }
 
-void Meta::updateCreationTime()
-{
+void Meta::updateCreationTime() {
   create = QDateTime::currentDateTime();
 }
 

@@ -19,11 +19,11 @@ class MainModel : public QObject {
   MainModel();
 
  public slots:
-  void load();         /**< @brief Load all data from JSON files */
-  void save();         /**< @brief Save all data to JSON files */
+  void load(); /**< @brief Load all data from JSON files */
+  void save(); /**< @brief Save all data to JSON files */
 
  public:
   Mixtures mixtures; /**< @brief Model of mixtures */
 };
 
-#endif // MAINMODEL_H
+#endif  // MAINMODEL_H

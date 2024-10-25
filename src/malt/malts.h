@@ -18,14 +18,14 @@ class Malts : public QAbstractTableModel {
   Malts(const QJsonObject& json); /**< @brief Create Malts from JSON */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief Update Malts from JSON */
-  QJsonObject toJson() const;             /**< @brief convert this Malts to JSON */
-  bool importMalt(const QString& path);   /**< @brief import and add a Malt from JSON */
+  bool fromJson(const QJsonObject& json);                  /**< @brief Update Malts from JSON */
+  QJsonObject toJson() const;                              /**< @brief convert this Malts to JSON */
+  bool importMalt(const QString& path);                    /**< @brief import and add a Malt from JSON */
   bool exportMalt(const QString& path, qsizetype i) const; /**< @brief export a Malt at index as JSON */
 
-  const Malt& getMalt(qsizetype i);         /**< @brief Get malt at index */
-  void addMalt(const Malt& malt);           /**< @brief Add a malt */
-  void deleteMalt(qsizetype i);             /**< @brief Delete malt at index */
+  const Malt& getMalt(qsizetype i); /**< @brief Get malt at index */
+  void addMalt(const Malt& malt);   /**< @brief Add a malt */
+  void deleteMalt(qsizetype i);     /**< @brief Delete malt at index */
 
   bool isChanged() const; /**< @brief True if changes not saved */
 

@@ -8,9 +8,7 @@
 #include <QGridLayout>
 #include <QPushButton>
 
-MaltPhEdit::MaltPhEdit(QWidget *parent)
-    : QWidget{parent}
-{
+MaltPhEdit::MaltPhEdit(QWidget* parent) : QWidget{parent} {
   QGridLayout* mainLayout = new QGridLayout(this);
   // malt names
   QLabel* txtMalt = new QLabel(tr("Malze <120 EBC") + ":");

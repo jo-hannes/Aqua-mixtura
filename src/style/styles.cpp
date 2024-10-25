@@ -130,8 +130,7 @@ QVariant Styles::data(const QModelIndex& index, int role) const {
   return styles.at(row)->getName();
 }
 
-void Styles::load()
-{
+void Styles::load() {
   const QString fileName = "styles.json";
   Download::loadDefaults(fileName);
   QString file = Paths::dataDir() + "/" + fileName;
@@ -140,8 +139,7 @@ void Styles::load()
   }
 }
 
-void Styles::save()
-{
+void Styles::save() {
   QString file = Paths::dataDir() + "/styles.json";
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);

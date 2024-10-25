@@ -13,8 +13,7 @@
 #include <QObject>
 #include <QWidget>
 
-class WaterProfileEdit : public QWidget
-{
+class WaterProfileEdit : public QWidget {
   Q_OBJECT
 
  public:
@@ -56,4 +55,4 @@ class WaterProfileEdit : public QWidget
   QLabel *restalkallität, *gesammtHaerte, *carbonHaerte, *caHaerte, *mgHaerte, *nichtcarbonHaerte, *so4cl;
 };
 
-#endif // WATERPROFILEEDIT_H
+#endif  // WATERPROFILEEDIT_H

@@ -58,4 +58,4 @@ class Style : public QAbstractTableModel, public Meta {
   static const inline QString jsonKeys[static_cast<int>(Limit::Size)] = {"Min", "Target", "Max"};
 };
 
-#endif // STYLE_H
+#endif  // STYLE_H

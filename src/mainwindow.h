@@ -7,8 +7,8 @@
 #include "mainmodel.h"
 
 #include "additive/additivewindow.h"
-#include "settings/settingswindow.h"
 #include "malt/maltwindow.h"
+#include "settings/settingswindow.h"
 #include "style/styleswindow.h"
 #include "water/watersourcewindow.h"
 
@@ -40,11 +40,11 @@ class MainWindow : public QMainWindow {
   void settings();                 /**< @brief Slot to show window with settings */
 
   // mixtures slots
-  void mixAdd();     /**< @brief Slot for adding a new mixture */
-  void mixCopy();    /**< @brief Slot to copy the currently selected mixture */
-  void mixDelete();  /**< @brief Slot to delete the currently selected mixture */
-  void mixImport();  /**< @brief Slot for importing a mixture form JSON */
-  void mixExport();  /**< @brief Slot for exporting a mixture to JSON */
+  void mixAdd();                                 /**< @brief Slot for adding a new mixture */
+  void mixCopy();                                /**< @brief Slot to copy the currently selected mixture */
+  void mixDelete();                              /**< @brief Slot to delete the currently selected mixture */
+  void mixImport();                              /**< @brief Slot for importing a mixture form JSON */
+  void mixExport();                              /**< @brief Slot for exporting a mixture to JSON */
   void mixDoubleClicked(const QModelIndex& idx); /**< @brief Slot for double clicks on mixtures */
 
  private:

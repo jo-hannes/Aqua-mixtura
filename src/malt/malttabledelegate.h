@@ -4,8 +4,8 @@
 #ifndef MALTTABLEDELEGATE_H
 #define MALTTABLEDELEGATE_H
 
-#include <QStyledItemDelegate>
 #include <QObject>
+#include <QStyledItemDelegate>
 
 /**
  * @brief Delegate to use a spin box for entering the EBC value of a malt

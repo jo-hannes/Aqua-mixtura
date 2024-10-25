@@ -17,7 +17,6 @@ class Additive : public QObject, public Meta {
   Q_OBJECT
 
  public:
-
   /**
    * @brief Index for additive type
    */
@@ -61,12 +60,12 @@ class Additive : public QObject, public Meta {
   Additive(const QJsonObject& json); /**< @brief Create Additive from JSON */
 
   // setter and getter
-  float get(Value what) const;                    /**< @brief get requested amount */
-  void set(Value what, float value);              /**< @brief set given type with amount */
+  float get(Value what) const;       /**< @brief get requested amount */
+  void set(Value what, float value); /**< @brief set given type with amount */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json);            /**< @brief Update Additive from JSON */
-  QJsonObject toJson() const;                        /**< @brief convert this Additive to JSON */
+  bool fromJson(const QJsonObject& json); /**< @brief Update Additive from JSON */
+  QJsonObject toJson() const;             /**< @brief convert this Additive to JSON */
 
   /**
    * @brief Additive::operator + calculates effect of additive to water values

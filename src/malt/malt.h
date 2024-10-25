@@ -65,13 +65,13 @@ class Malt : public Meta {
   static float calcualtePhRoestmalz();
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json);        /**< @brief Update Malt from JSON */
-  QJsonObject toJson() const;                    /**< @brief convert this Malt to JSON */
+  bool fromJson(const QJsonObject& json); /**< @brief Update Malt from JSON */
+  QJsonObject toJson() const;             /**< @brief convert this Malt to JSON */
 
  private:
-  float mass;   /**< Amount of malt in kg */
-  float ebc;    /**< Color of malt in EBC */
-  float ph;     /**< pH of malt in purified water */
+  float mass; /**< Amount of malt in kg */
+  float ebc;  /**< Color of malt in EBC */
+  float ph;   /**< pH of malt in purified water */
 };
 
-#endif // MALT_H
+#endif  // MALT_H

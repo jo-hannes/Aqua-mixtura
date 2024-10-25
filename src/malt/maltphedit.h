@@ -8,8 +8,7 @@
 #include <QLabel>
 #include <QWidget>
 
-class MaltPhEdit : public QWidget
-{
+class MaltPhEdit : public QWidget {
   Q_OBJECT
  public:
   explicit MaltPhEdit(QWidget* parent = nullptr);
@@ -33,4 +32,4 @@ class MaltPhEdit : public QWidget
   QDoubleSpinBox* phSpinBox;
 };
 
-#endif // MALTPHEDIT_H
+#endif  // MALTPHEDIT_H

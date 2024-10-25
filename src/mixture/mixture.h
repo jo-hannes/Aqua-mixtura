@@ -40,4 +40,4 @@ class Mixture : public Meta {
   QString path;
 };
 
-#endif // MIXTURE_H
+#endif  // MIXTURE_H

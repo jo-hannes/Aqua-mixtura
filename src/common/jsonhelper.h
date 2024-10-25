@@ -9,8 +9,7 @@
 /**
  * @brief Class with common JSON functions
  */
-class JsonHelper
-{
+class JsonHelper {
  public:
   JsonHelper() = delete;
 
@@ -37,4 +36,4 @@ class JsonHelper
   static void mergeJson(QJsonObject& into, const QJsonObject from);
 };
 
-#endif // JSONHELPER_H
+#endif  // JSONHELPER_H

@@ -38,7 +38,7 @@ class MixAdditiveWidget : public QFrame {
   QLabel* liquidUnit;     /**< @brief Unit for liquids */
 
   QLabel* percents[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Weight percent for liquids */
-  QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)]; /** @brief Spin boxes of additive */
+  QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)];    /**< @brief Spin boxes of additive */
 };
 
 #endif  // MIXADDITIVEWIDGET_H

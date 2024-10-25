@@ -24,12 +24,12 @@ class MaltWindow : public QWidget {
   void closeEvent(QCloseEvent* event) override;
 
  private slots:
-  void maltAdd();                  /**< @brief Slot for adding a new malt */
-  void maltCopy();                 /**< @brief Slot to copy the currently selected malt */
-  void maltDelete();               /**< @brief Slot to delete the currently selected malt */
-  void maltImport();               /**< @brief Slot for importing a malt form JSON */
-  void maltExport();               /**< @brief Slot for exporting a malt to JSON */
-  void unsavedMalts();             /**< @brief Slot for checking if unsaved changes exist */
+  void maltAdd();      /**< @brief Slot for adding a new malt */
+  void maltCopy();     /**< @brief Slot to copy the currently selected malt */
+  void maltDelete();   /**< @brief Slot to delete the currently selected malt */
+  void maltImport();   /**< @brief Slot for importing a malt form JSON */
+  void maltExport();   /**< @brief Slot for exporting a malt to JSON */
+  void unsavedMalts(); /**< @brief Slot for checking if unsaved changes exist */
 
  signals:
   void load();
@@ -42,4 +42,4 @@ class MaltWindow : public QWidget {
   QString title;         /**< @brief Window tittle */
 };
 
-#endif // MALTWINDOW_H
+#endif  // MALTWINDOW_H

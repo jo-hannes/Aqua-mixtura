@@ -19,8 +19,7 @@
 /**
  * @brief Window for managing your additions
  */
-class AdditiveWindow : public QWidget
-{
+class AdditiveWindow : public QWidget {
   Q_OBJECT
 
  public:
@@ -47,4 +46,4 @@ class AdditiveWindow : public QWidget
   QComboBox* unitSelect;
 };
 
-#endif // ADDITIVEWINDOW_H
+#endif  // ADDITIVEWINDOW_H

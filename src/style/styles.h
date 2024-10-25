@@ -19,9 +19,9 @@ class Styles : public QAbstractListModel {
   ~Styles();
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json);             /**< @brief Update Styles from JSON */
-  QJsonObject toJson() const;                         /**< @brief convert Styles to JSON */
-  bool importStyle(const QString& path);              /**< @brief import and add a Style from JSON */
+  bool fromJson(const QJsonObject& json);                   /**< @brief Update Styles from JSON */
+  QJsonObject toJson() const;                               /**< @brief convert Styles to JSON */
+  bool importStyle(const QString& path);                    /**< @brief import and add a Style from JSON */
   bool exportStyle(const QString& path, qsizetype i) const; /**< @brief export a Style at index as JSON */
 
   Style* getStyle(qsizetype i);  /**< @brief Get style at index */
@@ -48,7 +48,7 @@ class Styles : public QAbstractListModel {
   void clear(); /**< @brief Clear/remove all Styles*/
 
   QVector<Style*> styles;
-  Style* noStyle;      /**< @brief Empty style used to return no style on error */
+  Style* noStyle; /**< @brief Empty style used to return no style on error */
 };
 
-#endif // STYLES_H
+#endif  // STYLES_H

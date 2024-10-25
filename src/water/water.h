@@ -85,8 +85,8 @@ class Water : public Meta {
   void set(Value what, float value); /**< @brief set given type with value */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json);         /**< @brief Update Water from JSON */
-  QJsonObject toJson() const;                     /**< @brief convert this Water to JSON */
+  bool fromJson(const QJsonObject& json); /**< @brief Update Water from JSON */
+  QJsonObject toJson() const;             /**< @brief convert this Water to JSON */
   QJsonObject profileToJson() const; /**< @brief convert this Water profile to JSON (A profile is without volume) */
 
   // Operators
@@ -155,4 +155,4 @@ class Water : public Meta {
   float values[static_cast<int>(Value::LastAnion) + 1];
 };
 
-#endif // WATER_H
+#endif  // WATER_H

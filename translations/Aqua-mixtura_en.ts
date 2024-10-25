@@ -147,108 +147,108 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="53"/>
-        <location filename="../src/mainwindow.cpp" line="200"/>
+        <location filename="../src/mainwindow.cpp" line="199"/>
         <source>Aufbereitung importieren</source>
         <translation>Import mixture</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="53"/>
-        <location filename="../src/mainwindow.cpp" line="220"/>
+        <location filename="../src/mainwindow.cpp" line="219"/>
         <source>Aufbereitung exportieren</source>
         <translation>Export mixture</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="130"/>
+        <location filename="../src/mainwindow.cpp" line="129"/>
         <source>Rechner zur Wasseraufbereitung fürs Bierbrauen.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;https://github.com/jo-hannes/Aqua-mixtura&quot;&gt;github.com/jo-hannes/Aqua-mixtura&lt;/a&gt;</source>
         <translation>Calculator for water treatment for beer brewing.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;https://github.com/jo-hannes/Aqua-mixtura&quot;&gt;github.com/jo-hannes/Aqua-mixtura&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
+        <location filename="../src/mainwindow.cpp" line="191"/>
         <source>Aufbereitung wirklich löschen?</source>
         <translation>Really delete mixture?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="246"/>
+        <location filename="../src/mainwindow.cpp" line="245"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="252"/>
+        <location filename="../src/mainwindow.cpp" line="251"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="257"/>
+        <location filename="../src/mainwindow.cpp" line="256"/>
         <source>About Qt</source>
         <translation>About Qt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="263"/>
+        <location filename="../src/mainwindow.cpp" line="262"/>
         <source>File</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="267"/>
+        <location filename="../src/mainwindow.cpp" line="266"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="202"/>
+        <location filename="../src/mainwindow.cpp" line="201"/>
         <source>JSON (*.json);; Any (*.*)</source>
         <translation>JSON (*.json);; Any (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="207"/>
+        <location filename="../src/mainwindow.cpp" line="206"/>
         <source>Fehler beim Importieren</source>
         <translation>Error during import</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="207"/>
+        <location filename="../src/mainwindow.cpp" line="206"/>
         <source>Konnte Aufbereitung nicht im JSON finden</source>
         <translation>Could not find mixture in JSON</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="225"/>
+        <location filename="../src/mainwindow.cpp" line="224"/>
         <source>Fehler beim Exportieren</source>
         <translation>Error during export</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="225"/>
+        <location filename="../src/mainwindow.cpp" line="224"/>
         <source>Konnte Aufbereitung nicht speichern</source>
         <translation>Could not save mixture</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="235"/>
+        <location filename="../src/mainwindow.cpp" line="234"/>
         <source>Preferences...</source>
         <translation>Preferences...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="236"/>
+        <location filename="../src/mainwindow.cpp" line="235"/>
         <source>Die Anwendung Konfigurieren</source>
         <translation>Configuring the application</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="241"/>
+        <location filename="../src/mainwindow.cpp" line="240"/>
         <source>Save</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="242"/>
+        <location filename="../src/mainwindow.cpp" line="241"/>
         <source>Save changes</source>
         <translation>Save changes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="247"/>
+        <location filename="../src/mainwindow.cpp" line="246"/>
         <source>Exit the application</source>
         <translation>Exit the application</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="253"/>
+        <location filename="../src/mainwindow.cpp" line="252"/>
         <source>Show the application&apos;s About box</source>
         <translation>Show the application&apos;s About box</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="258"/>
+        <location filename="../src/mainwindow.cpp" line="257"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation>Show the Qt library&apos;s About box</translation>
     </message>
@@ -256,25 +256,25 @@
 <context>
     <name>MaltPhEdit</name>
     <message>
-        <location filename="../src/malt/maltphedit.cpp" line="16"/>
+        <location filename="../src/malt/maltphedit.cpp" line="14"/>
         <source>Malze &lt;120 EBC</source>
         <translation>Malts &lt;120 EBC</translation>
     </message>
     <message>
-        <location filename="../src/malt/maltphedit.cpp" line="18"/>
+        <location filename="../src/malt/maltphedit.cpp" line="16"/>
         <source>Caramalz</source>
         <translation>Caramel malt</translation>
     </message>
     <message>
-        <location filename="../src/malt/maltphedit.cpp" line="20"/>
+        <location filename="../src/malt/maltphedit.cpp" line="18"/>
         <source>Röstmalz</source>
         <translatorcomment>Nicht sicher ob das die richtige bezeichnung ist.</translatorcomment>
         <translation type="unfinished">Roasted malt</translation>
     </message>
     <message>
-        <location filename="../src/malt/maltphedit.cpp" line="31"/>
-        <location filename="../src/malt/maltphedit.cpp" line="36"/>
-        <location filename="../src/malt/maltphedit.cpp" line="41"/>
+        <location filename="../src/malt/maltphedit.cpp" line="29"/>
+        <location filename="../src/malt/maltphedit.cpp" line="34"/>
+        <location filename="../src/malt/maltphedit.cpp" line="39"/>
         <source>Wert übernehmen</source>
         <translation>Accept value</translation>
     </message>
@@ -481,17 +481,17 @@
 <context>
     <name>Mixtures</name>
     <message>
-        <location filename="../src/mixture/mixtures.cpp" line="183"/>
+        <location filename="../src/mixture/mixtures.cpp" line="182"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixtures.cpp" line="185"/>
+        <location filename="../src/mixture/mixtures.cpp" line="184"/>
         <source>Erstellt</source>
         <translation>Created</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixtures.cpp" line="187"/>
+        <location filename="../src/mixture/mixtures.cpp" line="186"/>
         <source>Geändert</source>
         <translation>Modified</translation>
     </message>

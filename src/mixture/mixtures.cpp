@@ -8,8 +8,7 @@
 
 #include <QJsonArray>
 
-Mixtures::Mixtures(QObject* parent) : QAbstractTableModel{parent} {
-}
+Mixtures::Mixtures(QObject* parent) : QAbstractTableModel{parent} {}
 
 Mixtures::Mixtures(const QJsonObject& json, QObject* parent) : Mixtures(parent) {
   fromJson(json);
@@ -193,16 +192,14 @@ QVariant Mixtures::headerData(int section, Qt::Orientation orientation, int role
   }
 }
 
-void Mixtures::load()
-{
+void Mixtures::load() {
   QString file = Paths::dataDir() + "/mixtures.json";
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }
 }
 
-void Mixtures::save()
-{
+void Mixtures::save() {
   QString file = Paths::dataDir() + "/mixtures.json";
   JsonHelper::saveFile(file, this->toJson());
 }

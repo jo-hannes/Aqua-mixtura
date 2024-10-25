@@ -199,8 +199,7 @@ Qt::ItemFlags Malts::flags(const QModelIndex& index) const {
   return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
 }
 
-void Malts::load()
-{
+void Malts::load() {
   const QString fileName = "malts.json";
   Download::loadDefaults(fileName);
   QString file = Paths::dataDir() + "/" + fileName;
@@ -209,8 +208,7 @@ void Malts::load()
   }
 }
 
-void Malts::save()
-{
+void Malts::save() {
   QString file = Paths::dataDir() + "/malts.json";
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);

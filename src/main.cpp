@@ -9,7 +9,7 @@
 #include <QLocale>
 #include <QTranslator>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   QApplication a(argc, argv);
 
   a.setOrganizationName("jo-hannes");
@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
   QTranslator trMyApp;
   QTranslator trQt;
   const QStringList uiLanguages = QLocale::system().uiLanguages();
-  for (const QString &locale : uiLanguages) {
+  for (const QString& locale : uiLanguages) {
     const QString languageCode = QLocale::languageToCode(QLocale(locale).language());
     if (trMyApp.load(":/i18n/Aqua-mixtura_" + languageCode)) {
       a.installTranslator(&trMyApp);
