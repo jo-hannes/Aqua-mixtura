@@ -52,7 +52,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   set(CPACK_GENERATOR DragNDrop)
   # add icon(s)
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.icns
-    COMMAND ${CMAKE_SOURCE_DIR}/pack/buildMacIcon.sh
+    COMMAND ${CMAKE_SOURCE_DIR}/pack/genMacIcon.sh
     ARGS ${CMAKE_SOURCE_DIR}/src/icons/ ${CMAKE_CURRENT_BINARY_DIR}
   )
   set(MACOSX_BUNDLE_ICON_FILE icon.icns)
@@ -64,7 +64,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND "${MACDEPLOYQT_EXECUTABLE}"
-    ARGS "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app" -no-plugins
+    ARGS "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app"
   )
 
 endif ()
