@@ -48,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["debian:12", "ubuntu:24.04", "opensuse/tumbleweed"]
+        os: ["debian:12", "ubuntu:24.04", "fedora:42", "opensuse/tumbleweed"]
         include:
           - os: debian:12
             install-deps: apt-get update && apt-get -y install lsb-release git build-essential cmake qt6-base-dev qt6-tools-dev
@@ -58,11 +58,10 @@ jobs:
             install-deps: apt-get update && apt-get -y install lsb-release git build-essential cmake qt6-base-dev qt6-tools-dev
             pkg-file: Aqua-mixtura-*.deb
             osname: ubuntu-24.04
-# TODO fix dependence install on fedora
-#           - os: fedora:42
-#             install-deps: dnf -y install lsb_release git cmake make automake gcc gcc-c++ qt6-qtbase-devel qt6-linguist qt6-qttools-devel rpm-build
-#             pkg-file: Aqua-mixtura-*.rpm
-#             osname: fedora-12
+          - os: fedora:42
+            install-deps: dnf -y install lsb_release git cmake make automake gcc gcc-c++ qt6-qtbase-devel qt6-linguist qt6-qttools-devel rpm-build
+            pkg-file: Aqua-mixtura-*.rpm
+            osname: fedora-12
           - os: opensuse/tumbleweed
             install-deps: zypper install -y lsb-release git cmake make automake gcc gcc-c++ rpm-build qt6-base-devel qt6-tools-linguist qt6-linguist-devel
             pkg-file: Aqua-mixtura-*.rpm
