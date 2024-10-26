@@ -13,7 +13,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   # special assets for linux
   # desktop file
   install(FILES
-    aqua-mixtura.desktop
+    ${PROJECT_SOURCE_DIR}/pack/aqua-mixtura.desktop
     DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
   # icon
   install(FILES
@@ -31,9 +31,13 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -cs
       OUTPUT_VARIABLE LSB_CODENAME
       OUTPUT_STRIP_TRAILING_WHITESPACE)
+    message(STATUS "LSB_CODENAME: ${LSB_CODENAME}")
     execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -is
       OUTPUT_VARIABLE LSB_DISTRO
       OUTPUT_STRIP_TRAILING_WHITESPACE)
+    message(STATUS "LSB_DISTRO: ${LSB_DISTRO}")
+  else()
+    message(WARNING "lsb_release not found!")
   endif()
   # distro specific settings
   if ("${LSB_CODENAME}" STREQUAL "bookworm") # Debian 12

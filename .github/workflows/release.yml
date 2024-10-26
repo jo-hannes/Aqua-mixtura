@@ -42,3 +42,62 @@ jobs:
           name: macOS_installer
           path: ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura-*-Darwin.dmg
           retention-days: 5
+
+  build-linux:
+    name: Release builds for Linux
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["debian:12", "ubuntu:24.04", "opensuse/tumbleweed"]
+        include:
+          - os: debian:12
+            install-deps: apt-get update && apt-get -y install lsb-release git build-essential cmake qt6-base-dev qt6-tools-dev
+            pkg-file: Aqua-mixtura-*.deb
+            osname: debian-12
+          - os: ubuntu:24.04
+            install-deps: apt-get update && apt-get -y install lsb-release git build-essential cmake qt6-base-dev qt6-tools-dev
+            pkg-file: Aqua-mixtura-*.deb
+            osname: ubuntu-24.04
+# TODO fix dependence install on fedora
+#           - os: fedora:42
+#             install-deps: dnf -y install lsb_release git cmake make automake gcc gcc-c++ qt6-qtbase-devel qt6-linguist qt6-qttools-devel rpm-build
+#             pkg-file: Aqua-mixtura-*.rpm
+#             osname: fedora-12
+          - os: opensuse/tumbleweed
+            install-deps: zypper install -y lsb-release git cmake make automake gcc gcc-c++ rpm-build qt6-base-devel qt6-tools-linguist qt6-linguist-devel
+            pkg-file: Aqua-mixtura-*.rpm
+            osname: openSUSE-tumbleweed
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.os }}
+
+    steps:
+      - name: Install dependencies
+        run: ${{ matrix.install-deps }}
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Set reusable strings
+        # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+        id: strings
+        shell: bash
+        run: echo "build-output-dir=${GITHUB_WORKSPACE}/build" >> "$GITHUB_OUTPUT"
+
+      - name: Configure CMake
+        run: cmake -S ${GITHUB_WORKSPACE} -B ${{ steps.strings.outputs.build-output-dir }}
+
+      - name: Build and package
+        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --target package
+
+      - name: Test lsb_release
+        run: lsb_release -a
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.osname }}_package
+          path: ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.pkg-file }}
+          retention-days: 5
+
+
