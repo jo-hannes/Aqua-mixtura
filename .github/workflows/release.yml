@@ -1,0 +1,44 @@
+name: Release builds
+
+# Run only on tags
+#on:
+#  push:
+#    tags:
+#      - '**'
+on:
+  push:
+
+jobs:
+  build-mac:
+    name: Release build for macOS
+    runs-on: macos-latest
+    steps:
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.7.3
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Set reusable strings
+        # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+        id: strings
+        shell: bash
+        run: echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+      - name: Configure CMake
+        run: >
+          cmake -DCMAKE_OSX_ARCHITECTURES:STRING="x86_64;arm64"
+          -S ${{ github.workspace }}
+          -B ${{ steps.strings.outputs.build-output-dir }}
+
+      - name: Build and package
+        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --target package
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS_installer
+          path: ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura-*-Darwin.dmg
+          retention-days: 5
