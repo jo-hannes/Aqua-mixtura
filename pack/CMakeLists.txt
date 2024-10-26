@@ -1,5 +1,7 @@
 # common cpack settings
 
+include(GNUInstallDirs)
+
 set(CPACK_PACKAGE_VENDOR "jo-hannes")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/README.md")
