@@ -40,8 +40,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: macOS_installer
-          path: ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura-*-Darwin.dmg
+          path: ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.dmg
           retention-days: 5
+
 
   build-linux:
     name: Release builds for Linux
@@ -52,19 +53,19 @@ jobs:
         include:
           - os: debian:12
             install-deps: apt-get update && apt-get -y install lsb-release git build-essential cmake qt6-base-dev qt6-tools-dev
-            pkg-file: Aqua-mixtura-*.deb
+            pkg-file: Aqua-mixtura_*.deb
             osname: debian-12
           - os: ubuntu:24.04
             install-deps: apt-get update && apt-get -y install lsb-release git build-essential cmake qt6-base-dev qt6-tools-dev
-            pkg-file: Aqua-mixtura-*.deb
+            pkg-file: Aqua-mixtura_*.deb
             osname: ubuntu-24.04
           - os: fedora:42
             install-deps: dnf -y install lsb_release git cmake make automake gcc gcc-c++ qt6-qtbase-devel qt6-linguist qt6-qttools-devel rpm-build
-            pkg-file: Aqua-mixtura-*.rpm
+            pkg-file: Aqua-mixtura_*.rpm
             osname: fedora-42
           - os: opensuse/tumbleweed
             install-deps: zypper install -y lsb-release git cmake make automake gcc gcc-c++ rpm-build qt6-base-devel qt6-tools-linguist qt6-linguist-devel
-            pkg-file: Aqua-mixtura-*.rpm
+            pkg-file: Aqua-mixtura_*.rpm
             osname: openSUSE-tumbleweed
     runs-on: ubuntu-latest
     container:
