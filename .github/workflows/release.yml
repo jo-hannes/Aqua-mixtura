@@ -1,12 +1,10 @@
 name: Release builds
 
 # Run only on tags
-#on:
-#  push:
-#    tags:
-#      - '**'
 on:
   push:
+    tags:
+      - '**'
 
 jobs:
   build-mac:
