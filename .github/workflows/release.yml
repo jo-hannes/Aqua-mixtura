@@ -61,7 +61,7 @@ jobs:
           - os: fedora:42
             install-deps: dnf -y install lsb_release git cmake make automake gcc gcc-c++ qt6-qtbase-devel qt6-linguist qt6-qttools-devel rpm-build
             pkg-file: Aqua-mixtura-*.rpm
-            osname: fedora-12
+            osname: fedora-42
           - os: opensuse/tumbleweed
             install-deps: zypper install -y lsb-release git cmake make automake gcc gcc-c++ rpm-build qt6-base-devel qt6-tools-linguist qt6-linguist-devel
             pkg-file: Aqua-mixtura-*.rpm
