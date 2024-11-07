@@ -11,24 +11,16 @@ set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}")
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   # NSIS setup
   set(CPACK_GENERATOR NSIS)
-  set(CPACK_NSIS_INSTALLED_ICON_NAME ${CMAKE_BINARY_DIR}/icon.ico)
-  set(CPACK_NSIS_MUI_ICON ${CMAKE_BINARY_DIR}/icon.ico)
+  set(CPACK_NSIS_INSTALLED_ICON_NAME ${PROJECT_SOURCE_DIR}/icon.ico)
+  set(CPACK_NSIS_MUI_ICON ${PROJECT_SOURCE_DIR}/icon.ico)
 
   # programm icon
-  find_program(IMG_MAGICK convert)
-  if(IMG_MAGICK)
-    add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/icon.ico
-      COMMAND ${IMG_MAGICK}
-      ARGS ${PROJECT_SOURCE_DIR}/src/icons/logo_512x512.png -define icon:auto-resize=256,128,48,32,16 ${CMAKE_BINARY_DIR}/icon.ico
-    )
-    set(RESOURCE_FILES
-      ${RESOURCE_FILES}
-      ${CMAKE_BINARY_DIR}/icon.ico
-      ${PROJECT_SOURCE_DIR}/pack/app.rc
-    )
-  else()
-    message(WARNING "imagemagick not found!")
-  endif()
+  set(RESOURCE_FILES
+    ${RESOURCE_FILES}
+    ${PROJECT_SOURCE_DIR}/pack/icon.ico
+    ${PROJECT_SOURCE_DIR}/pack/app.rc
+  )
+
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
 
@@ -73,6 +65,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(CPACK_GENERATOR RPM)
     set(CPACK_RPM_PACKAGE_LICENSE "GPL-2.0-only")
   endif()
+
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   set(CPACK_GENERATOR DragNDrop)
