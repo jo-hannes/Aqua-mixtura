@@ -30,6 +30,10 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     COMMAND "${WINDEPLOYQT_EXECUTABLE}"
     ARGS "${CMAKE_BINARY_DIR}/Release/${PROJECT_NAME}.exe"
   )
+  install(
+    DIRECTORY ${CMAKE_BINARY_DIR}/Release/
+    TYPE BIN
+  )
 
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
