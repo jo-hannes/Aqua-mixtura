@@ -25,11 +25,11 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   )
 
   # add qt lib to app bundle
-  find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
-  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND "${WINDEPLOYQT_EXECUTABLE}"
-    ARGS "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe"
-  )
+#  find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
+#  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#    COMMAND "${WINDEPLOYQT_EXECUTABLE}"
+#    ARGS "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe"
+#  )
 
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
