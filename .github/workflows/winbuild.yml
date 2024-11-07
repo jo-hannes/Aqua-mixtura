@@ -1,0 +1,54 @@
+name: Release builds
+
+# Run only on tags
+on:
+  push:
+#    tags:
+#      - '**'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.7.3
+
+      - name: Install ImageMagick
+        uses: mfinelli/setup-imagemagick@v5
+
+      - name: Install NSIS
+        uses: repolevedavaj/install-nsis@v1.0.1
+        with:
+          nsis-version: '3.10'
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Set reusable strings
+        # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+        id: strings
+        shell: bash
+        run: echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+      - name: Configure CMake
+        run: >
+          cmake -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_CXX_COMPILER=cl
+          -DCMAKE_C_COMPILER=cl
+          -S ${{ github.workspace }}
+          -B ${{ steps.strings.outputs.build-output-dir }}
+
+      - name: Build and package
+        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config Release --target package
+
+      - name: Show build output
+        run: dir ${{ steps.strings.outputs.build-output-dir }}
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS_installer
+          path: ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.exe
+          retention-days: 5

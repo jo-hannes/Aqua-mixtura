@@ -39,7 +39,6 @@ jobs:
         with:
           name: macOS_installer
           path: ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.dmg
-          retention-days: 5
 
 
   build-linux:
@@ -96,6 +95,3 @@ jobs:
         with:
           name: ${{ matrix.osname }}_package
           path: ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.pkg-file }}
-          retention-days: 5
-
-
