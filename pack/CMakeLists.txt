@@ -13,12 +13,22 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   set(CPACK_GENERATOR NSIS)
   set(CPACK_NSIS_INSTALLED_ICON_NAME ${PROJECT_SOURCE_DIR}/pack/icon.ico)
   set(CPACK_NSIS_MUI_ICON ${PROJECT_SOURCE_DIR}/pack/icon.ico)
+  set(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME}")
+  set(CPACK_NSIS_CREATE_ICONS_EXTRA
+    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${CMAKE_PROJECT_NAME}.lnk' '$INSTDIR\\\\bin\\\\${CMAKE_PROJECT_NAME}.exe'")
 
   # programm icon
   set(RESOURCE_FILES
     ${RESOURCE_FILES}
     ${PROJECT_SOURCE_DIR}/pack/icon.ico
     ${PROJECT_SOURCE_DIR}/pack/app.rc
+  )
+
+  # add qt lib to app bundle
+  find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
+  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND "${WINDEPLOYQT_EXECUTABLE}"
+    ARGS "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe"
   )
 
 

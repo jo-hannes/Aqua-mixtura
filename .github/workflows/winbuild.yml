@@ -40,14 +40,6 @@ jobs:
       - name: Build and package
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config Release --target package
 
-      - name: Upload cpack failure log
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cpack_failure_log
-          path: ${{ steps.strings.outputs.build-output-dir }}/_CPack_Packages/win64/NSIS/*.log
-          retention-days: 5
-
       - name: Show build output
         run: dir ${{ steps.strings.outputs.build-output-dir }}
 
