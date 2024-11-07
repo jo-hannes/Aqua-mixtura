@@ -102,7 +102,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     RESOURCE "${RESOURCE_FILES}"
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+if (NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+endif()
 
 include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME}
