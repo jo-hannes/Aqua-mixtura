@@ -1,4 +1,4 @@
-name: Release builds
+name: Windows build WIP
 
 # Run only on tags
 on:
@@ -13,7 +13,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: 6.7.3
+          version: 6.8.*
 
       - name: Install ImageMagick
         uses: mfinelli/setup-imagemagick@v5
