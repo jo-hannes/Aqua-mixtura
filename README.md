@@ -3,6 +3,25 @@ Wasseraufbereitung fürs Bierbrauen
 
 Water treatment for brewing beer
 
+![Aufbereitung](Aufbereitung.png)
+
+## How-To/Anleitung
+
+* [English How-To](/doc/HOWTO.md)
+* [Deutsche Anleitung](/doc/HOWTO_de.md)
+
+## Install
+
+Just use the pre build binaries for your platform in the [releases section](/releases).
+
+### Gentoo
+
+Add `hurra/gentoo-overlay` to your system by following the guide on https://wiki.gentoo.org/wiki/Eselect/Repository#Add_ebuild_repositories_from_repos.gentoo.org
+
+    eselect repository add hurra-overlay git https://github.com/hurra/gentoo-overlay.git
+    emaint sync --repo hurra-overlay
+    emerge -av sci-chemistry/Aqua-mixtura
+
 ## Build from source
 
 ### Using Qt Creator
@@ -41,11 +60,3 @@ cd build
 cmake ..
 make
 ```
-
-### Gentoo
-
-Add `hurra/gentoo-overlay` to your system by following the guide on https://wiki.gentoo.org/wiki/Eselect/Repository#Add_ebuild_repositories_from_repos.gentoo.org
-
-    eselect repository add hurra-overlay git https://github.com/hurra/gentoo-overlay.git
-    emaint sync --repo hurra-overlay
-    emerge -av sci-chemistry/Aqua-mixtura
