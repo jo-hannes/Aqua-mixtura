@@ -31,7 +31,7 @@ QString Meta::getUuid() const {
 }
 
 QString Meta::newUuid() {
-  uuid.createUuid();
+  uuid = QUuid::createUuid();
   return uuid.toString(QUuid::WithoutBraces);
 }
 
