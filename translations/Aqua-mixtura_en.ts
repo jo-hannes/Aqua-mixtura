@@ -416,14 +416,13 @@
 <context>
     <name>MixResultWidget</name>
     <message>
-        <location filename="../src/mixture/mixresultwidget.cpp" line="20"/>
+        <location filename="../src/mixture/mixresultwidget.cpp" line="21"/>
         <source>Ergebnis</source>
         <translation>Result</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixresultwidget.cpp" line="21"/>
         <source>Bierstil</source>
-        <translation>Beer style</translation>
+        <translation type="vanished">Beer style</translation>
     </message>
 </context>
 <context>

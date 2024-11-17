@@ -17,29 +17,33 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   QGridLayout* layout = new QGridLayout();
   this->setLayout(layout);
 
-  layout->addWidget(new QLabel(tr("Ergebnis")), 0, 0, Qt::AlignLeft);
-  layout->addWidget(new QLabel(tr("Bierstil") + ":"), 0, 1, 1, 2, Qt::AlignLeft);
+  int row = 0;
+  layout->addWidget(new QLabel(tr("Ergebnis")), row, 0, Qt::AlignLeft);
 
   styleSelect = new QComboBox();
-  styleSelect->setMaximumWidth(122);  // TODO Replace magic number here. Need to be same as ResultBar::width
-  layout->addWidget(styleSelect, 0, 3, Qt::AlignLeft);
+  styleSelect->setMinimumContentsLength(30);
+  styleSelect->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
+
+  layout->addWidget(styleSelect, ++row, 0, 1, 4, Qt::AlignLeft);
   QObject::connect(styleSelect, &QComboBox::activated, this, &MixResultWidget::selectStyle);
 
   // values
   for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
+    ++row;
     // Description
-    layout->addWidget(new QLabel(Water::translatableStrings[i]), i + 1, 0);
+    layout->addWidget(new QLabel(Water::translatableStrings[i]), row, 0);
     // value
     vals[i] = new QLabel();
-    layout->addWidget(vals[i], i + 1, 1);
+    layout->addWidget(vals[i], row, 1, Qt::AlignRight);
     // Unit
-    layout->addWidget(new QLabel(Water::waterStrings[i][static_cast<int>(Water::Idx::Unit)]), i + 1, 2);
+    layout->addWidget(new QLabel(Water::waterStrings[i][static_cast<int>(Water::Idx::Unit)]), row, 2, Qt::AlignLeft);
     // Bars
     if (i != static_cast<int>(Water::Value::Volume)) {
       bars[i] = new ResultBar();
-      layout->addWidget(bars[i], i + 1, 3);
+      layout->addWidget(bars[i], row, 3);
     }
   }
+  layout->setRowStretch(++row, 99);
 
   styleIdx = 0;  // Select style of mixture
   updateStyles();
