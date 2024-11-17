@@ -3,7 +3,7 @@ Wasseraufbereitung fürs Bierbrauen
 
 Water treatment for brewing beer
 
-![Aufbereitung](Aufbereitung.png)
+![Aufbereitung](/doc/Aufbereitung.png)
 
 ## How-To/Anleitung
 
