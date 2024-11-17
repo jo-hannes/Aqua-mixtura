@@ -4,6 +4,7 @@
 #include "mixwaterwidget.h"
 
 #include "../common/buttons.h"
+#include "../water/watersourcestabledelegate.h"
 
 #include <QAction>
 #include <QHeaderView>
@@ -27,6 +28,7 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   waterView = new QTableView(this);
   waterView->setModel(&wMix);
   waterView->verticalHeader()->setVisible(false);
+  waterView->setItemDelegate(new WaterSourcesTableDelegate(this));
   waterView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   layout->addWidget(waterView);
 

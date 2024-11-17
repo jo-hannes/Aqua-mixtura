@@ -57,6 +57,7 @@ set(PROJECT_SOURCES
     src/water/water.h src/water/water.cpp
     src/water/waterprofileedit.h src/water/waterprofileedit.cpp
     src/water/watersources.h src/water/watersources.cpp
+    src/water/watersourcestabledelegate.h src/water/watersourcestabledelegate.cpp
     src/water/watersourcewindow.h src/water/watersourcewindow.cpp
 )
 
