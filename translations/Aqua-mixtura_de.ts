@@ -611,64 +611,64 @@
 <context>
     <name>SettingsWindow</name>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="17"/>
+        <location filename="../src/settings/settingswindow.cpp" line="19"/>
         <source>Einstellungen</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="31"/>
-        <location filename="../src/settings/settingswindow.cpp" line="62"/>
+        <location filename="../src/settings/settingswindow.cpp" line="35"/>
+        <location filename="../src/settings/settingswindow.cpp" line="66"/>
         <source>Einstellungen importieren</source>
         <translation>Einstellungen importieren</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="31"/>
-        <location filename="../src/settings/settingswindow.cpp" line="76"/>
+        <location filename="../src/settings/settingswindow.cpp" line="35"/>
+        <location filename="../src/settings/settingswindow.cpp" line="80"/>
         <source>Einstellungen exportieren</source>
         <translation>Einstellungen exportieren</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="32"/>
+        <location filename="../src/settings/settingswindow.cpp" line="36"/>
         <source>Speichern</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="32"/>
+        <location filename="../src/settings/settingswindow.cpp" line="36"/>
         <source>Abbrechen</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="44"/>
+        <location filename="../src/settings/settingswindow.cpp" line="48"/>
         <source>Änderungen speichern?</source>
         <translation>Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="44"/>
+        <location filename="../src/settings/settingswindow.cpp" line="48"/>
         <source>Einstellungen wurden nicht gespeicherte</source>
         <translation>Einstellungen wurden nicht gespeicherte</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="64"/>
+        <location filename="../src/settings/settingswindow.cpp" line="68"/>
         <source>JSON (*.json);; Any (*.*)</source>
         <translation>JSON (*.json);; Alle (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="69"/>
+        <location filename="../src/settings/settingswindow.cpp" line="73"/>
         <source>Fehler beim Importieren</source>
         <translation>Fehler beim Importieren</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="69"/>
+        <location filename="../src/settings/settingswindow.cpp" line="73"/>
         <source>Konnte Einstellungen nicht im JSON finden</source>
         <translation>Konnte Einstellungen nicht im JSON finden</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="81"/>
+        <location filename="../src/settings/settingswindow.cpp" line="85"/>
         <source>Fehler beim Exportieren</source>
         <translation>Fehler beim Exportieren</translation>
     </message>
     <message>
-        <location filename="../src/settings/settingswindow.cpp" line="81"/>
+        <location filename="../src/settings/settingswindow.cpp" line="85"/>
         <source>Konnte Einstellungen nicht speichern</source>
         <translation>Konnte Einstellungen nicht speichern</translation>
     </message>

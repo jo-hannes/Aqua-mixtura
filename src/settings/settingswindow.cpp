@@ -3,6 +3,8 @@
 
 #include "settingswindow.h"
 
+#include "settingstabledelegate.h"
+
 #include "../common/buttons.h"
 #include "../common/dialogs.h"
 #include "../common/jsonhelper.h"
@@ -22,7 +24,8 @@ SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{paren
   // Table view with limits
   limitsView = new QTableView(this);
   limitsView->setModel(&settings);
-  // TODO add delegate
+  SettingsTableDelegate* delegate = new SettingsTableDelegate(this);
+  limitsView->setItemDelegate(delegate);
   limitsView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   limitsView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);
   layout->addWidget(limitsView);
