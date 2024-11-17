@@ -34,7 +34,7 @@ SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{paren
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &SettingsWindow::settingsExport);
   QObject::connect(buttons->btnSave, &QPushButton::clicked, &settings, &Settings::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, &settings, &Settings::load);
-  layout->addWidget(buttons);
+  layout->addWidget(buttons, 0, Qt::AlignCenter);
 
   setLayout(layout);
 }

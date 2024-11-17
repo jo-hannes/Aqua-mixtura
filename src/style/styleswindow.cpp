@@ -66,7 +66,9 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
 
   mainLayout->addWidget(buttons, 3, 0, 1, 3, Qt::AlignHCenter);
 
-  mainLayout->setColumnStretch(2, 1);
+  mainLayout->setColumnStretch(0, 1);
+  mainLayout->setColumnStretch(1, 0);
+  mainLayout->setColumnStretch(2, 2);
 
   setLayout(mainLayout);
 

@@ -41,7 +41,7 @@ WatersourceWindow::WatersourceWindow(WaterSources& model, QWidget* parent) : QWi
   QObject::connect(buttonsQuellen->btnDelete, &QPushButton::clicked, this, &WatersourceWindow::profileDelete);
   QObject::connect(buttonsQuellen->btnImport, &QPushButton::clicked, this, &WatersourceWindow::profileImport);
   QObject::connect(buttonsQuellen->btnExport, &QPushButton::clicked, this, &WatersourceWindow::profileExport);
-  layoutQuellen->addWidget(buttonsQuellen);
+  layoutQuellen->addWidget(buttonsQuellen, 0, Qt::AlignCenter);
 
   // Profil Editor
   waterEdit = new WaterProfileEdit();

@@ -36,7 +36,9 @@ void StyleTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index
     case 0: {
       // Limit (bool)
       QCheckBox* checkBox = static_cast<QCheckBox*>(editor);
-      checkBox->setChecked(index.data().toBool());
+      // We toggle the state here when the editor is accessed.
+      // Thereby it is possible to toggle the state by just double clicking on it.
+      checkBox->setChecked(!index.data().toBool());
       break;
     }
     default: {

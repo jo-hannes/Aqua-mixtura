@@ -101,7 +101,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/mainwindow.cpp" line="21"/>
-        <location filename="../src/mainwindow.cpp" line="42"/>
+        <location filename="../src/mainwindow.cpp" line="41"/>
         <source>Einstellungen</source>
         <translation>Einstellungen</translation>
     </message>
@@ -111,22 +111,22 @@
         <translation>Aufbereitung</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="27"/>
+        <location filename="../src/mainwindow.cpp" line="26"/>
         <source>Wasserquellen</source>
         <translation>Wasserquellen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="30"/>
+        <location filename="../src/mainwindow.cpp" line="29"/>
         <source>Zusatzstoffe</source>
         <translation>Zusatzstoffe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="34"/>
+        <location filename="../src/mainwindow.cpp" line="33"/>
         <source>Malze</source>
         <translation>Malze</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="39"/>
+        <location filename="../src/mainwindow.cpp" line="38"/>
         <source>Bierstile</source>
         <translation>Bierstile</translation>
     </message>
@@ -405,17 +405,17 @@
 <context>
     <name>MixMaltWidget</name>
     <message>
-        <location filename="../src/mixture/mixmaltwidget.cpp" line="23"/>
+        <location filename="../src/mixture/mixmaltwidget.cpp" line="24"/>
         <source>Malz</source>
         <translation>Malz</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixmaltwidget.cpp" line="34"/>
+        <location filename="../src/mixture/mixmaltwidget.cpp" line="37"/>
         <source>Malz hinzufügen</source>
         <translation>Malz hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixmaltwidget.cpp" line="34"/>
+        <location filename="../src/mixture/mixmaltwidget.cpp" line="37"/>
         <source>Malz löschen</source>
         <translation>Malz löschen</translation>
     </message>
@@ -731,13 +731,13 @@
     </message>
     <message>
         <location filename="../src/style/styleswindow.cpp" line="58"/>
-        <location filename="../src/style/styleswindow.cpp" line="126"/>
+        <location filename="../src/style/styleswindow.cpp" line="128"/>
         <source>Bierstil importieren</source>
         <translation>Bierstil importieren</translation>
     </message>
     <message>
         <location filename="../src/style/styleswindow.cpp" line="58"/>
-        <location filename="../src/style/styleswindow.cpp" line="147"/>
+        <location filename="../src/style/styleswindow.cpp" line="149"/>
         <source>Bierstil exportieren</source>
         <translation>Bierstil exportieren</translation>
     </message>
@@ -752,47 +752,47 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="98"/>
+        <location filename="../src/style/styleswindow.cpp" line="100"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="111"/>
+        <location filename="../src/style/styleswindow.cpp" line="113"/>
         <source>Copy of </source>
         <translation>Kopie von </translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="128"/>
+        <location filename="../src/style/styleswindow.cpp" line="130"/>
         <source>JSON (*.json);; Any (*.*)</source>
         <translation>JSON (*.json);; Alle (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="136"/>
+        <location filename="../src/style/styleswindow.cpp" line="138"/>
         <source>Fehler beim Importieren</source>
         <translation>Fehler beim Importieren</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="136"/>
+        <location filename="../src/style/styleswindow.cpp" line="138"/>
         <source>Konnte Bierstil nicht im JSON finden</source>
         <translation>Konnte Bierstil nicht im JSON finden</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="152"/>
+        <location filename="../src/style/styleswindow.cpp" line="154"/>
         <source>Fehler beim Exportieren</source>
         <translation>Fehler beim Exportieren</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="152"/>
+        <location filename="../src/style/styleswindow.cpp" line="154"/>
         <source>Konnte Bierstil nicht speichern</source>
         <translation>Konnte Bierstil nicht speichern</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="186"/>
+        <location filename="../src/style/styleswindow.cpp" line="188"/>
         <source>Änderungen speichern?</source>
         <translation>Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/style/styleswindow.cpp" line="187"/>
+        <location filename="../src/style/styleswindow.cpp" line="189"/>
         <source>Bierstil &quot;%1&quot; hat ungespeicherte Änderungen</source>
         <translation>Bierstil &quot;%1&quot; hat ungespeicherte Änderungen</translation>
     </message>
@@ -805,27 +805,27 @@
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="26"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="29"/>
         <source>Kationen</source>
         <translation>Kationen</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="43"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="46"/>
         <source>Anionen</source>
         <translation>Anionen</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="67"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="70"/>
         <source>Berechnet</source>
         <translation>Berechnet</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="94"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="99"/>
         <source>Speichern</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="94"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="99"/>
         <source>Abbrechen</source>
         <translation>Abbrechen</translation>
     </message>

@@ -4,6 +4,7 @@
 #include "mixmaltwidget.h"
 
 #include "../common/buttons.h"
+#include "../malt/malttabledelegate.h"
 
 #include <QAction>
 #include <QHeaderView>
@@ -27,6 +28,8 @@ MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts& maltDb, QWidget* parent
   maltView = new QTableView(this);
   maltView->setModel(mMix);
   maltView->verticalHeader()->setVisible(false);
+  MaltTableDelegate* delegate = new MaltTableDelegate(this);
+  maltView->setItemDelegate(delegate);
   maltView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   layout->addWidget(maltView);
 

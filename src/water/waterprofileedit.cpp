@@ -15,10 +15,13 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   int row = 0;
 
   QLabel* txtName = new QLabel(tr("Name"));
+  txtName->setStyleSheet("font-weight: bold");
   txtName->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txtName, row, 0, Qt::AlignLeft);
+  row++;
   name = new QLineEdit();
-  layout->addWidget(name, row, 1, 1, 2, Qt::AlignRight);
+  name->setMinimumWidth(220);  // Force line edit to use the available space
+  layout->addWidget(name, row, 0, 1, 3, Qt::AlignLeft);
   QObject::connect(name, &QLineEdit::textEdited, this, &WaterProfileEdit::valChangName);
   row++;
 
@@ -91,10 +94,12 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
 
   // buttons
   row++;
+  layout->setRowStretch(row, 99);
+  row++;
   Buttons* btnBox = new Buttons(tr("Speichern"), tr("Abbrechen"));
   QObject::connect(btnBox->btnSave, &QPushButton::clicked, this, &WaterProfileEdit::save);
   QObject::connect(btnBox->btnCancel, &QPushButton::clicked, this, &WaterProfileEdit::cancel);
-  layout->addWidget(btnBox, row, 0, 3, 0, Qt::AlignCenter);
+  layout->addWidget(btnBox, row, 0, 1, 3, Qt::AlignCenter);
 
   this->setLayout(layout);
 }
@@ -207,7 +212,7 @@ void WaterProfileEdit::addEditableValue(int row, QDoubleSpinBox* spinBox, Water:
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(spinBox, row, 1, Qt::AlignRight);
   layout->addWidget(new QLabel(Water::waterStrings[static_cast<uint>(what)][static_cast<uint>(Water::Idx::Unit)]), row,
-                    2, Qt::AlignRight);
+                    2, Qt::AlignLeft);
 }
 
 void WaterProfileEdit::addCalculatedValue(int row, QLabel* value, Water::Value what) {
@@ -216,5 +221,5 @@ void WaterProfileEdit::addCalculatedValue(int row, QLabel* value, Water::Value w
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(value, row, 1, Qt::AlignRight);
   layout->addWidget(new QLabel(Water::waterStrings[static_cast<uint>(what)][static_cast<uint>(Water::Idx::Unit)]), row,
-                    2, Qt::AlignRight);
+                    2, Qt::AlignLeft);
 }

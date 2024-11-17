@@ -45,7 +45,7 @@ MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{m
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &MaltWindow::maltExport);
   QObject::connect(buttons->btnSave, &QPushButton::clicked, &malts, &Malts::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, &malts, &Malts::load);  // just load on cancel
-  mainLayout->addWidget(buttons);
+  mainLayout->addWidget(buttons, 0, Qt::AlignCenter);
 }
 
 MaltWindow::~MaltWindow() {}

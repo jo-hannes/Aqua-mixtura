@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
   // settings
   QVBoxLayout* btnLayout = new QVBoxLayout();
-  btnLayout->addWidget(txtSettings);
   btnSources = new QPushButton(tr("Wasserquellen"));
   QObject::connect(btnSources, &QPushButton::clicked, this, &MainWindow::sources);
   btnLayout->addWidget(btnSources);
@@ -42,6 +41,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   btnSettings = new QPushButton(tr("Einstellungen"));
   QObject::connect(btnSettings, &QPushButton::clicked, this, &MainWindow::settings);
   btnLayout->addWidget(btnSettings);
+  btnLayout->addStretch(1);
 
   // Mixtures
   mixturesView = new QTableView();
