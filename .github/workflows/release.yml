@@ -134,4 +134,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows_installer
-          path: ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.exe
+          path: |
+            ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.exe
+            ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.zip
