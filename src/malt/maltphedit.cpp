@@ -8,7 +8,7 @@
 #include <QGridLayout>
 #include <QPushButton>
 
-MaltPhEdit::MaltPhEdit(QWidget* parent) : QWidget{parent} {
+MaltPhEdit::MaltPhEdit(QWidget* parent) : QFrame{parent} {
   QGridLayout* mainLayout = new QGridLayout(this);
   // malt names
   QLabel* txtMalt = new QLabel(tr("Malze <120 EBC") + ":");
@@ -56,6 +56,9 @@ MaltPhEdit::MaltPhEdit(QWidget* parent) : QWidget{parent} {
   mainLayout->addWidget(phSpinBox, 1, 4, Qt::AlignLeft);
 
   this->setWindowFlags(Qt::Sheet);  // TODO check ui on other systems than macOS. Maybe use Qt::Tool on other systems
+  // Border for better visibility
+  this->setFrameStyle(QFrame::Panel | QFrame::Raised);
+  this->setLineWidth(2);
 }
 
 void MaltPhEdit::setPh(float newPh) {

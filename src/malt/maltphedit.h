@@ -5,10 +5,10 @@
 #define MALTPHEDIT_H
 
 #include <QDoubleSpinBox>
+#include <QFrame>
 #include <QLabel>
-#include <QWidget>
 
-class MaltPhEdit : public QWidget {
+class MaltPhEdit : public QFrame {
   Q_OBJECT
  public:
   explicit MaltPhEdit(QWidget* parent = nullptr);
