@@ -12,7 +12,7 @@ Water treatment for brewing beer
 
 ## Install
 
-Just use the pre build binaries for your platform in the [releases section](/releases).
+Just use the pre build binaries for your platform in the [releases section](https://github.com/jo-hannes/Aqua-mixtura/releases).
 
 ### Gentoo
 
