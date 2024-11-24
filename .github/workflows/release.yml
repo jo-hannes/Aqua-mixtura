@@ -100,12 +100,13 @@ jobs:
 
 
   build-windows:
+    name: Release build for Windows
     runs-on: windows-latest
     steps:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: 6.8.*
+          version: 6.6.*
 
       - name: Install NSIS
         uses: repolevedavaj/install-nsis@v1.0.1
@@ -135,7 +136,7 @@ jobs:
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          name: windows_installer
+          name: windows_build
           path: |
             ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.exe
             ${{ steps.strings.outputs.build-output-dir }}/Aqua-mixtura_*.zip
