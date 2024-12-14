@@ -6,6 +6,7 @@ Checks: >
   clang-diagnostic-*,
   cppcoreguidelines-*,
   -cppcoreguidelines-avoid-c-arrays,
+  -cppcoreguidelines-owning-memory,
   hicpp-*,
   misc-*,
   -misc-include-cleaner,
@@ -14,6 +15,7 @@ Checks: >
   portability-*,
   readability-*,
   -readability-identifier-length,
+  -readability-redundant-access-specifiers,
   -readability-static-accessed-through-instance
 # use .clang-format fiel
 FormatStyle: 'file'
