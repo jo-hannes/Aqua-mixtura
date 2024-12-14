@@ -1,0 +1,19 @@
+# enable checks
+Checks: >
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  clang-diagnostic-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-c-arrays,
+  hicpp-*,
+  misc-*,
+  -misc-include-cleaner,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  portability-*,
+  readability-*,
+  -readability-identifier-length,
+  -readability-static-accessed-through-instance
+# use .clang-format fiel
+FormatStyle: 'file'
