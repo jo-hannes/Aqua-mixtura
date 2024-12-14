@@ -23,29 +23,29 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   maw = new MixAdditiveWidget(mix.additive, additiveCfg);
   mrw = new MixResultWidget(mix, styleDb, settings, this);
   // Name edit
-  QFrame* nameFrame = new QFrame();
+  auto* nameFrame = new QFrame();
   nameFrame->setFrameStyle(QFrame::Panel | QFrame::Plain);
   nameFrame->setLineWidth(2);
-  QHBoxLayout* nameLayout = new QHBoxLayout();
+  auto* nameLayout = new QHBoxLayout();
   nameFrame->setLayout(nameLayout);
-  QLabel* nameLabel = new QLabel(tr("Name") + ":");
+  auto* nameLabel = new QLabel(tr("Name") + ":");
   nameLayout->addWidget(nameLabel);
   nameEdit = new QLineEdit();
   QObject::connect(nameEdit, &QLineEdit::textEdited, this, &MixtureWindow::setName);
   nameLayout->addWidget(nameEdit);
   // buttons
-  Buttons* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
+  auto* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
   QObject::connect(buttons->btnSave, &QPushButton::clicked, this, &MixtureWindow::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &MixtureWindow::load);
 
   // Sticking it together
-  QVBoxLayout* mainLayout = new QVBoxLayout(this);
-  QHBoxLayout* layout = new QHBoxLayout();
+  auto* mainLayout = new QVBoxLayout(this);
+  auto* layout = new QHBoxLayout();
   mainLayout->addLayout(layout);
   mainLayout->addWidget(buttons, 0, Qt::AlignHCenter);
 
   // column 1 of layout
-  QVBoxLayout* col1 = new QVBoxLayout();
+  auto* col1 = new QVBoxLayout();
   layout->addLayout(col1);
   col1->addWidget(nameFrame);
   col1->addWidget(mww);
@@ -57,8 +57,6 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   nameEdit->setText(mix.getName());
   changed(false);
 
-  loadGuard = false;
-
   // get changes
   QObject::connect(mix.waters, &WaterSources::dataChanged, this, &MixtureWindow::update);
   QObject::connect(mix.waters, &WaterSources::dataModified, this, &MixtureWindow::update);
@@ -69,8 +67,8 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
 
 void MixtureWindow::closeEvent(QCloseEvent* event) {
   if (unsavedChanges) {
-    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"),
-                                   tr("Aufbereitung \"%1\" hat ungespeicherte Änderungen").arg(mix.getName()));
+    const int ret = Dialogs::saveChanges(tr("Änderungen speichern?"),
+                                         tr("Aufbereitung \"%1\" hat ungespeicherte Änderungen").arg(mix.getName()));
     switch (ret) {
       case QMessageBox::Save:
         save();  // save and close window
@@ -79,6 +77,7 @@ void MixtureWindow::closeEvent(QCloseEvent* event) {
         load();
         break;
       case QMessageBox::Cancel:
+      default:
         event->ignore();  // ignore event to keep window open
         return;
         break;

@@ -21,8 +21,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  MainWindow(QWidget* parent = nullptr);
-  ~MainWindow();
+  explicit MainWindow(QWidget* parent = nullptr);
 
   void closeEvent(QCloseEvent* event) override;
 
@@ -48,7 +47,7 @@ class MainWindow : public QMainWindow {
   void mixDoubleClicked(const QModelIndex& idx); /**< @brief Slot for double clicks on mixtures */
 
  private:
-  void setupMenuBar(); /**< @brief Creates menu bor for main window */
+  void setupMenuBar(); /**< @brief Creates menu bar for main window */
   MainModel model;     /**< @brief main model */
 
   // Windows

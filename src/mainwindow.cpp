@@ -13,16 +13,18 @@
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
+  // Would be a very long initializer list => ignore error here
+  // NOLINTBEGIN(cppcoreguidelines-prefer-member-initializer)
   setWindowTitle("Aqua-mixtura");
 
   setupMenuBar();
 
   // Headlines
-  QLabel* txtSettings = new QLabel("<b>" + tr("Einstellungen") + "</b>");
-  QLabel* txtMix = new QLabel("<b>" + tr("Aufbereitung") + "</b>");
+  auto* txtSettings = new QLabel("<b>" + tr("Einstellungen") + "</b>");
+  auto* txtMix = new QLabel("<b>" + tr("Aufbereitung") + "</b>");
 
   // settings
-  QVBoxLayout* btnLayout = new QVBoxLayout();
+  auto* btnLayout = new QVBoxLayout();
   btnSources = new QPushButton(tr("Wasserquellen"));
   QObject::connect(btnSources, &QPushButton::clicked, this, &MainWindow::sources);
   btnLayout->addWidget(btnSources);
@@ -49,8 +51,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   mixturesView->verticalHeader()->setVisible(false);
   mixturesView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   QObject::connect(mixturesView, &QTableView::doubleClicked, this, &MainWindow::mixDoubleClicked);
-  Buttons* mixBtns = new Buttons(tr("Aufbereitung hinzufügen"), tr("Aufbereitung kopieren"), tr("Aufbereitung löschen"),
-                                 tr("Aufbereitung importieren"), tr("Aufbereitung exportieren"), "", "");
+  auto* mixBtns = new Buttons(tr("Aufbereitung hinzufügen"), tr("Aufbereitung kopieren"), tr("Aufbereitung löschen"),
+                              tr("Aufbereitung importieren"), tr("Aufbereitung exportieren"), "", "");
   QObject::connect(mixBtns->btnAdd, &QPushButton::clicked, this, &MainWindow::mixAdd);
   QObject::connect(mixBtns->btnCopy, &QPushButton::clicked, this, &MainWindow::mixCopy);
   QObject::connect(mixBtns->btnDelete, &QPushButton::clicked, this, &MainWindow::mixDelete);
@@ -58,14 +60,14 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   QObject::connect(mixBtns->btnExport, &QPushButton::clicked, this, &MainWindow::mixExport);
 
   // sticking it together
-  QGridLayout* mainLayout = new QGridLayout();
+  auto* mainLayout = new QGridLayout();
   mainLayout->addWidget(txtSettings, 0, 0, Qt::AlignLeft | Qt::AlignTop);
   mainLayout->addLayout(btnLayout, 1, 0);
   mainLayout->addWidget(txtMix, 0, 1, Qt::AlignLeft | Qt::AlignTop);
   mainLayout->addWidget(mixturesView, 1, 1);
   mainLayout->addWidget(mixBtns, 2, 1);
   // mainLayout->addLayout(btnLayount, 1, 1);
-  QWidget* mainWidget = new QWidget();
+  auto* mainWidget = new QWidget();
   mainWidget->setLayout(mainLayout);
 
   // create separate windows
@@ -86,9 +88,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
   wSettings->setWindowFlags(Qt::Window);
 
   setCentralWidget(mainWidget);
+  // NOLINTEND(cppcoreguidelines-prefer-member-initializer)
 }
-
-MainWindow::~MainWindow() {}
 
 void MainWindow::closeEvent(QCloseEvent* event) {
   // close all other windows
@@ -169,7 +170,7 @@ void MainWindow::mixAdd() {
 }
 
 void MainWindow::mixCopy() {
-  QModelIndex idx = mixturesView->currentIndex();
+  const QModelIndex idx = mixturesView->currentIndex();
   if (!idx.isValid()) {
     return;
   }
@@ -184,11 +185,11 @@ void MainWindow::mixCopy() {
 }
 
 void MainWindow::mixDelete() {
-  QModelIndex idx = mixturesView->currentIndex();
+  const QModelIndex idx = mixturesView->currentIndex();
   if (!idx.isValid()) {
     return;
   }
-  int ret = Dialogs::yesNo(tr("Aufbereitung wirklich löschen?"), model.mixtures.getMixture(idx.row()).getName());
+  const int ret = Dialogs::yesNo(tr("Aufbereitung wirklich löschen?"), model.mixtures.getMixture(idx.row()).getName());
   if (ret == QMessageBox::Yes) {
     model.mixtures.deleteMixture(idx.row());
     model.mixtures.save();
@@ -196,9 +197,9 @@ void MainWindow::mixDelete() {
 }
 
 void MainWindow::mixImport() {
-  QString path = QFileDialog::getOpenFileName(this, tr("Aufbereitung importieren"),
-                                              QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
-                                              tr("JSON (*.json);; Any (*.*)"));
+  const QString path = QFileDialog::getOpenFileName(this, tr("Aufbereitung importieren"),
+                                                    QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                                    tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
     return;
   }
@@ -210,13 +211,14 @@ void MainWindow::mixImport() {
 }
 
 void MainWindow::mixExport() {
-  QModelIndex idx = mixturesView->currentIndex();
+  const QModelIndex idx = mixturesView->currentIndex();
   if (!idx.isValid()) {
     return;
   }
-  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              model.mixtures.getMixture(idx.row()).getName() + ".json";
-  QString path = QFileDialog::getSaveFileName(this, tr("Aufbereitung exportieren"), suggestedFileName, "JSON (*.json)");
+  const QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
+                                    model.mixtures.getMixture(idx.row()).getName() + ".json";
+  const QString path =
+      QFileDialog::getSaveFileName(this, tr("Aufbereitung exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }
@@ -231,29 +233,29 @@ void MainWindow::mixDoubleClicked(const QModelIndex& idx) {
 
 void MainWindow::setupMenuBar() {
   // actions
-  QAction* settingsAct = new QAction(tr("Preferences..."), this);
+  auto* settingsAct = new QAction(tr("Preferences..."), this);
   settingsAct->setStatusTip(tr("Die Anwendung Konfigurieren"));
   settingsAct->setShortcut(QKeySequence::Preferences);
   settingsAct->setMenuRole(QAction::PreferencesRole);
   connect(settingsAct, &QAction::triggered, this, &MainWindow::settings);
 
-  QAction* saveAct = new QAction(tr("Save"), this);
+  auto* saveAct = new QAction(tr("Save"), this);
   saveAct->setStatusTip(tr("Save changes"));
   saveAct->setShortcut(QKeySequence::Save);
   connect(saveAct, &QAction::triggered, this, &MainWindow::save);
 
-  QAction* exitAct = new QAction(tr("Exit"), this);
+  auto* exitAct = new QAction(tr("Exit"), this);
   exitAct->setStatusTip(tr("Exit the application"));
   exitAct->setShortcuts(QKeySequence::Quit);
   exitAct->setMenuRole(QAction::QuitRole);
   connect(exitAct, &QAction::triggered, this, &QWidget::close);
 
-  QAction* aboutAct = new QAction(tr("About"), this);
+  auto* aboutAct = new QAction(tr("About"), this);
   aboutAct->setStatusTip(tr("Show the application's About box"));
   aboutAct->setMenuRole(QAction::AboutRole);
   connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
 
-  QAction* aboutQtAct = new QAction(tr("About Qt"), this);
+  auto* aboutQtAct = new QAction(tr("About Qt"), this);
   aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
   aboutQtAct->setMenuRole(QAction::AboutQtRole);
   connect(aboutQtAct, &QAction::triggered, qApp, &QApplication::aboutQt);

@@ -12,29 +12,29 @@
 #include <QString>
 #include <QVBoxLayout>
 
-MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts& maltDb, QWidget* parent) : QFrame{parent}, mDb{maltDb} {
-  mMix = mixtureMalts;
+MixMaltWidget::MixMaltWidget(Malts* mixtureMalts, Malts& maltDb, QWidget* parent)
+    : QFrame{parent}, mMix(mixtureMalts), mDb{maltDb} {
   // Build ui
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto* layout = new QVBoxLayout(this);
   this->setLayout(layout);
   this->setFrameStyle(QFrame::Panel | QFrame::Plain);
   this->setLineWidth(2);
 
   // heading
-  QLabel* heading = new QLabel(tr("Malz"));
+  auto* heading = new QLabel(tr("Malz"));
   layout->addWidget(heading);
 
   // View with malts
   maltView = new QTableView(this);
   maltView->setModel(mMix);
   maltView->verticalHeader()->setVisible(false);
-  MaltTableDelegate* delegate = new MaltTableDelegate(this);
+  auto* delegate = new MaltTableDelegate(this);
   maltView->setItemDelegate(delegate);
   maltView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   layout->addWidget(maltView);
 
   // Buttons
-  Buttons* buttons = new Buttons(tr("Malz hinzufügen"), "", tr("Malz löschen"), "", "", "", "");
+  auto* buttons = new Buttons(tr("Malz hinzufügen"), "", tr("Malz löschen"), "", "", "", "");
   QObject::connect(buttons->btnAdd, &QPushButton::clicked, this, &MixMaltWidget::add);
   QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &MixMaltWidget::remove);
   layout->addWidget(buttons);
@@ -51,7 +51,7 @@ void MixMaltWidget::add(int i) {
 }
 
 void MixMaltWidget::remove() {
-  QModelIndex idx = maltView->currentIndex();
+  const QModelIndex idx = maltView->currentIndex();
   if (!idx.isValid()) {
     return;
   }
@@ -61,7 +61,7 @@ void MixMaltWidget::remove() {
 void MixMaltWidget::updateMaltDb() {
   maltMenu->clear();
   for (int i = 0; i < mDb.rowCount(); i++) {
-    QAction* act = new QAction(mDb.getMalt(i).getName(), maltMenu);
+    auto* act = new QAction(mDb.getMalt(i).getName(), maltMenu);
     QObject::connect(act, &QAction::triggered, this, [=]() {
       add(i);
     });

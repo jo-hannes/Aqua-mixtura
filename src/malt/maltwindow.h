@@ -19,7 +19,6 @@ class MaltWindow : public QWidget {
    * @param parent QWidget parent
    */
   explicit MaltWindow(Malts& model, QWidget* parent = nullptr);
-  ~MaltWindow();
 
   void closeEvent(QCloseEvent* event) override;
 

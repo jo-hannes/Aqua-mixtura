@@ -9,13 +9,13 @@
 #include <QPushButton>
 
 MaltPhEdit::MaltPhEdit(QWidget* parent) : QFrame{parent} {
-  QGridLayout* mainLayout = new QGridLayout(this);
+  auto* mainLayout = new QGridLayout(this);
   // malt names
-  QLabel* txtMalt = new QLabel(tr("Malze <120 EBC") + ":");
+  auto* txtMalt = new QLabel(tr("Malze <120 EBC") + ":");
   mainLayout->addWidget(txtMalt, 0, 0, Qt::AlignRight);
-  QLabel* txtCaramalz = new QLabel(tr("Caramalz") + ":");
+  auto* txtCaramalz = new QLabel(tr("Caramalz") + ":");
   mainLayout->addWidget(txtCaramalz, 1, 0, Qt::AlignRight);
-  QLabel* txtRoestmalz = new QLabel(tr("Röstmalz") + ":");
+  auto* txtRoestmalz = new QLabel(tr("Röstmalz") + ":");
   mainLayout->addWidget(txtRoestmalz, 2, 0, Qt::AlignRight);
   // calculated ph values
   phMalt = new QLabel();
@@ -25,37 +25,37 @@ MaltPhEdit::MaltPhEdit(QWidget* parent) : QFrame{parent} {
   phRoestmalz = new QLabel();
   mainLayout->addWidget(phRoestmalz, 2, 1, Qt::AlignLeft);
   // buttons to use calculated values
-  QPushButton* btnMalt = new QPushButton();
+  auto* btnMalt = new QPushButton();
   btnMalt->setToolTip(tr("Wert übernehmen"));
   btnMalt->setIcon(QIcon(":/icons/arrow-down-right.svg"));
   QObject::connect(btnMalt, &QPushButton::clicked, this, &MaltPhEdit::usePhMalt);
   mainLayout->addWidget(btnMalt, 0, 2);
-  QPushButton* btnCaramalz = new QPushButton();
+  auto* btnCaramalz = new QPushButton();
   btnCaramalz->setToolTip(tr("Wert übernehmen"));
   btnCaramalz->setIcon(QIcon(":/icons/arrow-right.svg"));
   QObject::connect(btnCaramalz, &QPushButton::clicked, this, &MaltPhEdit::usePhCaramalz);
   mainLayout->addWidget(btnCaramalz, 1, 2);
-  QPushButton* btnRoestmalz = new QPushButton();
+  auto* btnRoestmalz = new QPushButton();
   btnRoestmalz->setToolTip(tr("Wert übernehmen"));
   btnRoestmalz->setIcon(QIcon(":/icons/arrow-up-right.svg"));
   QObject::connect(btnRoestmalz, &QPushButton::clicked, this, &MaltPhEdit::usePhRoestmalz);
   mainLayout->addWidget(btnRoestmalz, 2, 2);
   // labels
-  QLabel* txtEbc = new QLabel("EBC:");
+  auto* txtEbc = new QLabel("EBC:");
   mainLayout->addWidget(txtEbc, 0, 3, Qt::AlignRight);
-  QLabel* txtPh = new QLabel("pH:");
+  auto* txtPh = new QLabel("pH:");
   mainLayout->addWidget(txtPh, 1, 3, Qt::AlignRight);
   // values
   ebcLabel = new QLabel();
   mainLayout->addWidget(ebcLabel, 0, 4, Qt::AlignLeft);
   phSpinBox = new QDoubleSpinBox();
   phSpinBox->setMinimum(0);
-  phSpinBox->setMaximum(14);
+  phSpinBox->setMaximum(14);  // NOLINT(*-magic-numbers)
   phSpinBox->setDecimals(2);
-  phSpinBox->setSingleStep(0.1);
+  phSpinBox->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
   mainLayout->addWidget(phSpinBox, 1, 4, Qt::AlignLeft);
 
-  this->setWindowFlags(Qt::Sheet);  // TODO check ui on other systems than macOS. Maybe use Qt::Tool on other systems
+  this->setWindowFlags(Qt::Sheet);
   // Border for better visibility
   this->setFrameStyle(QFrame::Panel | QFrame::Raised);
   this->setLineWidth(2);

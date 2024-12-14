@@ -11,10 +11,9 @@
 
 WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout = new QGridLayout();
-  changed = false;
   int row = 0;
 
-  QLabel* txtName = new QLabel(tr("Name"));
+  auto* txtName = new QLabel(tr("Name"));
   txtName->setStyleSheet("font-weight: bold");
   txtName->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txtName, row, 0, Qt::AlignLeft);
@@ -26,7 +25,7 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   row++;
 
   // Kationen
-  QLabel* txtKat = new QLabel(tr("Kationen"));
+  auto* txtKat = new QLabel(tr("Kationen"));
   txtKat->setStyleSheet("font-weight: bold");
   layout->addWidget(txtKat, row++, 0, 1, 3, Qt::AlignLeft);
 
@@ -43,7 +42,7 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   QObject::connect(natrium, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeNatrium);
 
   // Anionen
-  QLabel* txtAni = new QLabel(tr("Anionen"));
+  auto* txtAni = new QLabel(tr("Anionen"));
   txtAni->setStyleSheet("font-weight: bold");
   layout->addWidget(txtAni, row++, 0, 1, 3, Qt::AlignLeft);
 
@@ -67,7 +66,7 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   addEditableValue(row++, lactat, Water::Value::Lactat);
   QObject::connect(lactat, &QDoubleSpinBox::valueChanged, this, &WaterProfileEdit::valChangeLactat);
 
-  QLabel* txtCalc = new QLabel(tr("Berechnet"));
+  auto* txtCalc = new QLabel(tr("Berechnet"));
   txtCalc->setStyleSheet("font-weight: bold");
   layout->addWidget(txtCalc, row++, 0, 1, 3, Qt::AlignLeft);
 
@@ -94,9 +93,9 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
 
   // buttons
   row++;
-  layout->setRowStretch(row, 99);
+  layout->setRowStretch(row, 99);  // NOLINT(*-magic-numbers)
   row++;
-  Buttons* btnBox = new Buttons(tr("Speichern"), tr("Abbrechen"));
+  auto* btnBox = new Buttons(tr("Speichern"), tr("Abbrechen"));
   QObject::connect(btnBox->btnSave, &QPushButton::clicked, this, &WaterProfileEdit::save);
   QObject::connect(btnBox->btnCancel, &QPushButton::clicked, this, &WaterProfileEdit::cancel);
   layout->addWidget(btnBox, row, 0, 1, 3, Qt::AlignCenter);
@@ -206,8 +205,8 @@ void WaterProfileEdit::valChangeLactat(double val) {
 void WaterProfileEdit::addEditableValue(int row, QDoubleSpinBox* spinBox, Water::Value what) {
   spinBox->setDecimals(2);
   spinBox->setMinimum(0);
-  spinBox->setMaximum(999);  // TODO what to use as maximum?
-  QLabel* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
+  spinBox->setMaximum(999);  // NOLINT(*-magic-numbers)
+  auto* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
   txt->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(spinBox, row, 1, Qt::AlignRight);
@@ -216,7 +215,7 @@ void WaterProfileEdit::addEditableValue(int row, QDoubleSpinBox* spinBox, Water:
 }
 
 void WaterProfileEdit::addCalculatedValue(int row, QLabel* value, Water::Value what) {
-  QLabel* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
+  auto* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
   txt->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(value, row, 1, Qt::AlignRight);

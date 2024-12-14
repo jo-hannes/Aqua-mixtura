@@ -16,7 +16,6 @@ Settings::Settings(QObject* parent) : QAbstractTableModel{parent} {
     negative[i] = false;
     logarithmic[i] = false;
   }
-  changed = false;
 }
 
 Settings::Settings(const QJsonObject& json) {
@@ -33,12 +32,12 @@ bool Settings::fromJson(const QJsonObject& json) {
     return false;
   }
   QJsonObject jSettings = json["Settings"].toObject();
-  bool ret = Meta::fromJson(jSettings);
+  const bool ret = Meta::fromJson(jSettings);
   beginResetModel();
   // start at index 1 to skip volume
   for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // get sub object
-    QJsonValue setting = jSettings[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]];
+    const QJsonValue setting = jSettings[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]];
     limits[i][0] = setting["Min"].toDouble(0);
     limits[i][1] = setting["Max"].toDouble(0);
     negative[i] = setting["AllowNegative"].toBool(false);
@@ -140,16 +139,16 @@ int Settings::columnCount(const QModelIndex& parent) const {
 
 QVariant Settings::data(const QModelIndex& index, int role) const {
   if (!index.isValid()) {
-    return QVariant();
+    return {};
   }
   if (role != Qt::DisplayRole) {
-    return QVariant();
+    return {};
   }
-  qsizetype row = index.row() + 1;  // Skip volume
+  const qsizetype row = index.row() + 1;  // Skip volume
   if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
-    return QVariant();
+    return {};
   }
-  qsizetype col = index.column();
+  const qsizetype col = index.column();
   switch (col) {
     case 0:
     case 1:
@@ -162,15 +161,15 @@ QVariant Settings::data(const QModelIndex& index, int role) const {
       return logarithmic[row];
       break;
     default:
-      return QVariant();
+      return {};
       break;
   }
-  return QVariant();
+  return {};
 }
 
 QVariant Settings::headerData(int section, Qt::Orientation orientation, int role) const {
   if (role != Qt::DisplayRole) {
-    return QVariant();
+    return {};
   }
   if (orientation == Qt::Horizontal) {
     // Min Max
@@ -184,20 +183,19 @@ QVariant Settings::headerData(int section, Qt::Orientation orientation, int role
       case 3:
         return tr("Logarithmische Skala");
       default:
-        return QVariant();
+        return {};
     }
   } else {
-    int idx = section + 1;  // skip volume
+    const int idx = section + 1;  // skip volume
     if (idx > 0 && idx < static_cast<int>(Water::Value::Size)) {
       if (!Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)].isEmpty()) {
         return Water::translatableStrings[idx] + " (" + Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)] +
                ")";
-      } else {
-        return Water::translatableStrings[idx];
       }
+      return Water::translatableStrings[idx];
     }
   }
-  return QVariant();
+  return {};
 }
 
 bool Settings::setData(const QModelIndex& index, const QVariant& value, int role) {
@@ -207,12 +205,12 @@ bool Settings::setData(const QModelIndex& index, const QVariant& value, int role
   if (role != Qt::EditRole) {
     return false;
   }
-  qsizetype row = index.row() + 1;  // Skip volume
+  const qsizetype row = index.row() + 1;  // Skip volume
   if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
     return false;
   }
 
-  qsizetype col = index.column();
+  const qsizetype col = index.column();
   switch (col) {
     case 0:
     case 1:
@@ -237,20 +235,20 @@ Qt::ItemFlags Settings::flags(const QModelIndex& index) const {
   if (!index.isValid()) {
     return Qt::NoItemFlags;
   }
-  return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+  return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
 }
 
 void Settings::load() {
   const QString fileName = "settings.json";
   Download::loadDefaults(fileName);
-  QString file = Paths::dataDir() + "/" + fileName;
+  const QString file = Paths::dataDir() + "/" + fileName;
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }
 }
 
 void Settings::save() {
-  QString file = Paths::dataDir() + "/settings.json";
+  const QString file = Paths::dataDir() + "/settings.json";
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);
 }

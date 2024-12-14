@@ -1,12 +1,13 @@
 # enable checks
 Checks: >
   bugprone-*,
+  -bugprone-easily-swappable-parameters,
   cert-*,
   clang-analyzer-*,
   clang-diagnostic-*,
   cppcoreguidelines-*,
-  -cppcoreguidelines-avoid-c-arrays,
   -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-prefer-member-initializer,
   hicpp-*,
   misc-*,
   -misc-include-cleaner,
@@ -16,6 +17,10 @@ Checks: >
   readability-*,
   -readability-identifier-length,
   -readability-redundant-access-specifiers,
-  -readability-static-accessed-through-instance
+  -readability-static-accessed-through-instance,
+  -*-avoid-c-arrays,
+  -cppcoreguidelines-pro-bounds-constant-array-index
+
+# checks after -readability-static-accessed-through-instance are temporary disabled
 # use .clang-format fiel
 FormatStyle: 'file'

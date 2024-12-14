@@ -13,27 +13,27 @@
 
 AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidget{parent}, additive(model) {
   int row = 0;
-  QGridLayout* layout = new QGridLayout();
+  auto* layout = new QGridLayout();
 
   setWindowTitle("Aqua-mixtura - " + tr("Zusatzstoffe"));
 
   // heading liquids
-  QLabel* txtAcids = new QLabel("<b>" + tr("Säuren") + "</b>");
+  auto* txtAcids = new QLabel("<b>" + tr("Säuren") + "</b>");
   layout->addWidget(txtAcids, row, 0, 1, 3, Qt::AlignLeft);
-  QLabel* txtPercent = new QLabel("<b>%</b>");
+  auto* txtPercent = new QLabel("<b>%</b>");
   layout->addWidget(txtPercent, row, 2, Qt::AlignRight);
   row++;
 
   // liquid concentrations
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    QLabel* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)]);
+    auto* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)]);
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
-    QLabel* txt = new QLabel(Additive::translatableStrings[i]);
+    auto* txt = new QLabel(Additive::translatableStrings[i]);
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
     concentrations[i] = new QDoubleSpinBox();
     concentrations[i]->setDecimals(0);
     concentrations[i]->setMinimum(1);
-    concentrations[i]->setMaximum(100);
+    concentrations[i]->setMaximum(100);  // NOLINT(*-magic-numbers)
     concentrations[i]->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
     layout->addWidget(concentrations[i], row, 2, Qt::AlignRight);
 
@@ -44,7 +44,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
   }
 
   // unit
-  QLabel* txtUnit = new QLabel("<b>" + tr("Einheit") + "</b>");
+  auto* txtUnit = new QLabel("<b>" + tr("Einheit") + "</b>");
   layout->addWidget(txtUnit, row, 0, 1, 2, Qt::AlignLeft);
   unitSelect = new QComboBox();
   unitSelect->clear();
@@ -55,7 +55,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
   row++;
 
   // buttons
-  Buttons* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
+  auto* buttons = new Buttons(tr("Speichern"), tr("Abbrechen"));
   QObject::connect(buttons->btnSave, &QPushButton::clicked, &additive, &AdditiveSettings::save);
   QObject::connect(buttons->btnCancel, &QPushButton::clicked, this, &AdditiveWindow::cancel);
   layout->addWidget(buttons, row++, 0, 1, -1, Qt::AlignHCenter);
@@ -67,7 +67,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
 
 void AdditiveWindow::closeEvent(QCloseEvent* event) {
   if (additive.isChanged()) {
-    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Additive haben ungespeicherte Änderungen"));
+    const int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Additive haben ungespeicherte Änderungen"));
     switch (ret) {
       case QMessageBox::Save:
         additive.save();  // save and close window
@@ -76,6 +76,7 @@ void AdditiveWindow::closeEvent(QCloseEvent* event) {
         cancel();  // undo changes and close window
         break;
       case QMessageBox::Cancel:
+      default:
         event->ignore();  // ignore event to keep window open
         return;
         break;

@@ -51,7 +51,7 @@ class StylesWindow : public QWidget {
   QListView* stylesView;      /**< @brief View with list of styles */
   QLineEdit* nameEdit;        /**< @brief Editor for style name */
   QTableView* styleTableView; /**< @brief View with style data */
-  qsizetype selected;         /**< @brief Index of currently selected style */
+  int selected{-1};           /**< @brief Index of currently selected style */
 };
 
 #endif  // STYLESWINDOW_H

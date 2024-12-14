@@ -19,30 +19,32 @@ class Settings : public QAbstractTableModel, public Meta {
  public:
   explicit Settings(QObject* parent = nullptr);
 
-  Settings(const QJsonObject& json);      /**< @brief Construct Settings from JSON */
+  explicit Settings(const QJsonObject& json); /**< @brief Construct Settings from JSON */
   bool fromJson(const QJsonObject& json); /**< @brief Update Settings from JSON */
-  QJsonObject toJson() const;             /**< @brief convert Settings to JSON */
+  [[nodiscard]] QJsonObject toJson() const; /**< @brief convert Settings to JSON */
 
   // getter und setter
-  float getMin(Water::Value what) const;       /**< @brief get lower limit */
-  float getMax(Water::Value what) const;       /**< @brief get upper limit */
-  void setMin(Water::Value what, float value); /**< @brief set lower limi */
-  void setMax(Water::Value what, float value); /**< @brief set upper limit */
+  [[nodiscard]] float getMin(Water::Value what) const; /**< @brief get lower limit */
+  [[nodiscard]] float getMax(Water::Value what) const; /**< @brief get upper limit */
+  void setMin(Water::Value what, float value);         /**< @brief set lower limi */
+  void setMax(Water::Value what, float value);         /**< @brief set upper limit */
 
-  bool isNegativeAllowed(Water::Value what) const;         /**< @brief get if negative values are allowed */
-  void setNegativeAllowed(Water::Value what, bool value);  /**< @brief set if negative values are allowed */
-  bool isLogarithmicScale(Water::Value what) const;        /**< @brief get if scale is logarithmic */
-  void setLogarithmicScale(Water::Value what, bool value); /**< @brief set logarithmic scale */
+  [[nodiscard]] bool isNegativeAllowed(Water::Value what) const;  /**< @brief get if negative values are allowed */
+  void setNegativeAllowed(Water::Value what, bool value);         /**< @brief set if negative values are allowed */
+  [[nodiscard]] bool isLogarithmicScale(Water::Value what) const; /**< @brief get if scale is logarithmic */
+  void setLogarithmicScale(Water::Value what, bool value);        /**< @brief set logarithmic scale */
 
-  bool isChanged() const; /**< @brief True if changes not saved */
+  [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 
   // for QAbstractTableModel, see QT documentation for details
-  int rowCount(const QModelIndex& parent = QModelIndex()) const;
-  int columnCount(const QModelIndex& parent = QModelIndex()) const;
-  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-  QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-  bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
-  Qt::ItemFlags flags(const QModelIndex& index) const;
+  // NOLINTBEGIN(modernize-use-nodiscard)
+  int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+  int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+  QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+  bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
+  // NOLINTEND(modernize-use-nodiscard)
 
  public slots:
   void load(); /**< @brief Load all data from JSON files */
@@ -53,7 +55,7 @@ class Settings : public QAbstractTableModel, public Meta {
 
  private:
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
-  bool changed;                  /**< @brief True if changed but not saved */
+  bool changed{false};           /**< @brief True if changed but not saved */
 
   float limits[static_cast<int>(Water::Value::Size)][2];
   bool negative[static_cast<int>(Water::Value::Size)];

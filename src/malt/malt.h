@@ -19,16 +19,17 @@ class Malt : public Meta {
    * @param ebc Malt color in EBC
    * @param ph pH of malt in purified water
    */
-  Malt(QString name = "", float mass = 0, float ebc = 0, float ph = 7);
-  Malt(const QJsonObject& json); /**< @brief Create Malt from JSON */
+  // NOLINTNEXTLINE(*-magic-numbers)
+  explicit Malt(QString name = "", float mass = 0, float ebc = 0, float ph = 7);
+  explicit Malt(const QJsonObject& json); /**< @brief Create Malt from JSON */
 
   // getter und setter
-  float getMass() const;       /**< @brief get malt amount in kg */
-  void setMass(float newMass); /**< @brief set malt amount in kg */
-  float getEbc() const;        /**< @brief get malt color in EBC */
-  void setEbc(float newEbc);   /**< @brief set malt color in EBC */
-  float getPh() const;         /**< @brief get pH of malt in purified water */
-  void setPh(float newPh);     /**< @brief set pH of malt in purified water */
+  [[nodiscard]] float getMass() const; /**< @brief get malt amount in kg */
+  void setMass(float newMass);         /**< @brief set malt amount in kg */
+  [[nodiscard]] float getEbc() const;  /**< @brief get malt color in EBC */
+  void setEbc(float newEbc);           /**< @brief set malt color in EBC */
+  [[nodiscard]] float getPh() const;   /**< @brief get pH of malt in purified water */
+  void setPh(float newPh);             /**< @brief set pH of malt in purified water */
 
   enum type { upto200ebc, caramalz, roestmalz };
 
@@ -65,8 +66,8 @@ class Malt : public Meta {
   static float calcualtePhRoestmalz();
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief Update Malt from JSON */
-  QJsonObject toJson() const;             /**< @brief convert this Malt to JSON */
+  bool fromJson(const QJsonObject& json);   /**< @brief Update Malt from JSON */
+  [[nodiscard]] QJsonObject toJson() const; /**< @brief convert this Malt to JSON */
 
  private:
   float mass; /**< Amount of malt in kg */

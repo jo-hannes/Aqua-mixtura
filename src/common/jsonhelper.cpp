@@ -10,9 +10,9 @@ QJsonObject JsonHelper::loadFile(const QString& path) {
   QFile file(path);
   if (!file.open(QIODevice::ReadOnly)) {
     qWarning("Unable to open JSON file");
-    return QJsonObject();
+    return {};
   }
-  QJsonDocument jsonDoc(QJsonDocument::fromJson(file.readAll()));
+  const QJsonDocument jsonDoc(QJsonDocument::fromJson(file.readAll()));
   file.close();
   return jsonDoc.object();
 }
@@ -29,7 +29,7 @@ bool JsonHelper::saveFile(const QString& path, const QJsonObject& json) {
 }
 
 void JsonHelper::mergeJson(QJsonObject& into, const QJsonObject from) {
-  for (auto key : from.keys()) {
+  for (const auto& key : from.keys()) {
     into[key] = from[key];
   }
 }

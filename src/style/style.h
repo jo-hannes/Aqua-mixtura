@@ -23,34 +23,36 @@ class Style : public QAbstractTableModel, public Meta {
    */
   enum class Limit { Min, Target, Max, Size };
 
-  Style(QString name = "");
+  explicit Style(QString name = "");
 
   // JSON conversion
-  Style(const QJsonObject& json);         /**< @brief Construct Style from JSON */
-  bool fromJson(const QJsonObject& json); /**< @brief Update Style from JSON */
-  QJsonObject toJson() const;             /**< @brief convert Style to JSON */
+  explicit Style(const QJsonObject& json);  /**< @brief Construct Style from JSON */
+  bool fromJson(const QJsonObject& json);   /**< @brief Update Style from JSON */
+  [[nodiscard]] QJsonObject toJson() const; /**< @brief convert Style to JSON */
 
-  Style* copy() const; /**< @brief create a copy*/
+  [[nodiscard]] Style* copy() const; /**< @brief create a copy*/
 
   // getter und setter
-  float get(Water::Value what, Limit limit) const;       /**< @brief get requested value */
-  void set(Water::Value what, Limit limit, float value); /**< @brief set given type with value */
-  bool isLimited(Water::Value what);                     /**< @brief is value limited */
-  void limit(Water::Value what, bool limit);             /**< @brief Limit value */
+  [[nodiscard]] float get(Water::Value what, Limit limit) const; /**< @brief get requested value */
+  void set(Water::Value what, Limit limit, float value);         /**< @brief set given type with value */
+  [[nodiscard]] bool isLimited(Water::Value what) const;         /**< @brief is value limited */
+  void limit(Water::Value what, bool limit);                     /**< @brief Limit value */
 
-  bool isChanged() const;        /**< @brief True if changes not saved */
-  void setChanged(bool changed); /**< @brief Set changed state */
+  [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
+  void setChanged(bool changed);        /**< @brief Set changed state */
 
   // for QAbstractTableModel, see QT documentation for details
-  int rowCount(const QModelIndex& parent = QModelIndex()) const;
-  int columnCount(const QModelIndex& parent = QModelIndex()) const;
-  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-  QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-  bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
-  Qt::ItemFlags flags(const QModelIndex& index) const;
+  // NOLINTBEGIN(modernize-use-nodiscard)
+  int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+  int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+  QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+  bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
+  // NOLINTEND(modernize-use-nodiscard)
 
  private:
-  bool changed; /**< @brief True if changed but not saved */
+  bool changed{false}; /**< @brief True if changed but not saved */
 
   bool limited[static_cast<int>(Water::Value::Size)];
   float limits[static_cast<int>(Water::Value::Size)][static_cast<int>(Limit::Size)];

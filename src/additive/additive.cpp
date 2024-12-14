@@ -3,12 +3,9 @@
 
 #include "additive.h"
 
-Additive::Additive() {
-  for (int i = 0; i < static_cast<int>(Value::Size); i++) {
-    amount[i] = 0;
-  }
-  changed = false;
+Additive::Additive() : changed{false} {
   if (translatableStrings[0].isEmpty()) {
+    // NOLINTBEGIN(*-magic-numbers)
     translatableStrings[0] = tr("Milchsäure");
     translatableStrings[1] = tr("Salzsäure");
     translatableStrings[2] = tr("Schwefelsäure");
@@ -20,24 +17,26 @@ Additive::Additive() {
     translatableStrings[8] = tr("Magnesiumchlorid");
     translatableStrings[9] = tr("Magnesiumsulfat");
     translatableStrings[10] = tr("Calciumcarbonat");
+    // NOLINTEND(*-magic-numbers)
   }
 }
 
-Additive::Additive(const QJsonObject& json) {
-  Additive();
+Additive::Additive(const QJsonObject& json) : Additive() {
   fromJson(json);
 }
 
 float Additive::get(Value what) const {
-  if (what < Value::Size) {
-    return amount[static_cast<uint>(what)];
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < amount.size()) {
+    return amount.at(idx);
   }
   return -1;
 }
 
 void Additive::set(Value what, float value) {
-  if (what < Value::Size) {
-    amount[static_cast<uint>(what)] = value;
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < amount.size()) {
+    amount[idx] = value;  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): idx is checked
     setChanged(true);
   }
 }
@@ -55,9 +54,12 @@ bool Additive::fromJson(const QJsonObject& json) {
 
   Meta::fromJson(additives);
 
-  for (int i = 0; i < static_cast<int>(Value::Size); i++) {
-    QString jsonKey = strings[i][static_cast<uint>(StringIdx::JsonKey)];
+  for (uint i = 0; i < amount.size(); i++) {
+    // i is inside range of array
+    // NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
+    const QString jsonKey = strings[i][static_cast<uint>(StringIdx::JsonKey)];
     amount[i] = additives[jsonKey].toDouble(0);
+    // NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
   }
   setChanged(false);
   return true;
@@ -66,9 +68,11 @@ bool Additive::fromJson(const QJsonObject& json) {
 QJsonObject Additive::toJson() const {
   QJsonObject inner;
   Meta::toJson(inner);
-  for (int i = 0; i < static_cast<int>(Value::Size); i++) {
-    QString jsonKey = strings[i][static_cast<uint>(StringIdx::JsonKey)];
+  for (uint i = 0; i < amount.size(); i++) {
+    // NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
+    const QString jsonKey = strings[i][static_cast<uint>(StringIdx::JsonKey)];
     inner[jsonKey] = amount[i];
+    // NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
   }
   QJsonObject outer;
   outer["WaterAdditives"] = inner;
@@ -83,7 +87,7 @@ Water Additive::operator+(const Water& rhs) const {
   }
 
   // sotre volume for later calculations
-  float volume = rhs.get(Water::Value::Volume);
+  const float volume = rhs.get(Water::Value::Volume);
 
   // loop over all water values
   for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {

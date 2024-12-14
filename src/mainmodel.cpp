@@ -11,7 +11,7 @@
 #include <QStandardPaths>
 
 MainModel::MainModel() {
-  QString configDir = Paths::dataDir();
+  const QString configDir = Paths::dataDir();
   QDir().mkpath(configDir);
   load();
 }

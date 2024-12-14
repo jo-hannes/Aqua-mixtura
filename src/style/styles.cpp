@@ -13,11 +13,9 @@
 
 Styles::Styles() {
   noStyle = new Style("No Style");
-  changed = false;
 }
 
-Styles::Styles(const QJsonObject& json) {
-  Styles();
+Styles::Styles(const QJsonObject& json) : Styles() {
   fromJson(json);
 }
 
@@ -31,7 +29,7 @@ bool Styles::fromJson(const QJsonObject& json) {
     qWarning("No valid styles in JSON found");
     return false;
   }
-  QJsonValue jsonStyles = json["BeerStyles"];
+  const QJsonValue jsonStyles = json["BeerStyles"];
   if (!jsonStyles.isArray()) {
     qWarning("No valid styles in JSON found");
     return false;
@@ -84,20 +82,19 @@ bool Styles::exportStyle(const QString& path, qsizetype i) const {
 Style* Styles::getStyle(qsizetype i) {
   if (i >= 0 && i < styles.size()) {
     return styles[i];
-  } else {
-    return noStyle;
   }
+  return noStyle;
 }
 
 void Styles::addStyle(Style* style) {
-  qsizetype i = styles.size();
+  const int i = styles.size();
   beginInsertRows(QModelIndex(), i, i);
   styles.append(style);
   endInsertRows();
   setChanged(true);
 }
 
-void Styles::deleteStyle(qsizetype i) {
+void Styles::deleteStyle(int i) {
   if (i >= 0 && i < styles.size()) {
     beginRemoveRows(QModelIndex(), i, i);
     delete styles[i];
@@ -118,14 +115,14 @@ int Styles::rowCount(const QModelIndex& parent) const {
 
 QVariant Styles::data(const QModelIndex& index, int role) const {
   if (!index.isValid()) {
-    return QVariant();
+    return {};
   }
   if (role != Qt::DisplayRole) {
-    return QVariant();
+    return {};
   }
-  qsizetype row = index.row();
+  const qsizetype row = index.row();
   if (row < 0 || row >= styles.size()) {
-    return QVariant();
+    return {};
   }
   return styles.at(row)->getName();
 }
@@ -133,17 +130,17 @@ QVariant Styles::data(const QModelIndex& index, int role) const {
 void Styles::load() {
   const QString fileName = "styles.json";
   Download::loadDefaults(fileName);
-  QString file = Paths::dataDir() + "/" + fileName;
+  const QString file = Paths::dataDir() + "/" + fileName;
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }
 }
 
 void Styles::save() {
-  QString file = Paths::dataDir() + "/styles.json";
+  const QString file = Paths::dataDir() + "/styles.json";
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);
-  for (const auto style : styles) {
+  for (auto* const style : styles) {
     style->setChanged(false);
   }
 }
@@ -154,7 +151,7 @@ void Styles::setChanged(bool changed) {
 }
 
 void Styles::clear() {
-  for (const auto style : styles) {
+  for (auto* const style : styles) {
     delete style;
   }
   styles.clear();

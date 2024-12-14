@@ -20,7 +20,7 @@ class WaterProfileEdit : public QWidget {
   explicit WaterProfileEdit(QWidget* parent = nullptr);
 
   void setProfile(const Water& profile);
-  bool isChanged() const; /**< @brief True if changes not saved */
+  [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 
  public slots:
   void updateAll();        /**< @brief Update all values in view */
@@ -45,7 +45,7 @@ class WaterProfileEdit : public QWidget {
  private:
   void addEditableValue(int row, QDoubleSpinBox* spinBox, Water::Value what);
   void addCalculatedValue(int row, QLabel* value, Water::Value what);
-  bool changed;
+  bool changed{false};
   Water givenProfile, volatileProfile;
 
   QGridLayout* layout;

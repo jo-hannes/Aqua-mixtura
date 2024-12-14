@@ -3,8 +3,9 @@
 
 #include "meta.h"
 
-Meta::Meta(QString name) {
-  this->name = name;
+#include <utility>
+
+Meta::Meta(QString name) : name{std::move(name)} {
   create = QDateTime::currentDateTime();
   edit = QDateTime::currentDateTime();
   uuid = QUuid::createUuid();

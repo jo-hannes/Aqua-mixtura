@@ -44,6 +44,8 @@ class Additive : public QObject, public Meta {
   /**
    * @brief Additive specific strings
    */
+  // clang-tidy is right but without this strings programm will not run and it is very unlikely QString will throw
+  // NOLINTNEXTLINE(cert-err58-cpp)
   inline static const QString strings[static_cast<int>(Value::Size)][2] = {
       {"c3h6o3", "C₃H₆O₃"},    {"hcl", "HCl"},          {"h2so4", "H₂SO₄"}, {"h3po4", "H₃PO₄"},
       {"caso4", "CaSO₄ 2H₂O"}, {"cacl2", "CaCl₂ 2H₂O"}, {"nacl", "NaCl"},   {"nahco3", "NaHCO₃"},
@@ -57,22 +59,22 @@ class Additive : public QObject, public Meta {
   inline static QString translatableStrings[static_cast<int>(Value::Size)];
 
   Additive();
-  Additive(const QJsonObject& json); /**< @brief Create Additive from JSON */
+  explicit Additive(const QJsonObject& json); /**< @brief Create Additive from JSON */
 
   // setter and getter
-  float get(Value what) const;       /**< @brief get requested amount */
+  [[nodiscard]] float get(Value what) const; /**< @brief get requested amount */
   void set(Value what, float value); /**< @brief set given type with amount */
 
   // JSON conversion
   bool fromJson(const QJsonObject& json); /**< @brief Update Additive from JSON */
-  QJsonObject toJson() const;             /**< @brief convert this Additive to JSON */
+  [[nodiscard]] QJsonObject toJson() const; /**< @brief convert this Additive to JSON */
 
   /**
    * @brief Additive::operator + calculates effect of additive to water values
    */
   Water operator+(const Water& rhs) const;
 
-  bool isChanged() const; /**< @brief True if changes not saved */
+  [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 
  signals:
   void dataModified();
@@ -81,7 +83,7 @@ class Additive : public QObject, public Meta {
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
   bool changed;                  /**< @brief True if changed but not saved */
 
-  float amount[static_cast<int>(Value::Size)]; /**< @brief Effective amount in g */
+  std::array<float, static_cast<int>(Value::Size)> amount{}; /**< @brief Effective amount in g */
 
   // clang-format off
   /**

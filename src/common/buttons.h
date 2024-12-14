@@ -44,6 +44,8 @@ class Buttons : public QDialogButtonBox {
   Buttons(const QString& add, const QString& copy, const QString& del, const QString& import, const QString& exprt,
           const QString& save, const QString& cancle);
 
+  // Buttons are intended to be public
+  // NOLINTBEGIN(*-non-private-member-variables-in-classes)
   QPushButton* btnAdd;
   QPushButton* btnCopy;
   QPushButton* btnDelete;
@@ -51,6 +53,7 @@ class Buttons : public QDialogButtonBox {
   QPushButton* btnExport;
   QPushButton* btnCancel;
   QPushButton* btnSave;
+  // NOLINTEND(*-non-private-member-variables-in-classes)
 
  private:
   void genBtnsSaveCancle(const QString& save, const QString& cancle);

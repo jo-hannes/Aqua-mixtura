@@ -8,11 +8,9 @@
 
 #include <QJsonArray>
 #include <QJsonValue>
+#include <utility>
 
-Mixture::Mixture() {}
-
-Mixture::Mixture(QString path) {
-  this->path = path;
+Mixture::Mixture(QString path) : path(std::move(path)) {
   load();
 }
 
@@ -50,9 +48,8 @@ void Mixture::resetPath() {
 QString Mixture::getPath() const {
   if (path.isEmpty()) {
     return Paths::dataDir() + "/" + this->getUuid() + ".json";
-  } else {
-    return path;
   }
+  return path;
 }
 
 void Mixture::load() {
@@ -66,6 +63,6 @@ void Mixture::save() const {
   JsonHelper::saveFile(this->getPath(), this->toJson());
 }
 
-Water Mixture::calc() {
+Water Mixture::calc() const {
   return *additive + waters->getMix();
 }

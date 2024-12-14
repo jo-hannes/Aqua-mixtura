@@ -3,15 +3,11 @@
 
 #include "malt.h"
 
-#include <math.h>
+#include <cmath>
 
-Malt::Malt(QString name, float mass, float ebc, float ph) : Meta(name) {
-  this->mass = mass;
-  this->ebc = ebc;
-  this->ph = ph;
-}
+Malt::Malt(QString name, float mass, float ebc, float ph) : Meta(name), mass(mass), ebc(ebc), ph(ph) {}
 
-Malt::Malt(const QJsonObject& json) {
+Malt::Malt(const QJsonObject& json) {  // NOLINT(*-member-init)
   fromJson(json);
 }
 
@@ -60,22 +56,22 @@ float Malt::calculatePh(float ebc, type type) {
 }
 
 float Malt::calcualtePhUpTo200Ebc(float ebc) {
-  return -0.255 * log(ebc) + 6.156;
+  return -0.255 * log(ebc) + 6.156;  // NOLINT(*-magic-numbers)
 }
 
 float Malt::calcualtePhCaramalz(float ebc) {
-  return -0.289 * log(ebc) + 6.069;
+  return -0.289 * log(ebc) + 6.069;  // NOLINT(*-magic-numbers)
 }
 
 float Malt::calcualtePhRoestmalz() {
-  return 4.65;
+  return 4.65;  // NOLINT(*-magic-numbers)
 }
 
 bool Malt::fromJson(const QJsonObject& json) {
-  bool ret = Meta::fromJson(json);
+  const bool ret = Meta::fromJson(json);
   mass = json["mass"].toDouble(0);
   ebc = json["EBC"].toDouble(0);
-  ph = json["pH"].toDouble(7);
+  ph = json["pH"].toDouble(7);  // NOLINT(*-magic-numbers)
   return ret;
 }
 

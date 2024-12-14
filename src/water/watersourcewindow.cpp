@@ -17,25 +17,24 @@
 #include <QVBoxLayout>
 
 WatersourceWindow::WatersourceWindow(WaterSources& model, QWidget* parent) : QWidget(parent), sources{model} {
-  selected = -1;
   // Überschriften
   setWindowTitle("Aqua-mixtura - " + tr("Wasserquellen"));
-  QLabel* txtQuellen = new QLabel(tr("Wasserquellen"));
+  auto* txtQuellen = new QLabel(tr("Wasserquellen"));
   txtQuellen->setStyleSheet("font-weight: bold");
 
-  QLabel* txtProfil = new QLabel(tr("Wasserprofil"));
+  auto* txtProfil = new QLabel(tr("Wasserprofil"));
   txtProfil->setStyleSheet("font-weight: bold");
 
   // Quellen
-  QVBoxLayout* layoutQuellen = new QVBoxLayout();
+  auto* layoutQuellen = new QVBoxLayout();
 
   sourcesView = new QListView();
   sourcesView->setModel(&sources);
   layoutQuellen->addWidget(sourcesView);
 
   // buttons für quellen
-  Buttons* buttonsQuellen = new Buttons(tr("Wasser hinzufügen"), tr("Wasser kopieren"), tr("Wasser löschen"),
-                                        tr("Wasser importieren"), tr("Wasser exportieren"));
+  auto* buttonsQuellen = new Buttons(tr("Wasser hinzufügen"), tr("Wasser kopieren"), tr("Wasser löschen"),
+                                     tr("Wasser importieren"), tr("Wasser exportieren"));
   QObject::connect(buttonsQuellen->btnAdd, &QPushButton::clicked, this, &WatersourceWindow::profileAdd);
   QObject::connect(buttonsQuellen->btnCopy, &QPushButton::clicked, this, &WatersourceWindow::profileCopy);
   QObject::connect(buttonsQuellen->btnDelete, &QPushButton::clicked, this, &WatersourceWindow::profileDelete);
@@ -47,7 +46,7 @@ WatersourceWindow::WatersourceWindow(WaterSources& model, QWidget* parent) : QWi
   waterEdit = new WaterProfileEdit();
 
   // sticking it together
-  QGridLayout* layoutMain = new QGridLayout();
+  auto* layoutMain = new QGridLayout();
   layoutMain->addWidget(txtQuellen, 0, 0, Qt::AlignLeft);
   layoutMain->addWidget(txtProfil, 0, 1, Qt::AlignLeft);
   layoutMain->addLayout(layoutQuellen, 1, 0);
@@ -100,11 +99,11 @@ void WatersourceWindow::profileAdd() {
   if (saveChangesDialog() == QMessageBox::Cancel) {
     return;  // user cancelation => do nothing
   }
-  Water newProfile("New");
+  const Water newProfile("New");
   sources.addProfile(newProfile);
   sources.save();
   // select new profile
-  QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
+  const QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
   sourcesView->setCurrentIndex(idx);
   selectSource(idx);
 }
@@ -121,13 +120,13 @@ void WatersourceWindow::profileCopy() {
   sources.addProfile(newProfile);
   sources.save();
   // select new profile
-  QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
+  const QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
   sourcesView->setCurrentIndex(idx);
   selectSource(idx);
 }
 
 void WatersourceWindow::profileDelete() {
-  int ret = Dialogs::yesNo(tr("Wasser wirklich löschen?"), sources.getProfile(selected).getName());
+  const int ret = Dialogs::yesNo(tr("Wasser wirklich löschen?"), sources.getProfile(selected).getName());
   if (ret == QMessageBox::Yes) {
     // Delete profile, save cahnges and select another water
     waterEdit->cancel();  // reset changed flag before delition
@@ -143,19 +142,19 @@ void WatersourceWindow::profileImport() {
   if (saveChangesDialog() == QMessageBox::Cancel) {
     return;  // user cancelation => do nothing
   }
-  QString path = QFileDialog::getOpenFileName(this, tr("Wasser importieren"),
-                                              QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
-                                              tr("JSON (*.json);; Any (*.*)"));
+  const QString path = QFileDialog::getOpenFileName(this, tr("Wasser importieren"),
+                                                    QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                                    tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
     return;
   }
   QJsonObject jsonSource = JsonHelper::loadFile(path);
   if (jsonSource.contains("WaterSource")) {
-    Water wp(jsonSource["WaterSource"].toObject());
+    const Water wp(jsonSource["WaterSource"].toObject());
     sources.addProfile(wp);
     sources.save();
     // select imported profile
-    QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
+    const QModelIndex idx = sourcesView->model()->index(sources.rowCount(QModelIndex()) - 1, 0);
     sourcesView->setCurrentIndex(idx);
     selectSource(idx);
   } else {
@@ -168,15 +167,15 @@ void WatersourceWindow::profileExport() {
   if (saveChangesDialog() == QMessageBox::Cancel) {
     return;  // user cancelation => do nothing
   }
-  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              sources.getProfile(selected).getName() + ".json";
-  QString path = QFileDialog::getSaveFileName(this, tr("Wasser exportieren"), suggestedFileName, "JSON (*.json)");
+  const QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
+                                    sources.getProfile(selected).getName() + ".json";
+  const QString path = QFileDialog::getSaveFileName(this, tr("Wasser exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }
   QJsonObject jsonSource;
   jsonSource["WaterSource"] = sources.getProfile(selected).profileToJson();
-  bool success = JsonHelper::saveFile(path, jsonSource);
+  const bool success = JsonHelper::saveFile(path, jsonSource);
   if (!success) {
     Dialogs::info(tr("Fehler beim Exportieren"), tr("Konnte Wasser nicht speichern"));
   }
@@ -184,7 +183,7 @@ void WatersourceWindow::profileExport() {
 
 int WatersourceWindow::saveChangesDialog() {
   if (waterEdit->isChanged()) {
-    int ret = Dialogs::saveChanges(
+    const int ret = Dialogs::saveChanges(
         tr("Änderungen speichern?"),
         tr("Wasser \"%1\" hat ungespeicherte Änderungen").arg(sources.getProfile(selected).getName()));
     //  save or discard
@@ -193,11 +192,11 @@ int WatersourceWindow::saveChangesDialog() {
         waterEdit->save();
         break;
       case QMessageBox::Discard:
+      default:
         waterEdit->cancel();  // discard changes
         break;
     }
     return ret;
-  } else {
-    return 0;
   }
+  return 0;
 }

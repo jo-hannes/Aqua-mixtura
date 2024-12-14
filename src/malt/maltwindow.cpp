@@ -23,21 +23,21 @@ MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{m
   QObject::connect(&malts, &Malts::dataModified, this, &MaltWindow::unsavedMalts);
 
   // main layout
-  QVBoxLayout* mainLayout = new QVBoxLayout(this);
+  auto* mainLayout = new QVBoxLayout(this);
 
   // Table View
   maltsView = new QTableView();
   maltsView->setModel(&malts);
   maltsView->verticalHeader()->setVisible(false);
-  MaltTableDelegate* delegate = new MaltTableDelegate(this);
+  auto* delegate = new MaltTableDelegate(this);
   maltsView->setItemDelegate(delegate);
   // maltsView->setEditTriggers(QAbstractItemView::AllEditTriggers);
   // maltsView->hideColumn(1);  // Hide mass column, not needed here
   mainLayout->addWidget(maltsView);
 
   // Buttons
-  Buttons* buttons = new Buttons(tr("Malz hinzufügen"), tr("Malz kopieren"), tr("Malz löschen"), tr("Malz importieren"),
-                                 tr("Malz exportieren"), tr("Speichern"), tr("Abbrechen"));
+  auto* buttons = new Buttons(tr("Malz hinzufügen"), tr("Malz kopieren"), tr("Malz löschen"), tr("Malz importieren"),
+                              tr("Malz exportieren"), tr("Speichern"), tr("Abbrechen"));
   QObject::connect(buttons->btnAdd, &QPushButton::clicked, this, &MaltWindow::maltAdd);
   QObject::connect(buttons->btnCopy, &QPushButton::clicked, this, &MaltWindow::maltCopy);
   QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &MaltWindow::maltDelete);
@@ -48,11 +48,9 @@ MaltWindow::MaltWindow(Malts& model, QWidget* parent) : QWidget{parent}, malts{m
   mainLayout->addWidget(buttons, 0, Qt::AlignCenter);
 }
 
-MaltWindow::~MaltWindow() {}
-
 void MaltWindow::closeEvent(QCloseEvent* event) {
   if (malts.isChanged()) {
-    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Malze haben ungespeicherte Änderungen"));
+    const int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Malze haben ungespeicherte Änderungen"));
     switch (ret) {
       case QMessageBox::Save:
         malts.save();  // save and close window
@@ -61,6 +59,7 @@ void MaltWindow::closeEvent(QCloseEvent* event) {
         malts.load();
         break;
       case QMessageBox::Cancel:
+      default:
         event->ignore();  // ignore event to keep window open
         return;
         break;
@@ -70,12 +69,12 @@ void MaltWindow::closeEvent(QCloseEvent* event) {
 }
 
 void MaltWindow::maltAdd() {
-  Malt m;
+  const Malt m;
   malts.addMalt(m);
 }
 
 void MaltWindow::maltCopy() {
-  QModelIndex idx = maltsView->currentIndex();
+  const QModelIndex idx = maltsView->currentIndex();
   if (!idx.isValid()) {
     return;
   }
@@ -87,7 +86,7 @@ void MaltWindow::maltCopy() {
 }
 
 void MaltWindow::maltDelete() {
-  QModelIndex idx = maltsView->currentIndex();
+  const QModelIndex idx = maltsView->currentIndex();
   if (!idx.isValid()) {
     return;
   }
@@ -95,9 +94,9 @@ void MaltWindow::maltDelete() {
 }
 
 void MaltWindow::maltImport() {
-  QString path = QFileDialog::getOpenFileName(this, tr("Malz importieren"),
-                                              QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
-                                              tr("JSON (*.json);; Any (*.*)"));
+  const QString path = QFileDialog::getOpenFileName(this, tr("Malz importieren"),
+                                                    QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                                    tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
     return;
   }
@@ -107,13 +106,13 @@ void MaltWindow::maltImport() {
 }
 
 void MaltWindow::maltExport() {
-  QModelIndex idx = maltsView->currentIndex();
+  const QModelIndex idx = maltsView->currentIndex();
   if (!idx.isValid()) {
     return;
   }
-  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              malts.getMalt(idx.row()).getName() + ".json";
-  QString path = QFileDialog::getSaveFileName(this, tr("Malz exportieren"), suggestedFileName, "JSON (*.json)");
+  const QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
+                                    malts.getMalt(idx.row()).getName() + ".json";
+  const QString path = QFileDialog::getSaveFileName(this, tr("Malz exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }

@@ -15,15 +15,15 @@ QWidget* StyleTableDelegate::createEditor(QWidget* parent, const QStyleOptionVie
   switch (index.column()) {
     case 0: {
       // Limit (bool)
-      QCheckBox* editor = new QCheckBox(parent);
+      auto* editor = new QCheckBox(parent);
       return editor;
     }
     default: {
       // Use double spin box for all other
-      QDoubleSpinBox* editor = new QDoubleSpinBox(parent);
+      auto* editor = new QDoubleSpinBox(parent);
       editor->setFrame(false);
-      editor->setMinimum(-999);
-      editor->setMaximum(999);
+      editor->setMinimum(-999);  // NOLINT(*-magic-numbers)
+      editor->setMaximum(999);   // NOLINT(*-magic-numbers)
       editor->setDecimals(2);
       editor->setSingleStep(1);
       return editor;
@@ -35,15 +35,15 @@ void StyleTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index
   switch (index.column()) {
     case 0: {
       // Limit (bool)
-      QCheckBox* checkBox = static_cast<QCheckBox*>(editor);
+      auto* checkBox = dynamic_cast<QCheckBox*>(editor);
       // We toggle the state here when the editor is accessed.
       // Thereby it is possible to toggle the state by just double clicking on it.
       checkBox->setChecked(!index.data().toBool());
       break;
     }
     default: {
-      float value = index.model()->data(index, Qt::DisplayRole).toFloat();
-      QDoubleSpinBox* doubleSpinBox = static_cast<QDoubleSpinBox*>(editor);
+      const float value = index.model()->data(index, Qt::DisplayRole).toFloat();
+      auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->setValue(value);
       break;
     }
@@ -54,15 +54,15 @@ void StyleTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model
   switch (index.column()) {
     case 0: {
       // Limit (bool)
-      QCheckBox* checkBox = static_cast<QCheckBox*>(editor);
-      bool checked = checkBox->isChecked();
+      auto* checkBox = dynamic_cast<QCheckBox*>(editor);
+      const bool checked = checkBox->isChecked();
       model->setData(index, checked, Qt::EditRole);
       break;
     }
     default: {
-      QDoubleSpinBox* doubleSpinBox = static_cast<QDoubleSpinBox*>(editor);
+      auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->interpretText();
-      float value = doubleSpinBox->value();
+      const float value = doubleSpinBox->value();
       model->setData(index, value, Qt::EditRole);
       break;
     }
@@ -73,7 +73,7 @@ void StyleTableDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
   switch (index.column()) {
     case 0: {
       // Limit (bool)
-      bool checked = index.data().toBool();
+      const bool checked = index.data().toBool();
       QStyleOptionButton cb;
       cb.rect = option.rect;
       cb.state = checked ? QStyle::State_On : QStyle::State_Off;

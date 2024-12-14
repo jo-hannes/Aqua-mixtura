@@ -36,6 +36,8 @@ void info(const QString& text, const QString& infoText, QWidget* parent = nullpt
  */
 int yesNo(const QString& text, const QString& infoText, QWidget* parent = nullptr);
 
+static const int imgSize = 128; /**< @brief Size of image in dialogs */
+
 };  // namespace Dialogs
 
 #endif  // DIALOGS_H

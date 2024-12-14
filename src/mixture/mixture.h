@@ -14,27 +14,29 @@
 
 class Mixture : public Meta {
  public:
-  Mixture();
+  Mixture() = default;
 
   // JSON conversion
-  Mixture(QString path);                  /**< @brief Create Mixture from JSON file */
-  Mixture(const QJsonObject& json);       /**< @brief Create Mixture from JSON */
-  bool fromJson(const QJsonObject& json); /**< @brief Update Mixture from JSON */
-  QJsonObject toJson() const;             /**< @brief convert this Mixture to JSON */
+  explicit Mixture(QString path);            /**< @brief Create Mixture from JSON file */
+  explicit Mixture(const QJsonObject& json); /**< @brief Create Mixture from JSON */
+  bool fromJson(const QJsonObject& json);    /**< @brief Update Mixture from JSON */
+  [[nodiscard]] QJsonObject toJson() const;  /**< @brief convert this Mixture to JSON */
 
   // load and save
-  void resetPath();        /**< @brief Regenerate path from UUID */
-  QString getPath() const; /**< @brief Get storage path */
-  void load();             /**< @brief Load fixture from stored path */
-  void save() const;       /**< @brief Save mixture and return storage path */
+  void resetPath();                      /**< @brief Regenerate path from UUID */
+  [[nodiscard]] QString getPath() const; /**< @brief Get storage path */
+  void load();                           /**< @brief Load fixture from stored path */
+  void save() const;                     /**< @brief Save mixture and return storage path */
 
-  Water calc();
+  [[nodiscard]] Water calc() const;
 
-  // private:
+  // NOLINTBEGIN(*-non-private-member-variables-in-classes)
+  // they are intended to be public
   WaterSources* waters{new WaterSources()};
   Additive* additive{new Additive()};
   Malts* malts{new Malts()};
   Style* style{new Style()};
+  // NOLINTEND(*-non-private-member-variables-in-classes)
 
  private:
   QString path;

@@ -8,14 +8,14 @@
 
 AdditiveSettings::AdditiveSettings() {
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+    // NOLINTNEXTLINE(*-magic-numbers)
     concentration[i] = 10;  // default concentration = 10%
   }
   unit = LiquidUnit::gramm;
   changed = false;
 }
 
-AdditiveSettings::AdditiveSettings(const QJsonObject& json) {
-  AdditiveSettings();
+AdditiveSettings::AdditiveSettings(const QJsonObject& json) : AdditiveSettings() {
   fromJson(json);
 }
 
@@ -38,7 +38,7 @@ bool AdditiveSettings::fromJson(const QJsonObject& json) {
     unit = LiquidUnit::gramm;
   }
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
+    const QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
     concentration[i] = asettings[jsonKey].toDouble(0);
   }
   setChanged(false);
@@ -60,7 +60,7 @@ void AdditiveSettings::toJson(QJsonObject& json) const {
     inner["liquidUnit"] = "gramm";
   }
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
+    const QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
     inner[jsonKey] = concentration[i];
   }
   json["AdditiveSettings"] = inner;
@@ -70,7 +70,8 @@ float AdditiveSettings::getConcentration(Additive::Value what) const {
   // only liqids have a concentration
   if (what <= Additive::Value::lastLiquid) {
     return concentration[static_cast<uint>(what)];
-  } else {
+  } else {       // NOLINT(readability-else-after-return)
+    // NOLINTNEXTLINE(*-magic-numbers)
     return 100;  // not a liquid => concentration = 100%
   }
 }
@@ -79,8 +80,8 @@ void AdditiveSettings::setConcentration(Additive::Value what, float value) {
   if (what <= Additive::Value::lastLiquid) {
     if (value < 1) {
       value = 1;
-    } else if (value > 100) {
-      value = 100;
+    } else if (value > 100) {  // NOLINT(*-magic-numbers)
+      value = 100;             // NOLINT(*-magic-numbers)
     }
     concentration[static_cast<uint>(what)] = value;
     setChanged(true);
@@ -99,12 +100,12 @@ void AdditiveSettings::setLiquidUnit(LiquidUnit newUnit) {
 float AdditiveSettings::getDensity(Additive::Value what) const {
   // only liqids have a density
   if ((what <= Additive::Value::lastLiquid) && (unit == LiquidUnit::milliLiter)) {
-    uint idx = static_cast<uint>(what);
+    const uint idx = static_cast<uint>(what);
     // first check for linear
     if (densityCoefficients[idx][2] == 0) {
       // linear
       return densityCoefficients[idx][0] + densityCoefficients[idx][1] * concentration[idx];
-    } else {
+    } else {  // NOLINT(readability-else-after-return)
       // qubic
       return densityCoefficients[idx][0] + densityCoefficients[idx][1] * concentration[idx] +
              densityCoefficients[idx][2] * concentration[idx] * concentration[idx];
@@ -119,14 +120,14 @@ bool AdditiveSettings::isChanged() const {
 }
 
 void AdditiveSettings::load() {
-  QString file = Paths::dataDir() + "/additive.json";
+  const QString file = Paths::dataDir() + "/additive.json";
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }
 }
 
 void AdditiveSettings::save() {
-  QString file = Paths::dataDir() + "/additive.json";
+  const QString file = Paths::dataDir() + "/additive.json";
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);
 }

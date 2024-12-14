@@ -51,7 +51,7 @@ class WatersourceWindow : public QWidget {
   WaterSources& sources;       /**< @brief Reference to model for accessing data */
   QListView* sourcesView;      /**< @brief List with all water sources */
   WaterProfileEdit* waterEdit; /**< @brief Water profile editor */
-  int selected;                /**< @brief Index of currently selected water profile */
+  int selected{-1};            /**< @brief Index of currently selected water profile */
 };
 
 #endif  // WATERSOURCEWINDOW_H

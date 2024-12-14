@@ -16,14 +16,12 @@ Mixtures::Mixtures(const QJsonObject& json, QObject* parent) : Mixtures(parent) 
 
 Mixtures::~Mixtures() {
   for (MixtureWindow* w : mixWindows) {
-    if (w != nullptr) {
-      delete w;
-    }
+    delete w;
   }
 }
 
 bool Mixtures::fromJson(const QJsonObject& json) {
-  QJsonValue jsonMixtures = json["Mixtures"];
+  const QJsonValue jsonMixtures = json["Mixtures"];
   if (!jsonMixtures.isArray()) {
     qWarning("No valid mixtures in JSON found");
     return false;
@@ -64,7 +62,7 @@ bool Mixtures::importMixture(const QString& path) {
   return true;
 }
 
-bool Mixtures::exportMixture(const QString& path, qsizetype i) {
+bool Mixtures::exportMixture(const QString& path, int i) {
   if (path.isEmpty()) {
     return false;
   }
@@ -76,28 +74,27 @@ bool Mixtures::exportMixture(const QString& path, qsizetype i) {
   return JsonHelper::saveFile(path, json);
 }
 
-Mixture& Mixtures::getMixture(qsizetype i) {
+Mixture& Mixtures::getMixture(int i) {
   if (i >= 0 && i < mixtures.size()) {
     return mixtures[i];
-  } else {
-    return noMixture;
   }
+  return noMixture;
 }
 
-void Mixtures::updateMixture(Mixture& mixture, qsizetype i) {
+void Mixtures::updateMixture(Mixture& mixture, int i) {
   if (i >= 0 && i < mixtures.size()) {
     mixtures.replace(i, mixture);
   }
 }
 
 void Mixtures::addMixture(Mixture& mixture) {
-  qsizetype i = mixtures.size();
+  const int i = mixtures.size();
   beginInsertRows(QModelIndex(), i, i);
   mixtures.append(mixture);
   endInsertRows();
 }
 
-void Mixtures::deleteMixture(qsizetype i) {
+void Mixtures::deleteMixture(int i) {
   if (i >= 0 && i < mixtures.size()) {
     beginRemoveRows(QModelIndex(), i, i);
     mixtures.removeAt(i);
@@ -111,7 +108,7 @@ void Mixtures::deleteMixture(qsizetype i) {
   }
 }
 
-void Mixtures::show(qsizetype i) {
+void Mixtures::show(int i) {
   // check index
   if (i < 0 || i >= mixtures.size()) {
     return;
@@ -150,14 +147,14 @@ int Mixtures::columnCount(const QModelIndex& parent) const {
 
 QVariant Mixtures::data(const QModelIndex& index, int role) const {
   if (!index.isValid()) {
-    return QVariant();
+    return {};
   }
   if (role != Qt::DisplayRole) {
-    return QVariant();
+    return {};
   }
-  qsizetype row = index.row();
+  const qsizetype row = index.row();
   if (row < 0 || row >= mixtures.size()) {
-    return QVariant();
+    return {};
   }
 
   switch (index.column()) {
@@ -168,13 +165,13 @@ QVariant Mixtures::data(const QModelIndex& index, int role) const {
     case 2:
       return mixtures.at(row).getModificationTime();
     default:
-      return QVariant();
+      return {};
   }
 }
 
 QVariant Mixtures::headerData(int section, Qt::Orientation orientation, int role) const {
   if (role != Qt::DisplayRole) {
-    return QVariant();
+    return {};
   }
   if (orientation == Qt::Horizontal) {
     switch (section) {
@@ -185,7 +182,7 @@ QVariant Mixtures::headerData(int section, Qt::Orientation orientation, int role
       case 2:
         return QString(tr("Geändert"));
       default:
-        return QVariant();
+        return {};
     }
   } else {
     return QString("Row %1").arg(section);
@@ -193,13 +190,13 @@ QVariant Mixtures::headerData(int section, Qt::Orientation orientation, int role
 }
 
 void Mixtures::load() {
-  QString file = Paths::dataDir() + "/mixtures.json";
+  const QString file = Paths::dataDir() + "/mixtures.json";
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }
 }
 
-void Mixtures::save() {
-  QString file = Paths::dataDir() + "/mixtures.json";
+void Mixtures::save() const {
+  const QString file = Paths::dataDir() + "/mixtures.json";
   JsonHelper::saveFile(file, this->toJson());
 }

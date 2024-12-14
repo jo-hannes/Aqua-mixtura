@@ -15,24 +15,26 @@ class Styles : public QAbstractListModel {
 
  public:
   Styles();
-  Styles(const QJsonObject& json); /**< @brief Create Styles from JSON */
+  explicit Styles(const QJsonObject& json); /**< @brief Create Styles from JSON */
   ~Styles();
 
   // JSON conversion
   bool fromJson(const QJsonObject& json);                   /**< @brief Update Styles from JSON */
-  QJsonObject toJson() const;                               /**< @brief convert Styles to JSON */
+  [[nodiscard]] QJsonObject toJson() const;                 /**< @brief convert Styles to JSON */
   bool importStyle(const QString& path);                    /**< @brief import and add a Style from JSON */
-  bool exportStyle(const QString& path, qsizetype i) const; /**< @brief export a Style at index as JSON */
+  [[nodiscard]] bool exportStyle(const QString& path, qsizetype i) const; /**< @brief export a Style at index as JSON */
 
   Style* getStyle(qsizetype i);  /**< @brief Get style at index */
   void addStyle(Style* style);   /**< @brief Add a style */
-  void deleteStyle(qsizetype i); /**< @brief Delete style at index */
+  void deleteStyle(int i);       /**< @brief Delete style at index */
 
-  bool isChanged() const; /**< @brief True if changes not saved */
+  [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 
   // for QAbstractListModel, see QT documentation for details
-  int rowCount(const QModelIndex& parent = QModelIndex()) const;
-  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+  // NOLINTBEGIN(modernize-use-nodiscard)
+  int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+  // NOLINTEND(modernize-use-nodiscard)
 
  public slots:
   void load();
@@ -43,7 +45,7 @@ class Styles : public QAbstractListModel {
 
  private:
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
-  bool changed;                  /**< @brief True if changed but not saved */
+  bool changed{false};           /**< @brief True if changed but not saved */
 
   void clear(); /**< @brief Clear/remove all Styles*/
 

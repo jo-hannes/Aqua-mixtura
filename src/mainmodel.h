@@ -23,6 +23,8 @@ class MainModel : public QObject {
   void save(); /**< @brief Save all data to JSON files */
 
  public:
+  // mixtures is intended to be public
+  // NOLINTNEXTLINE(*-non-private-member-variables-in-classes)
   Mixtures mixtures; /**< @brief Model of mixtures */
 };
 

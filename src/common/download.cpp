@@ -35,8 +35,8 @@ bool Download::loadFile(QUrl url, QString dest) {
 }
 
 bool Download::loadDefaults(QString fileName) {
-  QString destFile = Paths::dataDir() + "/" + fileName;
-  QUrl srcUri("https://raw.githubusercontent.com/jo-hannes/Aqua-mixtura/refs/heads/main/defaults/" + fileName);
+  const QString destFile = Paths::dataDir() + "/" + fileName;
+  const QUrl srcUri("https://raw.githubusercontent.com/jo-hannes/Aqua-mixtura/refs/heads/main/defaults/" + fileName);
   if (!QFile::exists(destFile)) {
     return loadFile(srcUri, destFile);
   }

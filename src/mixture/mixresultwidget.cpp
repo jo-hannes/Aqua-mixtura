@@ -14,7 +14,7 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   this->setLineWidth(2);
 
   // build ui
-  QGridLayout* layout = new QGridLayout();
+  auto* layout = new QGridLayout();
   this->setLayout(layout);
 
   int row = 0;
@@ -43,7 +43,7 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
       layout->addWidget(bars[i], row, 3);
     }
   }
-  layout->setRowStretch(++row, 99);
+  layout->setRowStretch(++row, 99);  // NOLINT(*-magic-numbers)
 
   styleIdx = 0;  // Select style of mixture
   updateStyles();
@@ -58,8 +58,8 @@ bool MixResultWidget::isChanged() const {
   return styleIdx != 0;
 }
 
-void MixResultWidget::update(void) {
-  Water tst = mix.calc();
+void MixResultWidget::update() {
+  const Water tst = mix.calc();
   for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
     vals[i]->setText(QString::number(tst.get(static_cast<Water::Value>(i)), 'f', 2));
     // Update Bars
@@ -83,7 +83,7 @@ void MixResultWidget::updateStyles() {
   // rebuild list with styles
   styleSelect->clear();
   // first add style from mixture
-  QString self = "[Mix] " + mixStyle.getName();
+  const QString self = "[Mix] " + mixStyle.getName();
   styleSelect->addItem(self);
   // add styles form database
   for (int i = 0; i < sDb.rowCount(QModelIndex()); i++) {
@@ -99,7 +99,7 @@ void MixResultWidget::updateStyles() {
   }
 
   // get uuid of current style
-  QString uuid = mix.style->getUuid();
+  const QString uuid = mix.style->getUuid();
   if (styleIdx > 0 && styleIdx < styleSelect->count() && uuid == sDb.getStyle(styleIdx - 1)->getUuid()) {
     // idx still valid and points to the same style
     styleSelect->setCurrentIndex(styleIdx);
@@ -148,7 +148,7 @@ void MixResultWidget::selectStyle(int index) {
   }
 
   // delete selection for possible deleted old style
-  int lastIdx = styleSelect->count() - 1;
+  const int lastIdx = styleSelect->count() - 1;
   if (lastIdx > styleIdx && lastIdx > sDb.rowCount(QModelIndex())) {
     styleSelect->removeItem(lastIdx);
   }

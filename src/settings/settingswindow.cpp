@@ -19,20 +19,20 @@ SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{paren
   setWindowTitle("Aqua-mixtura - " + tr("Einstellungen"));
 
   // main layout
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  auto* layout = new QVBoxLayout(this);
 
   // Table view with limits
   limitsView = new QTableView(this);
   limitsView->setModel(&settings);
-  SettingsTableDelegate* delegate = new SettingsTableDelegate(this);
+  auto* delegate = new SettingsTableDelegate(this);
   limitsView->setItemDelegate(delegate);
   limitsView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   limitsView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);
   layout->addWidget(limitsView);
 
   // Buttons
-  Buttons* buttons = new Buttons("", "", "", tr("Einstellungen importieren"), tr("Einstellungen exportieren"),
-                                 tr("Speichern"), tr("Abbrechen"));
+  auto* buttons = new Buttons("", "", "", tr("Einstellungen importieren"), tr("Einstellungen exportieren"),
+                              tr("Speichern"), tr("Abbrechen"));
   QObject::connect(buttons->btnImport, &QPushButton::clicked, this, &SettingsWindow::settingsImport);
   QObject::connect(buttons->btnExport, &QPushButton::clicked, this, &SettingsWindow::settingsExport);
   QObject::connect(buttons->btnSave, &QPushButton::clicked, &settings, &Settings::save);
@@ -44,7 +44,7 @@ SettingsWindow::SettingsWindow(Settings& model, QWidget* parent) : QWidget{paren
 
 void SettingsWindow::closeEvent(QCloseEvent* event) {
   if (settings.isChanged()) {
-    int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Einstellungen wurden nicht gespeicherte"));
+    const int ret = Dialogs::saveChanges(tr("Änderungen speichern?"), tr("Einstellungen wurden nicht gespeicherte"));
     switch (ret) {
       case QMessageBox::Save:
         settings.save();  // save and close window
@@ -53,6 +53,7 @@ void SettingsWindow::closeEvent(QCloseEvent* event) {
         settings.load();
         break;
       case QMessageBox::Cancel:
+      default:
         event->ignore();  // ignore event to keep window open
         return;
         break;
@@ -62,9 +63,9 @@ void SettingsWindow::closeEvent(QCloseEvent* event) {
 }
 
 void SettingsWindow::settingsImport() {
-  QString path = QFileDialog::getOpenFileName(this, tr("Einstellungen importieren"),
-                                              QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
-                                              tr("JSON (*.json);; Any (*.*)"));
+  const QString path = QFileDialog::getOpenFileName(this, tr("Einstellungen importieren"),
+                                                    QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                                    tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
     return;
   }
@@ -74,8 +75,9 @@ void SettingsWindow::settingsImport() {
 }
 
 void SettingsWindow::settingsExport() {
-  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" + "settings.json";
-  QString path =
+  const QString suggestedFileName =
+      QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" + "settings.json";
+  const QString path =
       QFileDialog::getSaveFileName(this, tr("Einstellungen exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;

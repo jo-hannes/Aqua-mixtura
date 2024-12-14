@@ -76,18 +76,18 @@ class Water : public Meta {
   inline static QString translatableStrings[static_cast<int>(Value::Size)];
 
   Water();
-  Water(QString name, float volume = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
-        float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
-  Water(const QJsonObject& json); /**< @brief Create Water from JSON */
+  explicit Water(QString name, float volume = 0, float calzium = 0, float magnesium = 0, float natrium = 0,
+                 float hydrogencarbonat = 0, float chlorid = 0, float sulfat = 0, float phosphat = 0, float lactat = 0);
+  explicit Water(const QJsonObject& json); /**< @brief Create Water from JSON */
 
   // getter und setter
-  float get(Value what) const;       /**< @brief get requested value */
-  void set(Value what, float value); /**< @brief set given type with value */
+  [[nodiscard]] float get(Value what) const; /**< @brief get requested value */
+  void set(Value what, float value);         /**< @brief set given type with value */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief Update Water from JSON */
-  QJsonObject toJson() const;             /**< @brief convert this Water to JSON */
-  QJsonObject profileToJson() const; /**< @brief convert this Water profile to JSON (A profile is without volume) */
+  bool fromJson(const QJsonObject& json);          /**< @brief Update Water from JSON */
+  [[nodiscard]] QJsonObject toJson() const;        /**< @brief convert this Water to JSON */
+  [[nodiscard]] QJsonObject profileToJson() const; /**< @brief convert Water profile to JSON (without volume) */
 
   // Operators
   Water& operator+=(const Water& rhs);
@@ -101,7 +101,7 @@ class Water : public Meta {
    * x [^{\circ}dH] = CaHaerte [^{\circ}dH] + MgHaerte [^{\circ}dH]
    * \f]
    */
-  float calculateGesamthaerte() const;
+  [[nodiscard]] float calculateGesamthaerte() const;
 
   /**
    * @brief Berechnet die Calcium-Härte
@@ -109,7 +109,7 @@ class Water : public Meta {
    * x [^{\circ}dH] = 0,14 * Ca [mg/l]
    * \f]
    */
-  float calculateCaHaerte() const;
+  [[nodiscard]] float calculateCaHaerte() const;
 
   /**
    * @brief Berechnet die Magnesium-Härte
@@ -117,7 +117,7 @@ class Water : public Meta {
    * x [^{\circ}dH] = 0,23 * Mg [mg/l]
    * \f]
    */
-  float calculateMgHaerte() const;
+  [[nodiscard]] float calculateMgHaerte() const;
 
   /**
    * @brief Berechnet die Carbonhärte
@@ -126,7 +126,7 @@ class Water : public Meta {
    * x [^{\circ}dH] &=& \frac{Hydrogencarbonat [mg/l]}{61,017}*2,8
    * \f}
    */
-  float calculateCarbonhaerte() const;
+  [[nodiscard]] float calculateCarbonhaerte() const;
 
   /**
    * @brief Berechnet die nicht Carbonhärte
@@ -134,7 +134,7 @@ class Water : public Meta {
    * x [^{\circ}dH] = GesammtHaerte [^{\circ}dH] - CarbonHaerte [^{\circ}dH]
    * \f]
    */
-  float calculateNichtCarbonhaerte() const;
+  [[nodiscard]] float calculateNichtCarbonhaerte() const;
 
   /**
    * @brief Berechnet das Sulfat (SO4) zu Chlorid (Cl) Verhältnis
@@ -142,7 +142,7 @@ class Water : public Meta {
    * x = \frac{Sulfat (SO4)}{Chlorid (Cl)}
    * \f]
    */
-  float calculateSO4ClVerhaeltnis() const;
+  [[nodiscard]] float calculateSO4ClVerhaeltnis() const;
 
   /**
    * @brief Berechnet die Restalkalität
@@ -150,7 +150,7 @@ class Water : public Meta {
    * x [^{\circ}dH] = CarbonHaerte [^{\circ}dH] - \frac{CaHaerte [^{\circ}dH]}{3,5} - \frac{MgHaerte [^{\circ}dH]}{7}
    * \f]
    */
-  float calculateRestalkalitaet() const;
+  [[nodiscard]] float calculateRestalkalitaet() const;
 
   float values[static_cast<int>(Value::LastAnion) + 1];
 };

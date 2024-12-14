@@ -14,12 +14,12 @@
  */
 class Meta {
  public:
-  Meta(QString name = "");
-  Meta(const QJsonObject& json);          /**< @brief Create Meta from JSON */
-  QString getName() const;                /**< @brief Get name of object */
-  QDateTime getCreationTime() const;      /**< @brief Get object creation time */
-  QDateTime getModificationTime() const;  /**< @brief Get last modification time */
-  QString getUuid() const;                /**< @brief Get UUID as string */
+  explicit Meta(QString name = "");
+  explicit Meta(const QJsonObject& json);              /**< @brief Create Meta from JSON */
+  [[nodiscard]] QString getName() const;               /**< @brief Get name of object */
+  [[nodiscard]] QDateTime getCreationTime() const;     /**< @brief Get object creation time */
+  [[nodiscard]] QDateTime getModificationTime() const; /**< @brief Get last modification time */
+  [[nodiscard]] QString getUuid() const;               /**< @brief Get UUID as string */
   QString newUuid();                      /**< @brief Generate new UUID and return it as string */
   void setName(const QString& newName);   /**< @brief Set object name */
   void updateEditTime();                  /**< @brief Update edit time to now */

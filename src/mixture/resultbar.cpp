@@ -14,10 +14,6 @@ ResultBar::ResultBar(QWidget* parent) : QWidget{parent} {
 
   // This widget has a fixed size!
   setFixedSize(width, height);
-
-  negative = false;
-  logarithmic = false;
-  style = false;
 }
 
 void ResultBar::setLimits(float min, float max, bool negative, bool logarithmic) {
@@ -48,7 +44,7 @@ void ResultBar::setValue(float val) {
 void ResultBar::paintEvent(QPaintEvent* event) {
   Q_UNUSED(event);
   QPainter painter(this);
-  QPen pen(Qt::NoPen);
+  const QPen pen(Qt::NoPen);
   painter.setPen(pen);
   QBrush brush(Qt::red);
 
@@ -61,8 +57,8 @@ void ResultBar::paintEvent(QPaintEvent* event) {
     painter.setBrush(brush);
     painter.drawRect(0, 0, width, height);
     // calculate start and end of yellow area
-    float s = val2graph(lMin);
-    float e = val2graph(lMax) - s;
+    int s = val2graph(lMin);
+    int e = val2graph(lMax) - s;
     brush.setColor(Qt::yellow);
     painter.setBrush(brush);
     painter.drawRect(s, 0, e, height);
@@ -74,10 +70,9 @@ void ResultBar::paintEvent(QPaintEvent* event) {
     painter.drawRect(s, 0, e, height);
     // calculate location of dark green target indicator
     s = val2graph(target);
-    int i = round(s);
     brush.setColor(Qt::darkGreen);
     painter.setBrush(brush);
-    painter.drawRect(i - 1, 0, 2, height);
+    painter.drawRect(s - 1, 0, 2, height);
   } else {
     // Show only limits
     // just start with all red
@@ -85,8 +80,8 @@ void ResultBar::paintEvent(QPaintEvent* event) {
     painter.setBrush(brush);
     painter.drawRect(0, 0, width, height);
     // calculate start and end of green area
-    float s = val2graph(lMin);
-    float e = val2graph(lMax) - s;
+    const int s = val2graph(lMin);
+    const int e = val2graph(lMax) - s;
     // green till lmax
     brush.setColor(Qt::green);
     painter.setBrush(brush);
@@ -96,7 +91,7 @@ void ResultBar::paintEvent(QPaintEvent* event) {
   // print indicator
   brush.setColor(Qt::black);
   painter.setBrush(brush);
-  float ind = val2graph(value);
+  const int ind = val2graph(value);
   // check if we are out of range
   QPoint points[3];
   if (ind < 0) {
@@ -112,15 +107,17 @@ void ResultBar::paintEvent(QPaintEvent* event) {
     points[2] = QPoint(width - 10, height);
   } else {
     // in range
-    points[0] = QPoint(ind - 5, height);
+    points[0] = QPoint(ind - 5, height);  // NOLINT(*-narrowing-conversions): float to int is indented
     points[1] = QPoint(ind, height / 2);
-    points[2] = QPoint(ind + 5, height);
+    points[2] = QPoint(ind + 5, height);  // NOLINT(*-narrowing-conversions): float to int is indented
   }
-  painter.drawPolygon(points, 3);
+  painter.drawPolygon(points, 3);  // NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 }
 
 void ResultBar::updateMinMax() {
-  float tMin, tMax, tDiff;
+  float tMin = 0;
+  float tMax = 0;
+  float tDiff = 0;
   // first get min and max from limits and style
   if (style) {
     // first calculate max value displayed
@@ -133,17 +130,17 @@ void ResultBar::updateMinMax() {
   tDiff = tMax - tMin;
 
   // Add 10% on each side // TODO also 10% with logarithmic scale?
-  gMin = tMin - 0.1 * tDiff;
-  gMax = tMax + 0.1 * tDiff;
+  gMin = tMin - 0.1 * tDiff;  // NOLINT(*-magic-numbers)
+  gMax = tMax + 0.1 * tDiff;  // NOLINT(*-magic-numbers)
   // ne negative values without negaive set
   if (gMin < 0 && !negative) {
     gMin = 0;
   }
 }
 
-float ResultBar::val2graph(float value) {
+int ResultBar::val2graph(float value) const {
   // TODO add support for logarithmic scale
-  float gDiff = gMax - gMin;
+  const float gDiff = gMax - gMin;
   value -= gMin;
-  return value / gDiff * width;
+  return value / gDiff * width;  // NOLINT(*-narrowing-conversions): float to int is indented
 }

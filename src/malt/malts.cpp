@@ -11,10 +11,6 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 
-Malts::Malts() {
-  changed = false;
-}
-
 Malts::Malts(const QJsonObject& json) {
   fromJson(json);
 }
@@ -24,7 +20,7 @@ bool Malts::fromJson(const QJsonObject& json) {
     qWarning("No valid malts in JSON found");
     return false;
   }
-  QJsonValue jsonMalts = json["Malts"];
+  const QJsonValue jsonMalts = json["Malts"];
   if (!jsonMalts.isArray()) {
     qWarning("No valid malts in JSON found");
     return false;
@@ -57,13 +53,13 @@ bool Malts::importMalt(const QString& path) {
   if (!jsonMalt.contains("Malt")) {
     return false;
   }
-  Malt m(jsonMalt["Malt"].toObject());
+  const Malt m(jsonMalt["Malt"].toObject());
   addMalt(m);
   setChanged(true);
   return true;
 }
 
-bool Malts::exportMalt(const QString& path, qsizetype i) const {
+bool Malts::exportMalt(const QString& path, int i) const {
   if (path.isEmpty()) {
     return false;
   }
@@ -75,23 +71,22 @@ bool Malts::exportMalt(const QString& path, qsizetype i) const {
   return JsonHelper::saveFile(path, jsonMalt);
 }
 
-const Malt& Malts::getMalt(qsizetype i) {
+const Malt& Malts::getMalt(int i) {
   if (i >= 0 && i < malts.size()) {
     return malts.at(i);
-  } else {
-    return noMalt;
   }
+  return noMalt;
 }
 
 void Malts::addMalt(const Malt& malt) {
-  qsizetype i = malts.size();
+  const int i = malts.size();
   beginInsertRows(QModelIndex(), i, i);
   malts.append(malt);
   endInsertRows();
   setChanged(true);
 }
 
-void Malts::deleteMalt(qsizetype i) {
+void Malts::deleteMalt(int i) {
   if (i >= 0 && i < malts.size()) {
     beginRemoveRows(QModelIndex(), i, i);
     malts.removeAt(i);
@@ -116,14 +111,14 @@ int Malts::columnCount(const QModelIndex& parent) const {
 
 QVariant Malts::data(const QModelIndex& index, int role) const {
   if (!index.isValid()) {
-    return QVariant();
+    return {};
   }
   if (role != Qt::DisplayRole) {
-    return QVariant();
+    return {};
   }
-  qsizetype row = index.row();
+  const qsizetype row = index.row();
   if (row < 0 || row >= malts.size()) {
-    return QVariant();
+    return {};
   }
   switch (index.column()) {
     case 0:
@@ -135,14 +130,14 @@ QVariant Malts::data(const QModelIndex& index, int role) const {
     case 2:
       return malts.at(row).getPh();
     default:
-      return QVariant();
+      return {};
   }
-  return QVariant();
+  return {};
 }
 
 QVariant Malts::headerData(int section, Qt::Orientation orientation, int role) const {
   if (role != Qt::DisplayRole) {
-    return QVariant();
+    return {};
   }
   if (orientation == Qt::Horizontal) {
     switch (section) {
@@ -155,10 +150,11 @@ QVariant Malts::headerData(int section, Qt::Orientation orientation, int role) c
       case 2:
         return QString("pH");
       default:
-        return QVariant();
+        return {};
     }
-  } else
+  } else {
     return QString("Row %1").arg(section);
+  }
 }
 
 bool Malts::setData(const QModelIndex& index, const QVariant& value, int role) {
@@ -196,20 +192,20 @@ Qt::ItemFlags Malts::flags(const QModelIndex& index) const {
   if (!index.isValid()) {
     return Qt::NoItemFlags;
   }
-  return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+  return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
 }
 
 void Malts::load() {
   const QString fileName = "malts.json";
   Download::loadDefaults(fileName);
-  QString file = Paths::dataDir() + "/" + fileName;
+  const QString file = Paths::dataDir() + "/" + fileName;
   if (QFile::exists(file)) {
     this->fromJson(JsonHelper::loadFile(file));
   }
 }
 
 void Malts::save() {
-  QString file = Paths::dataDir() + "/malts.json";
+  const QString file = Paths::dataDir() + "/malts.json";
   JsonHelper::saveFile(file, this->toJson());
   setChanged(false);
 }

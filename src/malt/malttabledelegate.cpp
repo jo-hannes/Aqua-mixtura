@@ -16,25 +16,25 @@ QWidget* MaltTableDelegate::createEditor(QWidget* parent, const QStyleOptionView
   switch (index.column()) {
     case 3: {
       // mass
-      QDoubleSpinBox* editor = new QDoubleSpinBox(parent);
+      auto* editor = new QDoubleSpinBox(parent);
       editor->setFrame(false);
       editor->setMinimum(0);
-      editor->setMaximum(999);
+      editor->setMaximum(999);  // NOLINT(*-magic-numbers)
       editor->setDecimals(2);
-      editor->setSingleStep(0.1);
+      editor->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
       return editor;
     }
     case 1: {
       // ebc
-      QSpinBox* editor = new QSpinBox(parent);
+      auto* editor = new QSpinBox(parent);
       editor->setFrame(false);
       editor->setMinimum(0);
-      editor->setMaximum(9999);
+      editor->setMaximum(9999);  // NOLINT(*-magic-numbers)
       return editor;
     }
     case 2: {
       // ph
-      MaltPhEdit* editor = new MaltPhEdit(parent);
+      auto* editor = new MaltPhEdit(parent);
       return editor;
     }
     case 0:  // name
@@ -48,31 +48,31 @@ void MaltTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index)
   switch (index.column()) {
     case 3: {
       // mass
-      float value = index.model()->data(index, Qt::DisplayRole).toFloat();
-      QDoubleSpinBox* doubleSpinBox = static_cast<QDoubleSpinBox*>(editor);
+      const float value = index.model()->data(index, Qt::DisplayRole).toFloat();
+      auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->setValue(value);
       break;
     }
     case 1: {
       // ebc
-      float value = index.model()->data(index, Qt::DisplayRole).toFloat();
-      QSpinBox* spinBox = static_cast<QSpinBox*>(editor);
+      const int value = index.model()->data(index, Qt::DisplayRole).toInt();
+      auto* spinBox = dynamic_cast<QSpinBox*>(editor);
       spinBox->setValue(value);
       break;
     }
     case 2: {
       // ph
-      float ph = index.model()->data(index, Qt::DisplayRole).toFloat();
-      QModelIndex ebcIdx = index.siblingAtColumn(1);
-      float ebc = ebcIdx.model()->data(ebcIdx, Qt::DisplayRole).toFloat();
-      MaltPhEdit* phEdit = static_cast<MaltPhEdit*>(editor);
+      const float ph = index.model()->data(index, Qt::DisplayRole).toFloat();
+      const QModelIndex ebcIdx = index.siblingAtColumn(1);
+      const float ebc = ebcIdx.model()->data(ebcIdx, Qt::DisplayRole).toFloat();
+      auto* phEdit = dynamic_cast<MaltPhEdit*>(editor);
       phEdit->setData(ph, ebc);
       break;
     }
     case 0:  // name
     default: {
-      QString value = index.model()->data(index, Qt::DisplayRole).toString();
-      QLineEdit* lineEdit = static_cast<QLineEdit*>(editor);
+      const QString value = index.model()->data(index, Qt::DisplayRole).toString();
+      auto* lineEdit = dynamic_cast<QLineEdit*>(editor);
       lineEdit->setText(value);
       break;
     }
@@ -83,31 +83,31 @@ void MaltTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
   switch (index.column()) {
     case 3: {
       // mass
-      QDoubleSpinBox* doubleSpinBox = static_cast<QDoubleSpinBox*>(editor);
+      auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->interpretText();
-      float value = doubleSpinBox->value();
+      const float value = doubleSpinBox->value();
       model->setData(index, value, Qt::EditRole);
       break;
     }
     case 1: {
       // ebc
-      QSpinBox* spinBox = static_cast<QSpinBox*>(editor);
+      auto* spinBox = dynamic_cast<QSpinBox*>(editor);
       spinBox->interpretText();
-      float value = spinBox->value();
+      const int value = spinBox->value();
       model->setData(index, value, Qt::EditRole);
       break;
     }
     case 2: {
       // ph
-      MaltPhEdit* phEdit = static_cast<MaltPhEdit*>(editor);
-      float value = phEdit->pH();
+      auto* phEdit = dynamic_cast<MaltPhEdit*>(editor);
+      const float value = phEdit->pH();
       model->setData(index, value, Qt::EditRole);
       break;
     }
     case 0:  // name
     default: {
-      QLineEdit* lineEdit = static_cast<QLineEdit*>(editor);
-      QString value = lineEdit->text();
+      auto* lineEdit = dynamic_cast<QLineEdit*>(editor);
+      const QString value = lineEdit->text();
       model->setData(index, value, Qt::EditRole);
       break;
     }

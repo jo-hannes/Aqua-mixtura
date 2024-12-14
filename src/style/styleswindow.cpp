@@ -21,16 +21,14 @@
 #include <QVBoxLayout>
 
 StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, styles{model} {
-  selected = -1;
-
   // mainLayout
-  QGridLayout* mainLayout = new QGridLayout();
+  auto* mainLayout = new QGridLayout();
 
   // Headlines
   setWindowTitle("Aqua-mixtura - " + tr("Bierstile"));
-  QLabel* txtStyles = new QLabel("<b>" + tr("Bierstile") + "</b>");
+  auto* txtStyles = new QLabel("<b>" + tr("Bierstile") + "</b>");
   mainLayout->addWidget(txtStyles, 0, 0, Qt::AlignLeft);
-  QLabel* txtValues = new QLabel("<b>" + tr("Werte") + "</b>");
+  auto* txtValues = new QLabel("<b>" + tr("Werte") + "</b>");
   mainLayout->addWidget(txtValues, 0, 1, Qt::AlignLeft);
 
   // List view
@@ -46,16 +44,15 @@ StylesWindow::StylesWindow(Styles& model, QWidget* parent) : QWidget{parent}, st
   // Table view
   styleTableView = new QTableView();
   styleTableView->setModel(styles.getStyle(0));
-  StyleTableDelegate* delegate = new StyleTableDelegate(this);
+  auto* delegate = new StyleTableDelegate(this);
   styleTableView->setItemDelegate(delegate);
   styleTableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
   styleTableView->verticalHeader()->setDefaultAlignment(Qt::AlignRight);
   mainLayout->addWidget(styleTableView, 2, 1, 1, 2);
 
   // Buttons
-  Buttons* buttons =
-      new Buttons(tr("Bierstil hinzufügen"), tr("Bierstil kopieren"), tr("Bierstil löschen"),
-                  tr("Bierstil importieren"), tr("Bierstil exportieren"), tr("Speichern"), tr("Abbrechen"));
+  auto* buttons = new Buttons(tr("Bierstil hinzufügen"), tr("Bierstil kopieren"), tr("Bierstil löschen"),
+                              tr("Bierstil importieren"), tr("Bierstil exportieren"), tr("Speichern"), tr("Abbrechen"));
   QObject::connect(buttons->btnAdd, &QPushButton::clicked, this, &StylesWindow::styleAdd);
   QObject::connect(buttons->btnCopy, &QPushButton::clicked, this, &StylesWindow::styleCopy);
   QObject::connect(buttons->btnDelete, &QPushButton::clicked, this, &StylesWindow::styleDelete);
@@ -125,9 +122,9 @@ void StylesWindow::styleImport() {
   if (saveChangesDialog() == QMessageBox::Cancel) {
     return;  // user cancelation => do nothing
   }
-  QString path = QFileDialog::getOpenFileName(this, tr("Bierstil importieren"),
-                                              QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
-                                              tr("JSON (*.json);; Any (*.*)"));
+  const QString path = QFileDialog::getOpenFileName(this, tr("Bierstil importieren"),
+                                                    QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+                                                    tr("JSON (*.json);; Any (*.*)"));
   if (path.isEmpty()) {
     return;
   }
@@ -144,9 +141,10 @@ void StylesWindow::styleExport() {
   if (saveChangesDialog() == QMessageBox::Cancel) {
     return;  // user cancelation => do nothing
   }
-  QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
-                              styles.getStyle(selected)->getName() + ".json";
-  QString path = QFileDialog::getSaveFileName(this, tr("Bierstil exportieren"), suggestedFileName, "JSON (*.json)");
+  const QString suggestedFileName = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/" +
+                                    styles.getStyle(selected)->getName() + ".json";
+  const QString path =
+      QFileDialog::getSaveFileName(this, tr("Bierstil exportieren"), suggestedFileName, "JSON (*.json)");
   if (path.isEmpty()) {
     return;
   }
@@ -184,7 +182,7 @@ void StylesWindow::styleSelect(const QModelIndex& index) {
 
 int StylesWindow::saveChangesDialog() {
   if (styles.isChanged() || styles.getStyle(selected)->isChanged()) {
-    int ret = Dialogs::saveChanges(
+    const int ret = Dialogs::saveChanges(
         tr("Änderungen speichern?"),
         tr("Bierstil \"%1\" hat ungespeicherte Änderungen").arg(styles.getStyle(selected)->getName()));
     //  save or discard
@@ -193,11 +191,11 @@ int StylesWindow::saveChangesDialog() {
         styles.save();
         break;
       case QMessageBox::Discard:
+      default:
         styles.load();  // discard changes
         break;
     }
     return ret;
-  } else {
-    return 0;
   }
+  return 0;
 }

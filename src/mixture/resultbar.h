@@ -33,7 +33,7 @@ class ResultBar : public QWidget {
   /**
    * @brief Disable style baed limit for this value
    */
-  void setNoStyle(void);
+  void setNoStyle();
 
   /**
    * @brief Set current value
@@ -48,23 +48,24 @@ class ResultBar : public QWidget {
   void paintEvent(QPaintEvent* event) override;
 
  private:
-  void updateMinMax(void);      /**< @brief Update gMin and gMax */
-  float val2graph(float value); /**< @brief trans form value into graph coordinate */
+  void updateMinMax();                            /**< @brief Update gMin and gMax */
+  [[nodiscard]] int val2graph(float value) const; /**< @brief trans form value into graph coordinate */
 
-  static inline int width = 122; /**< @brief width of result bar in pixel */
-  static inline int height = 20; /**< @brief height of result bar in pixel */
+  // Some constants
+  static const int width = 122; /**< @brief width of result bar in pixel */
+  static const int height = 20; /**< @brief height of result bar in pixel */
 
-  float gMin;       /**< @brief minimum value displayed in graph */
-  float lMin;       /**< @brief minimum from settings */
-  float sMin;       /**< @brief minimum from style */
-  float target;     /**< @brief target from style */
-  float sMax;       /**< @brief maximum from style */
-  float lMax;       /**< @brief maximum from settings */
-  float gMax;       /**< @brief maximum value displayed in graph */
-  float value;      /**< @brief value to be displayed */
-  bool negative;    /**< @brief negative values are valid */
-  bool logarithmic; /**< @brief logarithmic scale */
-  bool style;       /**< @brief Indicates if a style is set */
+  float gMin{0};           /**< @brief minimum value displayed in graph */
+  float lMin{0};           /**< @brief minimum from settings */
+  float sMin{0};           /**< @brief minimum from style */
+  float target{0};         /**< @brief target from style */
+  float sMax{0};           /**< @brief maximum from style */
+  float lMax{0};           /**< @brief maximum from settings */
+  float gMax{0};           /**< @brief maximum value displayed in graph */
+  float value{0};          /**< @brief value to be displayed */
+  bool negative{false};    /**< @brief negative values are valid */
+  bool logarithmic{false}; /**< @brief logarithmic scale */
+  bool style{false};       /**< @brief Indicates if a style is set */
 };
 
 #endif  // RESULTBAR_H

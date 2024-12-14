@@ -5,6 +5,7 @@
 
 Water::Water() {
   if (translatableStrings[0].isEmpty()) {
+    // NOLINTBEGIN(*-magic-numbers)
     translatableStrings[0] = QObject::tr("Volumen");
     translatableStrings[1] = QObject::tr("Calcium");
     translatableStrings[2] = QObject::tr("Magnesium");
@@ -21,13 +22,14 @@ Water::Water() {
     translatableStrings[13] = QObject::tr("Ca-Härte");
     translatableStrings[14] = QObject::tr("Mg-Härte");
     translatableStrings[15] = QObject::tr("SO₄/Cl-Verhältnis");
+    // NOLINTEND(*-magic-numbers)
   }
 }
 
 Water::Water(QString name, float volume, float calzium, float magnesium, float natrium, float hydrogencarbonat,
              float chlorid, float sulfat, float phosphat, float lactat)
-    : Meta(name) {
-  Water();
+    : Water() {
+  this->setName(name);
   values[static_cast<uint>(Value::Volume)] = volume;
   values[static_cast<uint>(Value::Calcium)] = calzium;
   values[static_cast<uint>(Value::Magnesium)] = magnesium;
@@ -39,8 +41,7 @@ Water::Water(QString name, float volume, float calzium, float magnesium, float n
   values[static_cast<uint>(Value::Lactat)] = lactat;
 }
 
-Water::Water(const QJsonObject& json) {
-  Water();
+Water::Water(const QJsonObject& json) : Water() {
   fromJson(json);
 }
 
@@ -79,7 +80,7 @@ void Water::set(Value what, float value) {
 };
 
 bool Water::fromJson(const QJsonObject& json) {
-  bool ret = Meta::fromJson(json);
+  const bool ret = Meta::fromJson(json);
   for (int i = 0; i <= static_cast<int>(Value::LastAnion); i++) {
     const QString& key = waterStrings[i][static_cast<int>(Idx::JsonKey)];
     values[i] = json[key].toDouble(0);
@@ -104,9 +105,9 @@ QJsonObject Water::profileToJson() const {
 }
 
 Water& Water::operator+=(const Water& rhs) {
-  float volThis = this->values[static_cast<uint>(Value::Volume)];
-  float volRhs = rhs.values[static_cast<uint>(Value::Volume)];
-  float volSum = volThis + volRhs;
+  const float volThis = this->values[static_cast<uint>(Value::Volume)];
+  const float volRhs = rhs.values[static_cast<uint>(Value::Volume)];
+  const float volSum = volThis + volRhs;
   if (volSum == 0) {  // avoid zero division
     return *this;
   }
@@ -139,15 +140,15 @@ float Water::calculateGesamthaerte() const {
 }
 
 float Water::calculateCaHaerte() const {
-  return 0.14 * get(Value::Calcium);
+  return 0.14 * get(Value::Calcium);  // NOLINT(*-magic-numbers)
 }
 
 float Water::calculateMgHaerte() const {
-  return 0.23 * get(Value::Magnesium);
+  return 0.23 * get(Value::Magnesium);  // NOLINT(*-magic-numbers)
 }
 
 float Water::calculateCarbonhaerte() const {
-  return get(Value::Hydrogencarbonat) / 61.017 * 2.8;
+  return get(Value::Hydrogencarbonat) / 61.017 * 2.8;  // NOLINT(*-magic-numbers)
 }
 
 float Water::calculateNichtCarbonhaerte() const {
@@ -155,12 +156,12 @@ float Water::calculateNichtCarbonhaerte() const {
 }
 
 float Water::calculateSO4ClVerhaeltnis() const {
-  if (get(Value::Chlorid) != 0)
+  if (get(Value::Chlorid) != 0) {
     return get(Value::Sulfat) / get(Value::Chlorid);
-  else
-    return HUGE_VAL;
+  }
+  return HUGE_VAL;
 }
 
 float Water::calculateRestalkalitaet() const {
-  return calculateCarbonhaerte() - calculateCaHaerte() / 3.5 - calculateMgHaerte() / 7;
+  return calculateCarbonhaerte() - calculateCaHaerte() / 3.5 - calculateMgHaerte() / 7;  // NOLINT(*-magic-numbers)
 }
