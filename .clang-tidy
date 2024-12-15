@@ -17,9 +17,7 @@ Checks: >
   readability-*,
   -readability-identifier-length,
   -readability-redundant-access-specifiers,
-  -readability-static-accessed-through-instance,
-  -*-avoid-c-arrays,
-  -cppcoreguidelines-pro-bounds-constant-array-index
+  -readability-static-accessed-through-instance
 
 # checks after -readability-static-accessed-through-instance are temporary disabled
 # use .clang-format fiel

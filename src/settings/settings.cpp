@@ -37,7 +37,7 @@ bool Settings::fromJson(const QJsonObject& json) {
   // start at index 1 to skip volume
   for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // get sub object
-    const QJsonValue setting = jSettings[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]];
+    const QJsonValue setting = jSettings[Water::strJsonKey.at(i)];
     limits[i][0] = setting["Min"].toDouble(0);
     limits[i][1] = setting["Max"].toDouble(0);
     negative[i] = setting["AllowNegative"].toBool(false);
@@ -59,7 +59,7 @@ QJsonObject Settings::toJson() const {
     setting["AllowNegative"] = negative[i];
     setting["LogarithmicScale"] = logarithmic[i];
     // add object to main json
-    inner[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]] = setting;
+    inner[Water::strJsonKey.at(i)] = setting;
   }
   QJsonObject outer;
   outer["Settings"] = inner;
@@ -188,11 +188,10 @@ QVariant Settings::headerData(int section, Qt::Orientation orientation, int role
   } else {
     const int idx = section + 1;  // skip volume
     if (idx > 0 && idx < static_cast<int>(Water::Value::Size)) {
-      if (!Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)].isEmpty()) {
-        return Water::translatableStrings[idx] + " (" + Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)] +
-               ")";
+      if (!Water::strUnit.at(idx).isEmpty()) {
+        return Water::strTranslate.at(idx) + " (" + Water::strUnit.at(idx) + ")";
       }
-      return Water::translatableStrings[idx];
+      return Water::strTranslate.at(idx);
     }
   }
   return {};

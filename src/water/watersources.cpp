@@ -74,7 +74,7 @@ void WaterSources::updateProfile(Water& profile, int i) {
 }
 
 void WaterSources::addProfile(const Water& profile) {
-  const int i = sources.size();
+  const int i = sources.size();  // NOLINT(*-narrowing-conversions): beginInsertRows requires int
   beginInsertRows(QModelIndex(), i, i);
   sources.append(profile);
   emit dataModified();
@@ -92,7 +92,7 @@ void WaterSources::deleteProfile(int i) {
 
 int WaterSources::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return sources.size();
+  return sources.size();  // NOLINT(*-narrowing-conversions): using int because of QAbstractTableModel
 }
 
 int WaterSources::columnCount(const QModelIndex& parent) const {

@@ -206,19 +206,17 @@ void WaterProfileEdit::addEditableValue(int row, QDoubleSpinBox* spinBox, Water:
   spinBox->setDecimals(2);
   spinBox->setMinimum(0);
   spinBox->setMaximum(999);  // NOLINT(*-magic-numbers)
-  auto* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
+  auto* txt = new QLabel(Water::strTranslate.at(static_cast<uint>(what)));
   txt->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(spinBox, row, 1, Qt::AlignRight);
-  layout->addWidget(new QLabel(Water::waterStrings[static_cast<uint>(what)][static_cast<uint>(Water::Idx::Unit)]), row,
-                    2, Qt::AlignLeft);
+  layout->addWidget(new QLabel(Water::strUnit.at(static_cast<uint>(what))), row, 2, Qt::AlignLeft);
 }
 
 void WaterProfileEdit::addCalculatedValue(int row, QLabel* value, Water::Value what) {
-  auto* txt = new QLabel(Water::translatableStrings[static_cast<uint>(what)]);
+  auto* txt = new QLabel(Water::strTranslate.at(static_cast<uint>(what)));
   txt->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   layout->addWidget(txt, row, 0, Qt::AlignLeft);
   layout->addWidget(value, row, 1, Qt::AlignRight);
-  layout->addWidget(new QLabel(Water::waterStrings[static_cast<uint>(what)][static_cast<uint>(Water::Idx::Unit)]), row,
-                    2, Qt::AlignLeft);
+  layout->addWidget(new QLabel(Water::strUnit.at(static_cast<uint>(what))), row, 2, Qt::AlignLeft);
 }

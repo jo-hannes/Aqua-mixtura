@@ -505,82 +505,82 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/water/water.cpp" line="9"/>
+        <location filename="../src/water/water.cpp" line="11"/>
         <source>Volumen</source>
         <translation>Volumen</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="10"/>
+        <location filename="../src/water/water.cpp" line="12"/>
         <source>Calcium</source>
         <translation>Calcium</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="11"/>
+        <location filename="../src/water/water.cpp" line="13"/>
         <source>Magnesium</source>
         <translation>Magnesium</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="12"/>
+        <location filename="../src/water/water.cpp" line="14"/>
         <source>Natrium</source>
         <translation>Natrium</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="13"/>
+        <location filename="../src/water/water.cpp" line="15"/>
         <source>Hydrogencarbonat</source>
         <translation>Hydrogencarbonat</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="14"/>
+        <location filename="../src/water/water.cpp" line="16"/>
         <source>Chlorid</source>
         <translation>Chlorid</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="15"/>
+        <location filename="../src/water/water.cpp" line="17"/>
         <source>Sulfat</source>
         <translation>Sulfat</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="16"/>
+        <location filename="../src/water/water.cpp" line="18"/>
         <source>Phosphat</source>
         <translation>Phosphat</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="17"/>
+        <location filename="../src/water/water.cpp" line="19"/>
         <source>Lactat</source>
         <translation>Lactat</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="18"/>
+        <location filename="../src/water/water.cpp" line="20"/>
         <source>Restalkalität</source>
         <translation>Restalkalität</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="19"/>
+        <location filename="../src/water/water.cpp" line="21"/>
         <source>Gesamthärte</source>
         <translation>Gesamthärte</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="20"/>
+        <location filename="../src/water/water.cpp" line="22"/>
         <source>Carbonhärte</source>
         <translation>Carbonhärte</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="21"/>
+        <location filename="../src/water/water.cpp" line="23"/>
         <source>Nichtcarbonhärte</source>
         <translation>Nichtcarbonhärte</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="22"/>
+        <location filename="../src/water/water.cpp" line="24"/>
         <source>Ca-Härte</source>
         <translation>Ca-Härte</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="23"/>
+        <location filename="../src/water/water.cpp" line="25"/>
         <source>Mg-Härte</source>
         <translation>Mg-Härte</translation>
     </message>
     <message>
-        <location filename="../src/water/water.cpp" line="24"/>
+        <location filename="../src/water/water.cpp" line="26"/>
         <source>SO₄/Cl-Verhältnis</source>
         <translation>SO₄/Cl-Verhältnis</translation>
     </message>

@@ -41,39 +41,30 @@ class Water : public Meta {
     Size
   };
 
-  /**
-   * @brief Index for 2nd dimension of waterStrings
-   */
-  enum class Idx { JsonKey = 0, Unit };
-
   // clang-format off
-  
+  // Strings with json key, unit, ...
   // Need to match order of WaterValue enum
-  // Strings are: json key, unit, ...
-  inline static const QString waterStrings[static_cast<int>(Value::Size)][2] = {
-      {"Volume",            "l"},
-      {"ca",                "mg/l"},
-      {"mg",                "mg/l"},
-      {"na",                "mg/l"},
-      {"hco3",              "mg/l"},
-      {"cl",                "mg/l"},
-      {"so4",               "mg/l"},
-      {"h2po4",             "mg/l"},
-      {"c3h5o3",            "mg/l"},
-      {"Restalkalitaet",    "°dH"},
-      {"Gesamthaerte",      "°dH"},
-      {"Carbonhaerte",      "°dH"},
-      {"NichtCarbonhaerte", "°dH"},
-      {"CaHaerte",          "°dH"},
-      {"MgHaerte",          "°dH"},
-      {"SO4ClVerhaeltnis",  ""}
+  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  inline static const std::array<QString, static_cast<int>(Value::Size)> strJsonKey{
+    "Volume",
+    "ca", "mg", "na", "hco3", "cl", "so4", "h2po4", "c3h5o3",
+    "Restalkalitaet", "Gesamthaerte", "Carbonhaerte", "NichtCarbonhaerte", "CaHaerte", "MgHaerte",
+    "SO4ClVerhaeltnis"
+  };
+  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  inline static const std::array<QString, static_cast<int>(Value::Size)> strUnit{
+    "l",
+    "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l",
+    "°dH", "°dH", "°dH", "°dH", "°dH", "°dH",
+    ""
   };
   // clang-format on
 
   /**
    * @brief Translatable Water strings
    */
-  inline static QString translatableStrings[static_cast<int>(Value::Size)];
+  // inline static QString translatableStrings[static_cast<int>(Value::Size)];
+  inline static std::array<QString, static_cast<int>(Value::Size)> strTranslate;
 
   Water();
   explicit Water(QString name, double volume = 0, double calzium = 0, double magnesium = 0, double natrium = 0,
@@ -153,7 +144,7 @@ class Water : public Meta {
    */
   [[nodiscard]] double calculateRestalkalitaet() const;
 
-  double values[static_cast<int>(Value::LastAnion) + 1];
+  std::array<double, static_cast<int>(Value::LastAnion) + 1> values{};
 };
 
 #endif  // WATER_H

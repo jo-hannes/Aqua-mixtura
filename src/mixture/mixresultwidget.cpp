@@ -31,12 +31,12 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
     ++row;
     // Description
-    layout->addWidget(new QLabel(Water::translatableStrings[i]), row, 0);
+    layout->addWidget(new QLabel(Water::strTranslate.at(i)), row, 0);
     // value
     vals[i] = new QLabel();
     layout->addWidget(vals[i], row, 1, Qt::AlignRight);
     // Unit
-    layout->addWidget(new QLabel(Water::waterStrings[i][static_cast<int>(Water::Idx::Unit)]), row, 2, Qt::AlignLeft);
+    layout->addWidget(new QLabel(Water::strUnit.at(i)), row, 2, Qt::AlignLeft);
     // Bars
     if (i != static_cast<int>(Water::Value::Volume)) {
       bars[i] = new ResultBar();

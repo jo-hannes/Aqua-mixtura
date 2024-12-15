@@ -3,25 +3,27 @@
 
 #include "water.h"
 
+#include <cassert>
+
 Water::Water() {
-  if (translatableStrings[0].isEmpty()) {
+  if (strTranslate[0].isEmpty()) {
     // NOLINTBEGIN(*-magic-numbers)
-    translatableStrings[0] = QObject::tr("Volumen");
-    translatableStrings[1] = QObject::tr("Calcium");
-    translatableStrings[2] = QObject::tr("Magnesium");
-    translatableStrings[3] = QObject::tr("Natrium");
-    translatableStrings[4] = QObject::tr("Hydrogencarbonat");
-    translatableStrings[5] = QObject::tr("Chlorid");
-    translatableStrings[6] = QObject::tr("Sulfat");
-    translatableStrings[7] = QObject::tr("Phosphat");
-    translatableStrings[8] = QObject::tr("Lactat");
-    translatableStrings[9] = QObject::tr("Restalkalität");
-    translatableStrings[10] = QObject::tr("Gesamthärte");
-    translatableStrings[11] = QObject::tr("Carbonhärte");
-    translatableStrings[12] = QObject::tr("Nichtcarbonhärte");
-    translatableStrings[13] = QObject::tr("Ca-Härte");
-    translatableStrings[14] = QObject::tr("Mg-Härte");
-    translatableStrings[15] = QObject::tr("SO₄/Cl-Verhältnis");
+    strTranslate[0] = QObject::tr("Volumen");
+    strTranslate[1] = QObject::tr("Calcium");
+    strTranslate[2] = QObject::tr("Magnesium");
+    strTranslate[3] = QObject::tr("Natrium");
+    strTranslate[4] = QObject::tr("Hydrogencarbonat");
+    strTranslate[5] = QObject::tr("Chlorid");
+    strTranslate[6] = QObject::tr("Sulfat");
+    strTranslate[7] = QObject::tr("Phosphat");
+    strTranslate[8] = QObject::tr("Lactat");
+    strTranslate[9] = QObject::tr("Restalkalität");
+    strTranslate[10] = QObject::tr("Gesamthärte");
+    strTranslate[11] = QObject::tr("Carbonhärte");
+    strTranslate[12] = QObject::tr("Nichtcarbonhärte");
+    strTranslate[13] = QObject::tr("Ca-Härte");
+    strTranslate[14] = QObject::tr("Mg-Härte");
+    strTranslate[15] = QObject::tr("SO₄/Cl-Verhältnis");
     // NOLINTEND(*-magic-numbers)
   }
 }
@@ -45,10 +47,13 @@ Water::Water(const QJsonObject& json) : Water() {
   fromJson(json);
 }
 
+// NOLINTBEGIN(misc-no-recursion)
+// get is called by calculate*() functions but this is no real recursion
 double Water::get(Value what) const {
   // stored values
-  if (what <= Value::LastAnion) {
-    return values[static_cast<uint>(what)];
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < values.size()) {
+    return values.at(idx);
   }
   // calculated values
   switch (what) {
@@ -73,17 +78,19 @@ double Water::get(Value what) const {
 
 void Water::set(Value what, double value) {
   // only stored values
-  if (what <= Value::LastAnion) {
-    values[static_cast<uint>(what)] = value;
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < values.size()) {
+    values[idx] = value;  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): idx is checked
     updateEditTime();
   }
 };
 
 bool Water::fromJson(const QJsonObject& json) {
   const bool ret = Meta::fromJson(json);
-  for (int i = 0; i <= static_cast<int>(Value::LastAnion); i++) {
-    const QString& key = waterStrings[i][static_cast<int>(Idx::JsonKey)];
-    values[i] = json[key].toDouble(0);
+  assert(strJsonKey.size() >= values.size());
+  for (uint i = 0; i < values.size(); i++) {
+    const QString& key = strJsonKey.at(i);
+    values[i] = json[key].toDouble(0);  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): i < values.size()
   }
   return ret;
 }
@@ -91,16 +98,16 @@ bool Water::fromJson(const QJsonObject& json) {
 QJsonObject Water::toJson() const {
   QJsonObject json;
   Meta::toJson(json);
-  for (int i = 0; i <= static_cast<int>(Value::LastAnion); i++) {
-    const QString& key = waterStrings[i][static_cast<int>(Idx::JsonKey)];
-    json[key] = values[i];
+  for (uint i = 0; i < values.size(); i++) {
+    const QString& key = strJsonKey.at(i);
+    json[key] = values.at(i);
   }
   return json;
 }
 
 QJsonObject Water::profileToJson() const {
   QJsonObject json = toJson();
-  json.remove("Volume");  // no volue in profile
+  json.remove("Volume");  // no volume in profile
   return json;
 }
 
@@ -111,7 +118,8 @@ Water& Water::operator+=(const Water& rhs) {
   if (volSum == 0) {  // avoid zero division
     return *this;
   }
-  for (int i = static_cast<uint>(Value::Volume) + 1; i <= static_cast<int>(Value::LastAnion); i++) {
+  for (uint i = static_cast<uint>(Value::Volume) + 1; i < this->values.size(); i++) {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < values.size()
     this->values[i] = (this->values[i] * volThis + rhs.values[i] * volRhs) / volSum;
   }
   this->values[static_cast<uint>(Value::Volume)] = volSum;
@@ -165,3 +173,4 @@ double Water::calculateSO4ClVerhaeltnis() const {
 double Water::calculateRestalkalitaet() const {
   return calculateCarbonhaerte() - calculateCaHaerte() / 3.5 - calculateMgHaerte() / 7;  // NOLINT(*-magic-numbers)
 }
+// NOLINTEND(misc-no-recursion)

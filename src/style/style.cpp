@@ -23,7 +23,7 @@ bool Style::fromJson(const QJsonObject& json) {
   // start at index 1 to skip volume
   for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // get sub object
-    const QJsonValue limit = json[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]];
+    const QJsonValue limit = json[Water::strJsonKey.at(i)];
     limited[i] = limit.isObject();
     for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
       limits[i][j] = limit[jsonKeys[j]].toDouble(0);
@@ -48,7 +48,7 @@ QJsonObject Style::toJson() const {
       limit[jsonKeys[j]] = limits[i][j];
     }
     // add object to main json
-    json[Water::waterStrings[i][static_cast<int>(Water::Idx::JsonKey)]] = limit;
+    json[Water::strJsonKey.at(i)] = limit;
   }
   return json;
 }
@@ -158,11 +158,10 @@ QVariant Style::headerData(int section, Qt::Orientation orientation, int role) c
   } else {
     const int idx = section + 1;  // skip volume
     if (idx > 0 && idx < static_cast<int>(Water::Value::Size)) {
-      if (!Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)].isEmpty()) {
-        return Water::translatableStrings[idx] + " (" + Water::waterStrings[idx][static_cast<int>(Water::Idx::Unit)] +
-               ")";
+      if (!Water::strUnit.at(idx).isEmpty()) {
+        return Water::strTranslate.at(idx) + " (" + Water::strUnit.at(idx) + ")";
       }
-      return Water::translatableStrings[idx];
+      return Water::strTranslate.at(idx);
     }
   }
   return {};
