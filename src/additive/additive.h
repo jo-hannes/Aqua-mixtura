@@ -36,27 +36,20 @@ class Additive : public QObject, public Meta {
     Size
   };
 
-  /**
-   * @brief Index for 2nd dimension of strings
-   */
-  enum class StringIdx { JsonKey = 0, Formula };
-
-  /**
-   * @brief Additive specific strings
-   */
-  // clang-tidy is right but without this strings programm will not run and it is very unlikely QString will throw
-  // NOLINTNEXTLINE(cert-err58-cpp)
-  inline static const QString strings[static_cast<int>(Value::Size)][2] = {
-      {"c3h6o3", "C₃H₆O₃"},    {"hcl", "HCl"},          {"h2so4", "H₂SO₄"}, {"h3po4", "H₃PO₄"},
-      {"caso4", "CaSO₄ 2H₂O"}, {"cacl2", "CaCl₂ 2H₂O"}, {"nacl", "NaCl"},   {"nahco3", "NaHCO₃"},
-      {"mgcl2", "MgCl₂ 6H₂O"}, {"mgso4", "MgSO₄ 7H₂O"}, {"caco3", "CaCO₃"},
-  };
+  // clang-format off
+  // NOLINTBEGIN(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  inline static const std::array<QString, static_cast<int>(Value::Size)> strJsonKey{
+      "c3h6o3", "hcl", "h2so4", "h3po4", "caso4",      "cacl2",      "nacl", "nahco3", "mgcl2",      "mgso4",      "caco3"};
+  inline static const std::array<QString, static_cast<int>(Value::Size)> strFormula{
+      "C₃H₆O₃", "HCl", "H₂SO₄", "H₃PO₄", "CaSO₄ 2H₂O", "CaCl₂ 2H₂O", "NaCl", "NaHCO₃", "MgCl₂ 6H₂O", "MgSO₄ 7H₂O", "CaCO₃"};
+  // NOLINTEND(cert-err58-cpp)
+  // clang-format on
 
   /**
    * @brief Translatable Additive strings
    * These cant be const or translations wont work here.
    */
-  inline static QString translatableStrings[static_cast<int>(Value::Size)];
+  inline static std::array<QString, static_cast<int>(Value::Size)> strTranslate;
 
   Additive();
   explicit Additive(const QJsonObject& json); /**< @brief Create Additive from JSON */
@@ -91,7 +84,7 @@ class Additive : public QObject, public Meta {
    *
    * Amount of mg added or removed per added g of additive
    */
-  inline static const double calculationMatrix[static_cast<int>(Value::Size)][static_cast<int>(Water::Value::LastAnion) + 1] = {
+  inline static const std::array<std::array<double, static_cast<int>(Water::Value::LastAnion) + 1>, static_cast<int>(Value::Size)> calculationMatrix = {{
 // Volume Calcium Magnesium Natrium Hydrogencarbonat Chlorid  Sulfat Phosphat  Lactat
     {  0,      0,        0,      0,         -677.37,      0,      0,       0, 988.81}, // c3h6o3
     {  0,      0,        0,      0,        -1673.60, 972.35,      0,       0,      0}, // hcl
@@ -104,7 +97,7 @@ class Additive : public QObject, public Meta {
     {  0,      0,   119.55,      0,               0, 348.75,      0,       0,      0}, // mgcl2
     {  0,      0,    98.61,      0,               0,      0, 389.71,       0,      0}, // mgso4
     {  0, 400.42,        0,      0,         1219.22,      0,      0,       0,      0}  // caco3
-  };
+  }};
   // clang-format on
 };
 

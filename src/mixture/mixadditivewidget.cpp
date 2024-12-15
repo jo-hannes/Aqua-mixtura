@@ -37,9 +37,9 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
 
   // liquids
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    auto* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)], this);
+    auto* formula = new QLabel(Additive::strFormula.at(i), this);
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
-    auto* txt = new QLabel(Additive::translatableStrings[i], this);
+    auto* txt = new QLabel(Additive::strTranslate.at(i), this);
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
     layout->addWidget(percents[i], row, 2, Qt::AlignRight);
     layout->addWidget(amounts[i], row, 3, Qt::AlignRight);
@@ -56,9 +56,9 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
 
   // solids
   for (int i = static_cast<int>(Additive::Value::lastLiquid) + 1; i < static_cast<int>(Additive::Value::Size); i++) {
-    auto* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)], this);
+    auto* formula = new QLabel(Additive::strFormula.at(i), this);
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
-    auto* txt = new QLabel(Additive::translatableStrings[i], this);
+    auto* txt = new QLabel(Additive::strTranslate.at(i), this);
     // layout->addWidget(txt, row, 1, 1, 2, Qt::AlignLeft);
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
     layout->addWidget(amounts[i], row, 3, Qt::AlignRight);

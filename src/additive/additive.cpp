@@ -4,19 +4,19 @@
 #include "additive.h"
 
 Additive::Additive() : changed{false} {
-  if (translatableStrings[0].isEmpty()) {
+  if (strTranslate[0].isEmpty()) {
     // NOLINTBEGIN(*-magic-numbers)
-    translatableStrings[0] = tr("Milchsäure");
-    translatableStrings[1] = tr("Salzsäure");
-    translatableStrings[2] = tr("Schwefelsäure");
-    translatableStrings[3] = tr("Phosphorsäure");
-    translatableStrings[4] = tr("Calciumsulfat (Braugips)");
-    translatableStrings[5] = tr("Calciumchlorid");
-    translatableStrings[6] = tr("Natriumchlorid (Kochsalz)");
-    translatableStrings[7] = tr("Natriumhydrogencarbonat (Natron)");
-    translatableStrings[8] = tr("Magnesiumchlorid");
-    translatableStrings[9] = tr("Magnesiumsulfat");
-    translatableStrings[10] = tr("Calciumcarbonat");
+    strTranslate[0] = tr("Milchsäure");
+    strTranslate[1] = tr("Salzsäure");
+    strTranslate[2] = tr("Schwefelsäure");
+    strTranslate[3] = tr("Phosphorsäure");
+    strTranslate[4] = tr("Calciumsulfat (Braugips)");
+    strTranslate[5] = tr("Calciumchlorid");
+    strTranslate[6] = tr("Natriumchlorid (Kochsalz)");
+    strTranslate[7] = tr("Natriumhydrogencarbonat (Natron)");
+    strTranslate[8] = tr("Magnesiumchlorid");
+    strTranslate[9] = tr("Magnesiumsulfat");
+    strTranslate[10] = tr("Calciumcarbonat");
     // NOLINTEND(*-magic-numbers)
   }
 }
@@ -56,10 +56,9 @@ bool Additive::fromJson(const QJsonObject& json) {
 
   for (uint i = 0; i < amount.size(); i++) {
     // i is inside range of array
-    // NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
-    const QString jsonKey = strings[i][static_cast<uint>(StringIdx::JsonKey)];
+    const QString jsonKey = strJsonKey.at(i);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < amount.size()
     amount[i] = additives[jsonKey].toDouble(0);
-    // NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
   }
   setChanged(false);
   return true;
@@ -69,10 +68,9 @@ QJsonObject Additive::toJson() const {
   QJsonObject inner;
   Meta::toJson(inner);
   for (uint i = 0; i < amount.size(); i++) {
-    // NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
-    const QString jsonKey = strings[i][static_cast<uint>(StringIdx::JsonKey)];
+    const QString jsonKey = strJsonKey.at(i);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index)
     inner[jsonKey] = amount[i];
-    // NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
   }
   QJsonObject outer;
   outer["WaterAdditives"] = inner;
@@ -81,8 +79,10 @@ QJsonObject Additive::toJson() const {
 
 Water Additive::operator+(const Water& rhs) const {
   // first just copy values
-  double values[static_cast<int>(Water::Value::LastAnion) + 1];
-  for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
+  std::array<double, calculationMatrix[0].size()> values{};
+  // double values[static_cast<int>(Water::Value::LastAnion) + 1];
+  for (uint w = 0; w < values.size(); w++) {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): w < values.size()
     values[w] = rhs.get(static_cast<Water::Value>(w));
   }
 
@@ -90,20 +90,20 @@ Water Additive::operator+(const Water& rhs) const {
   const double volume = rhs.get(Water::Value::Volume);
 
   // loop over all water values
-  for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
+  for (uint w = 0; w < calculationMatrix[0].size(); w++) {
     double mg = 0;  // mg added or removed
     // loop over all additive
-    for (int a = 0; a < static_cast<int>(Value::Size); a++) {
-      mg += amount[a] * calculationMatrix[a][w];
+    for (uint a = 0; a < calculationMatrix.size(); a++) {
+      mg += amount[a] * calculationMatrix[a][w];  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index)
     }
     // add it to the water
-    values[w] += mg / volume;
+    values[w] += mg / volume;  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): w < values.size()
   }
 
   // store calculated values in new water object
   Water result(rhs.getName());
   for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
-    result.set(static_cast<Water::Value>(w), values[w]);
+    result.set(static_cast<Water::Value>(w), values.at(w));
   }
   return result;
 }

@@ -38,7 +38,7 @@ bool AdditiveSettings::fromJson(const QJsonObject& json) {
     unit = LiquidUnit::gramm;
   }
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    const QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
+    const QString jsonKey = Additive::strJsonKey.at(i);
     concentration[i] = asettings[jsonKey].toDouble(0);
   }
   setChanged(false);
@@ -60,7 +60,7 @@ void AdditiveSettings::toJson(QJsonObject& json) const {
     inner["liquidUnit"] = "gramm";
   }
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    const QString jsonKey = Additive::strings[i][static_cast<uint>(Additive::StringIdx::JsonKey)];
+    const QString jsonKey = Additive::strJsonKey.at(i);
     inner[jsonKey] = concentration[i];
   }
   json["AdditiveSettings"] = inner;

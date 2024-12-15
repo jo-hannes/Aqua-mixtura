@@ -26,9 +26,9 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
 
   // liquid concentrations
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    auto* formula = new QLabel(Additive::strings[i][static_cast<uint>(Additive::StringIdx::Formula)]);
+    auto* formula = new QLabel(Additive::strFormula.at(i));
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
-    auto* txt = new QLabel(Additive::translatableStrings[i]);
+    auto* txt = new QLabel(Additive::strTranslate.at(i));
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
     concentrations[i] = new QDoubleSpinBox();
     concentrations[i]->setDecimals(0);
