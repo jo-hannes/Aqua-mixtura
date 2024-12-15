@@ -61,11 +61,11 @@ MaltPhEdit::MaltPhEdit(QWidget* parent) : QFrame{parent} {
   this->setLineWidth(2);
 }
 
-void MaltPhEdit::setPh(float newPh) {
+void MaltPhEdit::setPh(double newPh) {
   phSpinBox->setValue(newPh);
 }
 
-void MaltPhEdit::setEbc(float newEbc) {
+void MaltPhEdit::setEbc(double newEbc) {
   ebc = newEbc;
   // update ebc label
   ebcLabel->setText(QString::number(ebc, 'f', 2));
@@ -75,12 +75,12 @@ void MaltPhEdit::setEbc(float newEbc) {
   phRoestmalz->setText(QString::number(Malt::calcualtePhRoestmalz(), 'f', 2));
 }
 
-void MaltPhEdit::setData(float newPh, float newEbc) {
+void MaltPhEdit::setData(double newPh, double newEbc) {
   setPh(newPh);
   setEbc(newEbc);
 }
 
-float MaltPhEdit::pH() const {
+double MaltPhEdit::pH() const {
   phSpinBox->interpretText();
   return phSpinBox->value();
 }

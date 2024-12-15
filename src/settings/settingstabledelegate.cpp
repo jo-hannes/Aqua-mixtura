@@ -42,7 +42,7 @@ void SettingsTableDelegate::setEditorData(QWidget* editor, const QModelIndex& in
       break;
     }
     default: {
-      const float value = index.model()->data(index, Qt::DisplayRole).toFloat();
+      const double value = index.model()->data(index, Qt::DisplayRole).toDouble();
       auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->setValue(value);
       break;
@@ -62,7 +62,7 @@ void SettingsTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* mo
     default: {
       auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->interpretText();
-      const float value = doubleSpinBox->value();
+      const double value = doubleSpinBox->value();
       model->setData(index, value, Qt::EditRole);
       break;
     }

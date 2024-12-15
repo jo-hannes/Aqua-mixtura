@@ -13,10 +13,10 @@ class MaltPhEdit : public QFrame {
  public:
   explicit MaltPhEdit(QWidget* parent = nullptr);
 
-  void setPh(float newPh);
-  void setEbc(float newEbc);
-  void setData(float newPh, float newEbc);
-  [[nodiscard]] float pH() const;
+  void setPh(double newPh);
+  void setEbc(double newEbc);
+  void setData(double newPh, double newEbc);
+  [[nodiscard]] double pH() const;
 
  private slots:
   void usePhMalt();
@@ -24,7 +24,7 @@ class MaltPhEdit : public QFrame {
   void usePhRoestmalz();
 
  private:
-  float ebc{1};
+  double ebc{1};
 
   QLabel *phMalt, *phCaramalz, *phRoestmalz, *ebcLabel;
   QDoubleSpinBox* phSpinBox;

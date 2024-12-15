@@ -5,40 +5,40 @@
 
 #include <cmath>
 
-Malt::Malt(QString name, float mass, float ebc, float ph) : Meta(name), mass(mass), ebc(ebc), ph(ph) {}
+Malt::Malt(QString name, double mass, double ebc, double ph) : Meta(name), mass(mass), ebc(ebc), ph(ph) {}
 
 Malt::Malt(const QJsonObject& json) {  // NOLINT(*-member-init)
   fromJson(json);
 }
 
-float Malt::getMass() const {
+double Malt::getMass() const {
   return mass;
 }
 
-void Malt::setMass(float newMass) {
+void Malt::setMass(double newMass) {
   mass = newMass;
   updateEditTime();
 }
 
-float Malt::getEbc() const {
+double Malt::getEbc() const {
   return ebc;
 }
 
-void Malt::setEbc(float newEbc) {
+void Malt::setEbc(double newEbc) {
   ebc = newEbc;
   updateEditTime();
 }
 
-float Malt::getPh() const {
+double Malt::getPh() const {
   return ph;
 }
 
-void Malt::setPh(float newPh) {
+void Malt::setPh(double newPh) {
   ph = newPh;
   updateEditTime();
 }
 
-float Malt::calculatePh(float ebc, type type) {
+double Malt::calculatePh(double ebc, type type) {
   switch (type) {
     case upto200ebc:
       return Malt::calcualtePhUpTo200Ebc(ebc);
@@ -55,15 +55,15 @@ float Malt::calculatePh(float ebc, type type) {
   }
 }
 
-float Malt::calcualtePhUpTo200Ebc(float ebc) {
+double Malt::calcualtePhUpTo200Ebc(double ebc) {
   return -0.255 * log(ebc) + 6.156;  // NOLINT(*-magic-numbers)
 }
 
-float Malt::calcualtePhCaramalz(float ebc) {
+double Malt::calcualtePhCaramalz(double ebc) {
   return -0.289 * log(ebc) + 6.069;  // NOLINT(*-magic-numbers)
 }
 
-float Malt::calcualtePhRoestmalz() {
+double Malt::calcualtePhRoestmalz() {
   return 4.65;  // NOLINT(*-magic-numbers)
 }
 

@@ -66,28 +66,28 @@ QJsonObject Settings::toJson() const {
   return outer;
 }
 
-float Settings::getMin(Water::Value what) const {
+double Settings::getMin(Water::Value what) const {
   if (what < Water::Value::Size) {
     return limits[static_cast<uint>(what)][0];
   }
   return -1;
 }
 
-float Settings::getMax(Water::Value what) const {
+double Settings::getMax(Water::Value what) const {
   if (what < Water::Value::Size) {
     return limits[static_cast<uint>(what)][1];
   }
   return -1;
 }
 
-void Settings::setMin(Water::Value what, float value) {
+void Settings::setMin(Water::Value what, double value) {
   if (what < Water::Value::Size) {
     limits[static_cast<uint>(what)][0] = value;
     setChanged(true);
   }
 }
 
-void Settings::setMax(Water::Value what, float value) {
+void Settings::setMax(Water::Value what, double value) {
   if (what < Water::Value::Size) {
     limits[static_cast<uint>(what)][1] = value;
     setChanged(true);
@@ -214,7 +214,7 @@ bool Settings::setData(const QModelIndex& index, const QVariant& value, int role
   switch (col) {
     case 0:
     case 1:
-      limits[row][col] = value.toFloat();
+      limits[row][col] = value.toDouble();
       setChanged(true);
       return true;
     case 2:

@@ -64,14 +64,14 @@ Style* Style::copy() const {
   return copy;
 }
 
-float Style::get(Water::Value what, Limit limit) const {
+double Style::get(Water::Value what, Limit limit) const {
   if (what < Water::Value::Size && limit < Limit::Size) {
     return limits[static_cast<uint>(what)][static_cast<uint>(limit)];
   }
   return -1;
 }
 
-void Style::set(Water::Value what, Limit limit, float value) {
+void Style::set(Water::Value what, Limit limit, double value) {
   if (what < Water::Value::Size && limit < Limit::Size) {
     limits[static_cast<uint>(what)][static_cast<uint>(limit)] = value;
     updateEditTime();
@@ -189,7 +189,7 @@ bool Style::setData(const QModelIndex& index, const QVariant& value, int role) {
   }
   // values
   if (col > 0 && col < static_cast<int>(Limit::Size) + 1) {
-    limits[row][col - 1] = value.toFloat();
+    limits[row][col - 1] = value.toDouble();
     updateEditTime();
     changed = true;
     return true;

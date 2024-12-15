@@ -24,10 +24,10 @@ class Settings : public QAbstractTableModel, public Meta {
   [[nodiscard]] QJsonObject toJson() const;   /**< @brief convert Settings to JSON */
 
   // getter und setter
-  [[nodiscard]] float getMin(Water::Value what) const; /**< @brief get lower limit */
-  [[nodiscard]] float getMax(Water::Value what) const; /**< @brief get upper limit */
-  void setMin(Water::Value what, float value);         /**< @brief set lower limi */
-  void setMax(Water::Value what, float value);         /**< @brief set upper limit */
+  [[nodiscard]] double getMin(Water::Value what) const; /**< @brief get lower limit */
+  [[nodiscard]] double getMax(Water::Value what) const; /**< @brief get upper limit */
+  void setMin(Water::Value what, double value);         /**< @brief set lower limi */
+  void setMax(Water::Value what, double value);         /**< @brief set upper limit */
 
   [[nodiscard]] bool isNegativeAllowed(Water::Value what) const;  /**< @brief get if negative values are allowed */
   void setNegativeAllowed(Water::Value what, bool value);         /**< @brief set if negative values are allowed */
@@ -57,7 +57,7 @@ class Settings : public QAbstractTableModel, public Meta {
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
   bool changed{false};           /**< @brief True if changed but not saved */
 
-  float limits[static_cast<int>(Water::Value::Size)][2];
+  double limits[static_cast<int>(Water::Value::Size)][2];
   bool negative[static_cast<int>(Water::Value::Size)];
   bool logarithmic[static_cast<int>(Water::Value::Size)];
 };

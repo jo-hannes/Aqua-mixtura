@@ -172,13 +172,13 @@ bool Malts::setData(const QModelIndex& index, const QVariant& value, int role) {
       malts[index.row()].setName(value.toString());
       break;
     case 3:
-      malts[index.row()].setMass(value.toFloat());
+      malts[index.row()].setMass(value.toDouble());
       break;
     case 1:
-      malts[index.row()].setEbc(value.toFloat());
+      malts[index.row()].setEbc(value.toDouble());
       break;
     case 2:
-      malts[index.row()].setPh(value.toFloat());
+      malts[index.row()].setPh(value.toDouble());
       break;
     default:
       return false;

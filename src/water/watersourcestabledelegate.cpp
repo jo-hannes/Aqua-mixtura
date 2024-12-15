@@ -30,7 +30,7 @@ void WaterSourcesTableDelegate::setEditorData(QWidget* editor, const QModelIndex
   switch (index.column()) {
     case 2: {
       // Volume
-      const float value = index.model()->data(index, Qt::DisplayRole).toFloat();
+      const double value = index.model()->data(index, Qt::DisplayRole).toDouble();
       auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->setValue(value);
       break;
@@ -49,7 +49,7 @@ void WaterSourcesTableDelegate::setModelData(QWidget* editor, QAbstractItemModel
       // Volume
       auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->interpretText();
-      const float value = doubleSpinBox->value();
+      const double value = doubleSpinBox->value();
       model->setData(index, value, Qt::EditRole);
       break;
     }

@@ -33,10 +33,10 @@ class Style : public QAbstractTableModel, public Meta {
   [[nodiscard]] Style* copy() const; /**< @brief create a copy*/
 
   // getter und setter
-  [[nodiscard]] float get(Water::Value what, Limit limit) const; /**< @brief get requested value */
-  void set(Water::Value what, Limit limit, float value);         /**< @brief set given type with value */
-  [[nodiscard]] bool isLimited(Water::Value what) const;         /**< @brief is value limited */
-  void limit(Water::Value what, bool limit);                     /**< @brief Limit value */
+  [[nodiscard]] double get(Water::Value what, Limit limit) const; /**< @brief get requested value */
+  void set(Water::Value what, Limit limit, double value);         /**< @brief set given type with value */
+  [[nodiscard]] bool isLimited(Water::Value what) const;          /**< @brief is value limited */
+  void limit(Water::Value what, bool limit);                      /**< @brief Limit value */
 
   [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
   void setChanged(bool changed);        /**< @brief Set changed state */
@@ -55,7 +55,7 @@ class Style : public QAbstractTableModel, public Meta {
   bool changed{false}; /**< @brief True if changed but not saved */
 
   bool limited[static_cast<int>(Water::Value::Size)];
-  float limits[static_cast<int>(Water::Value::Size)][static_cast<int>(Limit::Size)];
+  double limits[static_cast<int>(Water::Value::Size)][static_cast<int>(Limit::Size)];
 
   static const inline QString jsonKeys[static_cast<int>(Limit::Size)] = {"Min", "Target", "Max"};
 };

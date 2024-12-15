@@ -66,7 +66,7 @@ void AdditiveSettings::toJson(QJsonObject& json) const {
   json["AdditiveSettings"] = inner;
 }
 
-float AdditiveSettings::getConcentration(Additive::Value what) const {
+double AdditiveSettings::getConcentration(Additive::Value what) const {
   // only liqids have a concentration
   if (what <= Additive::Value::lastLiquid) {
     return concentration[static_cast<uint>(what)];
@@ -75,7 +75,7 @@ float AdditiveSettings::getConcentration(Additive::Value what) const {
   return 100;  // not a liquid => concentration = 100%
 }
 
-void AdditiveSettings::setConcentration(Additive::Value what, float value) {
+void AdditiveSettings::setConcentration(Additive::Value what, double value) {
   if (what <= Additive::Value::lastLiquid) {
     if (value < 1) {
       value = 1;
@@ -96,7 +96,7 @@ void AdditiveSettings::setLiquidUnit(LiquidUnit newUnit) {
   setChanged(true);
 }
 
-float AdditiveSettings::getDensity(Additive::Value what) const {
+double AdditiveSettings::getDensity(Additive::Value what) const {
   // only liqids have a density
   if ((what <= Additive::Value::lastLiquid) && (unit == LiquidUnit::milliLiter)) {
     const uint idx = static_cast<uint>(what);

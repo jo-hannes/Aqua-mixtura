@@ -16,7 +16,7 @@ ResultBar::ResultBar(QWidget* parent) : QWidget{parent} {
   setFixedSize(width, height);
 }
 
-void ResultBar::setLimits(float min, float max, bool negative, bool logarithmic) {
+void ResultBar::setLimits(double min, double max, bool negative, bool logarithmic) {
   this->lMin = min;
   this->lMax = max;
   this->negative = negative;
@@ -24,7 +24,7 @@ void ResultBar::setLimits(float min, float max, bool negative, bool logarithmic)
   update();
 }
 
-void ResultBar::setStyle(float min, float target, float max) {
+void ResultBar::setStyle(double min, double target, double max) {
   this->sMin = min;
   this->target = target;
   this->sMax = max;
@@ -37,7 +37,7 @@ void ResultBar::setNoStyle() {
   update();
 }
 
-void ResultBar::setValue(float val) {
+void ResultBar::setValue(double val) {
   value = val;
 }
 
@@ -107,17 +107,17 @@ void ResultBar::paintEvent(QPaintEvent* event) {
     points[2] = QPoint(width - 10, height);
   } else {
     // in range
-    points[0] = QPoint(ind - 5, height);  // NOLINT(*-narrowing-conversions): float to int is indented
+    points[0] = QPoint(ind - 5, height);  // NOLINT(*-narrowing-conversions): double to int is indented
     points[1] = QPoint(ind, height / 2);
-    points[2] = QPoint(ind + 5, height);  // NOLINT(*-narrowing-conversions): float to int is indented
+    points[2] = QPoint(ind + 5, height);  // NOLINT(*-narrowing-conversions): double to int is indented
   }
   painter.drawPolygon(points, 3);  // NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 }
 
 void ResultBar::updateMinMax() {
-  float tMin = 0;
-  float tMax = 0;
-  float tDiff = 0;
+  double tMin = 0;
+  double tMax = 0;
+  double tDiff = 0;
   // first get min and max from limits and style
   if (style) {
     // first calculate max value displayed
@@ -138,9 +138,9 @@ void ResultBar::updateMinMax() {
   }
 }
 
-int ResultBar::val2graph(float value) const {
+int ResultBar::val2graph(double value) const {
   // TODO add support for logarithmic scale
-  const float gDiff = gMax - gMin;
+  const double gDiff = gMax - gMin;
   value -= gMin;
-  return value / gDiff * width;  // NOLINT(*-narrowing-conversions): float to int is indented
+  return value / gDiff * width;  // NOLINT(*-narrowing-conversions): double to int is indented
 }

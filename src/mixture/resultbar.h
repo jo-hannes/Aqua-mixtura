@@ -20,7 +20,7 @@ class ResultBar : public QWidget {
    * @param min Minimum value
    * @param max Maximum value
    */
-  void setLimits(float min, float max, bool negative, bool logarithmic);
+  void setLimits(double min, double max, bool negative, bool logarithmic);
 
   /**
    * @brief Set style limits
@@ -28,7 +28,7 @@ class ResultBar : public QWidget {
    * @param target Reccomended target value
    * @param max Maximum recommended value
    */
-  void setStyle(float min, float target, float max);
+  void setStyle(double min, double target, double max);
 
   /**
    * @brief Disable style baed limit for this value
@@ -39,7 +39,7 @@ class ResultBar : public QWidget {
    * @brief Set current value
    * @param val Value
    */
-  void setValue(float val);
+  void setValue(double val);
 
  signals:
 
@@ -48,21 +48,21 @@ class ResultBar : public QWidget {
   void paintEvent(QPaintEvent* event) override;
 
  private:
-  void updateMinMax();                            /**< @brief Update gMin and gMax */
-  [[nodiscard]] int val2graph(float value) const; /**< @brief trans form value into graph coordinate */
+  void updateMinMax();                             /**< @brief Update gMin and gMax */
+  [[nodiscard]] int val2graph(double value) const; /**< @brief trans form value into graph coordinate */
 
   // Some constants
   static const int width = 122; /**< @brief width of result bar in pixel */
   static const int height = 20; /**< @brief height of result bar in pixel */
 
-  float gMin{0};           /**< @brief minimum value displayed in graph */
-  float lMin{0};           /**< @brief minimum from settings */
-  float sMin{0};           /**< @brief minimum from style */
-  float target{0};         /**< @brief target from style */
-  float sMax{0};           /**< @brief maximum from style */
-  float lMax{0};           /**< @brief maximum from settings */
-  float gMax{0};           /**< @brief maximum value displayed in graph */
-  float value{0};          /**< @brief value to be displayed */
+  double gMin{0};          /**< @brief minimum value displayed in graph */
+  double lMin{0};          /**< @brief minimum from settings */
+  double sMin{0};          /**< @brief minimum from style */
+  double target{0};        /**< @brief target from style */
+  double sMax{0};          /**< @brief maximum from style */
+  double lMax{0};          /**< @brief maximum from settings */
+  double gMax{0};          /**< @brief maximum value displayed in graph */
+  double value{0};         /**< @brief value to be displayed */
   bool negative{false};    /**< @brief negative values are valid */
   bool logarithmic{false}; /**< @brief logarithmic scale */
   bool style{false};       /**< @brief Indicates if a style is set */

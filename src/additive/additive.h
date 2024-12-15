@@ -62,8 +62,8 @@ class Additive : public QObject, public Meta {
   explicit Additive(const QJsonObject& json); /**< @brief Create Additive from JSON */
 
   // setter and getter
-  [[nodiscard]] float get(Value what) const; /**< @brief get requested amount */
-  void set(Value what, float value);         /**< @brief set given type with amount */
+  [[nodiscard]] double get(Value what) const; /**< @brief get requested amount */
+  void set(Value what, double value);         /**< @brief set given type with amount */
 
   // JSON conversion
   bool fromJson(const QJsonObject& json);   /**< @brief Update Additive from JSON */
@@ -83,7 +83,7 @@ class Additive : public QObject, public Meta {
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
   bool changed;                  /**< @brief True if changed but not saved */
 
-  std::array<float, static_cast<int>(Value::Size)> amount{}; /**< @brief Effective amount in g */
+  std::array<double, static_cast<int>(Value::Size)> amount{}; /**< @brief Effective amount in g */
 
   // clang-format off
   /**
@@ -91,7 +91,7 @@ class Additive : public QObject, public Meta {
    *
    * Amount of mg added or removed per added g of additive
    */
-  inline static const float calculationMatrix[static_cast<int>(Value::Size)][static_cast<int>(Water::Value::LastAnion) + 1] = {
+  inline static const double calculationMatrix[static_cast<int>(Value::Size)][static_cast<int>(Water::Value::LastAnion) + 1] = {
 // Volume Calcium Magnesium Natrium Hydrogencarbonat Chlorid  Sulfat Phosphat  Lactat
     {  0,      0,        0,      0,         -677.37,      0,      0,       0, 988.81}, // c3h6o3
     {  0,      0,        0,      0,        -1673.60, 972.35,      0,       0,      0}, // hcl

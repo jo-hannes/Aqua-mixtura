@@ -26,8 +26,8 @@ Water::Water() {
   }
 }
 
-Water::Water(QString name, float volume, float calzium, float magnesium, float natrium, float hydrogencarbonat,
-             float chlorid, float sulfat, float phosphat, float lactat)
+Water::Water(QString name, double volume, double calzium, double magnesium, double natrium, double hydrogencarbonat,
+             double chlorid, double sulfat, double phosphat, double lactat)
     : Water() {
   this->setName(name);
   values[static_cast<uint>(Value::Volume)] = volume;
@@ -45,7 +45,7 @@ Water::Water(const QJsonObject& json) : Water() {
   fromJson(json);
 }
 
-float Water::get(Value what) const {
+double Water::get(Value what) const {
   // stored values
   if (what <= Value::LastAnion) {
     return values[static_cast<uint>(what)];
@@ -71,7 +71,7 @@ float Water::get(Value what) const {
   }
 }
 
-void Water::set(Value what, float value) {
+void Water::set(Value what, double value) {
   // only stored values
   if (what <= Value::LastAnion) {
     values[static_cast<uint>(what)] = value;
@@ -105,9 +105,9 @@ QJsonObject Water::profileToJson() const {
 }
 
 Water& Water::operator+=(const Water& rhs) {
-  const float volThis = this->values[static_cast<uint>(Value::Volume)];
-  const float volRhs = rhs.values[static_cast<uint>(Value::Volume)];
-  const float volSum = volThis + volRhs;
+  const double volThis = this->values[static_cast<uint>(Value::Volume)];
+  const double volRhs = rhs.values[static_cast<uint>(Value::Volume)];
+  const double volSum = volThis + volRhs;
   if (volSum == 0) {  // avoid zero division
     return *this;
   }
@@ -120,7 +120,7 @@ Water& Water::operator+=(const Water& rhs) {
 
 Water Water::operator+(const Water& rhs) {
   //  QString tmpname = this->name + "+" + rhs.name;
-  //  float wSum = this->menge + rhs.menge;
+  //  double wSum = this->menge + rhs.menge;
   //  Water sum(tmpname, sum, (this->calzium * this->menge + rhs.calzium * rhs.menge) / wSum,
   //            (this->magnesium * this->menge + rhs.magnesium * rhs.menge) / wSum,
   //            (this->natrium * this->menge + rhs.natrium * rhs.menge) / wSum,
@@ -135,33 +135,33 @@ Water Water::operator+(const Water& rhs) {
   return sum;
 }
 
-float Water::calculateGesamthaerte() const {
+double Water::calculateGesamthaerte() const {
   return calculateCaHaerte() + calculateMgHaerte();
 }
 
-float Water::calculateCaHaerte() const {
+double Water::calculateCaHaerte() const {
   return 0.14 * get(Value::Calcium);  // NOLINT(*-magic-numbers)
 }
 
-float Water::calculateMgHaerte() const {
+double Water::calculateMgHaerte() const {
   return 0.23 * get(Value::Magnesium);  // NOLINT(*-magic-numbers)
 }
 
-float Water::calculateCarbonhaerte() const {
+double Water::calculateCarbonhaerte() const {
   return get(Value::Hydrogencarbonat) / 61.017 * 2.8;  // NOLINT(*-magic-numbers)
 }
 
-float Water::calculateNichtCarbonhaerte() const {
+double Water::calculateNichtCarbonhaerte() const {
   return calculateGesamthaerte() - calculateCarbonhaerte();
 }
 
-float Water::calculateSO4ClVerhaeltnis() const {
+double Water::calculateSO4ClVerhaeltnis() const {
   if (get(Value::Chlorid) != 0) {
     return get(Value::Sulfat) / get(Value::Chlorid);
   }
   return HUGE_VAL;
 }
 
-float Water::calculateRestalkalitaet() const {
+double Water::calculateRestalkalitaet() const {
   return calculateCarbonhaerte() - calculateCaHaerte() / 3.5 - calculateMgHaerte() / 7;  // NOLINT(*-magic-numbers)
 }

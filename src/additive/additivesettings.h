@@ -26,15 +26,15 @@ class AdditiveSettings : public QObject, public Meta {
   [[nodiscard]] QJsonObject toJson() const;           /**< @brief convert this AdditiveSettings to JSON */
   void toJson(QJsonObject& json) const;               /**< @brief Append AdditiveSettings to JSON */
 
-  [[nodiscard]] float getConcentration(Additive::Value what) const; /**< @brief get requested concentration */
-  void setConcentration(Additive::Value what, float value);         /**< @brief set given type with concentration */
-  [[nodiscard]] LiquidUnit getLiquidUnit() const;                   /**< @brief get unit used for liquids */
-  void setLiquidUnit(LiquidUnit newUnit);                           /**< @brief get unit used for liquids */
+  [[nodiscard]] double getConcentration(Additive::Value what) const; /**< @brief get requested concentration */
+  void setConcentration(Additive::Value what, double value);         /**< @brief set given type with concentration */
+  [[nodiscard]] LiquidUnit getLiquidUnit() const;                    /**< @brief get unit used for liquids */
+  void setLiquidUnit(LiquidUnit newUnit);                            /**< @brief get unit used for liquids */
   /**
    * @brief get density for liquids when unit is ml
    * Save to use in any case, will just return 1 when no liquid is selected or unit is g
    */
-  [[nodiscard]] float getDensity(Additive::Value what) const;
+  [[nodiscard]] double getDensity(Additive::Value what) const;
 
   [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 
@@ -49,7 +49,7 @@ class AdditiveSettings : public QObject, public Meta {
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
   bool changed;                  /**< @brief True if changed but not saved */
 
-  float concentration[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Concentration in % */
+  double concentration[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Concentration in % */
   LiquidUnit unit;
 
   // clang-format off

@@ -48,7 +48,7 @@ void MaltTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index)
   switch (index.column()) {
     case 3: {
       // mass
-      const float value = index.model()->data(index, Qt::DisplayRole).toFloat();
+      const double value = index.model()->data(index, Qt::DisplayRole).toDouble();
       auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->setValue(value);
       break;
@@ -62,9 +62,9 @@ void MaltTableDelegate::setEditorData(QWidget* editor, const QModelIndex& index)
     }
     case 2: {
       // ph
-      const float ph = index.model()->data(index, Qt::DisplayRole).toFloat();
+      const double ph = index.model()->data(index, Qt::DisplayRole).toDouble();
       const QModelIndex ebcIdx = index.siblingAtColumn(1);
-      const float ebc = ebcIdx.model()->data(ebcIdx, Qt::DisplayRole).toFloat();
+      const double ebc = ebcIdx.model()->data(ebcIdx, Qt::DisplayRole).toDouble();
       auto* phEdit = dynamic_cast<MaltPhEdit*>(editor);
       phEdit->setData(ph, ebc);
       break;
@@ -85,7 +85,7 @@ void MaltTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
       // mass
       auto* doubleSpinBox = dynamic_cast<QDoubleSpinBox*>(editor);
       doubleSpinBox->interpretText();
-      const float value = doubleSpinBox->value();
+      const double value = doubleSpinBox->value();
       model->setData(index, value, Qt::EditRole);
       break;
     }
@@ -100,7 +100,7 @@ void MaltTableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
     case 2: {
       // ph
       auto* phEdit = dynamic_cast<MaltPhEdit*>(editor);
-      const float value = phEdit->pH();
+      const double value = phEdit->pH();
       model->setData(index, value, Qt::EditRole);
       break;
     }

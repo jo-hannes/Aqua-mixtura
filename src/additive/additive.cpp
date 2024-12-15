@@ -25,7 +25,7 @@ Additive::Additive(const QJsonObject& json) : Additive() {
   fromJson(json);
 }
 
-float Additive::get(Value what) const {
+double Additive::get(Value what) const {
   const auto idx = static_cast<std::size_t>(what);
   if (idx < amount.size()) {
     return amount.at(idx);
@@ -33,7 +33,7 @@ float Additive::get(Value what) const {
   return -1;
 }
 
-void Additive::set(Value what, float value) {
+void Additive::set(Value what, double value) {
   const auto idx = static_cast<std::size_t>(what);
   if (idx < amount.size()) {
     amount[idx] = value;  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): idx is checked
@@ -81,17 +81,17 @@ QJsonObject Additive::toJson() const {
 
 Water Additive::operator+(const Water& rhs) const {
   // first just copy values
-  float values[static_cast<int>(Water::Value::LastAnion) + 1];
+  double values[static_cast<int>(Water::Value::LastAnion) + 1];
   for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
     values[w] = rhs.get(static_cast<Water::Value>(w));
   }
 
   // sotre volume for later calculations
-  const float volume = rhs.get(Water::Value::Volume);
+  const double volume = rhs.get(Water::Value::Volume);
 
   // loop over all water values
   for (int w = 0; w <= static_cast<int>(Water::Value::LastAnion); w++) {
-    float mg = 0;  // mg added or removed
+    double mg = 0;  // mg added or removed
     // loop over all additive
     for (int a = 0; a < static_cast<int>(Value::Size); a++) {
       mg += amount[a] * calculationMatrix[a][w];
