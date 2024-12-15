@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * 
 
 ### Fixed
-* 
+* Fix lactate calculation when mixing waters
 
 ### Security
 * Static code analysis with clang-tidy
