@@ -63,10 +63,10 @@ class Additive : public QObject, public Meta {
 
   // setter and getter
   [[nodiscard]] float get(Value what) const; /**< @brief get requested amount */
-  void set(Value what, float value); /**< @brief set given type with amount */
+  void set(Value what, float value);         /**< @brief set given type with amount */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief Update Additive from JSON */
+  bool fromJson(const QJsonObject& json);   /**< @brief Update Additive from JSON */
   [[nodiscard]] QJsonObject toJson() const; /**< @brief convert this Additive to JSON */
 
   /**

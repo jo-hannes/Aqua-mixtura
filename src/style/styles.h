@@ -19,14 +19,14 @@ class Styles : public QAbstractListModel {
   ~Styles();
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json);                   /**< @brief Update Styles from JSON */
-  [[nodiscard]] QJsonObject toJson() const;                 /**< @brief convert Styles to JSON */
-  bool importStyle(const QString& path);                    /**< @brief import and add a Style from JSON */
+  bool fromJson(const QJsonObject& json);   /**< @brief Update Styles from JSON */
+  [[nodiscard]] QJsonObject toJson() const; /**< @brief convert Styles to JSON */
+  bool importStyle(const QString& path);    /**< @brief import and add a Style from JSON */
   [[nodiscard]] bool exportStyle(const QString& path, qsizetype i) const; /**< @brief export a Style at index as JSON */
 
-  Style* getStyle(qsizetype i);  /**< @brief Get style at index */
-  void addStyle(Style* style);   /**< @brief Add a style */
-  void deleteStyle(int i);       /**< @brief Delete style at index */
+  Style* getStyle(qsizetype i); /**< @brief Get style at index */
+  void addStyle(Style* style);  /**< @brief Add a style */
+  void deleteStyle(int i);      /**< @brief Delete style at index */
 
   [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 

@@ -20,8 +20,8 @@ class Settings : public QAbstractTableModel, public Meta {
   explicit Settings(QObject* parent = nullptr);
 
   explicit Settings(const QJsonObject& json); /**< @brief Construct Settings from JSON */
-  bool fromJson(const QJsonObject& json); /**< @brief Update Settings from JSON */
-  [[nodiscard]] QJsonObject toJson() const; /**< @brief convert Settings to JSON */
+  bool fromJson(const QJsonObject& json);     /**< @brief Update Settings from JSON */
+  [[nodiscard]] QJsonObject toJson() const;   /**< @brief convert Settings to JSON */
 
   // getter und setter
   [[nodiscard]] float getMin(Water::Value what) const; /**< @brief get lower limit */

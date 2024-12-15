@@ -19,17 +19,17 @@ class WaterSources : public QAbstractTableModel {
   explicit WaterSources(const QJsonObject& json); /**< @brief Create WaterSources from JSON */
 
   // JSON conversion
-  bool fromJson(const QJsonObject& json); /**< @brief Update WaterSources from JSON */
+  bool fromJson(const QJsonObject& json);          /**< @brief Update WaterSources from JSON */
   [[nodiscard]] QJsonObject toJson() const;        /**< @brief convert this WaterSources to JSON */
   [[nodiscard]] QJsonObject profileToJson() const; /**< @brief convert profile of this WaterSources to JSON */
 
   // bool import(const QString& path);
 
-  const Water& getProfile(int i);                  /**< @brief Get water profile at index */
-  Water getMix();                                  /**< @brief Get mixture of all waters */
-  void updateProfile(Water& profile, int i);       /**< @brief Update water profile at index */
-  void addProfile(const Water& profile);           /**< @brief Add a water profile */
-  void deleteProfile(int i);                       /**< @brief Delete water profile at index */
+  const Water& getProfile(int i);            /**< @brief Get water profile at index */
+  Water getMix();                            /**< @brief Get mixture of all waters */
+  void updateProfile(Water& profile, int i); /**< @brief Update water profile at index */
+  void addProfile(const Water& profile);     /**< @brief Add a water profile */
+  void deleteProfile(int i);                 /**< @brief Delete water profile at index */
 
   // for QAbstractTableModel, see QT documentation for details
   // NOLINTBEGIN(modernize-use-nodiscard)

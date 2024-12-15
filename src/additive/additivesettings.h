@@ -22,14 +22,14 @@ class AdditiveSettings : public QObject, public Meta {
 
   // JSON conversion
   explicit AdditiveSettings(const QJsonObject& json); /**< @brief Create AdditiveSettings from JSON */
-  bool fromJson(const QJsonObject& json);    /**< @brief Update AdditiveSettings from JSON */
-  [[nodiscard]] QJsonObject toJson() const;  /**< @brief convert this AdditiveSettings to JSON */
-  void toJson(QJsonObject& json) const;      /**< @brief Append AdditiveSettings to JSON */
+  bool fromJson(const QJsonObject& json);             /**< @brief Update AdditiveSettings from JSON */
+  [[nodiscard]] QJsonObject toJson() const;           /**< @brief convert this AdditiveSettings to JSON */
+  void toJson(QJsonObject& json) const;               /**< @brief Append AdditiveSettings to JSON */
 
   [[nodiscard]] float getConcentration(Additive::Value what) const; /**< @brief get requested concentration */
-  void setConcentration(Additive::Value what, float value); /**< @brief set given type with concentration */
-  [[nodiscard]] LiquidUnit getLiquidUnit() const;           /**< @brief get unit used for liquids */
-  void setLiquidUnit(LiquidUnit newUnit);                   /**< @brief get unit used for liquids */
+  void setConcentration(Additive::Value what, float value);         /**< @brief set given type with concentration */
+  [[nodiscard]] LiquidUnit getLiquidUnit() const;                   /**< @brief get unit used for liquids */
+  void setLiquidUnit(LiquidUnit newUnit);                           /**< @brief get unit used for liquids */
   /**
    * @brief get density for liquids when unit is ml
    * Save to use in any case, will just return 1 when no liquid is selected or unit is g

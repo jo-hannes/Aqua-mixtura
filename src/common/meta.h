@@ -20,12 +20,12 @@ class Meta {
   [[nodiscard]] QDateTime getCreationTime() const;     /**< @brief Get object creation time */
   [[nodiscard]] QDateTime getModificationTime() const; /**< @brief Get last modification time */
   [[nodiscard]] QString getUuid() const;               /**< @brief Get UUID as string */
-  QString newUuid();                      /**< @brief Generate new UUID and return it as string */
-  void setName(const QString& newName);   /**< @brief Set object name */
-  void updateEditTime();                  /**< @brief Update edit time to now */
-  void updateCreationTime();              /**< @brief Update creation time to now */
-  bool fromJson(const QJsonObject& json); /**< @brief Update meta data from JSON */
-  void toJson(QJsonObject& json) const;   /**< @brief Append meta data to JSON */
+  QString newUuid();                                   /**< @brief Generate new UUID and return it as string */
+  void setName(const QString& newName);                /**< @brief Set object name */
+  void updateEditTime();                               /**< @brief Update edit time to now */
+  void updateCreationTime();                           /**< @brief Update creation time to now */
+  bool fromJson(const QJsonObject& json);              /**< @brief Update meta data from JSON */
+  void toJson(QJsonObject& json) const;                /**< @brief Append meta data to JSON */
 
  private:
   QString name;     /**< @brief Name of object */

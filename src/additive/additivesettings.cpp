@@ -70,10 +70,9 @@ float AdditiveSettings::getConcentration(Additive::Value what) const {
   // only liqids have a concentration
   if (what <= Additive::Value::lastLiquid) {
     return concentration[static_cast<uint>(what)];
-  } else {       // NOLINT(readability-else-after-return)
-    // NOLINTNEXTLINE(*-magic-numbers)
-    return 100;  // not a liquid => concentration = 100%
   }
+  // NOLINTNEXTLINE(*-magic-numbers)
+  return 100;  // not a liquid => concentration = 100%
 }
 
 void AdditiveSettings::setConcentration(Additive::Value what, float value) {
