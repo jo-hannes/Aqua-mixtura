@@ -72,27 +72,27 @@
         <translation>Acids</translation>
     </message>
     <message>
-        <location filename="../src/additive/additivewindow.cpp" line="47"/>
+        <location filename="../src/additive/additivewindow.cpp" line="48"/>
         <source>Einheit</source>
         <translation>Unit</translation>
     </message>
     <message>
-        <location filename="../src/additive/additivewindow.cpp" line="58"/>
+        <location filename="../src/additive/additivewindow.cpp" line="59"/>
         <source>Speichern</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../src/additive/additivewindow.cpp" line="58"/>
+        <location filename="../src/additive/additivewindow.cpp" line="59"/>
         <source>Abbrechen</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/additive/additivewindow.cpp" line="70"/>
+        <location filename="../src/additive/additivewindow.cpp" line="71"/>
         <source>Änderungen speichern?</source>
         <translation>Save changes?</translation>
     </message>
     <message>
-        <location filename="../src/additive/additivewindow.cpp" line="70"/>
+        <location filename="../src/additive/additivewindow.cpp" line="71"/>
         <source>Additive haben ungespeicherte Änderungen</source>
         <translation>Additives have unsaved changes</translation>
     </message>

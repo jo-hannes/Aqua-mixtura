@@ -25,19 +25,20 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
   row++;
 
   // liquid concentrations
-  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+  for (uint i = 0; i < concentrations.size(); i++) {
     auto* formula = new QLabel(Additive::strFormula.at(i));
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
     auto* txt = new QLabel(Additive::strTranslate.at(i));
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < concentrations.size()
     concentrations[i] = new QDoubleSpinBox();
-    concentrations[i]->setDecimals(0);
-    concentrations[i]->setMinimum(1);
-    concentrations[i]->setMaximum(100);  // NOLINT(*-magic-numbers)
-    concentrations[i]->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
-    layout->addWidget(concentrations[i], row, 2, Qt::AlignRight);
+    concentrations.at(i)->setDecimals(0);
+    concentrations.at(i)->setMinimum(1);
+    concentrations.at(i)->setMaximum(100);  // NOLINT(*-magic-numbers)
+    concentrations.at(i)->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
+    layout->addWidget(concentrations.at(i), row, 2, Qt::AlignRight);
 
-    QObject::connect(concentrations[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
+    QObject::connect(concentrations.at(i), &QDoubleSpinBox::valueChanged, this, [this, i](double val) {
       additive.setConcentration(static_cast<Additive::Value>(i), val);
     });
     row++;
@@ -100,7 +101,7 @@ void AdditiveWindow::selectUnit(int index) {
 
 void AdditiveWindow::update() {
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
-    concentrations[i]->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
+    concentrations.at(i)->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
   }
   if (additive.getLiquidUnit() == AdditiveSettings::LiquidUnit::milliLiter) {
     unitSelect->setCurrentIndex(1);

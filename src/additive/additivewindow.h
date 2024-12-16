@@ -42,7 +42,7 @@ class AdditiveWindow : public QWidget {
   AdditiveSettings& additive; /**< @brief Reference to model for accessing data */
 
   // Pointer to UI elements
-  QDoubleSpinBox* concentrations[static_cast<int>(Additive::Value::lastLiquid) + 1];
+  std::array<QDoubleSpinBox*, static_cast<int>(Additive::Value::lastLiquid) + 1> concentrations{};
   QComboBox* unitSelect;
 };
 
