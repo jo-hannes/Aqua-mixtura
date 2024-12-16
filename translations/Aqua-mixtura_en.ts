@@ -669,22 +669,22 @@
 <context>
     <name>Style</name>
     <message>
-        <location filename="../src/style/style.cpp" line="148"/>
+        <location filename="../src/style/style.cpp" line="143"/>
         <source>Limitieren</source>
         <translation>Limit</translation>
     </message>
     <message>
-        <location filename="../src/style/style.cpp" line="150"/>
+        <location filename="../src/style/style.cpp" line="145"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/style/style.cpp" line="152"/>
+        <location filename="../src/style/style.cpp" line="147"/>
         <source>Ziel</source>
         <translation>Target</translation>
     </message>
     <message>
-        <location filename="../src/style/style.cpp" line="154"/>
+        <location filename="../src/style/style.cpp" line="149"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>

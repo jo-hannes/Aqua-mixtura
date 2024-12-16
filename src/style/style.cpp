@@ -5,14 +5,7 @@
 
 #include "QJsonValue"
 
-Style::Style(QString name) : Meta(name) {
-  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
-    limited[i] = false;
-    for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
-      limits[i][j] = 0;
-    }
-  }
-}
+Style::Style(QString name) : Meta(name) {}
 
 Style::Style(const QJsonObject& json) {
   fromJson(json);
@@ -24,9 +17,9 @@ bool Style::fromJson(const QJsonObject& json) {
   for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
     // get sub object
     const QJsonValue limit = json[Water::strJsonKey.at(i)];
-    limited[i] = limit.isObject();
-    for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
-      limits[i][j] = limit[jsonKeys[j]].toDouble(0);
+    limited.at(i) = limit.isObject();
+    for (uint j = 0; j < strJsonKey.size(); j++) {
+      limits.at(i).at(j) = limit[strJsonKey.at(j)].toDouble(0);
     }
   }
   changed = false;
@@ -37,15 +30,15 @@ QJsonObject Style::toJson() const {
   QJsonObject json;
   Meta::toJson(json);
   // start at index 1 to skip volume
-  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
+  for (uint i = 1; i < limits.size(); i++) {
     // skip values not limited
-    if (!limited[i]) {
+    if (!limited.at(i)) {
       continue;
     }
     // create limit object
     QJsonObject limit;
-    for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
-      limit[jsonKeys[j]] = limits[i][j];
+    for (uint j = 0; j < strJsonKey.size(); j++) {
+      limit[strJsonKey.at(j)] = limits.at(i).at(j);
     }
     // add object to main json
     json[Water::strJsonKey.at(i)] = limit;
@@ -54,41 +47,43 @@ QJsonObject Style::toJson() const {
 }
 
 Style* Style::copy() const {
-  auto* copy = new Style(this->getName());
-  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
-    copy->limited[i] = this->limited[i];
-    for (int j = 0; j < static_cast<int>(Limit::Size); j++) {
-      copy->limits[i][j] = this->limits[i][j];
-    }
-  }
+  auto* copy = new Style(this->toJson());
   return copy;
 }
 
 double Style::get(Water::Value what, Limit limit) const {
-  if (what < Water::Value::Size && limit < Limit::Size) {
-    return limits[static_cast<uint>(what)][static_cast<uint>(limit)];
+  auto w = static_cast<uint>(what);
+  auto l = static_cast<uint>(limit);
+  if (w < limits.size() && l < limits[0].size()) {
+    // if (what < Water::Value::Size && limit < Limit::Size) {
+    return limits.at(w).at(l);
   }
   return -1;
 }
 
 void Style::set(Water::Value what, Limit limit, double value) {
-  if (what < Water::Value::Size && limit < Limit::Size) {
-    limits[static_cast<uint>(what)][static_cast<uint>(limit)] = value;
+  auto w = static_cast<uint>(what);
+  auto l = static_cast<uint>(limit);
+  if (w < limits.size() && l < limits[0].size()) {
+    // if (what < Water::Value::Size && limit < Limit::Size) {
+    limits.at(w).at(l) = value;
     updateEditTime();
     changed = true;
   }
 }
 
 bool Style::isLimited(Water::Value what) const {
-  if (what < Water::Value::Size) {
-    return limited[static_cast<uint>(what)];
+  auto w = static_cast<uint>(what);
+  if (w < limited.size()) {
+    return limited.at(w);
   }
   return false;
 }
 
 void Style::limit(Water::Value what, bool limit) {
-  if (what < Water::Value::Size) {
-    limited[static_cast<uint>(what)] = limit;
+  auto w = static_cast<uint>(what);
+  if (w < limited.size()) {
+    limited.at(w) = limit;
     updateEditTime();
     changed = true;
   }
@@ -128,11 +123,11 @@ QVariant Style::data(const QModelIndex& index, int role) const {
   const qsizetype col = index.column();
   // enable disable
   if (col == 0) {
-    return limited[row];
+    return limited.at(row);
   }
   // values
   if (col > 0 && col < static_cast<int>(Limit::Size) + 1) {
-    return limits[row][col - 1];
+    return limits.at(row).at(col - 1);
   }
   return {};
 }
@@ -181,14 +176,14 @@ bool Style::setData(const QModelIndex& index, const QVariant& value, int role) {
   const qsizetype col = index.column();
   // enable disable
   if (col == 0) {
-    limited[row] = value.toBool();
+    limited.at(row) = value.toBool();
     updateEditTime();
     changed = true;
     return true;
   }
   // values
   if (col > 0 && col < static_cast<int>(Limit::Size) + 1) {
-    limits[row][col - 1] = value.toDouble();
+    limits.at(row).at(col - 1) = value.toDouble();
     updateEditTime();
     changed = true;
     return true;

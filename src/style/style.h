@@ -54,10 +54,10 @@ class Style : public QAbstractTableModel, public Meta {
  private:
   bool changed{false}; /**< @brief True if changed but not saved */
 
-  bool limited[static_cast<int>(Water::Value::Size)];
-  double limits[static_cast<int>(Water::Value::Size)][static_cast<int>(Limit::Size)];
-
-  static const inline QString jsonKeys[static_cast<int>(Limit::Size)] = {"Min", "Target", "Max"};
+  std::array<bool, static_cast<int>(Water::Value::Size)> limited{};
+  std::array<std::array<double, static_cast<int>(Limit::Size)>, static_cast<int>(Water::Value::Size)> limits{};
+  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  static const inline std::array<QString, static_cast<int>(Limit::Size)> strJsonKey{"Min", "Target", "Max"};
 };
 
 #endif  // STYLE_H
