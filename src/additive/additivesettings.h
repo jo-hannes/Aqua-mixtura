@@ -47,23 +47,26 @@ class AdditiveSettings : public QObject, public Meta {
 
  private:
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
-  bool changed;                  /**< @brief True if changed but not saved */
+  bool changed{false};           /**< @brief True if changed but not saved */
 
-  double concentration[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Concentration in % */
-  LiquidUnit unit;
+  /**
+   * @brief Concentration in %
+   */
+  std::array<double, static_cast<int>(Additive::Value::lastLiquid) + 1> concentration{};
+  LiquidUnit unit{LiquidUnit::gramm};
 
   // clang-format off
   /**
    * @brief Coefficients for calculating density
    * Coefficients of formula a*x^2 + b*x + c
    */
-  inline static const double densityCoefficients[static_cast<int>(Additive::Value::lastLiquid) +  1][3] = {
+  inline static const std::array<std::array<double, 3>, 4> densityCoefficients = {{
     //  c         b           a
       { 0.999137, 0.00236361, 0},          // c3h6o3
       { 0.997681, 0.00503334, 0},          // hcl
       { 0.993422, 0.00723747, 1.77195e-5}, // h2so4
       { 0.999386, 0.00491011, 3.76331e-5}  // h3po4
-  };
+  }};
   // clang-format on
 };
 

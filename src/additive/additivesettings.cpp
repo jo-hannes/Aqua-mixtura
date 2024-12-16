@@ -7,12 +7,10 @@
 #include "../common/paths.h"
 
 AdditiveSettings::AdditiveSettings() {
-  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+  for (auto& c : concentration) {
     // NOLINTNEXTLINE(*-magic-numbers)
-    concentration[i] = 10;  // default concentration = 10%
+    c = 10;  // default concentration = 10%
   }
-  unit = LiquidUnit::gramm;
-  changed = false;
 }
 
 AdditiveSettings::AdditiveSettings(const QJsonObject& json) : AdditiveSettings() {
@@ -37,8 +35,9 @@ bool AdditiveSettings::fromJson(const QJsonObject& json) {
   } else {
     unit = LiquidUnit::gramm;
   }
-  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+  for (uint i = 0; i < concentration.size(); i++) {
     const QString jsonKey = Additive::strJsonKey.at(i);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < concentration.size()
     concentration[i] = asettings[jsonKey].toDouble(0);
   }
   setChanged(false);
@@ -61,28 +60,31 @@ void AdditiveSettings::toJson(QJsonObject& json) const {
   }
   for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
     const QString jsonKey = Additive::strJsonKey.at(i);
-    inner[jsonKey] = concentration[i];
+    inner[jsonKey] = concentration.at(i);
   }
   json["AdditiveSettings"] = inner;
 }
 
 double AdditiveSettings::getConcentration(Additive::Value what) const {
   // only liqids have a concentration
-  if (what <= Additive::Value::lastLiquid) {
-    return concentration[static_cast<uint>(what)];
+  const auto idx = static_cast<uint>(what);
+  if (idx < concentration.size()) {
+    return concentration.at(idx);
   }
   // NOLINTNEXTLINE(*-magic-numbers)
   return 100;  // not a liquid => concentration = 100%
 }
 
 void AdditiveSettings::setConcentration(Additive::Value what, double value) {
-  if (what <= Additive::Value::lastLiquid) {
+  const auto idx = static_cast<uint>(what);
+  if (idx < concentration.size()) {
     if (value < 1) {
       value = 1;
     } else if (value > 100) {  // NOLINT(*-magic-numbers)
       value = 100;             // NOLINT(*-magic-numbers)
     }
-    concentration[static_cast<uint>(what)] = value;
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): idx < concentration.size()
+    concentration[idx] = value;
     setChanged(true);
   }
 }
@@ -99,15 +101,15 @@ void AdditiveSettings::setLiquidUnit(LiquidUnit newUnit) {
 double AdditiveSettings::getDensity(Additive::Value what) const {
   // only liqids have a density
   if ((what <= Additive::Value::lastLiquid) && (unit == LiquidUnit::milliLiter)) {
-    const uint idx = static_cast<uint>(what);
+    const auto idx = static_cast<uint>(what);
     // first check for linear
-    if (densityCoefficients[idx][2] == 0) {
+    if (densityCoefficients.at(idx)[2] == 0) {
       // linear
-      return densityCoefficients[idx][0] + densityCoefficients[idx][1] * concentration[idx];
+      return densityCoefficients.at(idx)[0] + densityCoefficients.at(idx)[1] * concentration.at(idx);
     } else {  // NOLINT(readability-else-after-return)
       // qubic
-      return densityCoefficients[idx][0] + densityCoefficients[idx][1] * concentration[idx] +
-             densityCoefficients[idx][2] * concentration[idx] * concentration[idx];
+      return densityCoefficients.at(idx)[0] + densityCoefficients.at(idx)[1] * concentration.at(idx) +
+             densityCoefficients.at(idx)[2] * concentration.at(idx) * concentration.at(idx);
     }
   } else {
     return 1;  // not a liquid or unit is not ml => just return 1
