@@ -588,22 +588,22 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../src/settings/settings.cpp" line="178"/>
+        <location filename="../src/settings/settings.cpp" line="181"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/settings/settings.cpp" line="180"/>
+        <location filename="../src/settings/settings.cpp" line="183"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/settings/settings.cpp" line="182"/>
+        <location filename="../src/settings/settings.cpp" line="185"/>
         <source>Negative Werte</source>
         <translation>Negative Werte</translation>
     </message>
     <message>
-        <location filename="../src/settings/settings.cpp" line="184"/>
+        <location filename="../src/settings/settings.cpp" line="187"/>
         <source>Logarithmische Skala</source>
         <translation>Logarithmische Skala</translation>
     </message>

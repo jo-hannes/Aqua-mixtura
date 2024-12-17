@@ -8,14 +8,9 @@
 #include "../common/paths.h"
 
 Settings::Settings(QObject* parent) : QAbstractTableModel{parent} {
-  // init all values
-  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
-    for (int j = 0; j < 2; j++) {
-      limits[i][j] = 0;
-    }
-    negative[i] = false;
-    logarithmic[i] = false;
-  }
+  // All arrays need to have the same size
+  assert(limits.size() == negative.size());
+  assert(limits.size() == logarithmic.size());
 }
 
 Settings::Settings(const QJsonObject& json) {
@@ -35,13 +30,13 @@ bool Settings::fromJson(const QJsonObject& json) {
   const bool ret = Meta::fromJson(jSettings);
   beginResetModel();
   // start at index 1 to skip volume
-  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
+  for (uint i = 1; i < limits.size(); i++) {
     // get sub object
     const QJsonValue setting = jSettings[Water::strJsonKey.at(i)];
-    limits[i][0] = setting["Min"].toDouble(0);
-    limits[i][1] = setting["Max"].toDouble(0);
-    negative[i] = setting["AllowNegative"].toBool(false);
-    logarithmic[i] = setting["LogarithmicScale"].toBool(false);
+    limits.at(i).at(0) = setting["Min"].toDouble(0);
+    limits.at(i).at(1) = setting["Max"].toDouble(0);
+    negative.at(i) = setting["AllowNegative"].toBool(false);
+    logarithmic.at(i) = setting["LogarithmicScale"].toBool(false);
   }
   endResetModel();
   setChanged(false);
@@ -51,13 +46,13 @@ bool Settings::fromJson(const QJsonObject& json) {
 QJsonObject Settings::toJson() const {
   QJsonObject inner;
   Meta::toJson(inner);
-  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
+  for (uint i = 1; i < limits.size(); i++) {
     // create settings object
     QJsonObject setting;
-    setting["Min"] = limits[i][0];
-    setting["Max"] = limits[i][1];
-    setting["AllowNegative"] = negative[i];
-    setting["LogarithmicScale"] = logarithmic[i];
+    setting["Min"] = limits.at(i).at(0);
+    setting["Max"] = limits.at(i).at(1);
+    setting["AllowNegative"] = negative.at(i);
+    setting["LogarithmicScale"] = logarithmic.at(i);
     // add object to main json
     inner[Water::strJsonKey.at(i)] = setting;
   }
@@ -67,57 +62,65 @@ QJsonObject Settings::toJson() const {
 }
 
 double Settings::getMin(Water::Value what) const {
-  if (what < Water::Value::Size) {
-    return limits[static_cast<uint>(what)][0];
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < limits.size()) {
+    return limits.at(idx).at(0);
   }
   return -1;
 }
 
 double Settings::getMax(Water::Value what) const {
-  if (what < Water::Value::Size) {
-    return limits[static_cast<uint>(what)][1];
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < limits.size()) {
+    return limits.at(idx).at(1);
   }
   return -1;
 }
 
 void Settings::setMin(Water::Value what, double value) {
-  if (what < Water::Value::Size) {
-    limits[static_cast<uint>(what)][0] = value;
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < limits.size()) {
+    limits.at(idx).at(0) = value;
     setChanged(true);
   }
 }
 
 void Settings::setMax(Water::Value what, double value) {
-  if (what < Water::Value::Size) {
-    limits[static_cast<uint>(what)][1] = value;
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < limits.size()) {
+    limits.at(idx).at(1) = value;
     setChanged(true);
   }
 }
 
 bool Settings::isNegativeAllowed(Water::Value what) const {
-  if (what < Water::Value::Size) {
-    return negative[static_cast<uint>(what)];
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < negative.size()) {
+    return negative.at(idx);
   }
   return false;
 }
 
 void Settings::setNegativeAllowed(Water::Value what, bool value) {
-  if (what < Water::Value::Size) {
-    negative[static_cast<uint>(what)] = value;
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < negative.size()) {
+    negative.at(idx) = value;
     setChanged(true);
   }
 }
 
 bool Settings::isLogarithmicScale(Water::Value what) const {
-  if (what < Water::Value::Size) {
-    return logarithmic[static_cast<uint>(what)];
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < logarithmic.size()) {
+    return logarithmic.at(idx);
   }
   return false;
 }
 
 void Settings::setLogarithmicScale(Water::Value what, bool value) {
-  if (what < Water::Value::Size) {
-    logarithmic[static_cast<uint>(what)] = value;
+  const auto idx = static_cast<std::size_t>(what);
+  if (idx < logarithmic.size()) {
+    logarithmic.at(idx) = value;
     setChanged(true);
   }
 }
@@ -128,7 +131,7 @@ bool Settings::isChanged() const {
 
 int Settings::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return static_cast<int>(Water::Value::Size) - 1;
+  return limits.size() - 1;  // NOLINT(*-narrowing-conversions): QAbstractTableModel requires int
 }
 
 int Settings::columnCount(const QModelIndex& parent) const {
@@ -152,13 +155,13 @@ QVariant Settings::data(const QModelIndex& index, int role) const {
   switch (col) {
     case 0:
     case 1:
-      return limits[row][col];
+      return limits.at(row).at(col);
       break;
     case 2:
-      return negative[row];
+      return negative.at(row);
       break;
     case 3:
-      return logarithmic[row];
+      return logarithmic.at(row);
       break;
     default:
       return {};
@@ -213,15 +216,15 @@ bool Settings::setData(const QModelIndex& index, const QVariant& value, int role
   switch (col) {
     case 0:
     case 1:
-      limits[row][col] = value.toDouble();
+      limits.at(row).at(col) = value.toDouble();
       setChanged(true);
       return true;
     case 2:
-      negative[row] = value.toBool();
+      negative.at(row) = value.toBool();
       setChanged(true);
       return true;
     case 3:
-      return logarithmic[row] = value.toBool();
+      return logarithmic.at(row) = value.toBool();
       setChanged(true);
       return true;
     default:

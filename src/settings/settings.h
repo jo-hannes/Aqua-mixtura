@@ -57,9 +57,9 @@ class Settings : public QAbstractTableModel, public Meta {
   void setChanged(bool changed); /**< @brief Mark unsaved/saved */
   bool changed{false};           /**< @brief True if changed but not saved */
 
-  double limits[static_cast<int>(Water::Value::Size)][2];
-  bool negative[static_cast<int>(Water::Value::Size)];
-  bool logarithmic[static_cast<int>(Water::Value::Size)];
+  std::array<std::array<double, 2>, static_cast<int>(Water::Value::Size)> limits{};
+  std::array<bool, static_cast<int>(Water::Value::Size)> negative{};
+  std::array<bool, static_cast<int>(Water::Value::Size)> logarithmic{};
 };
 
 #endif  // SETTINGS_H
