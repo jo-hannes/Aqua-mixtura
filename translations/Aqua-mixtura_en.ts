@@ -380,17 +380,17 @@
 <context>
     <name>MixAdditiveWidget</name>
     <message>
-        <location filename="../src/mixture/mixadditivewidget.cpp" line="29"/>
+        <location filename="../src/mixture/mixadditivewidget.cpp" line="32"/>
         <source>Zusatzstoffe</source>
         <translation>Additive</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixadditivewidget.cpp" line="32"/>
+        <location filename="../src/mixture/mixadditivewidget.cpp" line="35"/>
         <source>Säuren</source>
         <translation>Acids</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixadditivewidget.cpp" line="50"/>
+        <location filename="../src/mixture/mixadditivewidget.cpp" line="53"/>
         <source>Feststoffe</source>
         <translation>Solids</translation>
     </message>

@@ -11,15 +11,18 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
   this->setLineWidth(2);
 
   // create ui elements
-  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
-    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
-      percents[i] = new QLabel("", this);
-    }
-    amounts[i] = new QDoubleSpinBox(this);
-    amounts[i]->setDecimals(1);
-    amounts[i]->setMinimum(0);
-    amounts[i]->setMaximum(9999);  // NOLINT(*-magic-numbers)
-    QObject::connect(amounts[i], &QDoubleSpinBox::valueChanged, this, [=](double val) {
+  for (auto& p : percents) {
+    p = new QLabel("", this);
+  }
+  for (auto& a : amounts) {
+    a = new QDoubleSpinBox(this);
+    a->setDecimals(1);
+    a->setMinimum(0);
+    a->setMaximum(9999);  // NOLINT(*-magic-numbers)
+  }
+  // connect
+  for (uint i = 0; i < amounts.size(); i++) {
+    QObject::connect(amounts.at(i), &QDoubleSpinBox::valueChanged, this, [this, i](double val) {
       valueChange(i, val);
     });
   }
@@ -36,13 +39,13 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
   row++;
 
   // liquids
-  for (int i = 0; i <= static_cast<int>(Additive::Value::lastLiquid); i++) {
+  for (uint i = 0; i < percents.size(); i++) {
     auto* formula = new QLabel(Additive::strFormula.at(i), this);
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
     auto* txt = new QLabel(Additive::strTranslate.at(i), this);
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
-    layout->addWidget(percents[i], row, 2, Qt::AlignRight);
-    layout->addWidget(amounts[i], row, 3, Qt::AlignRight);
+    layout->addWidget(percents.at(i), row, 2, Qt::AlignRight);
+    layout->addWidget(amounts.at(i), row, 3, Qt::AlignRight);
     row++;
   }
 
@@ -55,13 +58,13 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
   row++;
 
   // solids
-  for (int i = static_cast<int>(Additive::Value::lastLiquid) + 1; i < static_cast<int>(Additive::Value::Size); i++) {
+  for (uint i = percents.size(); i < amounts.size(); i++) {
     auto* formula = new QLabel(Additive::strFormula.at(i), this);
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
     auto* txt = new QLabel(Additive::strTranslate.at(i), this);
     // layout->addWidget(txt, row, 1, 1, 2, Qt::AlignLeft);
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
-    layout->addWidget(amounts[i], row, 3, Qt::AlignRight);
+    layout->addWidget(amounts.at(i), row, 3, Qt::AlignRight);
     row++;
   }
 
@@ -75,14 +78,14 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
 void MixAdditiveWidget::update() {
   valChangeGuard = true;  // Disable valueChanges during ui only update
   // update values
-  for (int i = 0; i < static_cast<int>(Additive::Value::Size); i++) {
+  for (uint i = 0; i < amounts.size(); i++) {
     auto what = static_cast<Additive::Value>(i);
-    if (i <= static_cast<int>(Additive::Value::lastLiquid)) {
+    if (i < percents.size()) {
       const double display = aMix->get(what) * 100 / aCfg.getConcentration(what) / aCfg.getDensity(what);
-      percents[i]->setText(QString::number(aCfg.getConcentration(what), 'f', 0));
-      amounts[i]->setValue(display);
+      percents.at(i)->setText(QString::number(aCfg.getConcentration(what), 'f', 0));
+      amounts.at(i)->setValue(display);
     } else {
-      amounts[i]->setValue(aMix->get(what));
+      amounts.at(i)->setValue(aMix->get(what));
     }
   }
   // update unit
@@ -94,7 +97,7 @@ void MixAdditiveWidget::update() {
   valChangeGuard = false;
 }
 
-void MixAdditiveWidget::valueChange(int idx, double val) {
+void MixAdditiveWidget::valueChange(uint idx, double val) {
   if (!valChangeGuard) {
     auto what = static_cast<Additive::Value>(idx);
     const double newVal = val / 100 * aCfg.getConcentration(what) * aCfg.getDensity(what);

@@ -29,7 +29,7 @@ class MixAdditiveWidget : public QFrame {
 
  public slots:
   void update();
-  void valueChange(int idx, double val);
+  void valueChange(uint idx, double val);
 
  private:
   Additive* aMix;             /** @brief Additive in mixture */
@@ -37,8 +37,8 @@ class MixAdditiveWidget : public QFrame {
   bool valChangeGuard{false}; /**< @brief Guard to avoid value changes on ui updates */
   QLabel* liquidUnit;         /**< @brief Unit for liquids */
 
-  QLabel* percents[static_cast<int>(Additive::Value::lastLiquid) + 1]; /**< @brief Weight percent for liquids */
-  QDoubleSpinBox* amounts[static_cast<int>(Additive::Value::Size)];    /**< @brief Spin boxes of additive */
+  std::array<QLabel*, static_cast<int>(Additive::Value::lastLiquid) + 1> percents{}; /**< @brief Weight percent */
+  std::array<QDoubleSpinBox*, static_cast<int>(Additive::Value::Size)> amounts{}; /**< @brief Spin boxes of additive */
 };
 
 #endif  // MIXADDITIVEWIDGET_H
