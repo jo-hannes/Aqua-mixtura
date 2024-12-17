@@ -28,19 +28,19 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   QObject::connect(styleSelect, &QComboBox::activated, this, &MixResultWidget::selectStyle);
 
   // values
-  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
+  for (uint i = 0; i < vals.size(); i++) {
     ++row;
     // Description
     layout->addWidget(new QLabel(Water::strTranslate.at(i)), row, 0);
     // value
-    vals[i] = new QLabel();
-    layout->addWidget(vals[i], row, 1, Qt::AlignRight);
+    vals.at(i) = new QLabel();
+    layout->addWidget(vals.at(i), row, 1, Qt::AlignRight);
     // Unit
     layout->addWidget(new QLabel(Water::strUnit.at(i)), row, 2, Qt::AlignLeft);
     // Bars
     if (i != static_cast<int>(Water::Value::Volume)) {
-      bars[i] = new ResultBar();
-      layout->addWidget(bars[i], row, 3);
+      bars.at(i) = new ResultBar();
+      layout->addWidget(bars.at(i), row, 3);
     }
   }
   layout->setRowStretch(++row, 99);  // NOLINT(*-magic-numbers)
@@ -60,21 +60,21 @@ bool MixResultWidget::isChanged() const {
 
 void MixResultWidget::update() {
   const Water tst = mix.calc();
-  for (int i = 0; i < static_cast<int>(Water::Value::Size); i++) {
-    vals[i]->setText(QString::number(tst.get(static_cast<Water::Value>(i)), 'f', 2));
+  for (uint i = 0; i < vals.size(); i++) {
+    vals.at(i)->setText(QString::number(tst.get(static_cast<Water::Value>(i)), 'f', 2));
     // Update Bars
     if (i != static_cast<int>(Water::Value::Volume)) {  // Skip volume
-      bars[i]->setLimits(lim.getMin(static_cast<Water::Value>(i)), lim.getMax(static_cast<Water::Value>(i)),
-                         lim.isNegativeAllowed(static_cast<Water::Value>(i)),
-                         lim.isLogarithmicScale(static_cast<Water::Value>(i)));
+      bars.at(i)->setLimits(lim.getMin(static_cast<Water::Value>(i)), lim.getMax(static_cast<Water::Value>(i)),
+                            lim.isNegativeAllowed(static_cast<Water::Value>(i)),
+                            lim.isLogarithmicScale(static_cast<Water::Value>(i)));
       if (mix.style->isLimited(static_cast<Water::Value>(i))) {
-        bars[i]->setStyle(mix.style->get(static_cast<Water::Value>(i), Style::Limit::Min),
-                          mix.style->get(static_cast<Water::Value>(i), Style::Limit::Target),
-                          mix.style->get(static_cast<Water::Value>(i), Style::Limit::Max));
+        bars.at(i)->setStyle(mix.style->get(static_cast<Water::Value>(i), Style::Limit::Min),
+                             mix.style->get(static_cast<Water::Value>(i), Style::Limit::Target),
+                             mix.style->get(static_cast<Water::Value>(i), Style::Limit::Max));
       } else {
-        bars[i]->setNoStyle();
+        bars.at(i)->setNoStyle();
       }
-      bars[i]->setValue(tst.get(static_cast<Water::Value>(i)));
+      bars.at(i)->setValue(tst.get(static_cast<Water::Value>(i)));
     }
   }
 }
