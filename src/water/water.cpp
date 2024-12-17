@@ -80,7 +80,7 @@ void Water::set(Value what, double value) {
   // only stored values
   const auto idx = static_cast<std::size_t>(what);
   if (idx < values.size()) {
-    values[idx] = value;  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): idx is checked
+    values.at(idx) = value;
     updateEditTime();
   }
 };
@@ -90,7 +90,7 @@ bool Water::fromJson(const QJsonObject& json) {
   assert(strJsonKey.size() >= values.size());
   for (uint i = 0; i < values.size(); i++) {
     const QString& key = strJsonKey.at(i);
-    values[i] = json[key].toDouble(0);  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): i < values.size()
+    values.at(i) = json[key].toDouble(0);
   }
   return ret;
 }
@@ -119,8 +119,7 @@ Water& Water::operator+=(const Water& rhs) {
     return *this;
   }
   for (uint i = static_cast<uint>(Value::Volume) + 1; i < this->values.size(); i++) {
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < values.size()
-    this->values[i] = (this->values[i] * volThis + rhs.values[i] * volRhs) / volSum;
+    this->values.at(i) = (this->values.at(i) * volThis + rhs.values.at(i) * volRhs) / volSum;
   }
   this->values[static_cast<uint>(Value::Volume)] = volSum;
   return *this;

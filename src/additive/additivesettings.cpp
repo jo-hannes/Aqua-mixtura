@@ -37,8 +37,7 @@ bool AdditiveSettings::fromJson(const QJsonObject& json) {
   }
   for (uint i = 0; i < concentration.size(); i++) {
     const QString jsonKey = Additive::strJsonKey.at(i);
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < concentration.size()
-    concentration[i] = asettings[jsonKey].toDouble(0);
+    concentration.at(i) = asettings[jsonKey].toDouble(0);
   }
   setChanged(false);
   return true;
@@ -83,8 +82,7 @@ void AdditiveSettings::setConcentration(Additive::Value what, double value) {
     } else if (value > 100) {  // NOLINT(*-magic-numbers)
       value = 100;             // NOLINT(*-magic-numbers)
     }
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): idx < concentration.size()
-    concentration[idx] = value;
+    concentration.at(idx) = value;
     setChanged(true);
   }
 }

@@ -36,7 +36,7 @@ double Additive::get(Value what) const {
 void Additive::set(Value what, double value) {
   const auto idx = static_cast<std::size_t>(what);
   if (idx < amount.size()) {
-    amount[idx] = value;  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): idx is checked
+    amount.at(idx) = value;
     setChanged(true);
   }
 }
@@ -57,8 +57,7 @@ bool Additive::fromJson(const QJsonObject& json) {
   for (uint i = 0; i < amount.size(); i++) {
     // i is inside range of array
     const QString jsonKey = strJsonKey.at(i);
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < amount.size()
-    amount[i] = additives[jsonKey].toDouble(0);
+    amount.at(i) = additives[jsonKey].toDouble(0);
   }
   setChanged(false);
   return true;
@@ -69,8 +68,7 @@ QJsonObject Additive::toJson() const {
   Meta::toJson(inner);
   for (uint i = 0; i < amount.size(); i++) {
     const QString jsonKey = strJsonKey.at(i);
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index)
-    inner[jsonKey] = amount[i];
+    inner[jsonKey] = amount.at(i);
   }
   QJsonObject outer;
   outer["WaterAdditives"] = inner;
@@ -82,8 +80,7 @@ Water Additive::operator+(const Water& rhs) const {
   std::array<double, calculationMatrix[0].size()> values{};
   // double values[static_cast<int>(Water::Value::LastAnion) + 1];
   for (uint w = 0; w < values.size(); w++) {
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): w < values.size()
-    values[w] = rhs.get(static_cast<Water::Value>(w));
+    values.at(w) = rhs.get(static_cast<Water::Value>(w));
   }
 
   // sotre volume for later calculations
@@ -94,10 +91,10 @@ Water Additive::operator+(const Water& rhs) const {
     double mg = 0;  // mg added or removed
     // loop over all additive
     for (uint a = 0; a < calculationMatrix.size(); a++) {
-      mg += amount[a] * calculationMatrix[a][w];  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index)
+      mg += amount.at(a) * calculationMatrix.at(a).at(w);
     }
     // add it to the water
-    values[w] += mg / volume;  // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index): w < values.size()
+    values.at(w) += mg / volume;
   }
 
   // store calculated values in new water object

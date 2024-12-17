@@ -30,8 +30,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
     layout->addWidget(formula, row, 0, Qt::AlignLeft);
     auto* txt = new QLabel(Additive::strTranslate.at(i));
     layout->addWidget(txt, row, 1, Qt::AlignLeft);
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-constant-array-index): i < concentrations.size()
-    concentrations[i] = new QDoubleSpinBox();
+    concentrations.at(i) = new QDoubleSpinBox();
     concentrations.at(i)->setDecimals(0);
     concentrations.at(i)->setMinimum(1);
     concentrations.at(i)->setMaximum(100);  // NOLINT(*-magic-numbers)
