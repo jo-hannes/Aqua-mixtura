@@ -12,7 +12,7 @@
 #include <QObject>
 
 /**
- * @brief Programm global settings
+ * @brief Program global settings
  */
 class Settings : public QAbstractTableModel, public Meta {
   Q_OBJECT

@@ -56,7 +56,7 @@ class Style : public QAbstractTableModel, public Meta {
 
   std::array<bool, static_cast<int>(Water::Value::Size)> limited{};
   std::array<std::array<double, static_cast<int>(Limit::Size)>, static_cast<int>(Water::Value::Size)> limits{};
-  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and program will not run without this strings
   static const inline std::array<QString, static_cast<int>(Limit::Size)> strJsonKey{"Min", "Target", "Max"};
 };
 

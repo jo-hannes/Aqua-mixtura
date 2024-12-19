@@ -44,14 +44,14 @@ class Water : public Meta {
   // clang-format off
   // Strings with json key, unit, ...
   // Need to match order of WaterValue enum
-  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and program will not run without this strings
   inline static const std::array<QString, static_cast<int>(Value::Size)> strJsonKey{
     "Volume",
     "ca", "mg", "na", "hco3", "cl", "so4", "h2po4", "c3h5o3",
     "Restalkalitaet", "Gesamthaerte", "Carbonhaerte", "NichtCarbonhaerte", "CaHaerte", "MgHaerte",
     "SO4ClVerhaeltnis"
   };
-  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and program will not run without this strings
   inline static const std::array<QString, static_cast<int>(Value::Size)> strUnit{
     "l",
     "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l",

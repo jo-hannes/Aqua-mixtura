@@ -17,7 +17,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   set(CPACK_NSIS_CREATE_ICONS_EXTRA
     "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${CMAKE_PROJECT_NAME}.lnk' '$INSTDIR\\\\bin\\\\${CMAKE_PROJECT_NAME}.exe'")
 
-  # programm icon
+  # program icon
   set(RESOURCE_FILES
     ${RESOURCE_FILES}
     ${PROJECT_SOURCE_DIR}/pack/icon.ico
