@@ -4,10 +4,9 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 
-#include "QtWidgets/qpushbutton.h"
-
 #include <QDialogButtonBox>
 #include <QObject>
+#include <QPushButton>
 
 /**
  * @brief Clas for creating common button groups

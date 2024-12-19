@@ -4,10 +4,9 @@
 #ifndef DOWNLOAD_H
 #define DOWNLOAD_H
 
+#include <QNetworkAccessManager>
 #include <QString>
 #include <QUrl>
-
-#include <QtNetwork/QNetworkAccessManager>
 
 /**
  * @brief Class to download files
