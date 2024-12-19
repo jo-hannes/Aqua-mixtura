@@ -21,7 +21,8 @@ MixResultWidget::MixResultWidget(Mixture& mixture, Styles& styleDb, Settings& se
   layout->addWidget(new QLabel(tr("Ergebnis")), row, 0, Qt::AlignLeft);
 
   styleSelect = new QComboBox();
-  styleSelect->setMinimumContentsLength(30);
+  // NOLINTNEXTLINE(*-magic-numbers)
+  styleSelect->setMinimumContentsLength(30);  // Use available space
   styleSelect->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 
   layout->addWidget(styleSelect, ++row, 0, 1, 4, Qt::AlignLeft);

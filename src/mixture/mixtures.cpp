@@ -88,7 +88,7 @@ void Mixtures::updateMixture(Mixture& mixture, int i) {
 }
 
 void Mixtures::addMixture(Mixture& mixture) {
-  const int i = mixtures.size();
+  const int i = mixtures.size();  // NOLINT(*-narrowing-conversions): beginInsertRows requires int
   beginInsertRows(QModelIndex(), i, i);
   mixtures.append(mixture);
   endInsertRows();
@@ -137,7 +137,7 @@ bool Mixtures::closeAll() {
 
 int Mixtures::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return mixtures.size();
+  return mixtures.size();  // NOLINT(*-narrowing-conversions): using int because of QAbstractTableModel
 }
 
 int Mixtures::columnCount(const QModelIndex& parent) const {

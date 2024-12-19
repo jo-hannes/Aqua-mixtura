@@ -19,6 +19,7 @@ WaterProfileEdit::WaterProfileEdit(QWidget* parent) : QWidget{parent} {
   layout->addWidget(txtName, row, 0, Qt::AlignLeft);
   row++;
   name = new QLineEdit();
+  // NOLINTNEXTLINE(*-magic-numbers)
   name->setMinimumWidth(220);  // Force line edit to use the available space
   layout->addWidget(name, row, 0, 1, 3, Qt::AlignLeft);
   QObject::connect(name, &QLineEdit::textEdited, this, &WaterProfileEdit::valChangName);

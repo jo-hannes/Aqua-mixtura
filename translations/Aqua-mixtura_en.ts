@@ -798,27 +798,27 @@
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="28"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="29"/>
         <source>Kationen</source>
         <translation>Cations</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="45"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="46"/>
         <source>Anionen</source>
         <translation>Anions</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="69"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="70"/>
         <source>Berechnet</source>
         <translation>Calculated</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="98"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="99"/>
         <source>Speichern</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../src/water/waterprofileedit.cpp" line="98"/>
+        <location filename="../src/water/waterprofileedit.cpp" line="99"/>
         <source>Abbrechen</source>
         <translation>Cancel</translation>
     </message>

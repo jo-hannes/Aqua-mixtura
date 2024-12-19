@@ -37,7 +37,7 @@ class Additive : public QObject, public Meta {
   };
 
   // clang-format off
-  // NOLINTBEGIN(cert-err58-cpp): it is very unlikely and programm will not run without this strings
+  // NOLINTBEGIN(cert-err58-cpp): it is very unlikely and program will not run without this strings
   inline static const std::array<QString, static_cast<int>(Value::Size)> strJsonKey{
       "c3h6o3", "hcl", "h2so4", "h3po4", "caso4",      "cacl2",      "nacl", "nahco3", "mgcl2",      "mgso4",      "caco3"};
   inline static const std::array<QString, static_cast<int>(Value::Size)> strFormula{

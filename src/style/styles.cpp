@@ -11,17 +11,12 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 
-Styles::Styles() {
-  noStyle = new Style("No Style");
-}
-
 Styles::Styles(const QJsonObject& json) : Styles() {
   fromJson(json);
 }
 
 Styles::~Styles() {
   clear();
-  delete noStyle;
 }
 
 bool Styles::fromJson(const QJsonObject& json) {
@@ -83,11 +78,11 @@ Style* Styles::getStyle(qsizetype i) {
   if (i >= 0 && i < styles.size()) {
     return styles[i];
   }
-  return noStyle;
+  return &noStyle;
 }
 
 void Styles::addStyle(Style* style) {
-  const int i = styles.size();
+  const int i = styles.size();  // NOLINT(*-narrowing-conversions): beginInsertRows requires int
   beginInsertRows(QModelIndex(), i, i);
   styles.append(style);
   endInsertRows();
@@ -110,7 +105,7 @@ bool Styles::isChanged() const {
 
 int Styles::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return styles.size();
+  return styles.size();  // NOLINT(*-narrowing-conversions): using int because of QAbstractListModel
 }
 
 QVariant Styles::data(const QModelIndex& index, int role) const {

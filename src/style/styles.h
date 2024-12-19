@@ -10,13 +10,14 @@
 #include <QString>
 #include <QVector>
 
+// NOLINTNEXTLINE(*-special-member-functions): We only need a custom destructor
 class Styles : public QAbstractListModel {
   Q_OBJECT
 
  public:
-  Styles();
+  Styles() = default;
   explicit Styles(const QJsonObject& json); /**< @brief Create Styles from JSON */
-  ~Styles();
+  ~Styles() override;
 
   // JSON conversion
   bool fromJson(const QJsonObject& json);   /**< @brief Update Styles from JSON */
@@ -50,7 +51,7 @@ class Styles : public QAbstractListModel {
   void clear(); /**< @brief Clear/remove all Styles*/
 
   QVector<Style*> styles;
-  Style* noStyle; /**< @brief Empty style used to return no style on error */
+  Style noStyle{"No Style"}; /**< @brief Empty style used to return no style on error */
 };
 
 #endif  // STYLES_H

@@ -33,7 +33,7 @@ class JsonHelper {
    * @param into Other object will be merged into this object
    * @param from Data from this object is merged into other object
    */
-  static void mergeJson(QJsonObject& into, const QJsonObject from);
+  static void mergeJson(QJsonObject& into, const QJsonObject& from);
 };
 
 #endif  // JSONHELPER_H

@@ -17,13 +17,14 @@
 #include <QObject>
 #include <QVector>
 
+// NOLINTNEXTLINE(*-special-member-functions): We only need a custom destructor
 class Mixtures : public QAbstractTableModel {
   Q_OBJECT
 
  public:
   explicit Mixtures(QObject* parent = nullptr);
   explicit Mixtures(const QJsonObject& json, QObject* parent = nullptr); /**< @brief Create Mixtures from JSON */
-  ~Mixtures();
+  ~Mixtures() override;
 
   // JSON conversion
   bool fromJson(const QJsonObject& json);         /**< @brief Update Mixtures from JSON */

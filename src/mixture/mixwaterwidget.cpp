@@ -61,7 +61,7 @@ void MixWaterWidget::updateWaterDb() {
   waterMenu->clear();
   for (int i = 0; i < wDb.rowCount(); i++) {
     auto* act = new QAction(wDb.getProfile(i).getName(), waterMenu);
-    QObject::connect(act, &QAction::triggered, this, [=]() {
+    QObject::connect(act, &QAction::triggered, this, [this, i]() {
       add(i);
     });
     waterMenu->addAction(act);

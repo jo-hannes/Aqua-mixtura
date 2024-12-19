@@ -50,11 +50,8 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
   }
 
   // heading solids
-  auto* txtSolid = new QLabel("<b>" + tr("Feststoffe") + "</b>", this);
-  layout->addWidget(txtSolid, row, 0, 1, 3, Qt::AlignLeft);
-  auto* txtG = new QLabel("<b>g</b>", this);
-  txtG->setMaximumHeight(20);
-  layout->addWidget(txtG, row, 3, Qt::AlignRight);
+  layout->addWidget(new QLabel("<b>" + tr("Feststoffe") + "</b>", this), row, 0, 1, 3, Qt::AlignLeft);
+  layout->addWidget(new QLabel("<b>g</b>", this), row, 3, Qt::AlignRight);
   row++;
 
   // solids

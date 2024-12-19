@@ -79,7 +79,7 @@ const Malt& Malts::getMalt(int i) {
 }
 
 void Malts::addMalt(const Malt& malt) {
-  const int i = malts.size();
+  const int i = malts.size();  // NOLINT(*-narrowing-conversions): beginInsertRows requires int
   beginInsertRows(QModelIndex(), i, i);
   malts.append(malt);
   endInsertRows();
@@ -101,7 +101,7 @@ bool Malts::isChanged() const {
 
 int Malts::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return malts.size();
+  return malts.size();  // NOLINT(*-narrowing-conversions): using int because of QAbstractTableModel
 }
 
 int Malts::columnCount(const QModelIndex& parent) const {

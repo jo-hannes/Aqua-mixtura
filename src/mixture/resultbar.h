@@ -52,8 +52,9 @@ class ResultBar : public QWidget {
   [[nodiscard]] int val2graph(double value) const; /**< @brief trans form value into graph coordinate */
 
   // Some constants
-  static const int width = 122; /**< @brief width of result bar in pixel */
-  static const int height = 20; /**< @brief height of result bar in pixel */
+  static const int width = 122;  /**< @brief width of result bar in pixel */
+  static const int height = 20;  /**< @brief height of result bar in pixel */
+  static const int indSize = 10; /**< @brief size of value indicator in pixel */
 
   double gMin{0};          /**< @brief minimum value displayed in graph */
   double lMin{0};          /**< @brief minimum from settings */

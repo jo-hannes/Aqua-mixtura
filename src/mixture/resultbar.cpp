@@ -91,27 +91,29 @@ void ResultBar::paintEvent(QPaintEvent* event) {
   // print indicator
   brush.setColor(Qt::black);
   painter.setBrush(brush);
-  const int ind = val2graph(value);
+  const int ind = val2graph(value);     // indicator position
+  constexpr int indHalf = indSize / 2;  // Half size of indicator
   // check if we are out of range
-  QPoint points[3];
+  // QPoint points[3];
+  QPolygon points;
   if (ind < 0) {
     // below range
-    points[0] = QPoint(0, height - 5);
-    points[1] = QPoint(10, height - 10);
-    points[2] = QPoint(10, height);
+    points << QPoint(0, height - indHalf);        // left indication tip
+    points << QPoint(indSize, height - indSize);  // right top
+    points << QPoint(indSize, height);            // right bottom
 
   } else if (ind > width) {
     // over range
-    points[0] = QPoint(width, height - 5);
-    points[1] = QPoint(width - 10, height - 10);
-    points[2] = QPoint(width - 10, height);
+    points << QPoint(width, height - indHalf);            // right indication tip
+    points << QPoint(width - indSize, height - indSize);  // left top
+    points << QPoint(width - indSize, height);            // left bottom
   } else {
     // in range
-    points[0] = QPoint(ind - 5, height);  // NOLINT(*-narrowing-conversions): double to int is indented
-    points[1] = QPoint(ind, height / 2);
-    points[2] = QPoint(ind + 5, height);  // NOLINT(*-narrowing-conversions): double to int is indented
+    points << QPoint(ind - indHalf, height);  // left bottom
+    points << QPoint(ind, height - indSize);  // top indication tip
+    points << QPoint(ind + indHalf, height);  // right bottom
   }
-  painter.drawPolygon(points, 3);  // NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+  painter.drawPolygon(points);
 }
 
 void ResultBar::updateMinMax() {

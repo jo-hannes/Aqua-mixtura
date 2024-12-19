@@ -46,13 +46,13 @@ class Buttons : public QDialogButtonBox {
 
   // Buttons are intended to be public
   // NOLINTBEGIN(*-non-private-member-variables-in-classes)
-  QPushButton* btnAdd;
-  QPushButton* btnCopy;
-  QPushButton* btnDelete;
-  QPushButton* btnImport;
-  QPushButton* btnExport;
-  QPushButton* btnCancel;
-  QPushButton* btnSave;
+  QPushButton* btnAdd{};
+  QPushButton* btnCopy{};
+  QPushButton* btnDelete{};
+  QPushButton* btnImport{};
+  QPushButton* btnExport{};
+  QPushButton* btnCancel{};
+  QPushButton* btnSave{};
   // NOLINTEND(*-non-private-member-variables-in-classes)
 
  private:

@@ -62,7 +62,7 @@ void MixMaltWidget::updateMaltDb() {
   maltMenu->clear();
   for (int i = 0; i < mDb.rowCount(); i++) {
     auto* act = new QAction(mDb.getMalt(i).getName(), maltMenu);
-    QObject::connect(act, &QAction::triggered, this, [=]() {
+    QObject::connect(act, &QAction::triggered, this, [this, i]() {
       add(i);
     });
     maltMenu->addAction(act);
