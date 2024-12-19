@@ -131,124 +131,124 @@
         <translation>Bierstile</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="54"/>
+        <location filename="../src/mainwindow.cpp" line="55"/>
         <source>Aufbereitung hinzufügen</source>
         <translation>Aufbereitung hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="54"/>
+        <location filename="../src/mainwindow.cpp" line="55"/>
         <source>Aufbereitung kopieren</source>
         <translation>Aufbereitung kopieren</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="54"/>
+        <location filename="../src/mainwindow.cpp" line="55"/>
         <source>Aufbereitung löschen</source>
         <translation>Aufbereitung löschen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="55"/>
-        <location filename="../src/mainwindow.cpp" line="200"/>
+        <location filename="../src/mainwindow.cpp" line="56"/>
+        <location filename="../src/mainwindow.cpp" line="201"/>
         <source>Aufbereitung importieren</source>
         <translation>Aufbereitung importieren</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="55"/>
-        <location filename="../src/mainwindow.cpp" line="221"/>
+        <location filename="../src/mainwindow.cpp" line="56"/>
+        <location filename="../src/mainwindow.cpp" line="222"/>
         <source>Aufbereitung exportieren</source>
         <translation>Aufbereitung exportieren</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="130"/>
+        <location filename="../src/mainwindow.cpp" line="131"/>
         <source>Rechner zur Wasseraufbereitung fürs Bierbrauen.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;https://github.com/jo-hannes/Aqua-mixtura&quot;&gt;github.com/jo-hannes/Aqua-mixtura&lt;/a&gt;</source>
         <translation>Rechner zur Wasseraufbereitung fürs Bierbrauen.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;https://github.com/jo-hannes/Aqua-mixtura&quot;&gt;github.com/jo-hannes/Aqua-mixtura&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="192"/>
+        <location filename="../src/mainwindow.cpp" line="193"/>
         <source>Aufbereitung wirklich löschen?</source>
         <translation>Aufbereitung wirklich löschen?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="247"/>
+        <location filename="../src/mainwindow.cpp" line="248"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="253"/>
+        <location filename="../src/mainwindow.cpp" line="254"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="258"/>
+        <location filename="../src/mainwindow.cpp" line="259"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="264"/>
+        <location filename="../src/mainwindow.cpp" line="265"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="268"/>
+        <location filename="../src/mainwindow.cpp" line="269"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="202"/>
+        <location filename="../src/mainwindow.cpp" line="203"/>
         <source>JSON (*.json);; Any (*.*)</source>
         <translation>JSON (*.json);; Alle (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="207"/>
+        <location filename="../src/mainwindow.cpp" line="208"/>
         <source>Fehler beim Importieren</source>
         <translation>Fehler beim Importieren</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="207"/>
+        <location filename="../src/mainwindow.cpp" line="208"/>
         <source>Konnte Aufbereitung nicht im JSON finden</source>
         <translation>Konnte Aufbereitung nicht im JSON finden</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="227"/>
         <source>Fehler beim Exportieren</source>
         <translation>Fehler beim Exportieren</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="226"/>
+        <location filename="../src/mainwindow.cpp" line="227"/>
         <source>Konnte Aufbereitung nicht speichern</source>
         <translation>Konnte Aufbereitung nicht speichern</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="236"/>
+        <location filename="../src/mainwindow.cpp" line="237"/>
         <source>Preferences...</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="237"/>
+        <location filename="../src/mainwindow.cpp" line="238"/>
         <source>Die Anwendung Konfigurieren</source>
         <translation>Die Anwendung Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="242"/>
+        <location filename="../src/mainwindow.cpp" line="243"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="243"/>
+        <location filename="../src/mainwindow.cpp" line="244"/>
         <source>Save changes</source>
         <translation>Änderungen speichern</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="248"/>
+        <location filename="../src/mainwindow.cpp" line="249"/>
         <source>Exit the application</source>
         <translation>Anwendung Beenden</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="254"/>
+        <location filename="../src/mainwindow.cpp" line="255"/>
         <source>Show the application&apos;s About box</source>
         <translation>Zeigt Informationen über diese Anwendungen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="259"/>
+        <location filename="../src/mainwindow.cpp" line="260"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation>Zeigt Informationen über die Qt library</translation>
     </message>
