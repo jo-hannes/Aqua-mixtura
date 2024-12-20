@@ -27,9 +27,9 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   heading->addWidget(new QLabel(tr("Menge:")), 1, Qt::AlignRight);
   wTotal = new QDoubleSpinBox();
   wTotal->setMinimum(0);
-  wTotal->setMaximum(9999);
+  wTotal->setMaximum(9999);  // NOLINT(*-magic-numbers)
   wTotal->setDecimals(2);
-  wTotal->setSingleStep(0.1);
+  wTotal->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
   wTotal->setValue(wMix.getTotalVolume());
   QObject::connect(wTotal, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setTotalVolume);
   heading->addWidget(wTotal, 0, Qt::AlignRight);
