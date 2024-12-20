@@ -23,7 +23,8 @@ class WaterSources : public QAbstractTableModel {
   [[nodiscard]] QJsonObject toJson() const;        /**< @brief convert this WaterSources to JSON */
   [[nodiscard]] QJsonObject profileToJson() const; /**< @brief convert profile of this WaterSources to JSON */
 
-  // bool import(const QString& path);
+  [[nodiscard]] double getTotalVolume() const; /**< @brief Get total water amount */
+  void setTotalVolume(double volume);          /**< @brief Set total water amount */
 
   const Water& getProfile(int i);            /**< @brief Get water profile at index */
   Water getMix();                            /**< @brief Get mixture of all waters */
@@ -49,7 +50,21 @@ class WaterSources : public QAbstractTableModel {
   void dataModified();
 
  private:
+  /**
+   * @brief updateAllVolumes Update volumes of water sources to match total water amount
+   * @param preserve Index of water source where volume should be preserved if possible
+   */
+  void updateAllVolumes(int preserve);
+  /**
+   * @brief updateVolume Update volume at index and limit to residual
+   * @param idx Index of water
+   * @param residual Residual amount of water
+   * @return Residual amount of water after updating idx
+   */
+  double updateVolume(int idx, double residual);
+
   QVector<Water> sources;
+  double total{0};
   Water noWater;
 };
 

@@ -838,18 +838,18 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="135"/>
         <location filename="../src/water/watersources.cpp" line="143"/>
+        <location filename="../src/water/watersources.cpp" line="151"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="137"/>
+        <location filename="../src/water/watersources.cpp" line="145"/>
         <source>Restalkalität</source>
         <translation>Restalkalität</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="139"/>
+        <location filename="../src/water/watersources.cpp" line="147"/>
         <source>Menge</source>
         <translation>Menge</translation>
     </message>

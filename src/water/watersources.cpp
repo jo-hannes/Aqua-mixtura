@@ -28,6 +28,11 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   }
   emit dataModified();
   endResetModel();
+  // Calculate total amount from sources
+  total = 0;
+  for (const auto& w : sources) {
+    total += w.get(Water::Value::Volume);
+  }
   return true;
 }
 
@@ -51,6 +56,15 @@ QJsonObject WaterSources::profileToJson() const {
   return jsonSources;
 }
 
+double WaterSources::getTotalVolume() const {
+  return total;
+}
+
+void WaterSources::setTotalVolume(double volume) {
+  total = volume;
+  updateAllVolumes(-1);
+}
+
 const Water& WaterSources::getProfile(int i) {
   if (i >= 0 && i < sources.size()) {
     return sources.at(i);
@@ -69,6 +83,7 @@ Water WaterSources::getMix() {
 void WaterSources::updateProfile(Water& profile, int i) {
   if (i >= 0 && i < sources.size()) {
     sources.replace(i, profile);
+    updateAllVolumes(i);
     emit dataChanged(index(i, 0), index(i, 1));
   }
 }
@@ -77,6 +92,7 @@ void WaterSources::addProfile(const Water& profile) {
   const int i = sources.size();  // NOLINT(*-narrowing-conversions): beginInsertRows requires int
   beginInsertRows(QModelIndex(), i, i);
   sources.append(profile);
+  updateAllVolumes(i);
   emit dataModified();
   endInsertRows();
 }
@@ -85,6 +101,7 @@ void WaterSources::deleteProfile(int i) {
   if (i >= 0 && i < sources.size()) {
     beginRemoveRows(QModelIndex(), i, i);
     sources.removeAt(i);
+    updateAllVolumes(-1);
     emit dataModified();
     endRemoveRows();
   }
@@ -187,4 +204,28 @@ void WaterSources::load() {
 void WaterSources::save() const {
   const QString file = Paths::dataDir() + "/sources.json";
   JsonHelper::saveFile(file, this->profileToJson());
+}
+
+void WaterSources::updateAllVolumes(int preserve) {
+  double residual = total;
+  // first check the index we preserve
+  if (preserve >= 0 && preserve < sources.size()) {
+    residual = updateVolume(preserve, residual);
+  }
+  for (int i = 0; i < sources.size(); i++) {
+    if (i == preserve) {
+      continue;
+    }
+    residual = updateVolume(i, residual);
+  }
+}
+
+double WaterSources::updateVolume(int idx, double residual) {
+  const double val = sources.at(idx).get(Water::Value::Volume);
+  if (val > residual) {
+    sources[idx].set(Water::Value::Volume, residual);
+    emit dataChanged(index(idx, 2), index(idx, 2));
+    return 0;
+  }
+  return residual - val;
 }
