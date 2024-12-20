@@ -428,17 +428,22 @@
 <context>
     <name>MixWaterWidget</name>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="24"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="26"/>
         <source>Wasser</source>
         <translation>Water</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="36"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="27"/>
+        <source>Menge:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="47"/>
         <source>Wasser hinzufügen</source>
         <translation>Add water</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="36"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="47"/>
         <source>Wasser löschen</source>
         <translation>Delete water</translation>
     </message>
