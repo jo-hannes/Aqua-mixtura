@@ -169,13 +169,14 @@ bool WaterSources::setData(const QModelIndex& index, const QVariant& value, int 
   if (!index.isValid()) {
     return false;
   }
-  const qsizetype row = index.row();
+  const int row = index.row();
   if (row < 0 || row >= sources.size()) {
     return false;
   }
   if (index.column() == 2) {
     sources[row].set(Water::Value::Volume, value.toDouble());
     emit dataChanged(index, index);
+    updateAllVolumes(row);
     return true;
   }
   return false;
@@ -207,6 +208,9 @@ void WaterSources::save() const {
 }
 
 void WaterSources::updateAllVolumes(int preserve) {
+  if (sources.empty()) {
+    return;
+  }
   double residual = total;
   // first check the index we preserve
   if (preserve >= 0 && preserve < sources.size()) {
@@ -217,6 +221,12 @@ void WaterSources::updateAllVolumes(int preserve) {
       continue;
     }
     residual = updateVolume(i, residual);
+  }
+  if (residual > 0) {
+    // something left we need to add to last water
+    const int idx = sources.size() - 1;  // NOLINT(*-narrowing-conversions): dataChanged index uses int
+    sources[idx].set(Water::Value::Volume, sources.at(idx).get(Water::Value::Volume) + residual);
+    emit dataChanged(index(idx, 2), index(idx, 2));
   }
 }
 

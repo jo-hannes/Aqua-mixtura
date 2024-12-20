@@ -30,6 +30,8 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   wTotal->setMaximum(9999);
   wTotal->setDecimals(2);
   wTotal->setSingleStep(0.1);
+  wTotal->setValue(wMix.getTotalVolume());
+  QObject::connect(wTotal, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setTotalVolume);
   heading->addWidget(wTotal, 0, Qt::AlignRight);
   heading->addWidget(new QLabel("L"), 0, Qt::AlignLeft);
   // layout->addWidget(heading);

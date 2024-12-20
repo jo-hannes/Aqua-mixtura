@@ -438,12 +438,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="47"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="49"/>
         <source>Wasser hinzufügen</source>
         <translation>Add water</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="47"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="49"/>
         <source>Wasser löschen</source>
         <translation>Delete water</translation>
     </message>
