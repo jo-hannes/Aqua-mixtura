@@ -483,8 +483,8 @@
         <translation>Aufbereitung &quot;%1&quot; hat ungespeicherte Änderungen</translation>
     </message>
     <message>
+        <location filename="../src/mixture/mixturewindow.cpp" line="121"/>
         <location filename="../src/mixture/mixturewindow.cpp" line="124"/>
-        <location filename="../src/mixture/mixturewindow.cpp" line="128"/>
         <source>Aufbereitung</source>
         <translation>Aufbereitung</translation>
     </message>
@@ -838,18 +838,18 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="143"/>
-        <location filename="../src/water/watersources.cpp" line="151"/>
+        <location filename="../src/water/watersources.cpp" line="152"/>
+        <location filename="../src/water/watersources.cpp" line="160"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="145"/>
+        <location filename="../src/water/watersources.cpp" line="154"/>
         <source>Restalkalität</source>
         <translation>Restalkalität</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="147"/>
+        <location filename="../src/water/watersources.cpp" line="156"/>
         <source>Menge</source>
         <translation>Menge</translation>
     </message>

@@ -476,8 +476,8 @@
         <translation>Mixture &quot;%1&quot; has unsaved changes</translation>
     </message>
     <message>
+        <location filename="../src/mixture/mixturewindow.cpp" line="121"/>
         <location filename="../src/mixture/mixturewindow.cpp" line="124"/>
-        <location filename="../src/mixture/mixturewindow.cpp" line="128"/>
         <source>Aufbereitung</source>
         <translation>Mixture</translation>
     </message>
@@ -831,18 +831,18 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="143"/>
-        <location filename="../src/water/watersources.cpp" line="151"/>
+        <location filename="../src/water/watersources.cpp" line="152"/>
+        <location filename="../src/water/watersources.cpp" line="160"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="145"/>
+        <location filename="../src/water/watersources.cpp" line="154"/>
         <source>Restalkalität</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="147"/>
+        <location filename="../src/water/watersources.cpp" line="156"/>
         <source>Menge</source>
         <translation>Amount</translation>
     </message>

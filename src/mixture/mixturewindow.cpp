@@ -87,14 +87,12 @@ void MixtureWindow::closeEvent(QCloseEvent* event) {
 }
 
 void MixtureWindow::setName(QString name) {
-  qDebug() << "MixtureWindow::setName " << name;
   mix.setName(name);
   changed(true);
 }
 
 void MixtureWindow::load() {
   loadGuard = true;
-  qDebug() << "Loading mixture";
   mix.load();
   // update values if needed
   nameEdit->setText(mix.getName());
@@ -119,10 +117,8 @@ void MixtureWindow::update() {
 
 void MixtureWindow::changed(bool changed) {
   unsavedChanges = changed;
-  qDebug() << "MixtureWindow::changed; changed " << changed << " unsavedChanges " << unsavedChanges;
   if (unsavedChanges && !loadGuard) {
     this->setWindowTitle("* Aqua-mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
-    qDebug() << "Update edit time";
     mix.updateEditTime();
   } else {
     this->setWindowTitle("Aqua-mixtura - " + tr("Aufbereitung") + ": " + mix.getName());
