@@ -62,8 +62,16 @@ double WaterSources::getTotalVolume() const {
 }
 
 void WaterSources::setTotalVolume(double volume) {
+  // When just changing the total amount we should not change the percentage amounts of the different waters
+  if (sources.empty()) {
+    return;
+  }
+  const double factor = volume / total;
   total = volume;
-  updateAllVolumes(-1);
+  for (int i = 0; i < sources.size(); i++) {
+    sources[i].set(Water::Value::Volume, sources.at(i).get(Water::Value::Volume) * factor);
+    emit dataChanged(index(i, 2), index(i, 2));
+  }
 }
 
 const Water& WaterSources::getProfile(int i) {

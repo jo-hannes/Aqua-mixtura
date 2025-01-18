@@ -445,12 +445,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="49"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="50"/>
         <source>Wasser hinzufügen</source>
         <translation>Wasser hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="49"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="50"/>
         <source>Wasser löschen</source>
         <translation>Wasser löschen</translation>
     </message>
@@ -838,18 +838,18 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="152"/>
-        <location filename="../src/water/watersources.cpp" line="160"/>
+        <location filename="../src/water/watersources.cpp" line="161"/>
+        <location filename="../src/water/watersources.cpp" line="169"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="154"/>
+        <location filename="../src/water/watersources.cpp" line="163"/>
         <source>Restalkalität</source>
         <translation>Restalkalität</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="156"/>
+        <location filename="../src/water/watersources.cpp" line="165"/>
         <source>Menge</source>
         <translation>Menge</translation>
     </message>
