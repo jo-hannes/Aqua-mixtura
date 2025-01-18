@@ -7,6 +7,7 @@
 #include "../water/watersourcestabledelegate.h"
 
 #include <QAction>
+#include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
 #include <QString>
@@ -21,8 +22,21 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   this->setLineWidth(2);
 
   // heading
-  auto* heading = new QLabel(tr("Wasser"));
-  layout->addWidget(heading);
+  auto* heading = new QHBoxLayout();
+  heading->addWidget(new QLabel(tr("Wasser")), 0, Qt::AlignLeft);
+  heading->addWidget(new QLabel(tr("Menge:")), 1, Qt::AlignRight);
+  wTotal = new QDoubleSpinBox();
+  wTotal->setMinimum(0.1);   // NOLINT(*-magic-numbers)
+  wTotal->setMaximum(9999);  // NOLINT(*-magic-numbers)
+  wTotal->setDecimals(2);
+  wTotal->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
+  wTotal->setValue(wMix.getTotalVolume());
+  QObject::connect(wTotal, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setTotalVolume);
+  QObject::connect(&wMix, &WaterSources::totalVolumeChanged, wTotal, &QDoubleSpinBox::setValue);
+  heading->addWidget(wTotal, 0, Qt::AlignRight);
+  heading->addWidget(new QLabel("L"), 0, Qt::AlignLeft);
+  // layout->addWidget(heading);
+  layout->addLayout(heading);
 
   // View with waters
   waterView = new QTableView(this);

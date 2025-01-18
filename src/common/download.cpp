@@ -26,7 +26,6 @@ bool Download::loadFile(QUrl url, QString dest) {
   }
   QFile file(dest);
   if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-    qDebug() << "Failed opening file: " << dest;
     return false;
   }
   file.write(reply->readAll());

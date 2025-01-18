@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [unreleased]: https://github.com/jo-hannes/Aqua-mixtura/compare/v0.1.1...HEAD
 
 ### Added
-* 
+* Total water amount in mixture
 
 ### Changed
 * Double instead of float for all calculations
@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 * Fix lactate calculation when mixing waters
+* Fix initial window size #3
 
 ### Security
 * Static code analysis with clang-tidy

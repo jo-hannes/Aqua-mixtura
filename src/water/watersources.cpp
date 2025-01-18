@@ -28,6 +28,12 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   }
   emit dataModified();
   endResetModel();
+  // Calculate total amount from sources
+  total = 0;
+  for (const auto& w : sources) {
+    total += w.get(Water::Value::Volume);
+  }
+  emit totalVolumeChanged(total);
   return true;
 }
 
@@ -51,6 +57,23 @@ QJsonObject WaterSources::profileToJson() const {
   return jsonSources;
 }
 
+double WaterSources::getTotalVolume() const {
+  return total;
+}
+
+void WaterSources::setTotalVolume(double volume) {
+  // When just changing the total amount we should not change the percentage amounts of the different waters
+  if (sources.empty()) {
+    return;
+  }
+  const double factor = volume / total;
+  total = volume;
+  for (int i = 0; i < sources.size(); i++) {
+    sources[i].set(Water::Value::Volume, sources.at(i).get(Water::Value::Volume) * factor);
+    emit dataChanged(index(i, 2), index(i, 2));
+  }
+}
+
 const Water& WaterSources::getProfile(int i) {
   if (i >= 0 && i < sources.size()) {
     return sources.at(i);
@@ -69,6 +92,7 @@ Water WaterSources::getMix() {
 void WaterSources::updateProfile(Water& profile, int i) {
   if (i >= 0 && i < sources.size()) {
     sources.replace(i, profile);
+    updateAllVolumes(i);
     emit dataChanged(index(i, 0), index(i, 1));
   }
 }
@@ -77,6 +101,7 @@ void WaterSources::addProfile(const Water& profile) {
   const int i = sources.size();  // NOLINT(*-narrowing-conversions): beginInsertRows requires int
   beginInsertRows(QModelIndex(), i, i);
   sources.append(profile);
+  updateAllVolumes(i);
   emit dataModified();
   endInsertRows();
 }
@@ -85,6 +110,7 @@ void WaterSources::deleteProfile(int i) {
   if (i >= 0 && i < sources.size()) {
     beginRemoveRows(QModelIndex(), i, i);
     sources.removeAt(i);
+    updateAllVolumes(-1);
     emit dataModified();
     endRemoveRows();
   }
@@ -152,13 +178,14 @@ bool WaterSources::setData(const QModelIndex& index, const QVariant& value, int 
   if (!index.isValid()) {
     return false;
   }
-  const qsizetype row = index.row();
+  const int row = index.row();
   if (row < 0 || row >= sources.size()) {
     return false;
   }
   if (index.column() == 2) {
     sources[row].set(Water::Value::Volume, value.toDouble());
     emit dataChanged(index, index);
+    updateAllVolumes(row);
     return true;
   }
   return false;
@@ -187,4 +214,37 @@ void WaterSources::load() {
 void WaterSources::save() const {
   const QString file = Paths::dataDir() + "/sources.json";
   JsonHelper::saveFile(file, this->profileToJson());
+}
+
+void WaterSources::updateAllVolumes(int preserve) {
+  if (sources.empty()) {
+    return;
+  }
+  double residual = total;
+  // first check the index we preserve
+  if (preserve >= 0 && preserve < sources.size()) {
+    residual = updateVolume(preserve, residual);
+  }
+  for (int i = 0; i < sources.size(); i++) {
+    if (i == preserve) {
+      continue;
+    }
+    residual = updateVolume(i, residual);
+  }
+  if (residual > 0) {
+    // something left we need to add to last water
+    const int idx = sources.size() - 1;  // NOLINT(*-narrowing-conversions): dataChanged index uses int
+    sources[idx].set(Water::Value::Volume, sources.at(idx).get(Water::Value::Volume) + residual);
+    emit dataChanged(index(idx, 2), index(idx, 2));
+  }
+}
+
+double WaterSources::updateVolume(int idx, double residual) {
+  const double val = sources.at(idx).get(Water::Value::Volume);
+  if (val > residual) {
+    sources[idx].set(Water::Value::Volume, residual);
+    emit dataChanged(index(idx, 2), index(idx, 2));
+    return 0;
+  }
+  return residual - val;
 }

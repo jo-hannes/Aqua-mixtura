@@ -95,7 +95,6 @@ void MixResultWidget::updateStyles() {
   if (styleIdx == 0) {
     // special case style of mixture
     styleSelect->setCurrentIndex(styleIdx);
-    qDebug() << "Mixture Style";
     return;
   }
 
@@ -104,7 +103,6 @@ void MixResultWidget::updateStyles() {
   if (styleIdx > 0 && styleIdx < styleSelect->count() && uuid == sDb.getStyle(styleIdx - 1)->getUuid()) {
     // idx still valid and points to the same style
     styleSelect->setCurrentIndex(styleIdx);
-    qDebug() << "Matched by idx";
     update();
     return;
   }
@@ -114,7 +112,6 @@ void MixResultWidget::updateStyles() {
   if (uuid == mixStyle.getUuid()) {
     styleIdx = 0;
     styleSelect->setCurrentIndex(styleIdx);
-    qDebug() << "Matched mixture style by uuid";
     update();
     return;
   }
@@ -122,7 +119,6 @@ void MixResultWidget::updateStyles() {
     if (uuid == sDb.getStyle(i)->getUuid()) {
       styleIdx = i + 1;
       styleSelect->setCurrentIndex(styleIdx);
-      qDebug() << "Matched by uuid";
       update();
       return;
     }
