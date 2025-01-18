@@ -33,6 +33,7 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   for (const auto& w : sources) {
     total += w.get(Water::Value::Volume);
   }
+  emit totalVolumeChanged(total);
   return true;
 }
 

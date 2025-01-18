@@ -48,6 +48,7 @@ class WaterSources : public QAbstractTableModel {
 
  signals:
   void dataModified();
+  void totalVolumeChanged(double total);
 
  private:
   /**
