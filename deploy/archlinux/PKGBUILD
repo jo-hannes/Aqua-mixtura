@@ -1,0 +1,27 @@
+# Maintainer: Atomisirsi <atomisirsi AT gsklan DOT de>
+pkgname=aqua-mixtura
+_pkgname=Aqua-mixtura
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="Water treatment for brewing beer"
+arch=("x86_64")
+url="https://github.com/jo-hannes/Aqua-mixtura"
+license=("GPL2")
+makedepends=("qt6-tools")
+depends=("qt6-tools" "qt6-webengine")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/jo-hannes/Aqua-mixtura/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=("e9451f2327d5c4a9dd2e5da6a1821b1bdc46813783db368e204d6f6d10f110e1")
+
+build() {
+  local cmake_options=(
+    -B build
+    -S $_pkgname-$pkgver
+    # Any other options required to build a project may follow
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
