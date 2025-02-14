@@ -72,9 +72,6 @@ void WaterSources::setTotalVolume(double volume) {
   if (sources.empty()) {
     return;
   }
-  if (volume < 0.1) {
-    return;
-  }
   const double factor = volume / total;
   total = volume;
   for (int i = 0; i < sources.size(); i++) {
@@ -83,6 +80,7 @@ void WaterSources::setTotalVolume(double volume) {
   }
   strike *= factor;
   sparging *= factor;
+  emit totalVolumeChanged(total);
   emit strikeVolumeChanged(strike);
   emit spargingVolumeChanged(sparging);
 }
@@ -94,14 +92,16 @@ double WaterSources::getStrikeWater() const {
 void WaterSources::setStrikeWater(double volume) {
   // limit ragne
   if (volume < 0) {
-    return;
+    volume = 0;
   }
   if (volume > total) {
-    return;
+    volume = total;
   }
   strike = volume;
   sparging = total - strike;
   emit spargingVolumeChanged(sparging);
+  emit dataChanged(index(3, 0),
+                   index(4, sources.size()));  // NOLINT(*-narrowing-conversions): dataChanged index uses int
 }
 
 double WaterSources::getSpargingWater() const {
@@ -111,14 +111,16 @@ double WaterSources::getSpargingWater() const {
 void WaterSources::setSpargingWater(double volume) {
   // limit ragne
   if (volume < 0) {
-    return;
+    volume = 0;
   }
   if (volume > total) {
-    return;
+    volume = total;
   }
   sparging = volume;
   strike = total - sparging;
   emit strikeVolumeChanged(strike);
+  emit dataChanged(index(3, 0),
+                   index(4, sources.size()));  // NOLINT(*-narrowing-conversions): dataChanged index uses int
 }
 
 const Water& WaterSources::getProfile(int i) {
@@ -170,7 +172,7 @@ int WaterSources::rowCount(const QModelIndex& parent) const {
 
 int WaterSources::columnCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return 3;
+  return 5;  // NOLINT(*-magic-numbers)
 }
 
 QVariant WaterSources::data(const QModelIndex& index, int role) const {
@@ -192,6 +194,10 @@ QVariant WaterSources::data(const QModelIndex& index, int role) const {
       return sources.at(row).get(Water::Value::Restalkalitaet);
     case 2:
       return sources.at(row).get(Water::Value::Volume);
+    case 3:
+      return sources.at(row).get(Water::Value::Volume) * strike / total;
+    case 4:
+      return sources.at(row).get(Water::Value::Volume) * sparging / total;
     default:
       return {};
   }
@@ -210,6 +216,10 @@ QVariant WaterSources::headerData(int section, Qt::Orientation orientation, int 
         return QString(tr("Restalkalität"));
       case 2:
         return QString(tr("Menge") + " (L)");
+      case 3:
+        return QString(tr("HG") + " (L)");
+      case 4:
+        return QString(tr("NG") + " (L)");
       default:
         return {};
     }

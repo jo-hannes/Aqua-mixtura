@@ -450,17 +450,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="52"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="53"/>
         <source>NG:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="75"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="77"/>
         <source>Wasser hinzufügen</source>
         <translation>Wasser hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="75"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="77"/>
         <source>Wasser löschen</source>
         <translation>Wasser löschen</translation>
     </message>
@@ -848,20 +848,30 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="208"/>
-        <location filename="../src/water/watersources.cpp" line="216"/>
+        <location filename="../src/water/watersources.cpp" line="214"/>
+        <location filename="../src/water/watersources.cpp" line="226"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="210"/>
+        <location filename="../src/water/watersources.cpp" line="216"/>
         <source>Restalkalität</source>
         <translation>Restalkalität</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="212"/>
+        <location filename="../src/water/watersources.cpp" line="218"/>
         <source>Menge</source>
         <translation>Menge</translation>
+    </message>
+    <message>
+        <location filename="../src/water/watersources.cpp" line="220"/>
+        <source>HG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/water/watersources.cpp" line="222"/>
+        <source>NG</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
