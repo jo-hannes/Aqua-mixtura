@@ -33,7 +33,12 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   for (const auto& w : sources) {
     total += w.get(Water::Value::Volume);
   }
+  // get strike and sparging water
+  strike = json["StrikeWater"].toDouble(total);
+  sparging = total - strike;
   emit totalVolumeChanged(total);
+  emit strikeVolumeChanged(strike);
+  emit spargingVolumeChanged(sparging);
   return true;
 }
 
@@ -44,6 +49,7 @@ QJsonObject WaterSources::toJson() const {
   }
   QJsonObject jsonSources;
   jsonSources["WaterSources"] = jsonSrcArray;
+  jsonSources["StrikeWater"] = strike;
   return jsonSources;
 }
 
@@ -66,12 +72,53 @@ void WaterSources::setTotalVolume(double volume) {
   if (sources.empty()) {
     return;
   }
+  if (volume < 0.1) {
+    return;
+  }
   const double factor = volume / total;
   total = volume;
   for (int i = 0; i < sources.size(); i++) {
     sources[i].set(Water::Value::Volume, sources.at(i).get(Water::Value::Volume) * factor);
     emit dataChanged(index(i, 2), index(i, 2));
   }
+  strike *= factor;
+  sparging *= factor;
+  emit strikeVolumeChanged(strike);
+  emit spargingVolumeChanged(sparging);
+}
+
+double WaterSources::getStrikeWater() const {
+  return strike;
+}
+
+void WaterSources::setStrikeWater(double volume) {
+  // limit ragne
+  if (volume < 0) {
+    return;
+  }
+  if (volume > total) {
+    return;
+  }
+  strike = volume;
+  sparging = total - strike;
+  emit spargingVolumeChanged(sparging);
+}
+
+double WaterSources::getSpargingWater() const {
+  return sparging;
+}
+
+void WaterSources::setSpargingWater(double volume) {
+  // limit ragne
+  if (volume < 0) {
+    return;
+  }
+  if (volume > total) {
+    return;
+  }
+  sparging = volume;
+  strike = total - sparging;
+  emit strikeVolumeChanged(strike);
 }
 
 const Water& WaterSources::getProfile(int i) {

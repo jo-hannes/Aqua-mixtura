@@ -23,8 +23,12 @@ class WaterSources : public QAbstractTableModel {
   [[nodiscard]] QJsonObject toJson() const;        /**< @brief convert this WaterSources to JSON */
   [[nodiscard]] QJsonObject profileToJson() const; /**< @brief convert profile of this WaterSources to JSON */
 
-  [[nodiscard]] double getTotalVolume() const; /**< @brief Get total water amount */
-  void setTotalVolume(double volume);          /**< @brief Set total water amount */
+  [[nodiscard]] double getTotalVolume() const;   /**< @brief Get total water amount */
+  void setTotalVolume(double volume);            /**< @brief Set total water amount */
+  [[nodiscard]] double getStrikeWater() const;   /**< @brief Get strike water amount */
+  void setStrikeWater(double volume);            /**< @brief Set strike water amount */
+  [[nodiscard]] double getSpargingWater() const; /**< @brief Get sparging water amount */
+  void setSpargingWater(double volume);          /**< @brief Set sparging water amount */
 
   const Water& getProfile(int i);            /**< @brief Get water profile at index */
   Water getMix();                            /**< @brief Get mixture of all waters */
@@ -49,6 +53,8 @@ class WaterSources : public QAbstractTableModel {
  signals:
   void dataModified();
   void totalVolumeChanged(double total);
+  void strikeVolumeChanged(double voulme);
+  void spargingVolumeChanged(double voulme);
 
  private:
   /**
@@ -64,9 +70,11 @@ class WaterSources : public QAbstractTableModel {
    */
   double updateVolume(int idx, double residual);
 
-  QVector<Water> sources;
-  double total{0};
-  Water noWater;
+  QVector<Water> sources; /**< @brief Vector with all waters contained */
+  double total{0};        /**< @brief Total water amount */
+  double strike{0};       /**< @brief Strike water amount (Hauptguss) */
+  double sparging{0};     /**< @brief Sparging water amount (Nachguss) */
+  Water noWater;          /**< @brief Dummy for returning noWater on out of index access */
 };
 
 #endif  // WATERSOURCES_H
