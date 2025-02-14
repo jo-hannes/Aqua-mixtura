@@ -433,17 +433,27 @@
         <translation>Water</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="27"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="28"/>
         <source>Menge:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="50"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="40"/>
+        <source>HG:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="52"/>
+        <source>NG:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="75"/>
         <source>Wasser hinzufügen</source>
         <translation>Add water</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="50"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="75"/>
         <source>Wasser löschen</source>
         <translation>Delete water</translation>
     </message>

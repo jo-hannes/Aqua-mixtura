@@ -33,11 +33,13 @@ class MixWaterWidget : public QFrame {
  signals:
 
  private:
-  WaterSources& wMix;     /**< @brief Waters used in mixture */
-  QDoubleSpinBox* wTotal; /**< @brief Total water amount */
-  WaterSources& wDb;      /**< @brief Database with waters */
-  QMenu* waterMenu;       /**< @brief Menu for add water button */
-  QTableView* waterView;  /**< @brief Table view for waters */
+  WaterSources& wMix;        /**< @brief Waters used in mixture */
+  QDoubleSpinBox* wTotal;    /**< @brief Total water amount */
+  QDoubleSpinBox* wStrike;   /**< @brief Strike water amount */
+  QDoubleSpinBox* wSparging; /**< @brief Sparging water amount */
+  WaterSources& wDb;         /**< @brief Database with waters */
+  QMenu* waterMenu;          /**< @brief Menu for add water button */
+  QTableView* waterView;     /**< @brief Table view for waters */
 };
 
 #endif  // MIXWATERWIDGET_H
