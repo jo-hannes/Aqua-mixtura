@@ -71,7 +71,7 @@ bool Malt::fromJson(const QJsonObject& json) {
   const bool ret = Meta::fromJson(json);
   mass = json["mass"].toDouble(0);
   ebc = json["EBC"].toDouble(0);
-  ph = json["pH"].toDouble(7);  // NOLINT(*-magic-numbers)
+  ph = json["pH"].toDouble(7);
   return ret;
 }
 

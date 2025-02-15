@@ -190,7 +190,7 @@ int WaterSources::rowCount(const QModelIndex& parent) const {
 
 int WaterSources::columnCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return 5;  // NOLINT(*-magic-numbers)
+  return 5;
 }
 
 QVariant WaterSources::data(const QModelIndex& index, int role) const {

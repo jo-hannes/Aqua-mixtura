@@ -27,10 +27,10 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   // Total amount
   heading->addWidget(new QLabel(tr("Menge:")), 1, Qt::AlignRight);
   wTotal = new QDoubleSpinBox();
-  wTotal->setMinimum(0.1);   // NOLINT(*-magic-numbers)
+  wTotal->setMinimum(0.1);
   wTotal->setMaximum(9999);  // NOLINT(*-magic-numbers)
   wTotal->setDecimals(2);
-  wTotal->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
+  wTotal->setSingleStep(0.1);
   wTotal->setSuffix("L");
   wTotal->setValue(wMix.getTotalVolume());
   QObject::connect(wTotal, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setTotalVolume);
@@ -42,7 +42,7 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   wStrike->setMinimum(0);
   wStrike->setMaximum(wMix.getTotalVolume());
   wStrike->setDecimals(2);
-  wStrike->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
+  wStrike->setSingleStep(0.1);
   wStrike->setSuffix("L");
   wStrike->setValue(wMix.getStrikeWater());
   QObject::connect(wStrike, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setStrikeWater);
@@ -55,7 +55,7 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   wSparging->setMinimum(0);
   wSparging->setMaximum(wMix.getTotalVolume());
   wSparging->setDecimals(2);
-  wSparging->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
+  wSparging->setSingleStep(0.1);
   wSparging->setSuffix("L");
   wSparging->setValue(wMix.getSpargingWater());
   QObject::connect(wSparging, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setSpargingWater);

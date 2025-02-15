@@ -132,8 +132,8 @@ void ResultBar::updateMinMax() {
   tDiff = tMax - tMin;
 
   // Add 10% on each side // TODO also 10% with logarithmic scale?
-  gMin = tMin - 0.1 * tDiff;  // NOLINT(*-magic-numbers)
-  gMax = tMax + 0.1 * tDiff;  // NOLINT(*-magic-numbers)
+  gMin = tMin - 0.1 * tDiff;
+  gMax = tMax + 0.1 * tDiff;
   // ne negative values without negaive set
   if (gMin < 0 && !negative) {
     gMin = 0;

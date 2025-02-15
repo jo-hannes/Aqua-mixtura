@@ -33,7 +33,7 @@ AdditiveWindow::AdditiveWindow(AdditiveSettings& model, QWidget* parent) : QWidg
     concentrations.at(i) = new QDoubleSpinBox();
     concentrations.at(i)->setDecimals(0);
     concentrations.at(i)->setMinimum(1);
-    concentrations.at(i)->setMaximum(100);  // NOLINT(*-magic-numbers)
+    concentrations.at(i)->setMaximum(100);
     concentrations.at(i)->setValue(additive.getConcentration(static_cast<Additive::Value>(i)));
     layout->addWidget(concentrations.at(i), row, 2, Qt::AlignRight);
 

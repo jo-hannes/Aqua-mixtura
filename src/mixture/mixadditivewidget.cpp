@@ -73,7 +73,7 @@ MixAdditiveWidget::MixAdditiveWidget(Additive* mixtureAdditive, AdditiveSettings
   }
 
   // Add expanding space
-  layout->setRowStretch(row, 10);  // NOLINT(*-magic-numbers)
+  layout->setRowStretch(row, 10);
 
   update();
   QObject::connect(&aCfg, &AdditiveSettings::dataModified, this, &MixAdditiveWidget::update);

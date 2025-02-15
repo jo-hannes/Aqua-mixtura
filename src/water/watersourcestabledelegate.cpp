@@ -17,7 +17,7 @@ QWidget* WaterSourcesTableDelegate::createEditor(QWidget* parent, const QStyleOp
       editor->setMinimum(0);
       editor->setMaximum(999);  // NOLINT(*-magic-numbers)
       editor->setDecimals(2);
-      editor->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
+      editor->setSingleStep(0.1);
       return editor;
     }
     default: {
