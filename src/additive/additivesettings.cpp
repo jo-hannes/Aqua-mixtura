@@ -79,8 +79,8 @@ void AdditiveSettings::setConcentration(Additive::Value what, double value) {
   if (idx < concentration.size()) {
     if (value < 1) {
       value = 1;
-    } else if (value > 100) {  // NOLINT(*-magic-numbers)
-      value = 100;             // NOLINT(*-magic-numbers)
+    } else if (value > 100) {
+      value = 100;
     }
     concentration.at(idx) = value;
     setChanged(true);

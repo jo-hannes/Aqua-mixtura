@@ -387,17 +387,17 @@
 <context>
     <name>MixAdditiveWidget</name>
     <message>
-        <location filename="../src/mixture/mixadditivewidget.cpp" line="32"/>
+        <location filename="../src/mixture/mixadditivewidget.cpp" line="38"/>
         <source>Zusatzstoffe</source>
         <translation>Zusatzstoffe</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixadditivewidget.cpp" line="35"/>
+        <location filename="../src/mixture/mixadditivewidget.cpp" line="41"/>
         <source>Säuren</source>
         <translation>Säuren</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixadditivewidget.cpp" line="53"/>
+        <location filename="../src/mixture/mixadditivewidget.cpp" line="58"/>
         <source>Feststoffe</source>
         <translation>Feststoffe</translation>
     </message>
@@ -440,17 +440,27 @@
         <translation>Wasser</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="27"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="28"/>
         <source>Menge:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="50"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="40"/>
+        <source>HG:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="53"/>
+        <source>NG:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="77"/>
         <source>Wasser hinzufügen</source>
         <translation>Wasser hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixwaterwidget.cpp" line="50"/>
+        <location filename="../src/mixture/mixwaterwidget.cpp" line="77"/>
         <source>Wasser löschen</source>
         <translation>Wasser löschen</translation>
     </message>
@@ -458,33 +468,33 @@
 <context>
     <name>MixtureWindow</name>
     <message>
-        <location filename="../src/mixture/mixturewindow.cpp" line="31"/>
+        <location filename="../src/mixture/mixturewindow.cpp" line="38"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixturewindow.cpp" line="37"/>
+        <location filename="../src/mixture/mixturewindow.cpp" line="44"/>
         <source>Speichern</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixturewindow.cpp" line="37"/>
+        <location filename="../src/mixture/mixturewindow.cpp" line="44"/>
         <source>Abbrechen</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixturewindow.cpp" line="70"/>
+        <location filename="../src/mixture/mixturewindow.cpp" line="77"/>
         <source>Änderungen speichern?</source>
         <translation>Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixturewindow.cpp" line="71"/>
+        <location filename="../src/mixture/mixturewindow.cpp" line="78"/>
         <source>Aufbereitung &quot;%1&quot; hat ungespeicherte Änderungen</source>
         <translation>Aufbereitung &quot;%1&quot; hat ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/mixture/mixturewindow.cpp" line="121"/>
-        <location filename="../src/mixture/mixturewindow.cpp" line="124"/>
+        <location filename="../src/mixture/mixturewindow.cpp" line="128"/>
+        <location filename="../src/mixture/mixturewindow.cpp" line="131"/>
         <source>Aufbereitung</source>
         <translation>Aufbereitung</translation>
     </message>
@@ -838,20 +848,30 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="161"/>
-        <location filename="../src/water/watersources.cpp" line="169"/>
+        <location filename="../src/water/watersources.cpp" line="232"/>
+        <location filename="../src/water/watersources.cpp" line="244"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="163"/>
+        <location filename="../src/water/watersources.cpp" line="234"/>
         <source>Restalkalität</source>
         <translation>Restalkalität</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="165"/>
+        <location filename="../src/water/watersources.cpp" line="236"/>
         <source>Menge</source>
         <translation>Menge</translation>
+    </message>
+    <message>
+        <location filename="../src/water/watersources.cpp" line="238"/>
+        <source>HG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/water/watersources.cpp" line="240"/>
+        <source>NG</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

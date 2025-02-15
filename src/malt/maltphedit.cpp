@@ -52,7 +52,7 @@ MaltPhEdit::MaltPhEdit(QWidget* parent) : QFrame{parent} {
   phSpinBox->setMinimum(0);
   phSpinBox->setMaximum(14);  // NOLINT(*-magic-numbers)
   phSpinBox->setDecimals(2);
-  phSpinBox->setSingleStep(0.1);  // NOLINT(*-magic-numbers)
+  phSpinBox->setSingleStep(0.1);
   mainLayout->addWidget(phSpinBox, 1, 4, Qt::AlignLeft);
 
   this->setWindowFlags(Qt::Sheet);

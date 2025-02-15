@@ -33,7 +33,14 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   for (const auto& w : sources) {
     total += w.get(Water::Value::Volume);
   }
+  // get strike and sparging water
+  strike = json["StrikeWater"].toDouble(total);
+  sparging = total - strike;
+  emit maxStrikeSpargingChanged(HUGE_VAL);  // ensure new value will fit
+  emit strikeVolumeChanged(strike);
+  emit spargingVolumeChanged(sparging);
   emit totalVolumeChanged(total);
+  emit maxStrikeSpargingChanged(total);
   return true;
 }
 
@@ -44,6 +51,7 @@ QJsonObject WaterSources::toJson() const {
   }
   QJsonObject jsonSources;
   jsonSources["WaterSources"] = jsonSrcArray;
+  jsonSources["StrikeWater"] = strike;
   return jsonSources;
 }
 
@@ -66,12 +74,71 @@ void WaterSources::setTotalVolume(double volume) {
   if (sources.empty()) {
     return;
   }
+  if (volume == 0) {
+    return;
+  }
   const double factor = volume / total;
+  qDebug() << "WaterSources::setTotalVolume; vol:" << volume << "fact:" << factor;
   total = volume;
   for (int i = 0; i < sources.size(); i++) {
     sources[i].set(Water::Value::Volume, sources.at(i).get(Water::Value::Volume) * factor);
     emit dataChanged(index(i, 2), index(i, 2));
   }
+  strike *= factor;
+  sparging *= factor;
+
+  // ensure maximum for strike and sparging is big enougth
+  if (factor > 1) {
+    // total increased, first increase max so it will be bigger than strike and sparging
+    emit maxStrikeSpargingChanged(total);
+    emit strikeVolumeChanged(strike);
+    emit spargingVolumeChanged(sparging);
+    emit totalVolumeChanged(total);
+  } else {
+    // total decreased, first decrease strike and sparging so it will be lower than max
+    emit strikeVolumeChanged(strike);
+    emit spargingVolumeChanged(sparging);
+    emit totalVolumeChanged(total);
+    emit maxStrikeSpargingChanged(total);
+  }
+}
+
+double WaterSources::getStrikeWater() const {
+  return strike;
+}
+
+void WaterSources::setStrikeWater(double volume) {
+  // limit ragne
+  if (volume < 0) {
+    volume = 0;
+  }
+  if (volume > total) {
+    volume = total;
+  }
+  strike = volume;
+  sparging = total - strike;
+  emit spargingVolumeChanged(sparging);
+  emit dataChanged(index(3, 0),
+                   index(4, sources.size()));  // NOLINT(*-narrowing-conversions): dataChanged index uses int
+}
+
+double WaterSources::getSpargingWater() const {
+  return sparging;
+}
+
+void WaterSources::setSpargingWater(double volume) {
+  // limit ragne
+  if (volume < 0) {
+    volume = 0;
+  }
+  if (volume > total) {
+    volume = total;
+  }
+  sparging = volume;
+  strike = total - sparging;
+  emit strikeVolumeChanged(strike);
+  emit dataChanged(index(3, 0),
+                   index(4, sources.size()));  // NOLINT(*-narrowing-conversions): dataChanged index uses int
 }
 
 const Water& WaterSources::getProfile(int i) {
@@ -123,7 +190,7 @@ int WaterSources::rowCount(const QModelIndex& parent) const {
 
 int WaterSources::columnCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
-  return 3;
+  return 5;
 }
 
 QVariant WaterSources::data(const QModelIndex& index, int role) const {
@@ -145,6 +212,10 @@ QVariant WaterSources::data(const QModelIndex& index, int role) const {
       return sources.at(row).get(Water::Value::Restalkalitaet);
     case 2:
       return sources.at(row).get(Water::Value::Volume);
+    case 3:
+      return sources.at(row).get(Water::Value::Volume) * strike / total;
+    case 4:
+      return sources.at(row).get(Water::Value::Volume) * sparging / total;
     default:
       return {};
   }
@@ -163,6 +234,10 @@ QVariant WaterSources::headerData(int section, Qt::Orientation orientation, int 
         return QString(tr("Restalkalität"));
       case 2:
         return QString(tr("Menge") + " (L)");
+      case 3:
+        return QString(tr("HG") + " (L)");
+      case 4:
+        return QString(tr("NG") + " (L)");
       default:
         return {};
     }
