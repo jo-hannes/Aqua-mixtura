@@ -21,6 +21,13 @@ MixtureWindow::MixtureWindow(Mixture& mixture, WaterSources& waterDb, AdditiveSe
   mww = new MixWaterWidget(*mix.waters, waterDb, this);
   mmw = new MixMaltWidget(mix.malts, maltDb, this);
   maw = new MixAdditiveWidget(mix.additive, additiveCfg);
+  // Initialize values and connect for updates
+  maw->setTotalWater(mix.waters->getTotalVolume());
+  maw->setStrikeWater(mix.waters->getStrikeWater());
+  maw->setSpargingWater(mix.waters->getSpargingWater());
+  QObject::connect(mix.waters, &WaterSources::totalVolumeChanged, maw, &MixAdditiveWidget::setTotalWater);
+  QObject::connect(mix.waters, &WaterSources::strikeVolumeChanged, maw, &MixAdditiveWidget::setStrikeWater);
+  QObject::connect(mix.waters, &WaterSources::spargingVolumeChanged, maw, &MixAdditiveWidget::setSpargingWater);
   mrw = new MixResultWidget(mix, styleDb, settings, this);
   // Name edit
   auto* nameFrame = new QFrame();

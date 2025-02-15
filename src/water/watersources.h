@@ -53,6 +53,7 @@ class WaterSources : public QAbstractTableModel {
  signals:
   void dataModified();
   void totalVolumeChanged(double total);
+  void maxStrikeSpargingChanged(double max);
   void strikeVolumeChanged(double voulme);
   void spargingVolumeChanged(double voulme);
 

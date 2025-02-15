@@ -23,7 +23,7 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
 
   // heading
   auto* heading = new QHBoxLayout();
-  layout->addWidget(new QLabel(tr("Wasser")), 0, Qt::AlignLeft);
+  heading->addWidget(new QLabel(tr("Wasser")), 0, Qt::AlignLeft);
   // Total amount
   heading->addWidget(new QLabel(tr("Menge:")), 1, Qt::AlignRight);
   wTotal = new QDoubleSpinBox();
@@ -47,7 +47,7 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   wStrike->setValue(wMix.getStrikeWater());
   QObject::connect(wStrike, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setStrikeWater);
   QObject::connect(&wMix, &WaterSources::strikeVolumeChanged, wStrike, &QDoubleSpinBox::setValue);
-  QObject::connect(&wMix, &WaterSources::totalVolumeChanged, wStrike, &QDoubleSpinBox::setMaximum);
+  QObject::connect(&wMix, &WaterSources::maxStrikeSpargingChanged, wStrike, &QDoubleSpinBox::setMaximum);
   heading->addWidget(wStrike, 0, Qt::AlignLeft);
   // Sparging water
   heading->addWidget(new QLabel(tr("NG:")), 0, Qt::AlignRight);
@@ -60,7 +60,7 @@ MixWaterWidget::MixWaterWidget(WaterSources& mixtureWaters, WaterSources& waterD
   wSparging->setValue(wMix.getSpargingWater());
   QObject::connect(wSparging, &QDoubleSpinBox::valueChanged, &wMix, &WaterSources::setSpargingWater);
   QObject::connect(&wMix, &WaterSources::spargingVolumeChanged, wSparging, &QDoubleSpinBox::setValue);
-  QObject::connect(&wMix, &WaterSources::totalVolumeChanged, wSparging, &QDoubleSpinBox::setMaximum);
+  QObject::connect(&wMix, &WaterSources::maxStrikeSpargingChanged, wSparging, &QDoubleSpinBox::setMaximum);
   heading->addWidget(wSparging, 0, Qt::AlignLeft);
 
   layout->addLayout(heading);

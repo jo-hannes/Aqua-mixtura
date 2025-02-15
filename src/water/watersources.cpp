@@ -36,9 +36,11 @@ bool WaterSources::fromJson(const QJsonObject& json) {
   // get strike and sparging water
   strike = json["StrikeWater"].toDouble(total);
   sparging = total - strike;
-  emit totalVolumeChanged(total);
+  emit maxStrikeSpargingChanged(HUGE_VAL);  // ensure new value will fit
   emit strikeVolumeChanged(strike);
   emit spargingVolumeChanged(sparging);
+  emit totalVolumeChanged(total);
+  emit maxStrikeSpargingChanged(total);
   return true;
 }
 
@@ -72,7 +74,11 @@ void WaterSources::setTotalVolume(double volume) {
   if (sources.empty()) {
     return;
   }
+  if (volume == 0) {
+    return;
+  }
   const double factor = volume / total;
+  qDebug() << "WaterSources::setTotalVolume; vol:" << volume << "fact:" << factor;
   total = volume;
   for (int i = 0; i < sources.size(); i++) {
     sources[i].set(Water::Value::Volume, sources.at(i).get(Water::Value::Volume) * factor);
@@ -80,9 +86,21 @@ void WaterSources::setTotalVolume(double volume) {
   }
   strike *= factor;
   sparging *= factor;
-  emit totalVolumeChanged(total);
-  emit strikeVolumeChanged(strike);
-  emit spargingVolumeChanged(sparging);
+
+  // ensure maximum for strike and sparging is big enougth
+  if (factor > 1) {
+    // total increased, first increase max so it will be bigger than strike and sparging
+    emit maxStrikeSpargingChanged(total);
+    emit strikeVolumeChanged(strike);
+    emit spargingVolumeChanged(sparging);
+    emit totalVolumeChanged(total);
+  } else {
+    // total decreased, first decrease strike and sparging so it will be lower than max
+    emit strikeVolumeChanged(strike);
+    emit spargingVolumeChanged(sparging);
+    emit totalVolumeChanged(total);
+    emit maxStrikeSpargingChanged(total);
+  }
 }
 
 double WaterSources::getStrikeWater() const {
