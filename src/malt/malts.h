@@ -29,6 +29,8 @@ class Malts : public QAbstractTableModel {
 
   [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 
+  double mashPh(const double RA, const double waterVolume);
+
   // for QAbstractTableModel, see QT documentation for details
   // NOLINTBEGIN(modernize-use-nodiscard)
   int rowCount(const QModelIndex& parent = QModelIndex()) const override;

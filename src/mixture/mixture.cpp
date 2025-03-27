@@ -64,5 +64,9 @@ void Mixture::save() const {
 }
 
 Water Mixture::calc() const {
-  return *additive + waters->getMix();
+  Water tmp = *additive + waters->getMix();
+  const double mashPh = malts->mashPh(tmp.get(Water::Value::Restalkalitaet), waters->getStrikeWater());
+  qDebug() << "Mash Ph: " << mashPh;
+  // TODO change to return std::pair with Water and mashPh
+  return tmp;
 }

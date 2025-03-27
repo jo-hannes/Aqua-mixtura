@@ -369,17 +369,17 @@
 <context>
     <name>Malts</name>
     <message>
-        <location filename="../src/malt/malts.cpp" line="145"/>
+        <location filename="../src/malt/malts.cpp" line="205"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/malt/malts.cpp" line="147"/>
+        <location filename="../src/malt/malts.cpp" line="207"/>
         <source>Menge</source>
         <translation>Menge</translation>
     </message>
     <message>
-        <location filename="../src/malt/malts.cpp" line="149"/>
+        <location filename="../src/malt/malts.cpp" line="209"/>
         <source>Farbe</source>
         <translation>Farbe</translation>
     </message>
