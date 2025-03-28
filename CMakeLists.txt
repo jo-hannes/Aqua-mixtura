@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 set (PROJECT_NAME Aqua-mixtura)
 
-project(${PROJECT_NAME} VERSION 0.1.1 LANGUAGES CXX DESCRIPTION "Water treatment for brewing beer")
+project(${PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX DESCRIPTION "Water treatment for brewing beer")
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -91,7 +91,7 @@ if(${QT_VERSION} VERSION_LESS 6.1.0)
 endif()
 
 # build packs with cpack
-include(pack/CMakeLists.txt)
+include(deploy/CMakeLists.txt)
 
 target_sources(${PROJECT_NAME} PRIVATE ${RESOURCE_FILES})
 set_source_files_properties(${RESOURCE_FILES}

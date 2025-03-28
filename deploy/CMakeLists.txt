@@ -11,17 +11,19 @@ set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}")
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   # NSIS setup
   set(CPACK_GENERATOR NSIS ZIP)
-  set(CPACK_NSIS_INSTALLED_ICON_NAME ${PROJECT_SOURCE_DIR}/pack/icon.ico)
-  set(CPACK_NSIS_MUI_ICON ${PROJECT_SOURCE_DIR}/pack/icon.ico)
+  set(CPACK_NSIS_INSTALLED_ICON_NAME ${PROJECT_SOURCE_DIR}/deploy/win/icon.ico)
+  set(CPACK_NSIS_MUI_ICON ${PROJECT_SOURCE_DIR}/deploy/win/icon.ico)
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME}")
   set(CPACK_NSIS_CREATE_ICONS_EXTRA
     "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${CMAKE_PROJECT_NAME}.lnk' '$INSTDIR\\\\bin\\\\${CMAKE_PROJECT_NAME}.exe'")
 
+  set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}_Windows_x86_64_")
+
   # program icon
   set(RESOURCE_FILES
     ${RESOURCE_FILES}
-    ${PROJECT_SOURCE_DIR}/pack/icon.ico
-    ${PROJECT_SOURCE_DIR}/pack/app.rc
+    ${PROJECT_SOURCE_DIR}/deploy/win/icon.ico
+    ${PROJECT_SOURCE_DIR}/deploy/win/app.rc
   )
 
   # add qt lib to app bundle
@@ -41,7 +43,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   # special assets for linux
   # desktop file
   install(FILES
-    ${PROJECT_SOURCE_DIR}/pack/aqua-mixtura.desktop
+    ${PROJECT_SOURCE_DIR}/deploy/linux/aqua-mixtura.desktop
     DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
   # icon
   install(FILES
@@ -71,21 +73,29 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   if ("${LSB_CODENAME}" STREQUAL "bookworm") # Debian 12
     set(CPACK_GENERATOR DEB)
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6, libqt6gui6, libqt6widgets6, libqt6network6")
+    set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}_Debian12_x86_64")
   elseif("${LSB_CODENAME}" STREQUAL "noble")  # Ubuntu 24.04
     set(CPACK_GENERATOR DEB)
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6, libqt6gui6, libqt6widgets6, libqt6network6")
+    set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}_Ubuntu24.04_x86_64")
   # Match RPM distros
-  elseif (("${LSB_DISTRO}" STREQUAL "Fedora") OR ("${LSB_DISTRO}" STREQUAL "openSUSE"))
+  elseif ("${LSB_DISTRO}" STREQUAL "Fedora")
     set(CPACK_GENERATOR RPM)
     set(CPACK_RPM_PACKAGE_LICENSE "GPL-2.0-only")
+    set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}_Fedora42_x86_64")
+  elseif ("${LSB_DISTRO}" STREQUAL "openSUSE")
+    set(CPACK_GENERATOR RPM)
+    set(CPACK_RPM_PACKAGE_LICENSE "GPL-2.0-only")
+    set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}_openSUSE-tumbleweed_x86_64")
   endif()
 
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   set(CPACK_GENERATOR DragNDrop)
+  set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CMAKE_PROJECT_VERSION}_MacOS_universal")
   # add icon(s)
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.icns
-    COMMAND ${CMAKE_SOURCE_DIR}/pack/genMacIcon.sh
+    COMMAND ${CMAKE_SOURCE_DIR}/deploy/mac/genMacIcon.sh
     ARGS ${CMAKE_SOURCE_DIR}/src/icons/ ${CMAKE_CURRENT_BINARY_DIR}
   )
   set(MACOSX_BUNDLE_ICON_FILE icon.icns)

@@ -7,7 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[unreleased]: https://github.com/jo-hannes/Aqua-mixtura/compare/v0.1.1...HEAD
+[unreleased]: https://github.com/jo-hannes/Aqua-mixtura/compare/v1.0.0...HEAD
+
+### Added
+* 
+
+### Changed
+* 
+
+### Deprecated
+* 
+
+### Removed
+* 
+
+### Fixed
+* 
+
+### Security
+* 
+
+## [1.0.0] - 2025-03-28
+
+[1.0.0]: https://github.com/jo-hannes/Aqua-mixtura/compare/v0.1.1...v1.0.0
 
 ### Added
 * Strike, sparging and total water amount in mixture
@@ -16,12 +38,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Double instead of float for all calculations
-
-### Deprecated
-* 
-
-### Removed
-* 
 
 ### Fixed
 * Fix lactate calculation when mixing waters
