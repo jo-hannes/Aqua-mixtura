@@ -91,7 +91,7 @@ if(${QT_VERSION} VERSION_LESS 6.1.0)
 endif()
 
 # build packs with cpack
-include(pack/CMakeLists.txt)
+include(deploy/CMakeLists.txt)
 
 target_sources(${PROJECT_NAME} PRIVATE ${RESOURCE_FILES})
 set_source_files_properties(${RESOURCE_FILES}
