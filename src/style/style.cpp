@@ -100,7 +100,7 @@ void Style::setChanged(bool changed) {
 int Style::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
   // limits without volume
-  return limits.size() - 1;
+  return limits.size() - 1;  // NOLINT(*-narrowing-conversions): using int because of QAbstractTableModel
 }
 
 int Style::columnCount(const QModelIndex& parent) const {
@@ -116,7 +116,7 @@ QVariant Style::data(const QModelIndex& index, int role) const {
   if (role != Qt::DisplayRole) {
     return {};
   }
-  const qsizetype row = index.row() + 1;  // Skip volume
+  const uint row = index.row() + 1;  // Skip volume
   if (row < 0 || row >= limits.size()) {
     return {};
   }
@@ -151,7 +151,7 @@ QVariant Style::headerData(int section, Qt::Orientation orientation, int role) c
         return {};
     }
   } else {
-    const int idx = section + 1;  // skip volume
+    const uint idx = section + 1;  // skip volume
     if (idx > 0 && idx < limits.size()) {
       if (!Water::strUnit.at(idx).isEmpty()) {
         return Water::strTranslate.at(idx) + " (" + Water::strUnit.at(idx) + ")";
@@ -169,7 +169,7 @@ bool Style::setData(const QModelIndex& index, const QVariant& value, int role) {
   if (role != Qt::EditRole) {
     return false;
   }
-  const qsizetype row = index.row() + 1;  // Skip volume
+  const uint row = index.row() + 1;  // Skip volume
   if (row < 0 || row >= limits.size()) {
     return false;
   }

@@ -29,7 +29,7 @@ class Malts : public QAbstractTableModel {
 
   [[nodiscard]] bool isChanged() const; /**< @brief True if changes not saved */
 
-  double mashPh(const double RA, const double waterVolume);
+  double mashPh(double RA, double waterVolume);
 
   // for QAbstractTableModel, see QT documentation for details
   // NOLINTBEGIN(modernize-use-nodiscard)
