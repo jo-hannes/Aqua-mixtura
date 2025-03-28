@@ -14,6 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Network)
 
+configure_file(src/version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/version.h)
+
 set(TS_FILES
     translations/Aqua-mixtura_de.ts
     translations/Aqua-mixtura_en.ts

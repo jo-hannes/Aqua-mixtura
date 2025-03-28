@@ -1,0 +1,9 @@
+#ifndef VERSION_H
+#define VERSION_H
+
+// Programm version
+#define VERSION_MAJOR @Aqua-mixtura_VERSION_MAJOR@
+#define VERSION_MINOR @Aqua-mixtura_VERSION_MINOR@
+#define VERSION_PATCH @Aqua-mixtura_VERSION_PATCH@
+
+#endif /* VERSION_H */

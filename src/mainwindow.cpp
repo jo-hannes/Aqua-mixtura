@@ -3,6 +3,8 @@
 
 #include "mainwindow.h"
 
+#include "version.h"
+
 #include "common/buttons.h"
 #include "common/dialogs.h"
 #include "mixture/mixture.h"
@@ -127,7 +129,7 @@ void MainWindow::save() {
 }
 
 void MainWindow::about() {
-  Dialogs::info("Aqua-mixtura",
+  Dialogs::info(QStringLiteral("Aqua-mixtura %1.%2.%3").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH),
                 tr("Rechner zur Wasseraufbereitung fürs Bierbrauen.<br>"
                    "<br>"
                    "<a href=\"https://github.com/jo-hannes/Aqua-mixtura\">github.com/jo-hannes/Aqua-mixtura</a>"),
