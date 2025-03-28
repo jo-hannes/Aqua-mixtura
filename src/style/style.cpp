@@ -14,7 +14,7 @@ Style::Style(const QJsonObject& json) {
 bool Style::fromJson(const QJsonObject& json) {
   const bool ret = Meta::fromJson(json);
   // start at index 1 to skip volume
-  for (int i = 1; i < static_cast<int>(Water::Value::Size); i++) {
+  for (uint i = 1; i < limits.size(); i++) {
     // get sub object
     const QJsonValue limit = json[Water::strJsonKey.at(i)];
     limited.at(i) = limit.isObject();
@@ -100,7 +100,7 @@ void Style::setChanged(bool changed) {
 int Style::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
   // limits without volume
-  return static_cast<int>(Water::Value::Size) - 1;
+  return limits.size() - 1;
 }
 
 int Style::columnCount(const QModelIndex& parent) const {
@@ -117,7 +117,7 @@ QVariant Style::data(const QModelIndex& index, int role) const {
     return {};
   }
   const qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
+  if (row < 0 || row >= limits.size()) {
     return {};
   }
   const qsizetype col = index.column();
@@ -152,7 +152,7 @@ QVariant Style::headerData(int section, Qt::Orientation orientation, int role) c
     }
   } else {
     const int idx = section + 1;  // skip volume
-    if (idx > 0 && idx < static_cast<int>(Water::Value::Size)) {
+    if (idx > 0 && idx < limits.size()) {
       if (!Water::strUnit.at(idx).isEmpty()) {
         return Water::strTranslate.at(idx) + " (" + Water::strUnit.at(idx) + ")";
       }
@@ -170,7 +170,7 @@ bool Style::setData(const QModelIndex& index, const QVariant& value, int role) {
     return false;
   }
   const qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
+  if (row < 0 || row >= limits.size()) {
     return false;
   }
   const qsizetype col = index.column();

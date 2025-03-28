@@ -24,6 +24,7 @@ Water::Water() {
     strTranslate[13] = QObject::tr("Ca-Härte");
     strTranslate[14] = QObject::tr("Mg-Härte");
     strTranslate[15] = QObject::tr("SO₄/Cl-Verhältnis");
+    strTranslate[16] = QObject::tr("Maische pH");
     // NOLINTEND(*-magic-numbers)
   }
 }

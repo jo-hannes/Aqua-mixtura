@@ -1,9 +1,14 @@
 {
     "BeerStyles": [
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-03-05T21:05:41",
-                "Edited": "2024-10-05T15:07:04",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Helles Lagerbier, Münchner Helles, American Lager",
                 "UUID": "e6145465-8d94-4e29-b47d-9e92fc5ac2a3"
             },
@@ -34,9 +39,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-03-05T21:05:41",
-                "Edited": "2024-10-05T15:06:54",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Böhmisches Pilsener",
                 "UUID": "92f02ae6-26a8-4c5f-9d7c-a8c7de9f46dd"
             },
@@ -67,9 +77,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T14:59:54",
-                "Edited": "2024-10-05T15:06:46",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Deutsches Pils, Premium Lager",
                 "UUID": "8f75a985-1077-4c61-abea-85fb69925056"
             },
@@ -100,9 +115,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:00:33",
-                "Edited": "2024-10-05T15:07:50",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Dortmunder Export",
                 "UUID": "a0ddd3e0-4923-45eb-9436-ad82c9fb7673"
             },
@@ -133,9 +153,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:01:56",
-                "Edited": "2024-10-05T15:09:07",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Märzen, Festbier",
                 "UUID": "2486daa2-2a8a-4b6e-8a5d-eeb0f4ecf1e5"
             },
@@ -166,9 +191,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:02:20",
-                "Edited": "2024-10-05T15:10:45",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Dunkles Lagerbier, Münchner Dunkel, Schwarzbier, Fränkisch Dunkel",
                 "UUID": "36741398-c0e8-4086-858e-0bbe60a14922"
             },
@@ -199,9 +229,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:02:23",
-                "Edited": "2024-10-05T15:11:56",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Helles Bockbier, Maibock, Doppelbock",
                 "UUID": "f9052b01-c8fc-46ca-ab4b-9fc699674f2e"
             },
@@ -232,9 +267,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:02:25",
-                "Edited": "2024-10-05T15:13:43",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Dunkles Bockbier",
                 "UUID": "27884a0b-8238-417f-9879-b96250d3f011"
             },
@@ -265,9 +305,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:02:28",
-                "Edited": "2024-10-05T15:15:23",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Helles Ale, Ordinary Bitter",
                 "UUID": "a7d565f6-88c7-468e-9197-3060fe707d55"
             },
@@ -298,9 +343,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:15:26",
-                "Edited": "2024-10-05T15:16:34",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Mild Ale, Best Bitter, Scotch Ale",
                 "UUID": "381d0b45-fa5a-41ff-9b97-0a282293ee06"
             },
@@ -331,9 +381,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:15:42",
-                "Edited": "2024-10-05T15:18:10",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Irish Dry Stout, Porter",
                 "UUID": "87234345-4542-487e-b42a-4f019c9aa0fc"
             },
@@ -364,9 +419,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:18:34",
-                "Edited": "2024-10-05T15:19:16",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Weizenbier, Weizenbock",
                 "UUID": "05225040-046f-4a72-9f80-74526b0e1805"
             },
@@ -397,9 +457,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:20:08",
-                "Edited": "2024-10-05T15:21:09",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Wit, Cream Ale, Kölsch",
                 "UUID": "62dfffe9-0082-4a4e-ba93-1b70f152eddd"
             },
@@ -430,9 +495,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:20:22",
-                "Edited": "2024-10-05T15:24:54",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "American Pale Ale, American IPA",
                 "UUID": "42fff650-cacd-4a48-a73d-a30c860edded"
             },
@@ -463,9 +533,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:20:25",
-                "Edited": "2024-10-05T15:25:50",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Altbier, Extra Special Bitter (ESB), English IPA",
                 "UUID": "8a1395b8-868d-49fe-87e5-c574f2353193"
             },
@@ -496,9 +571,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:25:56",
-                "Edited": "2024-10-05T15:27:20",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Extra Stout, Sweet Stout, Oatmeal Stout",
                 "UUID": "1e50cf23-3489-4dff-94ab-cde6f0591a95"
             },
@@ -529,9 +609,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:26:06",
-                "Edited": "2024-10-05T15:28:34",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Belgische Ales, Tripel, Blonde",
                 "UUID": "fa222eb3-49f0-4d45-a72d-8fd19f539c91"
             },
@@ -562,9 +647,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:26:20",
-                "Edited": "2024-10-05T15:30:10",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Brown Ale, Strong Scotch Ale, Barleywine",
                 "UUID": "37b55af2-5b4f-44b2-883a-a59129e10214"
             },
@@ -595,9 +685,14 @@
             }
         },
         {
+            "MashPh": {
+                "Max": 5.7,
+                "Min": 5.3,
+                "Target": 5.5
+            },
             "Meta": {
                 "Created": "2024-10-05T15:29:22",
-                "Edited": "2024-10-05T15:31:12",
+                "Edited": "2025-03-28T21:22:32",
                 "Name": "Russian Imperial Stout",
                 "UUID": "f4971af0-a1d0-4e95-b056-09f6cdaa12a0"
             },

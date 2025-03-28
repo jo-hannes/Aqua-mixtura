@@ -592,6 +592,11 @@
         <source>SO₄/Cl-Verhältnis</source>
         <translation>SO₄/Cl-Ratio</translation>
     </message>
+    <message>
+        <location filename="../src/water/water.cpp" line="27"/>
+        <source>Maische pH</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Settings</name>

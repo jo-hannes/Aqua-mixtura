@@ -51,8 +51,9 @@ class MixResultWidget : public QFrame {
   QComboBox* styleSelect; /**< @brief ComboBox for selecting beer style */
   int styleIdx;           /**< @brief Index of selected style */
 
-  std::array<QLabel*, static_cast<int>(Water::Value::Size)> vals{};    /**< @brief Labels with calculated valued */
-  std::array<ResultBar*, static_cast<int>(Water::Value::Size)> bars{}; /**< @brief Graphical bar indicating value */
+  std::array<QLabel*, static_cast<int>(Water::Value::ExtendedSize)> vals{}; /**< @brief Labels with calculated valued */
+  std::array<ResultBar*, static_cast<int>(Water::Value::ExtendedSize)>
+      bars{}; /**< @brief Graphical bar indicating value */
 };
 
 #endif  // MIXRESULTWIDGET_H

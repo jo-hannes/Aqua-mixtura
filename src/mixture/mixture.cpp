@@ -63,10 +63,8 @@ void Mixture::save() const {
   JsonHelper::saveFile(this->getPath(), this->toJson());
 }
 
-Water Mixture::calc() const {
-  Water tmp = *additive + waters->getMix();
+std::pair<Water, double> Mixture::calc() const {
+  const Water tmp = *additive + waters->getMix();
   const double mashPh = malts->mashPh(tmp.get(Water::Value::Restalkalitaet), waters->getStrikeWater());
-  qDebug() << "Mash Ph: " << mashPh;
-  // TODO change to return std::pair with Water and mashPh
-  return tmp;
+  return std::make_pair(tmp, mashPh);
 }
