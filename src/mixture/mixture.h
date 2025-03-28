@@ -11,6 +11,7 @@
 #include "../water/watersources.h"
 
 #include <QSharedPointer>
+#include <utility>
 
 class Mixture : public Meta {
  public:
@@ -28,7 +29,7 @@ class Mixture : public Meta {
   void load();                           /**< @brief Load fixture from stored path */
   void save() const;                     /**< @brief Save mixture and return storage path */
 
-  [[nodiscard]] Water calc() const;
+  [[nodiscard]] std::pair<Water, double> calc() const;
 
   // NOLINTBEGIN(*-non-private-member-variables-in-classes)
   // they are intended to be public

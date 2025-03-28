@@ -60,23 +60,24 @@ bool MixResultWidget::isChanged() const {
 }
 
 void MixResultWidget::update() {
-  const Water tst = mix.calc();
+  const auto [water, mashPh] = mix.calc();
   for (uint i = 0; i < vals.size(); i++) {
-    vals.at(i)->setText(QString::number(tst.get(static_cast<Water::Value>(i)), 'f', 2));
+    const auto what = static_cast<Water::Value>(i);
+    const double value = (what == Water::Value::MashPh) ? mashPh : water.get(what);
+    vals.at(i)->setText(QString::number(value, 'f', 2));
     // Update Bars
-    if (i != static_cast<int>(Water::Value::Volume)) {  // Skip volume
-      bars.at(i)->setLimits(lim.getMin(static_cast<Water::Value>(i)), lim.getMax(static_cast<Water::Value>(i)),
-                            lim.isNegativeAllowed(static_cast<Water::Value>(i)),
-                            lim.isLogarithmicScale(static_cast<Water::Value>(i)));
-      if (mix.style->isLimited(static_cast<Water::Value>(i))) {
-        bars.at(i)->setStyle(mix.style->get(static_cast<Water::Value>(i), Style::Limit::Min),
-                             mix.style->get(static_cast<Water::Value>(i), Style::Limit::Target),
-                             mix.style->get(static_cast<Water::Value>(i), Style::Limit::Max));
-      } else {
-        bars.at(i)->setNoStyle();
-      }
-      bars.at(i)->setValue(tst.get(static_cast<Water::Value>(i)));
+    if (what == Water::Value::Volume) {
+      continue;  // Skip volume, it has no bar
     }
+    bars.at(i)->setLimits(lim.getMin(what), lim.getMax(what), lim.isNegativeAllowed(what),
+                          lim.isLogarithmicScale(what));
+    if (mix.style->isLimited(what)) {
+      bars.at(i)->setStyle(mix.style->get(what, Style::Limit::Min), mix.style->get(what, Style::Limit::Target),
+                           mix.style->get(what, Style::Limit::Max));
+    } else {
+      bars.at(i)->setNoStyle();
+    }
+    bars.at(i)->setValue(value);
   }
 }
 

@@ -99,6 +99,66 @@ bool Malts::isChanged() const {
   return changed;
 }
 
+/**
+ * @brief Calculates the mash Ph
+ *
+ * All calculations are based on https://maischemalzundmehr.de/index.php?inhaltmitte=exp_maischph
+ *
+ * Verwendete Formelzeichen:
+ * \f[ pH_{Maische} = \textnormal{Maische pH} \f]
+ * \f[ pH_{DW}      = \textnormal{pH in Destiliertem Wasser} \f]
+ * \f[ S_{pH}       = \textnormal{Beziehung pH zu Restalkalität in pH/(mmol/l)} \f]
+ * \f[ RA           = \textnormal{Restalkalität in mmol/l} \f]
+ *
+ * Gesammtformel:
+ * \f[ pH_{mash} = pH_{DW} + S_{pH} \cdot RA \f]
+ *
+ * pH in Destiliertem Wasser:
+ * \f[ pH_{DWx} = pH_{DW} \textnormal{ eines Malzes} \f]
+ * \f[ A_x      = \textnormal{Anteil eines Malzes} \f]
+ * \f[
+ * pH_{DW} = -log_{10} \cdot \sum 10^{-pH_{DWx}} \cdot A_x
+ * \f]
+ *
+ * Beziehung pH zu Restalkalität:
+ * \f[ D = \textnormal{Maischedicke in Liter/kg} \f]
+ * \f[
+ * S_{pH} = 0.013 \cdot D + 0.013
+ * \f]
+ */
+double Malts::mashPh(const double RA, const double waterVolume) {
+  // get total malt weight
+  double maltMass = 0;
+  for (const auto& m : malts) {
+    maltMass += m.getMass();
+  }
+
+  // check if we have some malt
+  if (maltMass <= 0.001) {  // NOLINT(*-magic-numbers)
+    // No malt
+    return 7;
+  }
+
+  // calculate SpH
+  const double SpH = 0.013 * (waterVolume / maltMass) + 0.013;
+
+  // calculate pH in purified water
+  double pHdwSum = 0;
+  for (const auto& m : malts) {
+    pHdwSum += pow(10, m.getPh() * -1) * m.getMass() / maltMass;
+  }
+  const double pHdw = log10(pHdwSum) * -1;
+
+  // convert RA into mmol/l
+  const double RAmmoll = RA * 0.3566;
+
+  // calcualte mash pH
+  const double pHmash = (pHdw + SpH * RAmmoll);
+  // TODO remove debugging!
+  qDebug() << "Calculating mash ph. SpH:" << SpH << "pHdw:" << pHdw << "RAmmoll:" << RAmmoll << "pHmash:" << pHmash;
+  return pHmash;
+}
+
 int Malts::rowCount(const QModelIndex& parent) const {
   Q_UNUSED(parent);
   return malts.size();  // NOLINT(*-narrowing-conversions): using int because of QAbstractTableModel

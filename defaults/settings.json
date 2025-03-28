@@ -18,9 +18,15 @@
             "Max": 26,
             "Min": 0
         },
+        "MashPh": {
+            "AllowNegative": false,
+            "LogarithmicScale": false,
+            "Max": 6,
+            "Min": 5
+        },
         "Meta": {
             "Created": "2024-06-29T22:39:15",
-            "Edited": "2024-10-05T14:43:36",
+            "Edited": "2025-03-28T21:22:12",
             "Name": "",
             "UUID": "721e1e87-1334-4373-b9cb-e5453ffe7256"
         },

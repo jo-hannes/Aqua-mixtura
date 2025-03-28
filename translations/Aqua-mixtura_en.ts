@@ -362,17 +362,17 @@
 <context>
     <name>Malts</name>
     <message>
-        <location filename="../src/malt/malts.cpp" line="145"/>
+        <location filename="../src/malt/malts.cpp" line="205"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/malt/malts.cpp" line="147"/>
+        <location filename="../src/malt/malts.cpp" line="207"/>
         <source>Menge</source>
         <translation>Amount</translation>
     </message>
     <message>
-        <location filename="../src/malt/malts.cpp" line="149"/>
+        <location filename="../src/malt/malts.cpp" line="209"/>
         <source>Farbe</source>
         <translation>Colour</translation>
     </message>
@@ -591,6 +591,11 @@
         <location filename="../src/water/water.cpp" line="26"/>
         <source>SO₄/Cl-Verhältnis</source>
         <translation>SO₄/Cl-Ratio</translation>
+    </message>
+    <message>
+        <location filename="../src/water/water.cpp" line="27"/>
+        <source>Maische pH</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

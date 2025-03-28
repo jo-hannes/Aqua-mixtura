@@ -10,7 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [unreleased]: https://github.com/jo-hannes/Aqua-mixtura/compare/v0.1.1...HEAD
 
 ### Added
-* Total water amount in mixture
+* Strike, sparging and total water amount in mixture
+* PKGBUILD for Archlinux. Thanks to @Atomisirsi
+* Malt pH calculation
 
 ### Changed
 * Double instead of float for all calculations
@@ -27,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 * Static code analysis with clang-tidy
+* Use std::array instead of c-style arrays
 
 
 ## [0.1.1] - 2024-11-24

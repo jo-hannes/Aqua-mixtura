@@ -148,7 +148,7 @@ QVariant Settings::data(const QModelIndex& index, int role) const {
     return {};
   }
   const qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
+  if (row < 0 || row >= limits.size()) {
     return {};
   }
   const qsizetype col = index.column();
@@ -190,7 +190,7 @@ QVariant Settings::headerData(int section, Qt::Orientation orientation, int role
     }
   } else {
     const int idx = section + 1;  // skip volume
-    if (idx > 0 && idx < static_cast<int>(Water::Value::Size)) {
+    if (idx > 0 && idx < limits.size()) {
       if (!Water::strUnit.at(idx).isEmpty()) {
         return Water::strTranslate.at(idx) + " (" + Water::strUnit.at(idx) + ")";
       }
@@ -208,7 +208,7 @@ bool Settings::setData(const QModelIndex& index, const QVariant& value, int role
     return false;
   }
   const qsizetype row = index.row() + 1;  // Skip volume
-  if (row < 0 || row >= static_cast<int>(Water::Value::Size)) {
+  if (row < 0 || row >= limits.size()) {
     return false;
   }
 

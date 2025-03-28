@@ -18,6 +18,7 @@ class Water : public Meta {
    * 2. Kationen
    * 3. Anionen
    * 4. Calculated
+   * 5. Extended => Values not used in Water class but by other classes
    */
   enum class Value {
     Volume = 0,
@@ -38,25 +39,27 @@ class Water : public Meta {
     CaHaerte,
     MgHaerte,
     SO4ClVerhaeltnis,
-    Size
+    Size,
+    MashPh = Size,
+    ExtendedSize
   };
 
   // clang-format off
   // Strings with json key, unit, ...
   // Need to match order of WaterValue enum
   // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and program will not run without this strings
-  inline static const std::array<QString, static_cast<int>(Value::Size)> strJsonKey{
+  inline static const std::array<QString, static_cast<int>(Value::ExtendedSize)> strJsonKey{
     "Volume",
     "ca", "mg", "na", "hco3", "cl", "so4", "h2po4", "c3h5o3",
     "Restalkalitaet", "Gesamthaerte", "Carbonhaerte", "NichtCarbonhaerte", "CaHaerte", "MgHaerte",
-    "SO4ClVerhaeltnis"
+    "SO4ClVerhaeltnis", "MashPh"
   };
   // NOLINTNEXTLINE(cert-err58-cpp): it is very unlikely and program will not run without this strings
-  inline static const std::array<QString, static_cast<int>(Value::Size)> strUnit{
+  inline static const std::array<QString, static_cast<int>(Value::ExtendedSize)> strUnit{
     "l",
     "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l", "mg/l",
     "°dH", "°dH", "°dH", "°dH", "°dH", "°dH",
-    ""
+    "", ""
   };
   // clang-format on
 
@@ -64,7 +67,7 @@ class Water : public Meta {
    * @brief Translatable Water strings
    */
   // inline static QString translatableStrings[static_cast<int>(Value::Size)];
-  inline static std::array<QString, static_cast<int>(Value::Size)> strTranslate;
+  inline static std::array<QString, static_cast<int>(Value::ExtendedSize)> strTranslate;
 
   Water();
   explicit Water(QString name, double volume = 0, double calzium = 0, double magnesium = 0, double natrium = 0,
