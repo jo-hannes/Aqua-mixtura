@@ -32,15 +32,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.0]: https://github.com/jo-hannes/Aqua-mixtura/compare/v0.1.1...v1.0.0
 
 ### Added
-* Strike, sparging and total water amount in mixture
-* PKGBUILD for Archlinux. Thanks to @Atomisirsi
-* Malt pH calculation
+* Strike, sparging and total water amount in mixture #8, #10
+* PKGBUILD for Archlinux. Thanks to @Atomisirsi #9
+* Malt pH calculation #11
 
 ### Changed
-* Double instead of float for all calculations
+* Double instead of float for all calculations 8b40832e012adc8a66c4698adca388be3d29c35a
 
 ### Fixed
-* Fix lactate calculation when mixing waters
+* Fix lactate calculation when mixing waters 0080a1659ccbbb46a9be362b85fa9fe968f08ea2
 * Fix initial window size #3
 
 ### Security
